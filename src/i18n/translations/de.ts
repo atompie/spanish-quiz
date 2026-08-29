@@ -1,0 +1,64 @@
+import type { UiStrings } from '../types'
+
+export const de: UiStrings = {
+  appTitle: 'SPANISCH QUIZ',
+
+  navQuiz: 'Quiz',
+  navVerbs: 'Verben',
+  navSettings: 'Einstellungen',
+
+  commonClose: 'Schließen',
+
+  explanationParticiple: 'Partizip:',
+  explanationPronoun: 'Pronomen:',
+  explanationPrevTense: 'Vorherige Zeitform',
+  explanationNextTense: 'Nächste Zeitform',
+
+  hintAriaLabel: 'Hinweis',
+
+  quizEmptyState: 'Keine Fragen für die gewählten Einstellungen. Ändere die Filter in den Einstellungen.',
+  quizCheck: 'PRÜFEN',
+  quizNext: 'WEITER',
+  quizSeeResults: 'ERGEBNIS ANZEIGEN',
+  quizInterrupt: 'Abbrechen',
+  quizPlaceholder: 'Antwort auf Spanisch eingeben...',
+  quizCorrect: '✓ Richtig!',
+  quizIncorrect: '✗ Falsch',
+  quizCorrectAnswerLabel: 'Richtige Antwort:',
+  quizExplain: 'ERKLÄREN',
+  quizInterruptTitle: 'Quiz abbrechen?',
+  quizInterruptMessage: 'Die restlichen Fragen werden übersprungen, dein bisheriges Ergebnis wird gespeichert.',
+  quizInterruptConfirm: 'ABBRECHEN',
+  quizInterruptCancel: 'ZURÜCK ZUM QUIZ',
+
+  resultsTitle: 'QUIZ BEENDET',
+  resultsCorrectLabel: '✓ Richtig:',
+  resultsIncorrectLabel: '✗ Falsch:',
+  resultsRepeatMistakes: 'FEHLER WIEDERHOLEN',
+  resultsNewQuiz: 'NEUES QUIZ',
+
+  settingsQuestionCount: 'Anzahl der Fragen',
+  settingsTenses: 'Zeitformen',
+  settingsPronounTypes: 'Pronomenart',
+  settingsVerbType: 'Verbtyp',
+  settingsPersons: 'Personen',
+  settingsMode: 'Modus',
+  settingsModeRandom: 'Zufällig',
+  settingsModeMistakes: 'Fehler wiederholen',
+  settingsLanguage: 'Muttersprache',
+  settingsTheme: 'Erscheinungsbild',
+  themeSystem: 'System',
+  themeLight: 'Hell',
+  themeDark: 'Dunkel',
+
+  quizKindPickerTitle: 'Quiz-Art wählen',
+  quizKindPhraseTitle: 'Redewendungen',
+  quizKindPhraseDescription: 'Errate ganze Sätze und Phrasen, auch mit Objektpronomen.',
+  quizKindConjugationTitle: 'Verben',
+  quizKindConjugationDescription: 'Errate nur die konjugierte Verbform für eine bestimmte Person und Zeitform.',
+
+  verbRegular: 'Regelmäßig',
+  verbIrregular: 'Unregelmäßig',
+  verbSearchPlaceholder: 'Verb suchen...',
+  verbSearchEmpty: 'Keine Verben gefunden.',
+}

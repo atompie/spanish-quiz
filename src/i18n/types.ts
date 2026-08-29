@@ -1,0 +1,62 @@
+export interface UiStrings {
+  appTitle: string
+
+  navQuiz: string
+  navVerbs: string
+  navSettings: string
+
+  commonClose: string
+
+  explanationParticiple: string
+  explanationPronoun: string
+  explanationPrevTense: string
+  explanationNextTense: string
+
+  hintAriaLabel: string
+
+  quizEmptyState: string
+  quizCheck: string
+  quizNext: string
+  quizSeeResults: string
+  quizInterrupt: string
+  quizPlaceholder: string
+  quizCorrect: string
+  quizIncorrect: string
+  quizCorrectAnswerLabel: string
+  quizExplain: string
+  quizInterruptTitle: string
+  quizInterruptMessage: string
+  quizInterruptConfirm: string
+  quizInterruptCancel: string
+
+  resultsTitle: string
+  resultsCorrectLabel: string
+  resultsIncorrectLabel: string
+  resultsRepeatMistakes: string
+  resultsNewQuiz: string
+
+  settingsQuestionCount: string
+  settingsTenses: string
+  settingsPronounTypes: string
+  settingsVerbType: string
+  settingsPersons: string
+  settingsMode: string
+  settingsModeRandom: string
+  settingsModeMistakes: string
+  settingsLanguage: string
+  settingsTheme: string
+  themeSystem: string
+  themeLight: string
+  themeDark: string
+
+  quizKindPickerTitle: string
+  quizKindPhraseTitle: string
+  quizKindPhraseDescription: string
+  quizKindConjugationTitle: string
+  quizKindConjugationDescription: string
+
+  verbRegular: string
+  verbIrregular: string
+  verbSearchPlaceholder: string
+  verbSearchEmpty: string
+}
