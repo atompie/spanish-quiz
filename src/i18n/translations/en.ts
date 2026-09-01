@@ -51,6 +51,12 @@ export const en: UiStrings = {
   themeLight: 'Light',
   themeDark: 'Dark',
 
+  settingsUpdate: 'App update',
+  settingsUpdateCheck: 'Check for updates',
+  settingsUpdateChecking: 'Checking...',
+  settingsUpdateUpToDate: 'You have the latest version',
+  settingsUpdateApply: 'Install new version',
+
   quizKindPickerTitle: 'Choose a quiz type',
   quizKindPhraseTitle: 'Phrases',
   quizKindPhraseDescription: 'Guess whole sentences and phrases, including object pronouns.',

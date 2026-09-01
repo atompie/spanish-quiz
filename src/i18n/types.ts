@@ -49,6 +49,12 @@ export interface UiStrings {
   themeLight: string
   themeDark: string
 
+  settingsUpdate: string
+  settingsUpdateCheck: string
+  settingsUpdateChecking: string
+  settingsUpdateUpToDate: string
+  settingsUpdateApply: string
+
   quizKindPickerTitle: string
   quizKindPhraseTitle: string
   quizKindPhraseDescription: string

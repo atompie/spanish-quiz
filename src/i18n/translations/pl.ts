@@ -51,6 +51,12 @@ export const pl: UiStrings = {
   themeLight: 'Jasny',
   themeDark: 'Ciemny',
 
+  settingsUpdate: 'Aktualizacja aplikacji',
+  settingsUpdateCheck: 'Sprawdź aktualizacje',
+  settingsUpdateChecking: 'Sprawdzanie...',
+  settingsUpdateUpToDate: 'Masz najnowszą wersję',
+  settingsUpdateApply: 'Zainstaluj nową wersję',
+
   quizKindPickerTitle: 'Wybierz rodzaj quizu',
   quizKindPhraseTitle: 'Zwroty',
   quizKindPhraseDescription: 'Odgadujesz całe zdania i frazy, w tym z zaimkami dopełnienia.',

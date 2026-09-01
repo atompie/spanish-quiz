@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { isAnyAnswerCorrect } from '../../lib/answerChecker'
+import { VERBS } from '../../data/verbs'
 import { useTranslation } from '../../i18n/LanguageContext'
 import type { useQuizSession } from '../../hooks/useQuizSession'
 import type { Person, Pronoun, PronounType, TenseId } from '../../types/grammar'
+import { CloseIcon } from '../common/CloseIcon'
 import { ExplanationModal } from '../common/ExplanationModal'
 import { ConfirmModal } from './ConfirmModal'
 import { HintModal } from './HintModal'
@@ -126,14 +128,12 @@ export function QuizScreen({ session }: QuizScreenProps) {
       <div className="quiz-topbar">
         <button
           type="button"
-          className="btn-icon"
+          className="btn-icon btn-icon--inverted"
           aria-label={t.quizInterrupt}
           title={t.quizInterrupt}
           onClick={() => setShowInterruptConfirm(true)}
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
+          <CloseIcon />
         </button>
       </div>
 
@@ -198,6 +198,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
         <HintModal
           infinitive={currentQuestion.verbInfinitive}
           translation={currentQuestion.verbTranslation}
+          regular={VERBS.find((v) => v.id === currentQuestion.verbId)?.regular ?? true}
           onClose={() => setShowHint(false)}
         />
       )}

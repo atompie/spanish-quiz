@@ -51,6 +51,12 @@ export const de: UiStrings = {
   themeLight: 'Hell',
   themeDark: 'Dunkel',
 
+  settingsUpdate: 'App-Update',
+  settingsUpdateCheck: 'Nach Updates suchen',
+  settingsUpdateChecking: 'Wird geprüft...',
+  settingsUpdateUpToDate: 'Du hast die neueste Version',
+  settingsUpdateApply: 'Neue Version installieren',
+
   quizKindPickerTitle: 'Quiz-Art wählen',
   quizKindPhraseTitle: 'Redewendungen',
   quizKindPhraseDescription: 'Errate ganze Sätze und Phrasen, auch mit Objektpronomen.',

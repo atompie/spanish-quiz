@@ -6,6 +6,7 @@ import { VERB_TYPES } from '../../data/verbTypes'
 import { useTranslation } from '../../i18n/LanguageContext'
 import { getLabel } from '../../lib/translation'
 import type { useQuizSession } from '../../hooks/useQuizSession'
+import type { PwaUpdateStatus } from '../../hooks/usePwaUpdate'
 import type { Person, PronounType, TenseId, VerbType } from '../../types/grammar'
 import type { QuestionCount, QuizMode } from '../../types/quiz'
 import type { Theme } from '../../types/theme'
@@ -14,6 +15,8 @@ interface SettingsScreenProps {
   session: ReturnType<typeof useQuizSession>
   theme: Theme
   onThemeChange: (theme: Theme) => void
+  updateStatus: PwaUpdateStatus
+  onCheckForUpdate: () => void
 }
 
 const QUESTION_COUNTS: QuestionCount[] = [5, 10, 20]
@@ -22,7 +25,7 @@ function toggleInArray<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
 }
 
-export function SettingsScreen({ session, theme, onThemeChange }: SettingsScreenProps) {
+export function SettingsScreen({ session, theme, onThemeChange, updateStatus, onCheckForUpdate }: SettingsScreenProps) {
   const { t, language } = useTranslation()
   const { settings, updateSettings } = session
   const themeOptions: { id: Theme; label: string }[] = [
@@ -175,6 +178,15 @@ export function SettingsScreen({ session, theme, onThemeChange }: SettingsScreen
             </button>
           ))}
         </div>
+      </div>
+
+      <div className="settings-section">
+        <h2>{t.settingsUpdate}</h2>
+        <button type="button" className="btn btn-secondary" onClick={onCheckForUpdate}>
+          {updateStatus === 'update-available' ? t.settingsUpdateApply : t.settingsUpdateCheck}
+        </button>
+        {updateStatus === 'checking' && <p>{t.settingsUpdateChecking}</p>}
+        {updateStatus === 'up-to-date' && <p>{t.settingsUpdateUpToDate}</p>}
       </div>
     </>
   )

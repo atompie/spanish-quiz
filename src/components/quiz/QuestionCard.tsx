@@ -18,7 +18,12 @@ export function QuestionCard({ current, total, prompt, showHintButton, onHint }:
       <div className="quiz-question-row">
         <p className="quiz-question">{prompt}</p>
         {showHintButton && (
-          <button type="button" className="btn-icon btn-icon--sm" onClick={onHint} aria-label={t.hintAriaLabel}>
+          <button
+            type="button"
+            className="btn-icon btn-icon--sm btn-icon--inverted"
+            onClick={onHint}
+            aria-label={t.hintAriaLabel}
+          >
             ?
           </button>
         )}

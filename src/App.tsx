@@ -6,6 +6,7 @@ import { QuizKindPicker } from './components/quiz/QuizKindPicker'
 import { QuizScreen } from './components/quiz/QuizScreen'
 import { SettingsScreen } from './components/settings/SettingsScreen'
 import { VerbsListScreen } from './components/verbs/VerbsListScreen'
+import { usePwaUpdate } from './hooks/usePwaUpdate'
 import { useQuizSession } from './hooks/useQuizSession'
 import { useTheme } from './hooks/useTheme'
 import { LanguageProvider } from './i18n/LanguageContext'
@@ -17,6 +18,7 @@ function App() {
   const [showQuizPicker, setShowQuizPicker] = useState(true)
   const session = useQuizSession()
   const { theme, setTheme } = useTheme()
+  const pwaUpdate = usePwaUpdate()
 
   useEffect(() => {
     document.documentElement.lang = session.settings.language
@@ -50,7 +52,15 @@ function App() {
             )}
           </>
         )}
-        {screen === 'settings' && <SettingsScreen session={session} theme={theme} onThemeChange={setTheme} />}
+        {screen === 'settings' && (
+          <SettingsScreen
+            session={session}
+            theme={theme}
+            onThemeChange={setTheme}
+            updateStatus={pwaUpdate.status}
+            onCheckForUpdate={pwaUpdate.checkForUpdate}
+          />
+        )}
       </AppShell>
     </LanguageProvider>
   )

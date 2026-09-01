@@ -32,7 +32,7 @@ export function ExplanationModal({ verbId, tense, person, pronounType, pronoun, 
   const pronounTypeMeta = SELECTABLE_PRONOUN_TYPES.find((p) => p.id === pronounType)
 
   return (
-    <Modal onClose={onClose}>
+    <Modal onClose={onClose} variant="fullscreen">
       <p className="modal-verb">{verb.infinitive}</p>
       <p className="modal-meaning">
         {t.explanationParticiple} <strong>{verb.participle}</strong>
@@ -82,10 +82,6 @@ export function ExplanationModal({ verbId, tense, person, pronounType, pronoun, 
           </tbody>
         </table>
       </div>
-
-      <button type="button" className="btn btn-secondary" onClick={onClose}>
-        {t.commonClose}
-      </button>
     </Modal>
   )
 }
