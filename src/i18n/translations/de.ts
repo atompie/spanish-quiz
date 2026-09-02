@@ -1,8 +1,6 @@
 import type { UiStrings } from '../types'
 
 export const de: UiStrings = {
-  appTitle: 'SPANISCH QUIZ',
-
   navQuiz: 'Quiz',
   navVerbs: 'Verben',
   navSettings: 'Einstellungen',

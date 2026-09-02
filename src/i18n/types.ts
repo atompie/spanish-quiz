@@ -1,6 +1,4 @@
 export interface UiStrings {
-  appTitle: string
-
   navQuiz: string
   navVerbs: string
   navSettings: string

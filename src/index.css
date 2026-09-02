@@ -101,23 +101,9 @@ body {
   border-right: 1px solid var(--color-border);
 }
 
-.app-header {
-  padding: max(16px, env(safe-area-inset-top)) 20px 12px;
-  text-align: center;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--color-text);
-}
-
 .app-main {
   flex: 1;
-  padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
+  padding: max(20px, env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
 }
