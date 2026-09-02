@@ -1932,7 +1932,7 @@ export const VERBS: Verb[] = [
       },
     },
     examples: [
-      { id: 'sentir-presente-yo', tense: 'presente', person: 'yo', pronounType: 'none', translations: { pl: 'Czuję zimno.', en: 'I feel cold.', de: 'Ich fühle Kälte.' }, spanish: 'siento frío' },
+      { id: 'sentir-presente-yo', tense: 'presente', person: 'yo', pronounType: 'none', translations: { pl: 'Czuję zimno.', en: 'I feel cold.', de: 'Ich fühle Kälte.' }, spanish: 'tengo frío' },
       { id: 'sentir-presente-tu', tense: 'presente', person: 'tu', pronounType: 'none', translations: { pl: 'Czujesz zimno.', en: 'You feel cold.', de: 'Du fühlst Kälte.' }, spanish: 'sientes frío' },
       { id: 'sentir-preterite-yo', tense: 'preterite', person: 'yo', pronounType: 'none', translations: { pl: 'Poczułem zimno.', en: 'I felt cold.', de: 'Ich fühlte Kälte.' }, spanish: 'sentí frío' },
       { id: 'sentir-preterite-tu', tense: 'preterite', person: 'tu', pronounType: 'none', translations: { pl: 'Poczułeś zimno.', en: 'You felt cold.', de: 'Du fühltest Kälte.' }, spanish: 'sentiste frío' },

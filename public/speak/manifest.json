@@ -1,5 +1,33 @@
 [
   {
+    "slug": "a_que_hora_abre",
+    "counts": {
+      "es": 2,
+      "pl": 2
+    }
+  },
+  {
+    "slug": "ahora_vuelvo",
+    "counts": {
+      "es": 3,
+      "pl": 3
+    }
+  },
+  {
+    "slug": "cuanto_questa_esto",
+    "counts": {
+      "es": 2,
+      "pl": 2
+    }
+  },
+  {
+    "slug": "donde_esta_el_bano",
+    "counts": {
+      "es": 3,
+      "pl": 3
+    }
+  },
+  {
     "slug": "donde_hay_una_farmacia",
     "counts": {
       "es": 3,
@@ -7,10 +35,23 @@
     }
   },
   {
+    "slug": "me_puede_ayudar",
+    "counts": {
+      "es": 3
+    }
+  },
+  {
     "slug": "no_podemos_llegar_tarde",
     "counts": {
       "es": 5,
       "pl": 5
+    }
+  },
+  {
+    "slug": "puede_repetir_por_favor",
+    "counts": {
+      "es": 4,
+      "pl": 4
     }
   }
 ]
