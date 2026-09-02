@@ -4,11 +4,18 @@ import type { Person, Pronoun, PronounType, TenseId, VerbType } from './grammar'
 export type QuestionCount = 5 | 10 | 20
 export type QuizMode = 'random' | 'mistakes'
 
+/** Czas oczekiwania (w sekundach) na odpowiedź w trybie "listening". */
+export type ListeningAnswerWaitSeconds = 3 | 5 | 10
+
+/** Liczba zdań losowanych do puli sesji w trybie "listening". */
+export type ListeningSentenceCount = 5 | 10 | 20
+
 /**
  * "phrase"      — odgadywanie całego przykładowego zdania (Verb.examples[]).
  * "conjugation" — odgadywanie gołej odmienionej formy czasownika (Verb.conjugations).
+ * "listening"   — nauka słuchania i mówienia (public/speak/), bez wpisywania odpowiedzi.
  */
-export type QuizKind = 'phrase' | 'conjugation'
+export type QuizKind = 'phrase' | 'conjugation' | 'listening'
 
 export interface QuizSettings {
   questionCount: QuestionCount
@@ -21,6 +28,10 @@ export interface QuizSettings {
   kind: QuizKind
   /** Język ojczysty, w którym uczeń widzi UI i tłumaczenia. */
   language: LanguageCode
+  /** Używane tylko przez tryb "listening". */
+  listeningAnswerWaitSeconds: ListeningAnswerWaitSeconds
+  /** Używane tylko przez tryb "listening". */
+  listeningSentenceCount: ListeningSentenceCount
 }
 
 export interface QuizQuestion {

@@ -1,11 +1,13 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { speakManifestPlugin } from './scripts/vite-plugin-speak-manifest.ts'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    speakManifestPlugin(),
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
@@ -26,6 +28,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Celowo bez 'json': public/speak/manifest.json musi zawsze iść na żywo przez sieć
+        // (fetch z cache: 'no-store' w useListeningSession) — precache serwowałby stare dane.
         globPatterns: ['**/*.{js,css,html,png,svg,webmanifest,woff2}'],
       },
     }),

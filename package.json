@@ -4,11 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run generate:speak-manifest",
     "dev": "vite",
+    "prebuild": "npm run generate:speak-manifest",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "validate:verbs": "tsx scripts/validate-verbs.ts"
+    "validate:verbs": "tsx scripts/validate-verbs.ts",
+    "generate:speak-manifest": "tsx scripts/generate-speak-manifest.ts"
   },
   "dependencies": {
     "react": "^19.2.8",

@@ -8,7 +8,7 @@ import { getLabel } from '../../lib/translation'
 import type { useQuizSession } from '../../hooks/useQuizSession'
 import type { PwaUpdateStatus } from '../../hooks/usePwaUpdate'
 import type { Person, PronounType, TenseId, VerbType } from '../../types/grammar'
-import type { QuestionCount, QuizMode } from '../../types/quiz'
+import type { ListeningAnswerWaitSeconds, ListeningSentenceCount, QuestionCount, QuizMode } from '../../types/quiz'
 import type { Theme } from '../../types/theme'
 
 interface SettingsScreenProps {
@@ -20,6 +20,8 @@ interface SettingsScreenProps {
 }
 
 const QUESTION_COUNTS: QuestionCount[] = [5, 10, 20]
+const LISTENING_ANSWER_WAIT_OPTIONS: ListeningAnswerWaitSeconds[] = [3, 5, 10]
+const LISTENING_SENTENCE_COUNTS: ListeningSentenceCount[] = [5, 10, 20]
 
 function toggleInArray<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
@@ -111,6 +113,42 @@ export function SettingsScreen({ session, theme, onThemeChange, updateStatus, on
               <span>{getLabel(person, language)}</span>
             </label>
           ))}
+        </div>
+      )}
+
+      {settings.kind === 'listening' && (
+        <div className="settings-section">
+          <h2>{t.settingsListeningWaitTime}</h2>
+          <div className="count-options">
+            {LISTENING_ANSWER_WAIT_OPTIONS.map((seconds) => (
+              <button
+                key={seconds}
+                type="button"
+                className={settings.listeningAnswerWaitSeconds === seconds ? 'active' : ''}
+                onClick={() => updateSettings({ listeningAnswerWaitSeconds: seconds })}
+              >
+                {seconds} s
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {settings.kind === 'listening' && (
+        <div className="settings-section">
+          <h2>{t.settingsListeningSentenceCount}</h2>
+          <div className="count-options">
+            {LISTENING_SENTENCE_COUNTS.map((count) => (
+              <button
+                key={count}
+                type="button"
+                className={settings.listeningSentenceCount === count ? 'active' : ''}
+                onClick={() => updateSettings({ listeningSentenceCount: count })}
+              >
+                {count}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

@@ -24,6 +24,8 @@ export const DEFAULT_SETTINGS: QuizSettings = {
   mode: 'random',
   kind: 'phrase',
   language: DEFAULT_LANGUAGE,
+  listeningAnswerWaitSeconds: 5,
+  listeningSentenceCount: 5,
 }
 
 const MAX_HISTORY_ENTRIES = 50

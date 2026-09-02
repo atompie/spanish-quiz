@@ -1,0 +1,101 @@
+import type { LanguageCode } from '../types/language'
+import type {
+  AudioLangCode,
+  EligibleSentence,
+  ListeningRound,
+  SentenceUsageState,
+  SpeakSentenceManifestEntry,
+} from '../types/speak'
+
+export const SESSION_POOL_SIZE = 20
+/** Ile razy ma zostać powtórzony każdy element (mp3) danego zdania — nie sama liczba użyć zdania. */
+export const MAX_USES_PER_ELEMENT = 3
+export const GAP_SECONDS = 5
+
+function shuffle<T>(items: T[], random: () => number): T[] {
+  const result = [...items]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1))
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
+}
+
+export function getEligibleSentences(
+  manifest: SpeakSentenceManifestEntry[],
+  nativeLanguage: LanguageCode,
+): EligibleSentence[] {
+  const eligible: EligibleSentence[] = []
+  for (const entry of manifest) {
+    const esCount = entry.counts.es ?? 0
+    const nativeCount = entry.counts[nativeLanguage] ?? 0
+    if (esCount > 0 && nativeCount > 0) {
+      eligible.push({ slug: entry.slug, elementCount: Math.min(esCount, nativeCount) })
+    }
+  }
+  return eligible
+}
+
+export function buildSessionPool(
+  eligible: EligibleSentence[],
+  poolSize: number = SESSION_POOL_SIZE,
+  random: () => number = Math.random,
+): EligibleSentence[] {
+  return shuffle(eligible, random).slice(0, Math.min(poolSize, eligible.length))
+}
+
+export function initUsageState(pool: EligibleSentence[]): SentenceUsageState[] {
+  return pool.map((sentence) => ({
+    slug: sentence.slug,
+    elementCount: sentence.elementCount,
+    elementUsesRemaining: Array(sentence.elementCount).fill(MAX_USES_PER_ELEMENT),
+    everUsed: false,
+  }))
+}
+
+export function pickNextRound(
+  usage: SentenceUsageState[],
+  random: () => number = Math.random,
+): { round: ListeningRound; nextUsage: SentenceUsageState[] } | null {
+  const candidates = usage.filter((u) => u.elementUsesRemaining.some((n) => n > 0))
+  if (candidates.length === 0) return null
+
+  const chosen = candidates[Math.floor(random() * candidates.length)]
+
+  let elementIndex: number
+  if (!chosen.everUsed) {
+    elementIndex = 0
+  } else {
+    const eligibleIndices = chosen.elementUsesRemaining
+      .map((n, idx) => (n > 0 ? idx : -1))
+      .filter((idx) => idx !== -1)
+    elementIndex = eligibleIndices[Math.floor(random() * eligibleIndices.length)]
+  }
+
+  const nextUsage = usage.map((u) =>
+    u.slug === chosen.slug
+      ? {
+          ...u,
+          elementUsesRemaining: u.elementUsesRemaining.map((n, idx) => (idx === elementIndex ? n - 1 : n)),
+          everUsed: true,
+        }
+      : u,
+  )
+
+  return { round: { slug: chosen.slug, element: elementIndex + 1 }, nextUsage }
+}
+
+export function totalRounds(pool: EligibleSentence[]): number {
+  return pool.reduce((sum, s) => sum + s.elementCount * MAX_USES_PER_ELEMENT, 0)
+}
+
+export function usesConsumed(usage: SentenceUsageState[]): number {
+  return usage.reduce(
+    (sum, u) => sum + u.elementUsesRemaining.reduce((s, n) => s + (MAX_USES_PER_ELEMENT - n), 0),
+    0,
+  )
+}
+
+export function speakAudioPath(slug: string, lang: AudioLangCode, element: number): string {
+  return `/speak/${slug}/${lang}/${element}.mp3`
+}

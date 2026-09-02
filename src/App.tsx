@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AppShell } from './components/layout/AppShell'
 import type { Screen } from './components/layout/NavBar'
 import { ExplanationModal } from './components/common/ExplanationModal'
+import { ListeningPracticeScreen } from './components/listening/ListeningPracticeScreen'
 import { QuizKindPicker } from './components/quiz/QuizKindPicker'
 import { QuizScreen } from './components/quiz/QuizScreen'
 import { SettingsScreen } from './components/settings/SettingsScreen'
@@ -41,6 +42,12 @@ function App() {
         {screen === 'quiz' &&
           (showQuizPicker ? (
             <QuizKindPicker onSelect={handlePickQuizKind} />
+          ) : session.settings.kind === 'listening' ? (
+            <ListeningPracticeScreen
+              nativeLanguage={session.settings.language}
+              answerWaitSeconds={session.settings.listeningAnswerWaitSeconds}
+              sentenceCount={session.settings.listeningSentenceCount}
+            />
           ) : (
             <QuizScreen session={session} />
           ))}

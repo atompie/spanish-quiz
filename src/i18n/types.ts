@@ -60,6 +60,27 @@ export interface UiStrings {
   quizKindPhraseDescription: string
   quizKindConjugationTitle: string
   quizKindConjugationDescription: string
+  quizKindListeningTitle: string
+  quizKindListeningDescription: string
+
+  listeningStart: string
+  listeningPause: string
+  listeningResume: string
+  listeningStop: string
+  listeningStopTitle: string
+  listeningStopMessage: string
+  listeningStopConfirm: string
+  listeningStopCancel: string
+  listeningProgressLabel: string
+  listeningCountdownLabel: string
+  listeningRepeatLabel: string
+  listeningFinishedTitle: string
+  listeningFinishedMessage: string
+  listeningStartNew: string
+  listeningEmptyState: string
+  listeningLoadError: string
+  settingsListeningWaitTime: string
+  settingsListeningSentenceCount: string
 
   verbRegular: string
   verbIrregular: string

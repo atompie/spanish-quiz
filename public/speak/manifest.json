@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "donde_hay_una_farmacia",
+    "counts": {
+      "es": 3,
+      "pl": 3
+    }
+  },
+  {
+    "slug": "no_podemos_llegar_tarde",
+    "counts": {
+      "es": 5,
+      "pl": 5
+    }
+  }
+]
