@@ -10,7 +10,6 @@ import type {
 export const SESSION_POOL_SIZE = 20
 /** Ile razy ma zostać powtórzony każdy element (mp3) danego zdania — nie sama liczba użyć zdania. */
 export const MAX_USES_PER_ELEMENT = 3
-export const GAP_SECONDS = 5
 
 function shuffle<T>(items: T[], random: () => number): T[] {
   const result = [...items]

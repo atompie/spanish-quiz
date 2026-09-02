@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import {
-  GAP_SECONDS,
   buildSessionPool,
   getEligibleSentences,
   initUsageState,
@@ -102,8 +101,9 @@ export function useListeningSession(
   }, [])
 
   const enterGap = useCallback(() => {
-    deadlineRef.current = Date.now() + GAP_SECONDS * 1000
-    setSecondsRemaining(GAP_SECONDS)
+    const seconds = answerWaitSecondsRef.current
+    deadlineRef.current = Date.now() + seconds * 1000
+    setSecondsRemaining(seconds)
     setPhase('gap')
   }, [])
 
