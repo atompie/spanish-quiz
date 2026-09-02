@@ -4,8 +4,11 @@ import { useTranslation } from '../../i18n/LanguageContext'
 import type { LanguageCode } from '../../types/language'
 import type { ListeningAnswerWaitSeconds, ListeningSentenceCount } from '../../types/quiz'
 import { CloseIcon } from '../common/CloseIcon'
+import { PlayIcon } from '../common/PlayIcon'
+import { RefreshIcon } from '../common/RefreshIcon'
 import { SpeakerIcon } from '../common/SpeakerIcon'
 import { ConfirmModal } from '../quiz/ConfirmModal'
+import { LessonPicker } from './LessonPicker'
 
 interface ListeningPracticeScreenProps {
   nativeLanguage: LanguageCode
@@ -15,6 +18,7 @@ interface ListeningPracticeScreenProps {
 
 export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sentenceCount }: ListeningPracticeScreenProps) {
   const { t } = useTranslation()
+  const [lesson, setLesson] = useState<string | null>(null)
   const {
     phase,
     pausedFromPhase,
@@ -28,11 +32,20 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     start,
     togglePause,
     stop,
-  } = useListeningSession(nativeLanguage, answerWaitSeconds, sentenceCount)
+  } = useListeningSession(nativeLanguage, answerWaitSeconds, sentenceCount, lesson)
 
   const [showStopConfirm, setShowStopConfirm] = useState(false)
 
   const audioElement = <audio ref={audioRef} hidden />
+
+  if (lesson === null) {
+    return (
+      <>
+        {audioElement}
+        <LessonPicker onSelect={setLesson} />
+      </>
+    )
+  }
 
   if (hasLoadError && phase === 'idle') {
     return (
@@ -64,9 +77,26 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
       <>
         {audioElement}
         <div className="listening-screen listening-screen--idle">
-          <button type="button" className="btn btn-primary" onClick={start}>
-            {t.listeningStart}
-          </button>
+          <div className="listening-idle-actions">
+            <button
+              type="button"
+              className="btn-icon btn-icon--lg btn-icon--inverted"
+              aria-label={t.listeningStart}
+              title={t.listeningStart}
+              onClick={start}
+            >
+              <PlayIcon />
+            </button>
+            <button
+              type="button"
+              className="btn-icon btn-icon--lg"
+              aria-label={t.listeningChangeLesson}
+              title={t.listeningChangeLesson}
+              onClick={() => setLesson(null)}
+            >
+              <RefreshIcon />
+            </button>
+          </div>
         </div>
       </>
     )
@@ -76,12 +106,29 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     return (
       <>
         {audioElement}
-        <div className="listening-screen">
+        <div className="listening-screen listening-screen--idle">
           <p className="results-title">{t.listeningFinishedTitle}</p>
           <p className="modal-message">{t.listeningFinishedMessage}</p>
-          <button type="button" className="btn btn-primary" onClick={start}>
-            {t.listeningStartNew}
-          </button>
+          <div className="listening-idle-actions">
+            <button
+              type="button"
+              className="btn-icon btn-icon--lg btn-icon--inverted"
+              aria-label={t.listeningStartNew}
+              title={t.listeningStartNew}
+              onClick={start}
+            >
+              <PlayIcon />
+            </button>
+            <button
+              type="button"
+              className="btn-icon btn-icon--lg"
+              aria-label={t.listeningChangeLesson}
+              title={t.listeningChangeLesson}
+              onClick={() => setLesson(null)}
+            >
+              <RefreshIcon />
+            </button>
+          </div>
         </div>
       </>
     )

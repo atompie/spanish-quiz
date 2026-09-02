@@ -1,6 +1,7 @@
 [
   {
     "slug": "a_que_hora_abre",
+    "lesson": "lesson_1",
     "counts": {
       "es": 2,
       "pl": 2
@@ -8,6 +9,7 @@
   },
   {
     "slug": "ahora_vuelvo",
+    "lesson": "lesson_1",
     "counts": {
       "es": 3,
       "pl": 3
@@ -15,6 +17,7 @@
   },
   {
     "slug": "cuanto_questa_esto",
+    "lesson": "lesson_1",
     "counts": {
       "es": 2,
       "pl": 2
@@ -22,6 +25,7 @@
   },
   {
     "slug": "donde_esta_el_bano",
+    "lesson": "lesson_1",
     "counts": {
       "es": 3,
       "pl": 3
@@ -29,6 +33,7 @@
   },
   {
     "slug": "donde_hay_una_farmacia",
+    "lesson": "lesson_1",
     "counts": {
       "es": 3,
       "pl": 3
@@ -36,19 +41,22 @@
   },
   {
     "slug": "me_puede_ayudar",
+    "lesson": "lesson_1",
     "counts": {
       "es": 3
     }
   },
   {
     "slug": "no_podemos_llegar_tarde",
+    "lesson": "lesson_1",
     "counts": {
       "es": 5,
       "pl": 5
     }
   },
   {
-    "slug": "puede_repetir_por_favor",
+    "slug": "puede_repetir_ por_favor",
+    "lesson": "lesson_1",
     "counts": {
       "es": 4,
       "pl": 4

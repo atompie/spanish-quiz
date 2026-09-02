@@ -42,6 +42,7 @@ export function useListeningSession(
   nativeLanguage: LanguageCode,
   answerWaitSeconds: number,
   sentenceCount: number,
+  lesson: string | null,
 ): UseListeningSessionResult {
   const [phase, setPhase] = useState<ListeningPhase>('idle')
   const [secondsRemaining, setSecondsRemaining] = useState<number | null>(null)
@@ -139,14 +140,15 @@ export function useListeningSession(
     if (!audio || !currentRound) return
     if (phase !== 'playing-native' && phase !== 'playing-target') return
 
+    if (!lesson) return
     const lang = phase === 'playing-native' ? nativeLanguage : 'es'
-    const targetSrc = speakAudioPath(currentRound.slug, lang, currentRound.element)
+    const targetSrc = speakAudioPath(lesson, currentRound.slug, lang, currentRound.element)
     if (!audio.src.endsWith(targetSrc)) {
       audio.src = targetSrc
       audio.currentTime = 0
     }
     void audio.play()
-  }, [phase, currentRound, nativeLanguage])
+  }, [phase, currentRound, nativeLanguage, lesson])
 
   // Single onended listener — reads the *current* phase via ref to avoid stale closures.
   useEffect(() => {
@@ -175,6 +177,7 @@ export function useListeningSession(
   }, [clearTimer])
 
   const start = useCallback(() => {
+    if (!lesson) return
     const token = ++startTokenRef.current
     setHasLoadError(false)
 
@@ -193,7 +196,7 @@ export function useListeningSession(
 
       if (startTokenRef.current !== token) return
 
-      const eligible = getEligibleSentences(manifest, nativeLanguage)
+      const eligible = getEligibleSentences(manifest, nativeLanguage, lesson)
       if (eligible.length === 0) {
         setIsEmpty(true)
         setPhase('idle')
@@ -211,7 +214,7 @@ export function useListeningSession(
       setCurrentRound(first.round)
       setPhase('playing-native')
     })()
-  }, [nativeLanguage, sentenceCount])
+  }, [nativeLanguage, sentenceCount, lesson])
 
   const togglePause = useCallback(() => {
     if (phase === 'paused') {

@@ -223,6 +223,16 @@ button {
   border-color: var(--color-accent);
 }
 
+.btn-icon--lg {
+  width: 64px;
+  height: 64px;
+}
+
+.btn-icon--lg svg {
+  width: 28px;
+  height: 28px;
+}
+
 .quiz-progress {
   text-align: center;
   font-size: 1rem;
@@ -679,6 +689,24 @@ button {
   color: var(--color-text-muted);
 }
 
+.lesson-option {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lesson-option-select {
+  flex: 1;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
 .listening-screen {
   display: flex;
   flex-direction: column;
@@ -695,6 +723,13 @@ button {
 .listening-screen--idle .btn {
   width: auto;
   min-width: 200px;
+}
+
+.listening-idle-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
 }
 
 .listening-progress {

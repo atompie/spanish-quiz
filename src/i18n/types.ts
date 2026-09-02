@@ -77,6 +77,12 @@ export interface UiStrings {
   listeningStartNew: string
   listeningEmptyState: string
   listeningLoadError: string
+  listeningLessonPickerTitle: string
+  listeningLessonLabel: string
+  listeningChangeLesson: string
+  listeningLessonsLoadError: string
+  listeningLessonsEmptyState: string
+  listeningLessonCompletedLabel: string
   settingsListeningWaitTime: string
   settingsListeningSentenceCount: string
 

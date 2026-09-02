@@ -11,6 +11,7 @@ const KEYS = {
   mistakes: 'quiz.mistakes',
   history: 'quiz.history',
   theme: 'quiz.theme',
+  completedLessons: 'quiz.completedLessons',
 } as const
 
 export const DEFAULT_THEME: Theme = 'system'
@@ -106,4 +107,16 @@ export function appendHistory(entry: QuizResultSummary): void {
   const history = loadHistory()
   history.unshift(entry)
   writeJson(KEYS.history, history.slice(0, MAX_HISTORY_ENTRIES))
+}
+
+/** Ręcznie oznaczone jako ukończone lekcje trybu "listening" — nieużywane do filtrowania, tylko wizualne. */
+export function loadCompletedLessons(): string[] {
+  return readJson(KEYS.completedLessons, [])
+}
+
+export function toggleCompletedLesson(lesson: string): string[] {
+  const current = loadCompletedLessons()
+  const next = current.includes(lesson) ? current.filter((l) => l !== lesson) : [...current, lesson]
+  writeJson(KEYS.completedLessons, next)
+  return next
 }

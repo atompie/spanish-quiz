@@ -48,38 +48,48 @@ export function scanSpeakManifest(speakDir: string): { entries: SpeakSentenceMan
 
   const entries: SpeakSentenceManifestEntry[] = []
 
-  const slugDirs = fs
+  const lessonDirs = fs
     .readdirSync(speakDir, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
     .sort()
 
-  for (const slug of slugDirs) {
-    const slugPath = path.join(speakDir, slug)
-    const counts: Partial<Record<AudioLangCode, number>> = {}
+  for (const lesson of lessonDirs) {
+    const lessonPath = path.join(speakDir, lesson)
 
-    const langDirs = fs
-      .readdirSync(slugPath, { withFileTypes: true })
+    const slugDirs = fs
+      .readdirSync(lessonPath, { withFileTypes: true })
       .filter((d) => d.isDirectory())
       .map((d) => d.name)
+      .sort()
 
-    for (const langDir of langDirs) {
-      if (!RECOGNIZED_LANGS.includes(langDir as AudioLangCode)) {
-        warnings.push(`${slug}/${langDir}: nierozpoznany katalog językowy — pomijam`)
+    for (const slug of slugDirs) {
+      const slugPath = path.join(lessonPath, slug)
+      const counts: Partial<Record<AudioLangCode, number>> = {}
+
+      const langDirs = fs
+        .readdirSync(slugPath, { withFileTypes: true })
+        .filter((d) => d.isDirectory())
+        .map((d) => d.name)
+
+      for (const langDir of langDirs) {
+        if (!RECOGNIZED_LANGS.includes(langDir as AudioLangCode)) {
+          warnings.push(`${lesson}/${slug}/${langDir}: nierozpoznany katalog językowy — pomijam`)
+          continue
+        }
+        const count = countContiguousMp3s(path.join(slugPath, langDir), `${lesson}/${slug}/${langDir}`, warnings)
+        if (count > 0) {
+          counts[langDir as AudioLangCode] = count
+        }
+      }
+
+      if (Object.keys(counts).length === 0) {
+        warnings.push(`${lesson}/${slug}: brak użytecznych nagrań w żadnym języku — pomijam`)
         continue
       }
-      const count = countContiguousMp3s(path.join(slugPath, langDir), `${slug}/${langDir}`, warnings)
-      if (count > 0) {
-        counts[langDir as AudioLangCode] = count
-      }
-    }
 
-    if (Object.keys(counts).length === 0) {
-      warnings.push(`${slug}: brak użytecznych nagrań w żadnym języku — pomijam`)
-      continue
+      entries.push({ slug, lesson, counts })
     }
-
-    entries.push({ slug, counts })
   }
 
   return { entries, warnings }

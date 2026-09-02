@@ -79,6 +79,12 @@ export const de: UiStrings = {
   listeningStartNew: 'NEUE SITZUNG',
   listeningEmptyState: 'Für deine Muttersprache sind noch keine Aufnahmen vorhanden. Füge Aufnahmen unter public/speak/ hinzu oder ändere die Sprache in den Einstellungen.',
   listeningLoadError: 'Die Satzliste konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.',
+  listeningLessonPickerTitle: 'Lektion auswählen',
+  listeningLessonLabel: 'Lektion',
+  listeningChangeLesson: 'Lektion wechseln',
+  listeningLessonsLoadError: 'Die Lektionsliste konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.',
+  listeningLessonsEmptyState: 'Noch keine Lektionen verfügbar. Füge Sätze unter public/speak/ hinzu.',
+  listeningLessonCompletedLabel: 'Lektion abgeschlossen',
   settingsListeningWaitTime: 'Antwortzeit',
   settingsListeningSentenceCount: 'Anzahl der Sätze',
 

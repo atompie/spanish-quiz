@@ -79,6 +79,12 @@ export const pl: UiStrings = {
   listeningStartNew: 'NOWA SESJA',
   listeningEmptyState: 'Brak nagrań dla wybranego języka ojczystego. Dodaj nagrania w public/speak/ lub zmień język w Ustawieniach.',
   listeningLoadError: 'Nie udało się pobrać listy zdań. Sprawdź połączenie i spróbuj ponownie.',
+  listeningLessonPickerTitle: 'Wybierz lekcję',
+  listeningLessonLabel: 'Lekcja',
+  listeningChangeLesson: 'Zmień lekcję',
+  listeningLessonsLoadError: 'Nie udało się pobrać listy lekcji. Sprawdź połączenie i spróbuj ponownie.',
+  listeningLessonsEmptyState: 'Brak dostępnych lekcji. Dodaj zdania w public/speak/.',
+  listeningLessonCompletedLabel: 'Lekcja ukończona',
   settingsListeningWaitTime: 'Czas na odpowiedź',
   settingsListeningSentenceCount: 'Liczba zdań w sesji',
 

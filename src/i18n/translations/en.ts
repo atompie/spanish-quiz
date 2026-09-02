@@ -79,6 +79,12 @@ export const en: UiStrings = {
   listeningStartNew: 'NEW SESSION',
   listeningEmptyState: 'No recordings available for your native language yet. Add recordings under public/speak/ or change the language in Settings.',
   listeningLoadError: 'Could not load the sentence list. Check your connection and try again.',
+  listeningLessonPickerTitle: 'Choose a lesson',
+  listeningLessonLabel: 'Lesson',
+  listeningChangeLesson: 'Change lesson',
+  listeningLessonsLoadError: 'Could not load the lesson list. Check your connection and try again.',
+  listeningLessonsEmptyState: 'No lessons available yet. Add sentences under public/speak/.',
+  listeningLessonCompletedLabel: 'Lesson completed',
   settingsListeningWaitTime: 'Answer wait time',
   settingsListeningSentenceCount: 'Number of sentences',
 

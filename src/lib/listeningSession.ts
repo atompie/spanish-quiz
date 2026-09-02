@@ -23,9 +23,11 @@ function shuffle<T>(items: T[], random: () => number): T[] {
 export function getEligibleSentences(
   manifest: SpeakSentenceManifestEntry[],
   nativeLanguage: LanguageCode,
+  lesson: string,
 ): EligibleSentence[] {
   const eligible: EligibleSentence[] = []
   for (const entry of manifest) {
+    if (entry.lesson !== lesson) continue
     const esCount = entry.counts.es ?? 0
     const nativeCount = entry.counts[nativeLanguage] ?? 0
     if (esCount > 0 && nativeCount > 0) {
@@ -33,6 +35,19 @@ export function getEligibleSentences(
     }
   }
   return eligible
+}
+
+/** Posortowana lista unikalnych lekcji z manifestu (numerycznie po sufiksie `lesson_N`, reszta alfabetycznie). */
+export function getAvailableLessons(manifest: SpeakSentenceManifestEntry[]): string[] {
+  const lessons = [...new Set(manifest.map((entry) => entry.lesson))]
+  return lessons.sort((a, b) => {
+    const numA = /^lesson_(\d+)$/.exec(a)
+    const numB = /^lesson_(\d+)$/.exec(b)
+    if (numA && numB) return Number(numA[1]) - Number(numB[1])
+    if (numA) return -1
+    if (numB) return 1
+    return a.localeCompare(b)
+  })
 }
 
 export function buildSessionPool(
@@ -95,6 +110,6 @@ export function usesConsumed(usage: SentenceUsageState[]): number {
   )
 }
 
-export function speakAudioPath(slug: string, lang: AudioLangCode, element: number): string {
-  return `/speak/${slug}/${lang}/${element}.mp3`
+export function speakAudioPath(lesson: string, slug: string, lang: AudioLangCode, element: number): string {
+  return `/speak/${lesson}/${slug}/${lang}/${element}.mp3`
 }
