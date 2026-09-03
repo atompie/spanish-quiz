@@ -1,15 +1,67 @@
 [
   {
-    "slug": "a_que_hora_abre",
+    "slug": "adonde",
     "lesson": "lesson_1",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "cuando",
+    "lesson": "lesson_1",
+    "counts": {
+      "de": 8,
+      "en": 8,
+      "es": 8,
+      "pl": 8
+    }
+  },
+  {
+    "slug": "qual",
+    "lesson": "lesson_1",
+    "counts": {
+      "es": 4,
+      "pl": 4
+    }
+  },
+  {
+    "slug": "que",
+    "lesson": "lesson_1",
+    "counts": {
+      "es": 8,
+      "pl": 8
+    }
+  },
+  {
+    "slug": "quien",
+    "lesson": "lesson_1",
+    "counts": {
+      "es": 4,
+      "pl": 4
+    }
+  },
+  {
+    "slug": "a_que_hora_abre",
+    "lesson": "lesson_2",
     "counts": {
       "es": 2,
       "pl": 2
     }
   },
   {
+    "slug": "adonde",
+    "lesson": "lesson_2",
+    "counts": {
+      "es": 1,
+      "pl": 1
+    }
+  },
+  {
     "slug": "ahora_vuelvo",
-    "lesson": "lesson_1",
+    "lesson": "lesson_2",
     "counts": {
       "es": 3,
       "pl": 3
@@ -17,7 +69,7 @@
   },
   {
     "slug": "cuanto_questa_esto",
-    "lesson": "lesson_1",
+    "lesson": "lesson_2",
     "counts": {
       "es": 2,
       "pl": 2
@@ -25,15 +77,7 @@
   },
   {
     "slug": "donde_esta_el_bano",
-    "lesson": "lesson_1",
-    "counts": {
-      "es": 3,
-      "pl": 3
-    }
-  },
-  {
-    "slug": "donde_hay_una_farmacia",
-    "lesson": "lesson_1",
+    "lesson": "lesson_2",
     "counts": {
       "es": 3,
       "pl": 3
@@ -41,25 +85,73 @@
   },
   {
     "slug": "me_puede_ayudar",
-    "lesson": "lesson_1",
+    "lesson": "lesson_2",
     "counts": {
       "es": 3
     }
   },
   {
+    "slug": "salgo_afuera",
+    "lesson": "lesson_2",
+    "counts": {
+      "es": 4,
+      "pl": 4
+    }
+  },
+  {
+    "slug": "donde_hay_una_farmacia",
+    "lesson": "lesson_3",
+    "counts": {
+      "es": 3,
+      "pl": 3
+    }
+  },
+  {
+    "slug": "me_has_pillado",
+    "lesson": "lesson_3",
+    "counts": {
+      "es": 4,
+      "pl": 4
+    }
+  },
+  {
+    "slug": "puede_repetir_ por_favor",
+    "lesson": "lesson_3",
+    "counts": {
+      "es": 4,
+      "pl": 4
+    }
+  },
+  {
     "slug": "no_podemos_llegar_tarde",
-    "lesson": "lesson_1",
+    "lesson": "lesson_4",
     "counts": {
       "es": 5,
       "pl": 5
     }
   },
   {
-    "slug": "puede_repetir_ por_favor",
-    "lesson": "lesson_1",
+    "slug": "no_sabria_que_decirte",
+    "lesson": "lesson_4",
     "counts": {
-      "es": 4,
-      "pl": 4
+      "es": 1,
+      "pl": 1
+    }
+  },
+  {
+    "slug": "se_me_ha_quedado_sin_bateria_el_movil",
+    "lesson": "lesson_4",
+    "counts": {
+      "es": 2,
+      "pl": 2
+    }
+  },
+  {
+    "slug": "seguro_que_esta_en_casa",
+    "lesson": "lesson_4",
+    "counts": {
+      "es": 2,
+      "pl": 2
     }
   }
 ]
