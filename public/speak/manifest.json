@@ -153,5 +153,35 @@
       "es": 2,
       "pl": 2
     }
+  },
+  {
+    "slug": "ir",
+    "lesson": "lesson_5",
+    "counts": {
+      "de": 11,
+      "en": 11,
+      "es": 11,
+      "pl": 11
+    }
+  },
+  {
+    "slug": "ir_construcciones",
+    "lesson": "lesson_5",
+    "counts": {
+      "de": 12,
+      "en": 12,
+      "es": 12,
+      "pl": 12
+    }
+  },
+  {
+    "slug": "ir_pasado_futuro",
+    "lesson": "lesson_5",
+    "counts": {
+      "de": 8,
+      "en": 8,
+      "es": 8,
+      "pl": 8
+    }
   }
 ]

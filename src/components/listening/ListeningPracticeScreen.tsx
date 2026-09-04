@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useListeningSession } from '../../hooks/useListeningSession'
 import { useTranslation } from '../../i18n/LanguageContext'
+import { formatEstimatedDuration } from '../../lib/listeningSession'
 import type { LanguageCode } from '../../types/language'
 import type { ListeningAnswerWaitSeconds, ListeningSentenceCount } from '../../types/quiz'
 import { CloseIcon } from '../common/CloseIcon'
 import { PlayIcon } from '../common/PlayIcon'
+import { ProgressBar } from '../common/ProgressBar'
 import { RefreshIcon } from '../common/RefreshIcon'
 import { SpeakerIcon } from '../common/SpeakerIcon'
 import { ConfirmModal } from '../quiz/ConfirmModal'
@@ -28,6 +30,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     isFinished,
     isEmpty,
     hasLoadError,
+    currentText,
     audioRef,
     start,
     togglePause,
@@ -36,13 +39,22 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
 
   const [showStopConfirm, setShowStopConfirm] = useState(false)
 
+  useEffect(() => {
+    if (lesson) start()
+  }, [lesson, start])
+
   const audioElement = <audio ref={audioRef} hidden />
 
   if (lesson === null) {
     return (
       <>
         {audioElement}
-        <LessonPicker onSelect={setLesson} />
+        <LessonPicker
+          onSelect={setLesson}
+          nativeLanguage={nativeLanguage}
+          answerWaitSeconds={answerWaitSeconds}
+          sentenceCount={sentenceCount}
+        />
       </>
     )
   }
@@ -76,25 +88,16 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     return (
       <>
         {audioElement}
-        <div className="listening-screen listening-screen--idle">
-          <div className="listening-idle-actions">
+        <div className="listening-screen">
+          <div className="quiz-topbar">
             <button
               type="button"
-              className="btn-icon btn-icon--lg btn-icon--inverted"
-              aria-label={t.listeningStart}
-              title={t.listeningStart}
-              onClick={start}
-            >
-              <PlayIcon />
-            </button>
-            <button
-              type="button"
-              className="btn-icon btn-icon--lg"
-              aria-label={t.listeningChangeLesson}
-              title={t.listeningChangeLesson}
+              className="btn-icon btn-icon--inverted"
+              aria-label={t.listeningStop}
+              title={t.listeningStop}
               onClick={() => setLesson(null)}
             >
-              <RefreshIcon />
+              <CloseIcon />
             </button>
           </div>
         </div>
@@ -137,6 +140,14 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
   const activePhase = isPaused ? pausedFromPhase : phase
   const showCountdown = activePhase === 'answering' || activePhase === 'gap'
   const countdownLabel = activePhase === 'answering' ? t.listeningCountdownLabel : t.listeningRepeatLabel
+  const estimatedTime = formatEstimatedDuration(progress.estimatedRemainingSeconds)
+  const estimatedTimeLabel = [
+    estimatedTime.hours > 0 && `${estimatedTime.hours} ${t.listeningHoursAbbrev}`,
+    (estimatedTime.hours > 0 || estimatedTime.minutes > 0) && `${estimatedTime.minutes} ${t.listeningMinutesAbbrev}`,
+    `${estimatedTime.seconds} ${t.listeningSecondsAbbrev}`,
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <>
@@ -154,11 +165,12 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
           </button>
         </div>
 
-        <p className="quiz-progress listening-progress">
-          {t.listeningProgressLabel} {progress.current} / {progress.total}
-        </p>
+        <div className="listening-progress-bar-wrapper">
+          <ProgressBar current={progress.current} total={progress.total} centerLabel={estimatedTimeLabel} />
+        </div>
 
         <div className="listening-countdown-area">
+          {currentText && <p className="listening-caption">{currentText}</p>}
           {showCountdown ? (
             <>
               <p className="listening-countdown-label">{countdownLabel}</p>
@@ -186,6 +198,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
           cancelLabel={t.listeningStopCancel}
           onConfirm={() => {
             stop()
+            setLesson(null)
             setShowStopConfirm(false)
           }}
           onCancel={() => setShowStopConfirm(false)}

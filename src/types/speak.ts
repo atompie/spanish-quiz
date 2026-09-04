@@ -12,6 +12,14 @@ export interface SpeakSentenceManifestEntry {
   counts: Partial<Record<AudioLangCode, number>>
 }
 
+/** Transkrypcje zdań z public/speak/metadata.json — index tablicy (0-based) = plik N.mp3 (1-based, N = index+1). */
+export interface SpeakMetadata {
+  [lesson: string]: {
+    level: number
+    parts: { [slug: string]: Partial<Record<AudioLangCode, string[]>> }
+  }
+}
+
 /** Zdanie kwalifikujące się do sesji dla aktualnego języka ojczystego. */
 export interface EligibleSentence {
   slug: string

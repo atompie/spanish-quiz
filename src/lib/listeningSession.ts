@@ -4,6 +4,7 @@ import type {
   EligibleSentence,
   ListeningRound,
   SentenceUsageState,
+  SpeakMetadata,
   SpeakSentenceManifestEntry,
 } from '../types/speak'
 
@@ -110,6 +111,53 @@ export function usesConsumed(usage: SentenceUsageState[]): number {
   )
 }
 
+/**
+ * Szacowany pozostały czas sesji. Realny czas trwania nagrań nie jest nigdzie przechowywany
+ * (odtwarzanie kończy się przez event `ended`), więc jako przybliżenie długości jednego odtworzenia
+ * przyjmujemy `answerWaitSeconds`. Każda runda to: odtworzenie natywne + docelowe (2×) oraz dwie przerwy
+ * o tej samej długości (`answering` i `gap`, 2×) — razem 4×.
+ */
+export function estimateRemainingSeconds(remainingRounds: number, answerWaitSeconds: number): number {
+  return remainingRounds * 4 * answerWaitSeconds
+}
+
+/**
+ * Szacowany czas trwania całej lekcji, zanim sesja zostanie faktycznie zbudowana (do wyświetlenia na liście
+ * lekcji). Sesja losuje `sentenceCount` zdań spośród `eligible`, więc do oszacowania liczby elementów
+ * używamy średniej liczby elementów na zdanie z całej puli kwalifikujących się zdań.
+ */
+export function estimateLessonSeconds(
+  eligible: EligibleSentence[],
+  sentenceCount: number,
+  answerWaitSeconds: number,
+): number {
+  if (eligible.length === 0) return 0
+  const avgElementsPerSentence = eligible.reduce((sum, s) => sum + s.elementCount, 0) / eligible.length
+  const sampledSentences = Math.min(sentenceCount, eligible.length)
+  const estimatedRounds = sampledSentences * avgElementsPerSentence * MAX_USES_PER_ELEMENT
+  return estimateRemainingSeconds(estimatedRounds, answerWaitSeconds)
+}
+
+export function formatEstimatedDuration(totalSeconds: number): { hours: number; minutes: number; seconds: number } {
+  const total = Math.max(0, Math.round(totalSeconds))
+  return {
+    hours: Math.floor(total / 3600),
+    minutes: Math.floor((total % 3600) / 60),
+    seconds: total % 60,
+  }
+}
+
 export function speakAudioPath(lesson: string, slug: string, lang: AudioLangCode, element: number): string {
   return `/speak/${lesson}/${slug}/${lang}/${element}.mp3`
+}
+
+/** Transkrypcja zdania z metadata.json, albo `null` gdy brak wpisu (lekcja/część/język/element nie są jeszcze opisane). */
+export function getSpeakText(
+  metadata: SpeakMetadata | null,
+  lesson: string,
+  slug: string,
+  lang: AudioLangCode,
+  element: number,
+): string | null {
+  return metadata?.[lesson]?.parts?.[slug]?.[lang]?.[element - 1] ?? null
 }

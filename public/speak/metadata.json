@@ -1,0 +1,298 @@
+{
+  "lesson_1": {
+    "level": 1,
+    "parts": {
+      "cuando": {
+        "pl": [
+          "Kiedy?",
+          "Kiedy przychodzisz?",
+          "Kiedy przyjeżdżasz?",
+          "Kiedy wychodzisz?",
+          "Kiedy się zaczyna?",
+          "Kiedy masz czas?",
+          "Kiedy się widzimy?",
+          "Kiedy to było?"
+        ],
+        "de": [
+          "Wann?",
+          "Wann kommst du?",
+          "Wann kommst du an?",
+          "Wann gehst du?",
+          "Wann beginnt es?",
+          "Wann hast du Zeit?",
+          "Wann sehen wir uns?",
+          "Wann war das?"
+        ],
+        "en": [
+          "When?",
+          "When are you coming?",
+          "When are you arriving?",
+          "When are you leaving?",
+          "When does it start?",
+          "When do you have time?",
+          "When do we see each other?",
+          "When was that?"
+        ],
+        "es": [
+          "¿Cuándo?",
+          "¿Cuándo vienes?",
+          "¿Cuándo llegas?",
+          "¿Cuándo sales?",
+          "¿Cuándo empieza?",
+          "¿Cuándo tienes tiempo?",
+          "¿Cuándo nos vemos?",
+          "¿Cuándo fue?"
+        ]
+      },
+      "adonde": {
+        "pl": [
+          "Dokąd?",
+          "Dokąd idziesz?",
+          "Dokąd jedziesz?",
+          "Dokąd jedziesz samochodem?",
+          "Dokąd lecisz?",
+          "Dokąd idziemy?",
+          "Dokąd jedziemy?",
+          "Dokąd chcesz iść?",
+          "Dokąd chcesz pojechać?",
+          "Dokąd idziesz teraz?",
+          "Dokąd idziesz po pracy?",
+          "Dokąd jedziesz na wakacje?",
+          "Dokąd wracasz?",
+          "Dokąd mam iść?",
+          "Dokąd mam jechać?",
+          "Dokąd to prowadzi?",
+          "Dokąd prowadzi ta droga?",
+          "Dokąd idzie ten autobus?",
+          "Dokąd jedzie ten pociąg?",
+          "Dokąd mam wysłać wiadomość?"
+        ],
+        "de": [
+          "Wohin?",
+          "Wohin gehst du?",
+          "Wohin fährst du?",
+          "Wohin fährst du mit dem Auto?",
+          "Wohin fliegst du?",
+          "Wohin gehen wir?",
+          "Wohin fahren wir?",
+          "Wohin möchtest du gehen?",
+          "Wohin möchtest du fahren?",
+          "Wohin gehst du jetzt?",
+          "Wohin gehst du nach der Arbeit?",
+          "Wohin fährst du in den Urlaub?",
+          "Wohin gehst du zurück?",
+          "Wohin muss ich gehen?",
+          "Wohin muss ich fahren?",
+          "Wohin führt das?",
+          "Wohin führt diese Straße?",
+          "Wohin fährt dieser Bus?",
+          "Wohin fährt dieser Zug?",
+          "Wohin soll ich die Nachricht schicken?"
+        ],
+        "en": [
+          "Where to?",
+          "Where are you going?",
+          "Where are you going?",
+          "Where are you driving to?",
+          "Where are you flying to?",
+          "Where are we going?",
+          "Where are we going?",
+          "Where do you want to go?",
+          "Where do you want to go?",
+          "Where are you going now?",
+          "Where are you going after work?",
+          "Where are you going on vacation?",
+          "Where are you going back to?",
+          "Where do I have to go?",
+          "Where do I have to go?",
+          "Where does this lead?",
+          "Where does this road lead?",
+          "Where does this bus go?",
+          "Where is this train going?",
+          "Where should I send the message?"
+        ],
+        "es": [
+          "¿Adónde?",
+          "¿Adónde vas?",
+          "¿Adónde vas?",
+          "¿Adónde vas en coche?",
+          "¿Adónde vuelas?",
+          "¿Adónde vamos?",
+          "¿Adónde vamos?",
+          "¿Adónde quieres ir?",
+          "¿Adónde quieres ir?",
+          "¿Adónde vas ahora?",
+          "¿Adónde vas después del trabajo?",
+          "¿Adónde vas de vacaciones?",
+          "¿Adónde vuelves?",
+          "¿Adónde tengo que ir?",
+          "¿Adónde tengo que ir?",
+          "¿Adónde lleva esto?",
+          "¿Adónde lleva esta carretera?",
+          "¿Adónde va este autobús?",
+          "¿Adónde va este tren?",
+          "¿Adónde tengo que enviar el mensaje?"
+        ]
+      }
+    }
+  },
+  "lesson_5": {
+    "level": 1,
+    "parts": {
+      "ir": {
+        "pl": [
+          "Jadę do supermarketu.",
+          "Wychodzę.",
+          "On/ona wychodzi.",
+          "Wychodzimy.",
+          "Wychodzisz?",
+          "Idziesz ze mną?",
+          "Idziemy razem.",
+          "Jedziecie samochodem?",
+          "Już idę.",
+          "Teraz idę.",
+          "Nie mogę iść z tobą."
+        ],
+        "de": [
+          "Ich fahre zum Supermarkt.",
+          "Ich gehe.",
+          "Er/sie geht.",
+          "Wir gehen.",
+          "Gehst du?",
+          "Gehst du mit mir?",
+          "Wir gehen zusammen.",
+          "Fahrt ihr mit dem Auto?",
+          "Ich komme schon.",
+          "Ich komme jetzt.",
+          "Ich kann nicht mit dir gehen."
+        ],
+        "en": [
+          "I'm going to the supermarket.",
+          "I'm leaving.",
+          "He/she is leaving.",
+          "We're leaving.",
+          "Are you leaving?",
+          "Are you coming with me?",
+          "We're going together.",
+          "Are you going by car?",
+          "I'm coming.",
+          "I'm going now.",
+          "I can't go with you."
+        ],
+        "es": [
+          "Voy al supermercado.",
+          "Me voy.",
+          "Se va.",
+          "Nos vamos.",
+          "¿Te vas?",
+          "¿Vas conmigo?",
+          "Vamos juntos.",
+          "¿Vais en coche?",
+          "Ya voy.",
+          "Ahora voy.",
+          "No puedo ir contigo."
+        ]
+      },
+      "ir_pasado_futuro": {
+        "pl": [
+          "Wczoraj pojechałem do supermarketu.",
+          "Pojechaliśmy na plażę.",
+          "Byłeś u lekarza?",
+          "Kiedy byłem dzieckiem, jeździłem tam z rodzicami.",
+          "Zawsze chodziliśmy razem.",
+          "Jutro pojadę do pracy.",
+          "Pójdziesz z nami?",
+          "Kiedyś pojedziemy do Hiszpanii."
+        ],
+        "de": [
+          "Gestern bin ich zum Supermarkt gefahren.",
+          "Wir sind zum Strand gefahren.",
+          "Warst du beim Arzt?",
+          "Als ich ein Kind war, bin ich mit meinen Eltern dorthin gefahren.",
+          "Wir sind immer zusammen gegangen.",
+          "Morgen werde ich zur Arbeit fahren.",
+          "Wirst du mit uns gehen?",
+          "Eines Tages werden wir nach Spanien fahren."
+        ],
+        "en": [
+          "Yesterday I went to the supermarket.",
+          "We went to the beach.",
+          "Did you go to the doctor?",
+          "When I was a child, I used to go there with my parents.",
+          "We always went together.",
+          "Tomorrow I will go to work.",
+          "Will you go with us?",
+          "Someday we will go to Spain."
+        ],
+        "es": [
+          "Ayer fui al supermercado.",
+          "Fuimos a la playa.",
+          "¿Fuiste al médico?",
+          "Cuando era niño, iba allí con mis padres.",
+          "Siempre íbamos juntos.",
+          "Mañana iré al trabajo.",
+          "¿Irás con nosotros?",
+          "Algún día iremos a España."
+        ]
+      },
+      "ir_construcciones": {
+        "pl": [
+          "Jestem w drodze na lotnisko.",
+          "Idę do domu.",
+          "Poszedł, nic nie mówiąc.",
+          "Już wychodzisz?",
+          "Wyjeżdżamy jutro.",
+          "Właśnie wychodzą.",
+          "Pójdę i wrócę.",
+          "Idź stąd.",
+          "Zobaczymy.",
+          "Co się stanie?",
+          "Wszystko idzie dobrze.",
+          "Coś jest nie tak."
+        ],
+        "de": [
+          "Ich bin auf dem Weg zum Flughafen.",
+          "Ich gehe nach Hause.",
+          "Er ging, ohne etwas zu sagen.",
+          "Gehst du schon?",
+          "Wir fahren morgen los.",
+          "Sie gehen gerade.",
+          "Ich gehe und komme zurück.",
+          "Geh weg von hier.",
+          "Mal sehen.",
+          "Was wird passieren?",
+          "Alles läuft gut.",
+          "Das läuft nicht gut."
+        ],
+        "en": [
+          "I'm on my way to the airport.",
+          "I'm going home.",
+          "He left without saying anything.",
+          "Are you leaving already?",
+          "We're leaving tomorrow.",
+          "They're leaving.",
+          "I'll go and come back.",
+          "Go away from here.",
+          "We'll see.",
+          "What's going to happen?",
+          "Everything is going well.",
+          "Something is wrong."
+        ],
+        "es": [
+          "Estoy yendo al aeropuerto.",
+          "Me voy a casa.",
+          "Se fue sin decir nada.",
+          "¿Te vas ya?",
+          "Nos vamos mañana.",
+          "Se están yendo.",
+          "Voy y vuelvo.",
+          "Vete de aquí.",
+          "Vamos a ver.",
+          "¿Qué va a pasar?",
+          "Todo va bien.",
+          "Esto no va bien."
+        ]
+      }
+    }
+  }
+}

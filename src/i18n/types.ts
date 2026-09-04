@@ -69,7 +69,9 @@ export interface UiStrings {
   listeningStopMessage: string
   listeningStopConfirm: string
   listeningStopCancel: string
-  listeningProgressLabel: string
+  listeningHoursAbbrev: string
+  listeningMinutesAbbrev: string
+  listeningSecondsAbbrev: string
   listeningCountdownLabel: string
   listeningRepeatLabel: string
   listeningFinishedTitle: string

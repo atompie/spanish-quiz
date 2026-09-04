@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import {
   buildSessionPool,
+  estimateRemainingSeconds,
   getEligibleSentences,
+  getSpeakText,
   initUsageState,
   pickNextRound,
   speakAudioPath,
@@ -11,15 +13,18 @@ import {
 } from '../lib/listeningSession'
 import type { LanguageCode } from '../types/language'
 import type {
+  AudioLangCode,
   EligibleSentence,
   ListeningPhase,
   ListeningRound,
   SentenceUsageState,
+  SpeakMetadata,
   SpeakSentenceManifestEntry,
 } from '../types/speak'
 
 const TICK_MS = 200
 const MANIFEST_URL = '/speak/manifest.json'
+const METADATA_URL = '/speak/metadata.json'
 
 export interface UseListeningSessionResult {
   phase: ListeningPhase
@@ -27,11 +32,13 @@ export interface UseListeningSessionResult {
   pausedFromPhase: ListeningPhase | null
   isPaused: boolean
   secondsRemaining: number | null
-  progress: { current: number; total: number }
+  progress: { current: number; total: number; estimatedRemainingSeconds: number }
   isFinished: boolean
   isEmpty: boolean
   /** Nie udało się pobrać public/speak/manifest.json (np. brak sieci) — inne niż isEmpty. */
   hasLoadError: boolean
+  /** Transkrypcja aktualnie odtwarzanego zdania (z metadata.json), albo `null` gdy brak wpisu. */
+  currentText: string | null
   audioRef: RefObject<HTMLAudioElement | null>
   start: () => void
   togglePause: () => void
@@ -52,6 +59,7 @@ export function useListeningSession(
   const [isEmpty, setIsEmpty] = useState(false)
   const [hasLoadError, setHasLoadError] = useState(false)
   const [pausedFromPhase, setPausedFromPhase] = useState<ListeningPhase | null>(null)
+  const [metadata, setMetadata] = useState<SpeakMetadata | null>(null)
 
   const startTokenRef = useRef(0)
 
@@ -214,6 +222,18 @@ export function useListeningSession(
       setCurrentRound(first.round)
       setPhase('playing-native')
     })()
+
+    // Napisy są opcjonalne — brak pliku/wpisu nie może zablokować odtwarzania ani zgłosić hasLoadError.
+    void (async () => {
+      try {
+        const response = await fetch(METADATA_URL, { cache: 'no-store' })
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const data = (await response.json()) as SpeakMetadata
+        if (startTokenRef.current === token) setMetadata(data)
+      } catch {
+        // brak/błąd metadata.json => currentText pozostaje null, nic się nie pokazuje
+      }
+    })()
   }, [nativeLanguage, sentenceCount, lesson])
 
   const togglePause = useCallback(() => {
@@ -253,13 +273,29 @@ export function useListeningSession(
     setUsage([])
     setCurrentRound(null)
     setSecondsRemaining(null)
+    setMetadata(null)
     setPhase('idle')
   }, [clearTimer])
 
+  const current = usesConsumed(usage)
+  const total = totalRounds(pool)
   const progress = {
-    current: usesConsumed(usage),
-    total: totalRounds(pool),
+    current,
+    total,
+    estimatedRemainingSeconds: estimateRemainingSeconds(total - current, answerWaitSeconds),
   }
+
+  const effectivePhase = phase === 'paused' ? pausedFromPhase : phase
+  const currentLang: AudioLangCode | null =
+    effectivePhase === 'playing-native' || effectivePhase === 'answering'
+      ? nativeLanguage
+      : effectivePhase === 'playing-target' || effectivePhase === 'gap'
+        ? 'es'
+        : null
+  const currentText =
+    currentRound && lesson && currentLang
+      ? getSpeakText(metadata, lesson, currentRound.slug, currentLang, currentRound.element)
+      : null
 
   return {
     phase,
@@ -270,6 +306,7 @@ export function useListeningSession(
     isFinished: phase === 'finished',
     isEmpty,
     hasLoadError,
+    currentText,
     audioRef,
     start,
     togglePause,
