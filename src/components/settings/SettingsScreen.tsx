@@ -7,9 +7,12 @@ import { useTranslation } from '../../i18n/LanguageContext'
 import { getLabel } from '../../lib/translation'
 import type { useQuizSession } from '../../hooks/useQuizSession'
 import type { PwaUpdateStatus } from '../../hooks/usePwaUpdate'
-import type { Person, PronounType, TenseId, VerbType } from '../../types/grammar'
+import type { PronounType } from '../../types/grammar'
 import type { ListeningAnswerWaitSeconds, ListeningSentenceCount, QuestionCount, QuizMode } from '../../types/quiz'
 import type { Theme } from '../../types/theme'
+import { CheckboxOptionList } from '../common/CheckboxOptionList'
+import { OptionButtonGroup } from '../common/OptionButtonGroup'
+import { SettingsSection } from '../common/SettingsSection'
 
 interface SettingsScreenProps {
   session: ReturnType<typeof useQuizSession>
@@ -36,138 +39,70 @@ export function SettingsScreen({ session, theme, onThemeChange, updateStatus, on
     { id: 'dark', label: t.themeDark },
   ]
 
-  function toggleTense(tense: TenseId) {
-    updateSettings({ enabledTenses: toggleInArray(settings.enabledTenses, tense) })
-  }
-
   function togglePronounType(type: PronounType) {
     updateSettings({ enabledPronounTypes: toggleInArray(settings.enabledPronounTypes, type) })
   }
 
-  function togglePerson(person: Person) {
-    updateSettings({ enabledPersons: toggleInArray(settings.enabledPersons, person) })
-  }
-
-  function toggleVerbType(type: VerbType) {
-    updateSettings({ enabledVerbTypes: toggleInArray(settings.enabledVerbTypes, type) })
-  }
-
   return (
     <>
-      <div className="settings-section">
-        <h2>{t.settingsQuestionCount}</h2>
-        <div className="count-options">
-          {QUESTION_COUNTS.map((count) => (
-            <button
-              key={count}
-              type="button"
-              className={settings.questionCount === count ? 'active' : ''}
-              onClick={() => updateSettings({ questionCount: count })}
-            >
-              {count}
-            </button>
-          ))}
-        </div>
-      </div>
+      <OptionButtonGroup
+        title={t.settingsQuestionCount}
+        options={QUESTION_COUNTS.map((count) => ({ id: count, label: String(count) }))}
+        value={settings.questionCount}
+        onChange={(count) => updateSettings({ questionCount: count })}
+      />
 
-      <div className="settings-section">
-        <h2>{t.settingsTenses}</h2>
-        {TENSES.map((tense) => (
-          <label key={tense.id} className="option-row">
-            <input
-              type="checkbox"
-              checked={settings.enabledTenses.includes(tense.id)}
-              onChange={() => toggleTense(tense.id)}
-            />
-            <span>{getLabel(tense, language)}</span>
-          </label>
-        ))}
-      </div>
+      <CheckboxOptionList
+        title={t.settingsTenses}
+        options={TENSES.map((tense) => ({ id: tense.id, label: getLabel(tense, language) }))}
+        selected={settings.enabledTenses}
+        onToggle={(tense) => updateSettings({ enabledTenses: toggleInArray(settings.enabledTenses, tense) })}
+      />
 
       {settings.kind === 'phrase' && (
-        <div className="settings-section">
-          <h2>{t.settingsPronounTypes}</h2>
-          {SELECTABLE_PRONOUN_TYPES.map((type) => (
-            <label key={type.id} className="option-row">
-              <input
-                type="checkbox"
-                checked={settings.enabledPronounTypes.includes(type.id)}
-                onChange={() => togglePronounType(type.id)}
-              />
-              <span>{getLabel(type, language)}</span>
-            </label>
-          ))}
-        </div>
+        <CheckboxOptionList
+          title={t.settingsPronounTypes}
+          options={SELECTABLE_PRONOUN_TYPES.map((type) => ({ id: type.id, label: getLabel(type, language) }))}
+          selected={settings.enabledPronounTypes}
+          onToggle={togglePronounType}
+        />
       )}
 
       {settings.kind === 'conjugation' && (
-        <div className="settings-section">
-          <h2>{t.settingsPersons}</h2>
-          {PERSONS_META.map((person) => (
-            <label key={person.id} className="option-row">
-              <input
-                type="checkbox"
-                checked={settings.enabledPersons.includes(person.id)}
-                onChange={() => togglePerson(person.id)}
-              />
-              <span>{getLabel(person, language)}</span>
-            </label>
-          ))}
-        </div>
+        <CheckboxOptionList
+          title={t.settingsPersons}
+          options={PERSONS_META.map((person) => ({ id: person.id, label: getLabel(person, language) }))}
+          selected={settings.enabledPersons}
+          onToggle={(person) => updateSettings({ enabledPersons: toggleInArray(settings.enabledPersons, person) })}
+        />
       )}
 
       {settings.kind === 'listening' && (
-        <div className="settings-section">
-          <h2>{t.settingsListeningWaitTime}</h2>
-          <div className="count-options">
-            {LISTENING_ANSWER_WAIT_OPTIONS.map((seconds) => (
-              <button
-                key={seconds}
-                type="button"
-                className={settings.listeningAnswerWaitSeconds === seconds ? 'active' : ''}
-                onClick={() => updateSettings({ listeningAnswerWaitSeconds: seconds })}
-              >
-                {seconds} s
-              </button>
-            ))}
-          </div>
-        </div>
+        <OptionButtonGroup
+          title={t.settingsListeningWaitTime}
+          options={LISTENING_ANSWER_WAIT_OPTIONS.map((seconds) => ({ id: seconds, label: `${seconds} s` }))}
+          value={settings.listeningAnswerWaitSeconds}
+          onChange={(seconds) => updateSettings({ listeningAnswerWaitSeconds: seconds })}
+        />
       )}
 
       {settings.kind === 'listening' && (
-        <div className="settings-section">
-          <h2>{t.settingsListeningSentenceCount}</h2>
-          <div className="count-options">
-            {LISTENING_SENTENCE_COUNTS.map((count) => (
-              <button
-                key={count}
-                type="button"
-                className={settings.listeningSentenceCount === count ? 'active' : ''}
-                onClick={() => updateSettings({ listeningSentenceCount: count })}
-              >
-                {count}
-              </button>
-            ))}
-          </div>
-        </div>
+        <OptionButtonGroup
+          title={t.settingsListeningSentenceCount}
+          options={LISTENING_SENTENCE_COUNTS.map((count) => ({ id: count, label: String(count) }))}
+          value={settings.listeningSentenceCount}
+          onChange={(count) => updateSettings({ listeningSentenceCount: count })}
+        />
       )}
 
-      <div className="settings-section">
-        <h2>{t.settingsVerbType}</h2>
-        {VERB_TYPES.map((type) => (
-          <label key={type.id} className="option-row">
-            <input
-              type="checkbox"
-              checked={settings.enabledVerbTypes.includes(type.id)}
-              onChange={() => toggleVerbType(type.id)}
-            />
-            <span>{getLabel(type, language)}</span>
-          </label>
-        ))}
-      </div>
+      <CheckboxOptionList
+        title={t.settingsVerbType}
+        options={VERB_TYPES.map((type) => ({ id: type.id, label: getLabel(type, language) }))}
+        selected={settings.enabledVerbTypes}
+        onToggle={(type) => updateSettings({ enabledVerbTypes: toggleInArray(settings.enabledVerbTypes, type) })}
+      />
 
-      <div className="settings-section">
-        <h2>{t.settingsMode}</h2>
+      <SettingsSection title={t.settingsMode}>
         {(
           [
             { id: 'random', label: t.settingsModeRandom },
@@ -184,48 +119,24 @@ export function SettingsScreen({ session, theme, onThemeChange, updateStatus, on
             <label>{mode.label}</label>
           </div>
         ))}
-      </div>
+      </SettingsSection>
 
-      <div className="settings-section">
-        <h2>{t.settingsLanguage}</h2>
-        <div className="count-options">
-          {LANGUAGES.map((lang) => (
-            <button
-              key={lang.id}
-              type="button"
-              className={settings.language === lang.id ? 'active' : ''}
-              onClick={() => updateSettings({ language: lang.id })}
-            >
-              {lang.nameNative}
-            </button>
-          ))}
-        </div>
-      </div>
+      <OptionButtonGroup
+        title={t.settingsLanguage}
+        options={LANGUAGES.map((lang) => ({ id: lang.id, label: lang.nameNative }))}
+        value={settings.language}
+        onChange={(id) => updateSettings({ language: id })}
+      />
 
-      <div className="settings-section">
-        <h2>{t.settingsTheme}</h2>
-        <div className="count-options">
-          {themeOptions.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              className={theme === option.id ? 'active' : ''}
-              onClick={() => onThemeChange(option.id)}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      <OptionButtonGroup title={t.settingsTheme} options={themeOptions} value={theme} onChange={onThemeChange} />
 
-      <div className="settings-section">
-        <h2>{t.settingsUpdate}</h2>
+      <SettingsSection title={t.settingsUpdate}>
         <button type="button" className="btn btn-secondary" onClick={onCheckForUpdate}>
           {updateStatus === 'update-available' ? t.settingsUpdateApply : t.settingsUpdateCheck}
         </button>
         {updateStatus === 'checking' && <p>{t.settingsUpdateChecking}</p>}
         {updateStatus === 'up-to-date' && <p>{t.settingsUpdateUpToDate}</p>}
-      </div>
+      </SettingsSection>
     </>
   )
 }

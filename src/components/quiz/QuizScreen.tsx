@@ -4,8 +4,8 @@ import { VERBS } from '../../data/verbs'
 import { useTranslation } from '../../i18n/LanguageContext'
 import type { useQuizSession } from '../../hooks/useQuizSession'
 import type { Person, Pronoun, PronounType, TenseId } from '../../types/grammar'
-import { CloseIcon } from '../common/CloseIcon'
 import { ExplanationModal } from '../common/ExplanationModal'
+import { TopBarCloseButton } from '../common/TopBarCloseButton'
 import { ConfirmModal } from './ConfirmModal'
 import { HintModal } from './HintModal'
 import { QuestionCard } from './QuestionCard'
@@ -125,17 +125,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
 
   return (
     <>
-      <div className="quiz-topbar">
-        <button
-          type="button"
-          className="btn-icon btn-icon--inverted"
-          aria-label={t.quizInterrupt}
-          title={t.quizInterrupt}
-          onClick={() => setShowInterruptConfirm(true)}
-        >
-          <CloseIcon />
-        </button>
-      </div>
+      <TopBarCloseButton label={t.quizInterrupt} onClose={() => setShowInterruptConfirm(true)} />
 
       <QuestionCard
         current={questionNumber}

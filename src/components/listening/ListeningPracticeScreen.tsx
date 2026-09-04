@@ -4,13 +4,13 @@ import { useTranslation } from '../../i18n/LanguageContext'
 import { formatEstimatedDuration } from '../../lib/listeningSession'
 import type { LanguageCode } from '../../types/language'
 import type { ListeningAnswerWaitSeconds, ListeningSentenceCount } from '../../types/quiz'
-import { CloseIcon } from '../common/CloseIcon'
 import { PlayIcon } from '../common/PlayIcon'
 import { ProgressBar } from '../common/ProgressBar'
 import { RefreshIcon } from '../common/RefreshIcon'
-import { SpeakerIcon } from '../common/SpeakerIcon'
+import { TopBarCloseButton } from '../common/TopBarCloseButton'
 import { ConfirmModal } from '../quiz/ConfirmModal'
 import { LessonPicker } from './LessonPicker'
+import { ListeningStage } from './ListeningStage'
 
 interface ListeningPracticeScreenProps {
   nativeLanguage: LanguageCode
@@ -89,17 +89,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
       <>
         {audioElement}
         <div className="listening-screen">
-          <div className="quiz-topbar">
-            <button
-              type="button"
-              className="btn-icon btn-icon--inverted"
-              aria-label={t.listeningStop}
-              title={t.listeningStop}
-              onClick={() => setLesson(null)}
-            >
-              <CloseIcon />
-            </button>
-          </div>
+          <TopBarCloseButton label={t.listeningStop} onClose={() => setLesson(null)} />
         </div>
       </>
     )
@@ -153,35 +143,18 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     <>
       {audioElement}
       <div className="listening-screen">
-        <div className="quiz-topbar">
-          <button
-            type="button"
-            className="btn-icon btn-icon--inverted"
-            aria-label={t.listeningStop}
-            title={t.listeningStop}
-            onClick={() => setShowStopConfirm(true)}
-          >
-            <CloseIcon />
-          </button>
-        </div>
+        <TopBarCloseButton label={t.listeningStop} onClose={() => setShowStopConfirm(true)} />
 
         <div className="listening-progress-bar-wrapper">
           <ProgressBar current={progress.current} total={progress.total} centerLabel={estimatedTimeLabel} />
         </div>
 
-        <div className="listening-countdown-area">
-          {currentText && <p className="listening-caption">{currentText}</p>}
-          {showCountdown ? (
-            <>
-              <p className="listening-countdown-label">{countdownLabel}</p>
-              <p className="listening-countdown">{secondsRemaining}</p>
-            </>
-          ) : (
-            <div className="listening-audio-icon" aria-hidden="true">
-              <SpeakerIcon />
-            </div>
-          )}
-        </div>
+        <ListeningStage
+          showCountdown={showCountdown}
+          countdownLabel={countdownLabel}
+          secondsRemaining={secondsRemaining}
+          currentText={currentText}
+        />
 
         <div className="listening-controls">
           <button type="button" className="btn btn-primary" onClick={togglePause}>
