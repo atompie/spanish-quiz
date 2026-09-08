@@ -44,6 +44,86 @@
     }
   },
   {
+    "slug": "part_1",
+    "lesson": "lesson_10",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_11",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_12",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_13",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_14",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_15",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_16",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_17",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
     "slug": "a_que_hora_abre",
     "lesson": "lesson_2",
     "counts": {
@@ -182,6 +262,46 @@
       "en": 8,
       "es": 8,
       "pl": 8
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_6",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_7",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_8",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_9",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
     }
   }
 ]
