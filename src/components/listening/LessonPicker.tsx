@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import { useSpeakLessons } from '../../hooks/useSpeakLessons'
 import { useTranslation } from '../../i18n/LanguageContext'
-import { estimateLessonSeconds, formatEstimatedDuration, getEligibleSentences } from '../../lib/listeningSession'
+import {
+  estimateLessonSeconds,
+  formatEstimatedDuration,
+  getEligibleSentences,
+  getLessonTopicWord,
+} from '../../lib/listeningSession'
 import { loadCompletedLessons, toggleCompletedLesson } from '../../lib/storage'
 import type { LanguageCode } from '../../types/language'
-import type { ListeningAnswerWaitSeconds, ListeningSentenceCount } from '../../types/quiz'
+import type { ListeningAnswerWaitSeconds } from '../../types/quiz'
 import { CheckIcon } from '../common/CheckIcon'
 
 interface LessonPickerProps {
   onSelect: (lesson: string) => void
   nativeLanguage: LanguageCode
   answerWaitSeconds: ListeningAnswerWaitSeconds
-  sentenceCount: ListeningSentenceCount
 }
 
 function lessonLabel(lesson: string, lessonLabelText: string): string {
@@ -19,15 +23,15 @@ function lessonLabel(lesson: string, lessonLabelText: string): string {
   return match ? `${lessonLabelText} ${match[1]}` : lesson
 }
 
-export function LessonPicker({ onSelect, nativeLanguage, answerWaitSeconds, sentenceCount }: LessonPickerProps) {
+export function LessonPicker({ onSelect, nativeLanguage, answerWaitSeconds }: LessonPickerProps) {
   const { t } = useTranslation()
-  const { lessons, manifest, hasError } = useSpeakLessons()
+  const { lessons, manifest, metadata, hasError } = useSpeakLessons()
   const [completed, setCompleted] = useState<string[]>(() => loadCompletedLessons())
 
   function lessonDurationLabel(lesson: string): string | null {
     if (!manifest) return null
     const eligible = getEligibleSentences(manifest, nativeLanguage, lesson)
-    const seconds = estimateLessonSeconds(eligible, sentenceCount, answerWaitSeconds)
+    const seconds = estimateLessonSeconds(eligible, answerWaitSeconds)
     if (seconds === 0) return null
     const { hours, minutes } = formatEstimatedDuration(seconds)
     return hours > 0 ? `${hours} ${t.listeningHoursAbbrev} ${minutes} ${t.listeningMinutesAbbrev}` : `${minutes} ${t.listeningMinutesAbbrev}`
@@ -63,11 +67,13 @@ export function LessonPicker({ onSelect, nativeLanguage, answerWaitSeconds, sent
       {lessons.map((lesson) => {
         const isCompleted = completed.includes(lesson)
         const durationLabel = lessonDurationLabel(lesson)
+        const topicWord = getLessonTopicWord(metadata, lesson)
+        const descriptionLabel = [topicWord, durationLabel].filter(Boolean).join(' · ')
         return (
           <div key={lesson} className="quiz-kind-option lesson-option">
             <button type="button" className="lesson-option-select" onClick={() => onSelect(lesson)}>
               <span className="quiz-kind-option-title">{lessonLabel(lesson, t.listeningLessonLabel)}</span>
-              {durationLabel && <span className="quiz-kind-option-description">{durationLabel}</span>}
+              {descriptionLabel && <span className="quiz-kind-option-description">{descriptionLabel}</span>}
             </button>
             <button
               type="button"

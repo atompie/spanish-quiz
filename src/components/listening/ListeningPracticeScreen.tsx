@@ -3,7 +3,7 @@ import { useListeningSession } from '../../hooks/useListeningSession'
 import { useTranslation } from '../../i18n/LanguageContext'
 import { formatEstimatedDuration } from '../../lib/listeningSession'
 import type { LanguageCode } from '../../types/language'
-import type { ListeningAnswerWaitSeconds, ListeningSentenceCount } from '../../types/quiz'
+import type { ListeningAnswerWaitSeconds } from '../../types/quiz'
 import { PlayIcon } from '../common/PlayIcon'
 import { ProgressBar } from '../common/ProgressBar'
 import { RefreshIcon } from '../common/RefreshIcon'
@@ -15,10 +15,9 @@ import { ListeningStage } from './ListeningStage'
 interface ListeningPracticeScreenProps {
   nativeLanguage: LanguageCode
   answerWaitSeconds: ListeningAnswerWaitSeconds
-  sentenceCount: ListeningSentenceCount
 }
 
-export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sentenceCount }: ListeningPracticeScreenProps) {
+export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds }: ListeningPracticeScreenProps) {
   const { t } = useTranslation()
   const [lesson, setLesson] = useState<string | null>(null)
   const {
@@ -35,7 +34,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     start,
     togglePause,
     stop,
-  } = useListeningSession(nativeLanguage, answerWaitSeconds, sentenceCount, lesson)
+  } = useListeningSession(nativeLanguage, answerWaitSeconds, lesson)
 
   const [showStopConfirm, setShowStopConfirm] = useState(false)
 
@@ -49,12 +48,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds, sen
     return (
       <>
         {audioElement}
-        <LessonPicker
-          onSelect={setLesson}
-          nativeLanguage={nativeLanguage}
-          answerWaitSeconds={answerWaitSeconds}
-          sentenceCount={sentenceCount}
-        />
+        <LessonPicker onSelect={setLesson} nativeLanguage={nativeLanguage} answerWaitSeconds={answerWaitSeconds} />
       </>
     )
   }

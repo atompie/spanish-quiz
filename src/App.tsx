@@ -46,7 +46,6 @@ function App() {
             <ListeningPracticeScreen
               nativeLanguage={session.settings.language}
               answerWaitSeconds={session.settings.listeningAnswerWaitSeconds}
-              sentenceCount={session.settings.listeningSentenceCount}
             />
           ) : (
             <QuizScreen session={session} />

@@ -86,7 +86,6 @@ export interface UiStrings {
   listeningLessonsEmptyState: string
   listeningLessonCompletedLabel: string
   settingsListeningWaitTime: string
-  settingsListeningSentenceCount: string
 
   verbRegular: string
   verbIrregular: string

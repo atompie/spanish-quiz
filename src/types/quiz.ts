@@ -7,9 +7,6 @@ export type QuizMode = 'random' | 'mistakes'
 /** Czas oczekiwania (w sekundach) na odpowiedź w trybie "listening". */
 export type ListeningAnswerWaitSeconds = 3 | 5 | 10
 
-/** Liczba zdań losowanych do puli sesji w trybie "listening". */
-export type ListeningSentenceCount = 5 | 10 | 20
-
 /**
  * "phrase"      — odgadywanie całego przykładowego zdania (Verb.examples[]).
  * "conjugation" — odgadywanie gołej odmienionej formy czasownika (Verb.conjugations).
@@ -30,8 +27,6 @@ export interface QuizSettings {
   language: LanguageCode
   /** Używane tylko przez tryb "listening". */
   listeningAnswerWaitSeconds: ListeningAnswerWaitSeconds
-  /** Używane tylko przez tryb "listening". */
-  listeningSentenceCount: ListeningSentenceCount
 }
 
 export interface QuizQuestion {

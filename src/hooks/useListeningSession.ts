@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import {
-  buildSessionPool,
   estimateRemainingSeconds,
   getEligibleSentences,
   getSpeakText,
@@ -48,7 +47,6 @@ export interface UseListeningSessionResult {
 export function useListeningSession(
   nativeLanguage: LanguageCode,
   answerWaitSeconds: number,
-  sentenceCount: number,
   lesson: string | null,
 ): UseListeningSessionResult {
   const [phase, setPhase] = useState<ListeningPhase>('idle')
@@ -212,7 +210,7 @@ export function useListeningSession(
       }
       setIsEmpty(false)
 
-      const newPool = buildSessionPool(eligible, sentenceCount)
+      const newPool = eligible
       const newUsage = initUsageState(newPool)
       const first = pickNextRound(newUsage)
       if (first === null) return // unreachable: newPool is non-empty
@@ -234,7 +232,7 @@ export function useListeningSession(
         // brak/błąd metadata.json => currentText pozostaje null, nic się nie pokazuje
       }
     })()
-  }, [nativeLanguage, sentenceCount, lesson])
+  }, [nativeLanguage, lesson])
 
   const togglePause = useCallback(() => {
     if (phase === 'paused') {

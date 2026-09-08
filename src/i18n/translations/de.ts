@@ -88,7 +88,6 @@ export const de: UiStrings = {
   listeningLessonsEmptyState: 'Noch keine Lektionen verfügbar. Füge Sätze unter public/speak/ hinzu.',
   listeningLessonCompletedLabel: 'Lektion abgeschlossen',
   settingsListeningWaitTime: 'Antwortzeit',
-  settingsListeningSentenceCount: 'Anzahl der Sätze',
 
   verbRegular: 'Regelmäßig',
   verbIrregular: 'Unregelmäßig',

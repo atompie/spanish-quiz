@@ -8,18 +8,8 @@ import type {
   SpeakSentenceManifestEntry,
 } from '../types/speak'
 
-export const SESSION_POOL_SIZE = 20
 /** Ile razy ma zostać powtórzony każdy element (mp3) danego zdania — nie sama liczba użyć zdania. */
 export const MAX_USES_PER_ELEMENT = 3
-
-function shuffle<T>(items: T[], random: () => number): T[] {
-  const result = [...items]
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1))
-    ;[result[i], result[j]] = [result[j], result[i]]
-  }
-  return result
-}
 
 export function getEligibleSentences(
   manifest: SpeakSentenceManifestEntry[],
@@ -49,14 +39,6 @@ export function getAvailableLessons(manifest: SpeakSentenceManifestEntry[]): str
     if (numB) return 1
     return a.localeCompare(b)
   })
-}
-
-export function buildSessionPool(
-  eligible: EligibleSentence[],
-  poolSize: number = SESSION_POOL_SIZE,
-  random: () => number = Math.random,
-): EligibleSentence[] {
-  return shuffle(eligible, random).slice(0, Math.min(poolSize, eligible.length))
 }
 
 export function initUsageState(pool: EligibleSentence[]): SentenceUsageState[] {
@@ -123,19 +105,11 @@ export function estimateRemainingSeconds(remainingRounds: number, answerWaitSeco
 
 /**
  * Szacowany czas trwania całej lekcji, zanim sesja zostanie faktycznie zbudowana (do wyświetlenia na liście
- * lekcji). Sesja losuje `sentenceCount` zdań spośród `eligible`, więc do oszacowania liczby elementów
- * używamy średniej liczby elementów na zdanie z całej puli kwalifikujących się zdań.
+ * lekcji). Sesja wykorzystuje wszystkie kwalifikujące się zdania, więc liczymy sumę ich elementów.
  */
-export function estimateLessonSeconds(
-  eligible: EligibleSentence[],
-  sentenceCount: number,
-  answerWaitSeconds: number,
-): number {
-  if (eligible.length === 0) return 0
-  const avgElementsPerSentence = eligible.reduce((sum, s) => sum + s.elementCount, 0) / eligible.length
-  const sampledSentences = Math.min(sentenceCount, eligible.length)
-  const estimatedRounds = sampledSentences * avgElementsPerSentence * MAX_USES_PER_ELEMENT
-  return estimateRemainingSeconds(estimatedRounds, answerWaitSeconds)
+export function estimateLessonSeconds(eligible: EligibleSentence[], answerWaitSeconds: number): number {
+  const totalElements = eligible.reduce((sum, s) => sum + s.elementCount, 0)
+  return estimateRemainingSeconds(totalElements * MAX_USES_PER_ELEMENT, answerWaitSeconds)
 }
 
 export function formatEstimatedDuration(totalSeconds: number): { hours: number; minutes: number; seconds: number } {
@@ -160,4 +134,13 @@ export function getSpeakText(
   element: number,
 ): string | null {
   return metadata?.[lesson]?.parts?.[slug]?.[lang]?.[element - 1] ?? null
+}
+
+/** Pierwsza fraza „es” pierwszej części lekcji — krótki, reprezentatywny wycinek tematu (np. „¿Cuándo?”), albo `null` gdy brak metadanych. */
+export function getLessonTopicWord(metadata: SpeakMetadata | null, lesson: string): string | null {
+  const parts = metadata?.[lesson]?.parts
+  if (!parts) return null
+  const firstSlug = Object.keys(parts)[0]
+  if (!firstSlug) return null
+  return getSpeakText(metadata, lesson, firstSlug, 'es', 1)
 }
