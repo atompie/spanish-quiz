@@ -1512,6 +1512,196 @@
         ]
       }
     }
+  },
+  "lesson_18": {
+    "level": 1,
+    "verb": {
+      "infinitive": "sacar",
+      "pl": "wyjąć, wypłacić, zrobić, wyprowadzić, mieć, wyrzucić, wynieść",
+      "de": "herausnehmen, abheben, machen, hinausbringen",
+      "en": "to take out, withdraw, take, get, remove"
+    },
+    "parts": {
+      "part_1": {
+        "pl": [
+          "Wyjąć, wypłacić, zrobić, wyprowadzić, mieć, wyrzucić, wynieść",
+          "Wyjmuję telefon z kieszeni.",
+          "Wypłacam pieniądze z bankomatu.",
+          "Robię zdjęcie morza.",
+          "Wyprowadzam psa każdego ranka.",
+          "Mam dobre oceny w szkole.",
+          "Ochroniarz wyprowadza mężczyznę z domu.",
+          "Wynoszę śmieci wieczorem.",
+          "Czy wyjmujesz telefon z torby?",
+          "Gdzie mogę wypłacić pieniądze?",
+          "Czy możesz zrobić mi zdjęcie?",
+          "Muszę wyprowadzić psa przed pracą.",
+          "Moja córka ma bardzo dobre oceny.",
+          "Oni wyrzucają go z domu.",
+          "Czy możesz wynieść śmieci?",
+          "Zawsze robię dużo zdjęć podczas wakacji.",
+          "Wyjęty, wypłacony, zrobiony, wyprowadzony, wyniesiony",
+          "Pieniądze zostały wypłacone z bankomatu.",
+          "Wyjmując, wypłacając, robiąc, wyprowadzając, wynosząc",
+          "On właśnie wyprowadza psa."
+        ],
+        "de": [
+          "herausnehmen, abheben, machen, hinausbringen, bekommen, hinauswerfen, hinausbringen",
+          "Ich nehme das Telefon aus meiner Tasche.",
+          "Ich hebe Geld am Geldautomaten ab.",
+          "Ich mache ein Foto vom Meer.",
+          "Ich gehe jeden Morgen mit dem Hund raus.",
+          "Ich bekomme gute Noten in der Schule.",
+          "Der Sicherheitsmitarbeiter bringt den Mann aus dem Haus.",
+          "Ich bringe abends den Müll raus.",
+          "Nimmst du das Telefon aus der Tasche?",
+          "Wo kann ich Geld abheben?",
+          "Kannst du ein Foto von mir machen?",
+          "Ich muss vor der Arbeit mit dem Hund rausgehen.",
+          "Meine Tochter bekommt sehr gute Noten.",
+          "Sie werfen ihn aus dem Haus.",
+          "Kannst du den Müll rausbringen?",
+          "Ich mache im Urlaub immer viele Fotos.",
+          "herausgenommen, abgehoben, gemacht, hinausgebracht",
+          "Das Geld wurde am Geldautomaten abgehoben.",
+          "herausnehmend, abhebend, machend, hinausbringend",
+          "Er geht gerade mit dem Hund raus."
+        ],
+        "en": [
+          "to take out, withdraw, take, walk, get, remove, take out",
+          "I take the phone out of my pocket.",
+          "I withdraw money from the ATM.",
+          "I take a photo of the sea.",
+          "I take the dog out every morning.",
+          "I get good grades at school.",
+          "The security guard removes the man from the house.",
+          "I take out the rubbish in the evening.",
+          "Do you take the phone out of the bag?",
+          "Where can I withdraw money?",
+          "Can you take a photo of me?",
+          "I have to take the dog out before work.",
+          "My daughter gets very good grades.",
+          "They throw him out of the house.",
+          "Can you take out the rubbish?",
+          "I always take a lot of photos on vacation.",
+          "taken out, withdrawn, taken, removed",
+          "The money was withdrawn from the ATM.",
+          "taking out, withdrawing, taking, walking",
+          "He is taking the dog out right now."
+        ],
+        "es": [
+          "Sacar.",
+          "Saco el teléfono del bolsillo.",
+          "Saco dinero del cajero automático.",
+          "Saco una foto del mar.",
+          "Saco al perro todas las mañanas.",
+          "Saco buenas notas en la escuela.",
+          "El guardia de seguridad saca al hombre de la casa.",
+          "Saco la basura por la noche.",
+          "¿Sacas el teléfono del bolso?",
+          "¿Dónde puedo sacar dinero?",
+          "¿Puedes sacarme una foto?",
+          "Tengo que sacar al perro antes del trabajo.",
+          "Mi hija saca muy buenas notas.",
+          "Lo sacan de la casa.",
+          "¿Puedes sacar la basura?",
+          "Siempre saco muchas fotos durante las vacaciones.",
+          "Sacado",
+          "El dinero ha sido sacado del cajero automático.",
+          "Sacando",
+          "Él está sacando al perro ahora mismo."
+        ]
+      }
+    }
+  },
+  "lesson_19": {
+    "level": 1,
+    "verb": {
+      "infinitive": "la caja",
+      "pl": "pudełko",
+      "de": "die Schachtel / der Karton",
+      "en": "the box"
+    },
+    "parts": {
+      "part_1": {
+        "pl": [
+          "Pudełko",
+          "Z pudełka",
+          "Do pudełka",
+          "Wewnątrz pudełka",
+          "Na pudełku",
+          "Pod pudełkiem",
+          "Nad pudełkiem",
+          "Przed pudełkiem",
+          "Za pudełkiem",
+          "Obok pudełka",
+          "Między pudełkami",
+          "Poza pudełkiem",
+          "Blisko pudełka",
+          "Daleko od pudełka",
+          "Przy pudełku",
+          "Czy to jest w pudełku?",
+          "Zamknięte pudełko"
+        ],
+        "de": [
+          "die Schachtel / der Karton",
+          "aus der Schachtel",
+          "in die Schachtel",
+          "in der Schachtel",
+          "auf der Schachtel",
+          "unter der Schachtel",
+          "über der Schachtel",
+          "vor der Schachtel",
+          "hinter der Schachtel",
+          "neben der Schachtel",
+          "zwischen den Schachteln",
+          "außerhalb der Schachtel",
+          "in der Nähe der Schachtel",
+          "weit von der Schachtel entfernt",
+          "bei der Schachtel",
+          "Ist das in der Schachtel?",
+          "eine geschlossene Schachtel"
+        ],
+        "en": [
+          "the box",
+          "out of the box",
+          "into the box",
+          "inside the box",
+          "on the box",
+          "under the box",
+          "above the box",
+          "in front of the box",
+          "behind the box",
+          "next to the box",
+          "between the boxes",
+          "outside the box",
+          "near the box",
+          "far from the box",
+          "next to the box",
+          "Is it in the box?",
+          "a closed box"
+        ],
+        "es": [
+          "La caja",
+          "De la caja",
+          "A la caja",
+          "Dentro de la caja",
+          "Sobre la caja",
+          "Debajo de la caja",
+          "Encima de la caja",
+          "Delante de la caja",
+          "Detrás de la caja",
+          "Al lado de la caja",
+          "Entre las cajas",
+          "Fuera de la caja",
+          "Cerca de la caja",
+          "Lejos de la caja",
+          "Junto a la caja",
+          "¿Está dentro de la caja?",
+          "Una caja cerrada"
+        ]
+      }
+    }
   }
 
 }

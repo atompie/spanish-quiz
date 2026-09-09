@@ -124,6 +124,26 @@
     }
   },
   {
+    "slug": "part_1",
+    "lesson": "lesson_18",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_19",
+    "counts": {
+      "de": 17,
+      "en": 17,
+      "es": 17,
+      "pl": 17
+    }
+  },
+  {
     "slug": "a_que_hora_abre",
     "lesson": "lesson_2",
     "counts": {
