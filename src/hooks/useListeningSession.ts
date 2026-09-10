@@ -1,22 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import {
+  buildSessionPlan,
   estimateRemainingSeconds,
-  getEligibleSentences,
+  getEligibleItems,
   getSpeakText,
-  initUsageState,
-  pickNextRound,
   speakAudioPath,
-  totalRounds,
-  usesConsumed,
 } from '../lib/listeningSession'
 import type { LanguageCode } from '../types/language'
 import type {
   AudioLangCode,
-  EligibleSentence,
   ListeningPhase,
   ListeningRound,
-  SentenceUsageState,
   SpeakMetadata,
   SpeakSentenceManifestEntry,
 } from '../types/speak'
@@ -34,7 +29,7 @@ export interface UseListeningSessionResult {
   progress: { current: number; total: number; estimatedRemainingSeconds: number }
   isFinished: boolean
   isEmpty: boolean
-  /** Nie udało się pobrać public/speak/manifest.json (np. brak sieci) — inne niż isEmpty. */
+  /** Nie udało się pobrać manifest.json lub metadata.json (np. brak sieci) — inne niż isEmpty. */
   hasLoadError: boolean
   /** Transkrypcja aktualnie odtwarzanego zdania (z metadata.json), albo `null` gdy brak wpisu. */
   currentText: string | null
@@ -51,8 +46,8 @@ export function useListeningSession(
 ): UseListeningSessionResult {
   const [phase, setPhase] = useState<ListeningPhase>('idle')
   const [secondsRemaining, setSecondsRemaining] = useState<number | null>(null)
-  const [pool, setPool] = useState<EligibleSentence[]>([])
-  const [usage, setUsage] = useState<SentenceUsageState[]>([])
+  const [roundIndex, setRoundIndex] = useState(0)
+  const [planLength, setPlanLength] = useState(0)
   const [currentRound, setCurrentRound] = useState<ListeningRound | null>(null)
   const [isEmpty, setIsEmpty] = useState(false)
   const [hasLoadError, setHasLoadError] = useState(false)
@@ -66,16 +61,13 @@ export function useListeningSession(
   const deadlineRef = useRef<number | null>(null)
   const remainingMsAtPauseRef = useRef<number | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const usageRef = useRef<SentenceUsageState[]>(usage)
+  const planRef = useRef<ListeningRound[]>([])
+  const roundIndexRef = useRef(0)
   const answerWaitSecondsRef = useRef(answerWaitSeconds)
 
   useEffect(() => {
     phaseRef.current = phase
   }, [phase])
-
-  useEffect(() => {
-    usageRef.current = usage
-  }, [usage])
 
   useEffect(() => {
     answerWaitSecondsRef.current = answerWaitSeconds
@@ -89,14 +81,16 @@ export function useListeningSession(
   }, [])
 
   const advanceToNextRound = useCallback(() => {
-    const next = pickNextRound(usageRef.current)
-    if (next === null) {
+    const plan = planRef.current
+    const nextIndex = roundIndexRef.current + 1
+    if (nextIndex >= plan.length) {
       setCurrentRound(null)
       setPhase('finished')
       return
     }
-    setUsage(next.nextUsage)
-    setCurrentRound(next.round)
+    roundIndexRef.current = nextIndex
+    setRoundIndex(nextIndex)
+    setCurrentRound(plan[nextIndex])
     setPhase('playing-native')
   }, [])
 
@@ -189,10 +183,16 @@ export function useListeningSession(
 
     void (async () => {
       let manifest: SpeakSentenceManifestEntry[]
+      let fetchedMetadata: SpeakMetadata
       try {
-        const response = await fetch(MANIFEST_URL, { cache: 'no-store' })
-        if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        manifest = (await response.json()) as SpeakSentenceManifestEntry[]
+        const [manifestResponse, metadataResponse] = await Promise.all([
+          fetch(MANIFEST_URL, { cache: 'no-store' }),
+          fetch(METADATA_URL, { cache: 'no-store' }),
+        ])
+        if (!manifestResponse.ok) throw new Error(`HTTP ${manifestResponse.status}`)
+        if (!metadataResponse.ok) throw new Error(`HTTP ${metadataResponse.status}`)
+        manifest = (await manifestResponse.json()) as SpeakSentenceManifestEntry[]
+        fetchedMetadata = (await metadataResponse.json()) as SpeakMetadata
       } catch {
         if (startTokenRef.current !== token) return // stop()/start() fired again before this resolved
         setHasLoadError(true)
@@ -202,35 +202,22 @@ export function useListeningSession(
 
       if (startTokenRef.current !== token) return
 
-      const eligible = getEligibleSentences(manifest, nativeLanguage, lesson)
-      if (eligible.length === 0) {
+      const items = getEligibleItems(manifest, fetchedMetadata, nativeLanguage, lesson)
+      if (items.length === 0) {
         setIsEmpty(true)
         setPhase('idle')
         return
       }
       setIsEmpty(false)
 
-      const newPool = eligible
-      const newUsage = initUsageState(newPool)
-      const first = pickNextRound(newUsage)
-      if (first === null) return // unreachable: newPool is non-empty
-
-      setPool(newPool)
-      setUsage(first.nextUsage)
-      setCurrentRound(first.round)
+      const plan = buildSessionPlan(items)
+      planRef.current = plan
+      roundIndexRef.current = 0
+      setRoundIndex(0)
+      setPlanLength(plan.length)
+      setMetadata(fetchedMetadata)
+      setCurrentRound(plan[0])
       setPhase('playing-native')
-    })()
-
-    // Napisy są opcjonalne — brak pliku/wpisu nie może zablokować odtwarzania ani zgłosić hasLoadError.
-    void (async () => {
-      try {
-        const response = await fetch(METADATA_URL, { cache: 'no-store' })
-        if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const data = (await response.json()) as SpeakMetadata
-        if (startTokenRef.current === token) setMetadata(data)
-      } catch {
-        // brak/błąd metadata.json => currentText pozostaje null, nic się nie pokazuje
-      }
     })()
   }, [nativeLanguage, lesson])
 
@@ -267,16 +254,18 @@ export function useListeningSession(
     setPausedFromPhase(null)
     deadlineRef.current = null
     remainingMsAtPauseRef.current = null
-    setPool([])
-    setUsage([])
+    planRef.current = []
+    roundIndexRef.current = 0
+    setRoundIndex(0)
+    setPlanLength(0)
     setCurrentRound(null)
     setSecondsRemaining(null)
     setMetadata(null)
     setPhase('idle')
   }, [clearTimer])
 
-  const current = usesConsumed(usage)
-  const total = totalRounds(pool)
+  const total = planLength
+  const current = Math.min(roundIndex + 1, total)
   const progress = {
     current,
     total,

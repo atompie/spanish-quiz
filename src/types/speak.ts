@@ -12,27 +12,26 @@ export interface SpeakSentenceManifestEntry {
   counts: Partial<Record<AudioLangCode, number>>
 }
 
+/** Wpis zdania „es”: [tekst, liczba powtórzeń w sesji]. */
+export type SpeakEsEntry = [text: string, repeat: number]
+
 /** Transkrypcje zdań z public/speak/metadata.json — index tablicy (0-based) = plik N.mp3 (1-based, N = index+1). */
 export interface SpeakMetadata {
   [lesson: string]: {
     level: number
-    parts: { [slug: string]: Partial<Record<AudioLangCode, string[]>> }
+    parts: {
+      [slug: string]: Partial<Record<Exclude<AudioLangCode, 'es'>, string[]>> & { es?: SpeakEsEntry[] }
+    }
   }
 }
 
-/** Zdanie kwalifikujące się do sesji dla aktualnego języka ojczystego. */
-export interface EligibleSentence {
+/** Zdanie (element) kwalifikujące się do sesji dla aktualnego języka ojczystego. */
+export interface EligibleItem {
   slug: string
-  /** min(counts.es, counts[nativeLanguage]) */
-  elementCount: number
-}
-
-export interface SentenceUsageState {
-  slug: string
-  elementCount: number
-  /** Pozostałe wykorzystania dla każdego elementu (index 0 = element 1, ...), każdy start na MAX_USES_PER_ELEMENT. */
-  elementUsesRemaining: number[]
-  everUsed: boolean
+  /** 1-based, odpowiada plikowi N.mp3. */
+  element: number
+  /** Docelowa liczba odtworzeń w sesji (z metadata.json, łącznie z pierwszym — sekwencyjnym — odtworzeniem). */
+  repeat: number
 }
 
 export interface ListeningRound {

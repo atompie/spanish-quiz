@@ -1,31 +1,40 @@
 import type { LanguageCode } from '../types/language'
 import type {
   AudioLangCode,
-  EligibleSentence,
+  EligibleItem,
   ListeningRound,
-  SentenceUsageState,
   SpeakMetadata,
   SpeakSentenceManifestEntry,
 } from '../types/speak'
 
-/** Ile razy ma zostać powtórzony każdy element (mp3) danego zdania — nie sama liczba użyć zdania. */
-export const MAX_USES_PER_ELEMENT = 3
+/** Wartość użyta, gdy metadata.json nie podaje liczby powtórzeń dla zdania (brak wpisu / niepoprawna wartość). */
+export const DEFAULT_REPEAT_COUNT = 3
 
-export function getEligibleSentences(
+/** Zdania (elementy) kwalifikujące się do sesji dla lekcji i języka ojczystego — źródłem prawdy jest metadata.json:
+ * bez wpisu w metadata.json zdanie nigdy nie jest odtwarzane, nawet jeśli nagranie istnieje w manifest.json.
+ * Kolejność wyniku = kolejność Przebiegu 1. (klucze `parts` w kolejności z pliku, a w ich obrębie elementy 1..N). */
+export function getEligibleItems(
   manifest: SpeakSentenceManifestEntry[],
+  metadata: SpeakMetadata | null,
   nativeLanguage: LanguageCode,
   lesson: string,
-): EligibleSentence[] {
-  const eligible: EligibleSentence[] = []
-  for (const entry of manifest) {
-    if (entry.lesson !== lesson) continue
-    const esCount = entry.counts.es ?? 0
-    const nativeCount = entry.counts[nativeLanguage] ?? 0
-    if (esCount > 0 && nativeCount > 0) {
-      eligible.push({ slug: entry.slug, elementCount: Math.min(esCount, nativeCount) })
+): EligibleItem[] {
+  const parts = metadata?.[lesson]?.parts
+  if (!parts) return []
+
+  const items: EligibleItem[] = []
+  for (const slug of Object.keys(parts)) {
+    const esArray = parts[slug]?.es ?? []
+    const manifestEntry = manifest.find((entry) => entry.lesson === lesson && entry.slug === slug)
+    const manifestEsCount = manifestEntry?.counts.es ?? 0
+    const manifestNativeCount = manifestEntry?.counts[nativeLanguage] ?? 0
+    const elementCount = Math.min(manifestEsCount, manifestNativeCount, esArray.length)
+
+    for (let i = 0; i < elementCount; i++) {
+      items.push({ slug, element: i + 1, repeat: getSpeakRepeatCount(metadata, lesson, slug, i + 1) })
     }
   }
-  return eligible
+  return items
 }
 
 /** Posortowana lista unikalnych lekcji z manifestu (numerycznie po sufiksie `lesson_N`, reszta alfabetycznie). */
@@ -41,56 +50,36 @@ export function getAvailableLessons(manifest: SpeakSentenceManifestEntry[]): str
   })
 }
 
-export function initUsageState(pool: EligibleSentence[]): SentenceUsageState[] {
-  return pool.map((sentence) => ({
-    slug: sentence.slug,
-    elementCount: sentence.elementCount,
-    elementUsesRemaining: Array(sentence.elementCount).fill(MAX_USES_PER_ELEMENT),
-    everUsed: false,
-  }))
+function shuffle<T>(items: T[], random: () => number): T[] {
+  const result = [...items]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1))
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
 }
 
-export function pickNextRound(
-  usage: SentenceUsageState[],
-  random: () => number = Math.random,
-): { round: ListeningRound; nextUsage: SentenceUsageState[] } | null {
-  const candidates = usage.filter((u) => u.elementUsesRemaining.some((n) => n > 0))
-  if (candidates.length === 0) return null
+/**
+ * Buduje pełny, z góry ustalony plan sesji: Przebieg 1. odtwarza każde zdanie dokładnie raz, w kolejności
+ * `items` (czyli w kolejności z metadata.json / numeracji plików). Kolejne przebiegi są losowe „rundami” —
+ * każda runda to potasowany zestaw zdań, które nie wyczerpały jeszcze swojego budżetu powtórzeń; ponieważ
+ * dane zdanie występuje w rundzie najwyżej raz, nie może wypaść dwa razy pod rząd w obrębie tej samej rundy.
+ * `repeat` to CAŁKOWITA liczba odtworzeń danego zdania (Przebieg 1. liczy się jako jedno z nich).
+ */
+export function buildSessionPlan(items: EligibleItem[], random: () => number = Math.random): ListeningRound[] {
+  const plan: ListeningRound[] = items.map((item) => ({ slug: item.slug, element: item.element }))
 
-  const chosen = candidates[Math.floor(random() * candidates.length)]
+  let remaining = items
+    .map((item) => ({ slug: item.slug, element: item.element, uses: item.repeat - 1 }))
+    .filter((item) => item.uses > 0)
 
-  let elementIndex: number
-  if (!chosen.everUsed) {
-    elementIndex = 0
-  } else {
-    const eligibleIndices = chosen.elementUsesRemaining
-      .map((n, idx) => (n > 0 ? idx : -1))
-      .filter((idx) => idx !== -1)
-    elementIndex = eligibleIndices[Math.floor(random() * eligibleIndices.length)]
+  while (remaining.length > 0) {
+    const round = shuffle(remaining, random)
+    for (const item of round) plan.push({ slug: item.slug, element: item.element })
+    remaining = round.map((item) => ({ ...item, uses: item.uses - 1 })).filter((item) => item.uses > 0)
   }
 
-  const nextUsage = usage.map((u) =>
-    u.slug === chosen.slug
-      ? {
-          ...u,
-          elementUsesRemaining: u.elementUsesRemaining.map((n, idx) => (idx === elementIndex ? n - 1 : n)),
-          everUsed: true,
-        }
-      : u,
-  )
-
-  return { round: { slug: chosen.slug, element: elementIndex + 1 }, nextUsage }
-}
-
-export function totalRounds(pool: EligibleSentence[]): number {
-  return pool.reduce((sum, s) => sum + s.elementCount * MAX_USES_PER_ELEMENT, 0)
-}
-
-export function usesConsumed(usage: SentenceUsageState[]): number {
-  return usage.reduce(
-    (sum, u) => sum + u.elementUsesRemaining.reduce((s, n) => s + (MAX_USES_PER_ELEMENT - n), 0),
-    0,
-  )
+  return plan
 }
 
 /**
@@ -105,11 +94,11 @@ export function estimateRemainingSeconds(remainingRounds: number, answerWaitSeco
 
 /**
  * Szacowany czas trwania całej lekcji, zanim sesja zostanie faktycznie zbudowana (do wyświetlenia na liście
- * lekcji). Sesja wykorzystuje wszystkie kwalifikujące się zdania, więc liczymy sumę ich elementów.
+ * lekcji). Sumujemy docelową liczbę odtworzeń każdego zdania (co najmniej 1 — Przebieg 1. zawsze je odtwarza).
  */
-export function estimateLessonSeconds(eligible: EligibleSentence[], answerWaitSeconds: number): number {
-  const totalElements = eligible.reduce((sum, s) => sum + s.elementCount, 0)
-  return estimateRemainingSeconds(totalElements * MAX_USES_PER_ELEMENT, answerWaitSeconds)
+export function estimateLessonSeconds(eligible: EligibleItem[], answerWaitSeconds: number): number {
+  const totalPlays = eligible.reduce((sum, item) => sum + Math.max(1, item.repeat), 0)
+  return estimateRemainingSeconds(totalPlays, answerWaitSeconds)
 }
 
 export function formatEstimatedDuration(totalSeconds: number): { hours: number; minutes: number; seconds: number } {
@@ -133,7 +122,16 @@ export function getSpeakText(
   lang: AudioLangCode,
   element: number,
 ): string | null {
-  return metadata?.[lesson]?.parts?.[slug]?.[lang]?.[element - 1] ?? null
+  const part = metadata?.[lesson]?.parts?.[slug]
+  if (!part) return null
+  if (lang === 'es') return part.es?.[element - 1]?.[0] ?? null
+  return part[lang]?.[element - 1] ?? null
+}
+
+/** Docelowa liczba odtworzeń zdania „es” z metadata.json, albo `DEFAULT_REPEAT_COUNT` gdy brak/niepoprawny wpis. */
+export function getSpeakRepeatCount(metadata: SpeakMetadata | null, lesson: string, slug: string, element: number): number {
+  const repeat = metadata?.[lesson]?.parts?.[slug]?.es?.[element - 1]?.[1]
+  return typeof repeat === 'number' && Number.isFinite(repeat) && repeat > 0 ? repeat : DEFAULT_REPEAT_COUNT
 }
 
 /** Pierwsza fraza „es” pierwszej części lekcji — krótki, reprezentatywny wycinek tematu (np. „¿Cuándo?”), albo `null` gdy brak metadanych. */

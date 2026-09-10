@@ -4,7 +4,7 @@ import { useTranslation } from '../../i18n/LanguageContext'
 import {
   estimateLessonSeconds,
   formatEstimatedDuration,
-  getEligibleSentences,
+  getEligibleItems,
   getLessonTopicWord,
 } from '../../lib/listeningSession'
 import { loadCompletedLessons, toggleCompletedLesson } from '../../lib/storage'
@@ -30,7 +30,7 @@ export function LessonPicker({ onSelect, nativeLanguage, answerWaitSeconds }: Le
 
   function lessonDurationLabel(lesson: string): string | null {
     if (!manifest) return null
-    const eligible = getEligibleSentences(manifest, nativeLanguage, lesson)
+    const eligible = getEligibleItems(manifest, metadata, nativeLanguage, lesson)
     const seconds = estimateLessonSeconds(eligible, answerWaitSeconds)
     if (seconds === 0) return null
     const { hours, minutes } = formatEstimatedDuration(seconds)
