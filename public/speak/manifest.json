@@ -199,6 +199,26 @@
     }
   },
   {
+    "slug": "de acuerdo con",
+    "lesson": "lesson_20",
+    "counts": {
+      "de": 10,
+      "en": 10,
+      "es": 10,
+      "pl": 10
+    }
+  },
+  {
+    "slug": "según",
+    "lesson": "lesson_20",
+    "counts": {
+      "de": 11,
+      "en": 11,
+      "es": 11,
+      "pl": 11
+    }
+  },
+  {
     "slug": "donde_hay_una_farmacia",
     "lesson": "lesson_3",
     "counts": {

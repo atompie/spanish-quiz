@@ -2704,5 +2704,177 @@
         ]
       }
     }
+  },
+  "lesson_20": {
+  "level": 1,
+  "parts": {
+    "según": {
+      "pl": [
+        "Według niego.",
+        "Według niej.",
+        "Według wiadomości.",
+        "Według prognozy pogody.",
+        "Według mojej opinii.",
+        "Według mojego brata.",
+        "Według lekarza.",
+        "Według prawa.",
+        "Według ciebie.",
+        "Zgodnie z tym, co mówi.",
+        "Według mnie to prawda."
+      ],
+      "de": [
+        "Laut ihm.",
+        "Laut ihr.",
+        "Laut den Nachrichten.",
+        "Laut der Wettervorhersage.",
+        "Meiner Meinung nach.",
+        "Laut meinem Bruder.",
+        "Laut dem Arzt.",
+        "Nach dem Gesetz.",
+        "Deiner Meinung nach.",
+        "Nach dem, was er sagt.",
+        "Meiner Meinung nach ist das wahr."
+      ],
+      "en": [
+        "According to him.",
+        "According to her.",
+        "According to the news.",
+        "According to the weather forecast.",
+        "In my opinion.",
+        "According to my brother.",
+        "According to the doctor.",
+        "According to the law.",
+        "According to you.",
+        "According to what he says.",
+        "In my opinion, that's true."
+      ],
+      "es": [
+        [
+          "Según él.",
+          3
+        ],
+        [
+          "Según ella.",
+          3
+        ],
+        [
+          "Según las noticias.",
+          3
+        ],
+        [
+          "Según el pronóstico del tiempo.",
+          3
+        ],
+        [
+          "Según mi opinión.",
+          3
+        ],
+        [
+          "Según mi hermano.",
+          3
+        ],
+        [
+          "Según el médico.",
+          3
+        ],
+        [
+          "Según la ley.",
+          3
+        ],
+        [
+          "Según tú.",
+          3
+        ],
+        [
+          "Según lo que dice.",
+          3
+        ],
+        [
+          "Según yo, es verdad.",
+          3
+        ]
+      ]
+    },
+    "de acuerdo con": {
+      "pl": [
+        "Zgodnie z prawem.",
+        "Zgodnie z umową.",
+        "Zgodnie z zasadami.",
+        "Zgodnie z planem.",
+        "Zgodnie z wiadomościami.",
+        "Zgodnie z raportem.",
+        "Zgodnie z instrukcją.",
+        "Zgodnie z jego słowami.",
+        "Zgodnie z moją opinią.",
+        "Zgodnie z tym dokumentem."
+      ],
+      "de": [
+        "Gemäß dem Gesetz.",
+        "Gemäß der Vereinbarung.",
+        "Gemäß den Regeln.",
+        "Wie geplant.",
+        "Gemäß den Nachrichten.",
+        "Gemäß dem Bericht.",
+        "Gemäß der Anleitung.",
+        "Seinen Worten zufolge.",
+        "Nach meiner Meinung.",
+        "Gemäß diesem Dokument."
+      ],
+      "en": [
+        "According to the law.",
+        "According to the agreement.",
+        "According to the rules.",
+        "According to the plan.",
+        "According to the news.",
+        "According to the report.",
+        "According to the instructions.",
+        "According to his words.",
+        "According to my opinion.",
+        "According to this document."
+      ],
+      "es": [
+        [
+          "De acuerdo con la ley.",
+          3
+        ],
+        [
+          "De acuerdo con el acuerdo.",
+          3
+        ],
+        [
+          "De acuerdo con las reglas.",
+          3
+        ],
+        [
+          "De acuerdo con el plan.",
+          3
+        ],
+        [
+          "De acuerdo con las noticias.",
+          3
+        ],
+        [
+          "De acuerdo con el informe.",
+          3
+        ],
+        [
+          "De acuerdo con las instrucciones.",
+          3
+        ],
+        [
+          "De acuerdo con sus palabras.",
+          3
+        ],
+        [
+          "De acuerdo con mi opinión.",
+          3
+        ],
+        [
+          "De acuerdo con este documento.",
+          3
+        ]
+      ]
+    }
   }
+}
 }
