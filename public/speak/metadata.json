@@ -220,6 +220,141 @@
       }
     }
   },
+  "lesson_2": {
+    "level": 1,
+    "parts": {
+      "estar_hacer": {
+        "pl": [
+          "Jestem w domu.",
+          "Co robiliście?",
+          "Będę w hotelu.",
+          "Co robisz?",
+          "Byliśmy w restauracji.",
+          "Zrobiła to wczoraj.",
+          "Gdzie będziecie?",
+          "Co zrobimy jutro?",
+          "Byłeś w pracy?",
+          "Robię kolację.",
+          "Kiedy zrobiliście to?",
+          "Ona będzie w domu.",
+          "Co robiłeś wczoraj?",
+          "Byliście tutaj?",
+          "Zrobią to później.",
+          "Gdzie jesteś?",
+          "Co będziesz robił jutro?",
+          "Była w hotelu.",
+          "Robimy to teraz.",
+          "Po co to zrobiłeś?",
+          "Będziemy w Hiszpanii.",
+          "Co zrobili?",
+          "Jesteście w domu?",
+          "Zrobię to później.",
+          "Byłem bardzo zmęczony.",
+          "Co robimy dzisiaj?",
+          "Będziesz w pracy?",
+          "Zrobiła obiad.",
+          "Gdzie byliście wczoraj?",
+          "Robię to teraz."
+        ],
+        "es": [
+          ["Estoy en casa.", 3],
+          ["¿Qué hicisteis?", 3],
+          ["Estaré en el hotel.", 3],
+          ["¿Qué haces?", 3],
+          ["Estuvimos en el restaurante.", 3],
+          ["Lo hizo ayer.", 3],
+          ["¿Dónde estaréis?", 3],
+          ["¿Qué haremos mañana?", 3],
+          ["¿Estuviste en el trabajo?", 3],
+          ["Hago la cena.", 3],
+          ["¿Cuándo hicisteis esto?", 3],
+          ["Ella estará en casa.", 3],
+          ["¿Qué hiciste ayer?", 3],
+          ["¿Estuvisteis aquí?", 3],
+          ["Lo harán más tarde.", 3],
+          ["¿Dónde estás?", 3],
+          ["¿Qué harás mañana?", 3],
+          ["Estuvo en el hotel.", 3],
+          ["Lo hacemos ahora.", 3],
+          ["¿Para qué lo hiciste?", 3],
+          ["Estaremos en España.", 3],
+          ["¿Qué hicieron?", 3],
+          ["¿Estáis en casa?", 3],
+          ["Lo haré más tarde.", 3],
+          ["Estuve muy cansado.", 3],
+          ["¿Qué hacemos hoy?", 3],
+          ["¿Estarás en el trabajo?", 3],
+          ["Hizo la comida.", 3],
+          ["¿Dónde estuvisteis ayer?", 3],
+          ["Lo hago ahora.", 3]
+        ],
+        "en": [
+          "I am at home.",
+          "What did you do?",
+          "I will be at the hotel.",
+          "What are you doing?",
+          "We were at the restaurant.",
+          "She did it yesterday.",
+          "Where will you be?",
+          "What will we do tomorrow?",
+          "Were you at work?",
+          "I am making dinner.",
+          "When did you do this?",
+          "She will be at home.",
+          "What did you do yesterday?",
+          "Were you here?",
+          "They will do it later.",
+          "Where are you?",
+          "What will you do tomorrow?",
+          "She was at the hotel.",
+          "We are doing it now.",
+          "Why did you do it?",
+          "We will be in Spain.",
+          "What did they do?",
+          "Are you at home?",
+          "I will do it later.",
+          "I was very tired.",
+          "What are we doing today?",
+          "Will you be at work?",
+          "She made lunch.",
+          "Where were you yesterday?",
+          "I am doing it now."
+        ],
+        "de": [
+          "Ich bin zu Hause.",
+          "Was habt ihr gemacht?",
+          "Ich werde im Hotel sein.",
+          "Was machst du?",
+          "Wir waren im Restaurant.",
+          "Sie hat es gestern gemacht.",
+          "Wo werdet ihr sein?",
+          "Was werden wir morgen machen?",
+          "Warst du bei der Arbeit?",
+          "Ich mache Abendessen.",
+          "Wann habt ihr das gemacht?",
+          "Sie wird zu Hause sein.",
+          "Was hast du gestern gemacht?",
+          "Wart ihr hier?",
+          "Sie werden es später machen.",
+          "Wo bist du?",
+          "Was wirst du morgen machen?",
+          "Sie war im Hotel.",
+          "Wir machen es jetzt.",
+          "Warum hast du das gemacht?",
+          "Wir werden in Spanien sein.",
+          "Was haben sie gemacht?",
+          "Seid ihr zu Hause?",
+          "Ich werde es später machen.",
+          "Ich war sehr müde.",
+          "Was machen wir heute?",
+          "Wirst du bei der Arbeit sein?",
+          "Sie hat das Mittagessen gemacht.",
+          "Wo wart ihr gestern?",
+          "Ich mache es jetzt."
+        ]
+      }
+    }
+  },
   "lesson_5": {
     "level": 1,
     "parts": {
@@ -2706,177 +2841,177 @@
     }
   },
   "lesson_20": {
-  "level": 1,
-  "parts": {
-    "según": {
-      "pl": [
-        "Według niego.",
-        "Według niej.",
-        "Według wiadomości.",
-        "Według prognozy pogody.",
-        "Według mojej opinii.",
-        "Według mojego brata.",
-        "Według lekarza.",
-        "Według prawa.",
-        "Według ciebie.",
-        "Zgodnie z tym, co mówi.",
-        "Według mnie to prawda."
-      ],
-      "de": [
-        "Laut ihm.",
-        "Laut ihr.",
-        "Laut den Nachrichten.",
-        "Laut der Wettervorhersage.",
-        "Meiner Meinung nach.",
-        "Laut meinem Bruder.",
-        "Laut dem Arzt.",
-        "Nach dem Gesetz.",
-        "Deiner Meinung nach.",
-        "Nach dem, was er sagt.",
-        "Meiner Meinung nach ist das wahr."
-      ],
-      "en": [
-        "According to him.",
-        "According to her.",
-        "According to the news.",
-        "According to the weather forecast.",
-        "In my opinion.",
-        "According to my brother.",
-        "According to the doctor.",
-        "According to the law.",
-        "According to you.",
-        "According to what he says.",
-        "In my opinion, that's true."
-      ],
-      "es": [
-        [
-          "Según él.",
-          3
+    "level": 1,
+    "parts": {
+      "según": {
+        "pl": [
+          "Według niego.",
+          "Według niej.",
+          "Według wiadomości.",
+          "Według prognozy pogody.",
+          "Według mojej opinii.",
+          "Według mojego brata.",
+          "Według lekarza.",
+          "Według prawa.",
+          "Według ciebie.",
+          "Zgodnie z tym, co mówi.",
+          "Według mnie to prawda."
         ],
-        [
-          "Según ella.",
-          3
+        "de": [
+          "Laut ihm.",
+          "Laut ihr.",
+          "Laut den Nachrichten.",
+          "Laut der Wettervorhersage.",
+          "Meiner Meinung nach.",
+          "Laut meinem Bruder.",
+          "Laut dem Arzt.",
+          "Nach dem Gesetz.",
+          "Deiner Meinung nach.",
+          "Nach dem, was er sagt.",
+          "Meiner Meinung nach ist das wahr."
         ],
-        [
-          "Según las noticias.",
-          3
+        "en": [
+          "According to him.",
+          "According to her.",
+          "According to the news.",
+          "According to the weather forecast.",
+          "In my opinion.",
+          "According to my brother.",
+          "According to the doctor.",
+          "According to the law.",
+          "According to you.",
+          "According to what he says.",
+          "In my opinion, that's true."
         ],
-        [
-          "Según el pronóstico del tiempo.",
-          3
-        ],
-        [
-          "Según mi opinión.",
-          3
-        ],
-        [
-          "Según mi hermano.",
-          3
-        ],
-        [
-          "Según el médico.",
-          3
-        ],
-        [
-          "Según la ley.",
-          3
-        ],
-        [
-          "Según tú.",
-          3
-        ],
-        [
-          "Según lo que dice.",
-          3
-        ],
-        [
-          "Según yo, es verdad.",
-          3
+        "es": [
+          [
+            "Según él.",
+            3
+          ],
+          [
+            "Según ella.",
+            3
+          ],
+          [
+            "Según las noticias.",
+            3
+          ],
+          [
+            "Según el pronóstico del tiempo.",
+            3
+          ],
+          [
+            "Según mi opinión.",
+            3
+          ],
+          [
+            "Según mi hermano.",
+            3
+          ],
+          [
+            "Según el médico.",
+            3
+          ],
+          [
+            "Según la ley.",
+            3
+          ],
+          [
+            "Según tú.",
+            3
+          ],
+          [
+            "Según lo que dice.",
+            3
+          ],
+          [
+            "Según yo, es verdad.",
+            3
+          ]
         ]
-      ]
-    },
-    "de acuerdo con": {
-      "pl": [
-        "Zgodnie z prawem.",
-        "Zgodnie z umową.",
-        "Zgodnie z zasadami.",
-        "Zgodnie z planem.",
-        "Zgodnie z wiadomościami.",
-        "Zgodnie z raportem.",
-        "Zgodnie z instrukcją.",
-        "Zgodnie z jego słowami.",
-        "Zgodnie z moją opinią.",
-        "Zgodnie z tym dokumentem."
-      ],
-      "de": [
-        "Gemäß dem Gesetz.",
-        "Gemäß der Vereinbarung.",
-        "Gemäß den Regeln.",
-        "Wie geplant.",
-        "Gemäß den Nachrichten.",
-        "Gemäß dem Bericht.",
-        "Gemäß der Anleitung.",
-        "Seinen Worten zufolge.",
-        "Nach meiner Meinung.",
-        "Gemäß diesem Dokument."
-      ],
-      "en": [
-        "According to the law.",
-        "According to the agreement.",
-        "According to the rules.",
-        "According to the plan.",
-        "According to the news.",
-        "According to the report.",
-        "According to the instructions.",
-        "According to his words.",
-        "According to my opinion.",
-        "According to this document."
-      ],
-      "es": [
-        [
-          "De acuerdo con la ley.",
-          3
+      },
+      "de acuerdo con": {
+        "pl": [
+          "Zgodnie z prawem.",
+          "Zgodnie z umową.",
+          "Zgodnie z zasadami.",
+          "Zgodnie z planem.",
+          "Zgodnie z wiadomościami.",
+          "Zgodnie z raportem.",
+          "Zgodnie z instrukcją.",
+          "Zgodnie z jego słowami.",
+          "Zgodnie z moją opinią.",
+          "Zgodnie z tym dokumentem."
         ],
-        [
-          "De acuerdo con el acuerdo.",
-          3
+        "de": [
+          "Gemäß dem Gesetz.",
+          "Gemäß der Vereinbarung.",
+          "Gemäß den Regeln.",
+          "Wie geplant.",
+          "Gemäß den Nachrichten.",
+          "Gemäß dem Bericht.",
+          "Gemäß der Anleitung.",
+          "Seinen Worten zufolge.",
+          "Nach meiner Meinung.",
+          "Gemäß diesem Dokument."
         ],
-        [
-          "De acuerdo con las reglas.",
-          3
+        "en": [
+          "According to the law.",
+          "According to the agreement.",
+          "According to the rules.",
+          "According to the plan.",
+          "According to the news.",
+          "According to the report.",
+          "According to the instructions.",
+          "According to his words.",
+          "According to my opinion.",
+          "According to this document."
         ],
-        [
-          "De acuerdo con el plan.",
-          3
-        ],
-        [
-          "De acuerdo con las noticias.",
-          3
-        ],
-        [
-          "De acuerdo con el informe.",
-          3
-        ],
-        [
-          "De acuerdo con las instrucciones.",
-          3
-        ],
-        [
-          "De acuerdo con sus palabras.",
-          3
-        ],
-        [
-          "De acuerdo con mi opinión.",
-          3
-        ],
-        [
-          "De acuerdo con este documento.",
-          3
+        "es": [
+          [
+            "De acuerdo con la ley.",
+            3
+          ],
+          [
+            "De acuerdo con el acuerdo.",
+            3
+          ],
+          [
+            "De acuerdo con las reglas.",
+            3
+          ],
+          [
+            "De acuerdo con el plan.",
+            3
+          ],
+          [
+            "De acuerdo con las noticias.",
+            3
+          ],
+          [
+            "De acuerdo con el informe.",
+            3
+          ],
+          [
+            "De acuerdo con las instrucciones.",
+            3
+          ],
+          [
+            "De acuerdo con sus palabras.",
+            3
+          ],
+          [
+            "De acuerdo con mi opinión.",
+            3
+          ],
+          [
+            "De acuerdo con este documento.",
+            3
+          ]
         ]
-      ]
+      }
     }
-  }
-},
+  },
   "lesson_21": {
     "level": 1,
     "parts": {
