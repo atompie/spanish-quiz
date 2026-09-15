@@ -144,58 +144,13 @@
     }
   },
   {
-    "slug": "a_que_hora_abre",
+    "slug": "estar_hacer",
     "lesson": "lesson_2",
     "counts": {
-      "es": 2,
-      "pl": 2
-    }
-  },
-  {
-    "slug": "adonde",
-    "lesson": "lesson_2",
-    "counts": {
-      "es": 1,
-      "pl": 1
-    }
-  },
-  {
-    "slug": "ahora_vuelvo",
-    "lesson": "lesson_2",
-    "counts": {
-      "es": 3,
-      "pl": 3
-    }
-  },
-  {
-    "slug": "cuanto_questa_esto",
-    "lesson": "lesson_2",
-    "counts": {
-      "es": 2,
-      "pl": 2
-    }
-  },
-  {
-    "slug": "donde_esta_el_bano",
-    "lesson": "lesson_2",
-    "counts": {
-      "es": 3,
-      "pl": 3
-    }
-  },
-  {
-    "slug": "me_puede_ayudar",
-    "lesson": "lesson_2",
-    "counts": {
-      "es": 3
-    }
-  },
-  {
-    "slug": "salgo_afuera",
-    "lesson": "lesson_2",
-    "counts": {
-      "es": 4,
-      "pl": 4
+      "de": 30,
+      "en": 30,
+      "es": 30,
+      "pl": 30
     }
   },
   {
@@ -219,59 +174,23 @@
     }
   },
   {
-    "slug": "donde_hay_una_farmacia",
-    "lesson": "lesson_3",
+    "slug": "imperativo",
+    "lesson": "lesson_21",
     "counts": {
-      "es": 3,
-      "pl": 3
+      "de": 15,
+      "en": 15,
+      "es": 15,
+      "pl": 15
     }
   },
   {
-    "slug": "me_has_pillado",
-    "lesson": "lesson_3",
+    "slug": "conectores",
+    "lesson": "lesson_22",
     "counts": {
-      "es": 4,
-      "pl": 4
-    }
-  },
-  {
-    "slug": "puede_repetir_ por_favor",
-    "lesson": "lesson_3",
-    "counts": {
-      "es": 4,
-      "pl": 4
-    }
-  },
-  {
-    "slug": "no_podemos_llegar_tarde",
-    "lesson": "lesson_4",
-    "counts": {
-      "es": 5,
-      "pl": 5
-    }
-  },
-  {
-    "slug": "no_sabria_que_decirte",
-    "lesson": "lesson_4",
-    "counts": {
-      "es": 1,
-      "pl": 1
-    }
-  },
-  {
-    "slug": "se_me_ha_quedado_sin_bateria_el_movil",
-    "lesson": "lesson_4",
-    "counts": {
-      "es": 2,
-      "pl": 2
-    }
-  },
-  {
-    "slug": "seguro_que_esta_en_casa",
-    "lesson": "lesson_4",
-    "counts": {
-      "es": 2,
-      "pl": 2
+      "de": 25,
+      "en": 25,
+      "es": 25,
+      "pl": 25
     }
   },
   {

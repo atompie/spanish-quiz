@@ -1,0 +1,38 @@
+{
+  "dialog_1": {
+    "level": 1,
+    "text": [
+      { "pl": "Przepraszam, jak dojść do stacji kolejowej?", "en": "Excuse me, how do I get to the train station?", "de": "Entschuldigung, wie komme ich zum Bahnhof?", "es": "Perdón, ¿cómo llego a la estación de tren?" },
+      { "pl": "Idź prosto tą ulicą.", "en": "Go straight along this street.", "de": "Gehen Sie diese Straße geradeaus.", "es": "Siga recto por esta calle." },
+      { "pl": "Czy stacja jest daleko?", "en": "Is the station far?", "de": "Ist der Bahnhof weit entfernt?", "es": "¿Está lejos la estación?" },
+      { "pl": "Nie, to tylko dziesięć minut pieszo.", "en": "No, it's only ten minutes on foot.", "de": "Nein, es sind nur zehn Minuten zu Fuß.", "es": "No, son solo diez minutos a pie." },
+      { "pl": "Mam iść prosto?", "en": "Should I go straight?", "de": "Soll ich geradeaus gehen?", "es": "¿Tengo que seguir recto?" },
+      { "pl": "Tak, a potem skręcić w lewo.", "en": "Yes, and then turn left.", "de": "Ja, und dann biegen Sie links ab.", "es": "Sí, y después gire a la izquierda." },
+      { "pl": "Dziękuję bardzo.", "en": "Thank you very much.", "de": "Vielen Dank.", "es": "Muchas gracias." },
+      { "pl": "Nie ma za co.", "en": "You're welcome.", "de": "Gern geschehen.", "es": "De nada." }
+    ]
+  },
+  "dialog_2": {
+    "level": 1,
+    "text": [
+      { "pl": "Cześć, potrzebujesz pomocy?", "en": "Hi, do you need some help?", "de": "Hallo, brauchst du Hilfe?", "es": "Hola, ¿necesitas ayuda?" },
+      { "pl": "Tak, chyba mam problem z biletem.", "en": "Yes, I think I have a problem with the ticket.", "de": "Ja, ich glaube, ich habe ein Problem mit dem Ticket.", "es": "Sí, creo que tengo un problema con el billete." },
+      { "pl": "Spokojnie, dokąd jedziesz?", "en": "Don't worry, where are you going?", "de": "Keine Sorge, wohin fährst du?", "es": "Tranquilo, ¿adónde vas?" },
+      { "pl": "Do centrum. Jestem tutaj pierwszy raz.", "en": "To the city center. It's my first time here.", "de": "Ins Stadtzentrum. Ich bin zum ersten Mal hier.", "es": "Al centro. Es la primera vez que estoy aquí." },
+      { "pl": "Aha, jesteś turystą.", "en": "Ah, you're a tourist.", "de": "Ah, du bist Tourist.", "es": "Ah, eres turista." },
+      { "pl": "Tak, przyjechałem z Hiszpanii.", "en": "Yes, I came from Spain.", "de": "Ja, ich bin aus Spanien gekommen.", "es": "Sí, vengo de España." },
+      { "pl": "A, dlatego słyszę hiszpański.", "en": "Ah, that's why I hear Spanish.", "de": "Ah, deshalb höre ich Spanisch.", "es": "Ah, por eso escucho español." },
+      { "pl": "Mówisz po hiszpańsku?", "en": "Do you speak Spanish?", "de": "Sprichst du Spanisch?", "es": "¿Hablas español?" },
+      { "pl": "Trochę. Uczę się hiszpańskiego.", "en": "A little. I'm learning Spanish.", "de": "Ein bisschen. Ich lerne Spanisch.", "es": "Un poco. Estoy aprendiendo español." },
+      { "pl": "Super. Możesz mi pomóc z biletem?", "en": "Great. Can you help me with the ticket?", "de": "Super. Kannst du mir mit dem Ticket helfen?", "es": "Genial. ¿Puedes ayudarme con el billete?" },
+      { "pl": "Jasne. Pokaż mi.", "en": "Sure. Show me.", "de": "Klar. Zeig mal.", "es": "Claro. A ver." },
+      { "pl": "Chyba trzeba nacisnąć tutaj.", "en": "I think you have to press here.", "de": "Ich glaube, man muss hier drücken.", "es": "Creo que hay que pulsar aquí." },
+      { "pl": "Aha, już widzę.", "en": "Ah, I see it now.", "de": "Ah, jetzt sehe ich es.", "es": "Ah, ahora lo veo." },
+      { "pl": "Ten tramwaj jedzie do centrum.", "en": "This tram goes to the city center.", "de": "Diese Straßenbahn fährt ins Stadtzentrum.", "es": "Este tranvía va al centro." },
+      { "pl": "Świetnie. A gdzie mam wysiąść?", "en": "Great. And where do I get off?", "de": "Super. Und wo muss ich aussteigen?", "es": "Perfecto. ¿Y dónde tengo que bajar?" },
+      { "pl": "Powiem ci. Wysiadamy na następnym przystanku.", "en": "I'll tell you. We get off at the next stop.", "de": "Ich sage es dir. Wir steigen an der nächsten Haltestelle aus.", "es": "Te aviso. Bajamos en la próxima parada." },
+      { "pl": "Naprawdę bardzo mi pomogłeś.", "en": "You really helped me a lot.", "de": "Du hast mir wirklich sehr geholfen.", "es": "De verdad, me has ayudado mucho." },
+      { "pl": "Nie ma problemu. Witamy we Włoszech!", "en": "No problem. Welcome to Italy!", "de": "Kein Problem. Willkommen in Italien!", "es": "No hay problema. ¡Bienvenido a Italia!" }
+    ]
+  }
+}

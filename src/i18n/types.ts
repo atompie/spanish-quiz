@@ -60,6 +60,8 @@ export interface UiStrings {
   quizKindConjugationDescription: string
   quizKindListeningTitle: string
   quizKindListeningDescription: string
+  quizKindDialogTitle: string
+  quizKindDialogDescription: string
 
   listeningStart: string
   listeningPause: string
@@ -86,6 +88,22 @@ export interface UiStrings {
   listeningLessonsEmptyState: string
   listeningLessonCompletedLabel: string
   settingsListeningWaitTime: string
+
+  dialogPause: string
+  dialogResume: string
+  dialogStop: string
+  dialogStopTitle: string
+  dialogStopMessage: string
+  dialogStopConfirm: string
+  dialogStopCancel: string
+  dialogCountdownLabel: string
+  dialogModeTransitionMessage: string
+  dialogLoadError: string
+  dialogEmptyState: string
+  dialogPickerTitle: string
+  dialogLabel: string
+  dialogListLoadError: string
+  dialogListEmptyState: string
 
   verbRegular: string
   verbIrregular: string

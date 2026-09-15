@@ -11,8 +11,9 @@ export type ListeningAnswerWaitSeconds = 3 | 5 | 10
  * "phrase"      — odgadywanie całego przykładowego zdania (Verb.examples[]).
  * "conjugation" — odgadywanie gołej odmienionej formy czasownika (Verb.conjugations).
  * "listening"   — nauka słuchania i mówienia (public/speak/), bez wpisywania odpowiedzi.
+ * "dialog"      — symulacja rozmowy: scenariusz dwuosobowy odtwarzany dwukrotnie (public/dialog/).
  */
-export type QuizKind = 'phrase' | 'conjugation' | 'listening'
+export type QuizKind = 'phrase' | 'conjugation' | 'listening' | 'dialog'
 
 export interface QuizSettings {
   questionCount: QuestionCount

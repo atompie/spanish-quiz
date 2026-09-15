@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { dialogManifestPlugin } from './scripts/vite-plugin-dialog-manifest.ts'
 import { speakManifestPlugin } from './scripts/vite-plugin-speak-manifest.ts'
 
 // https://vite.dev/config/
@@ -8,6 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     speakManifestPlugin(),
+    dialogManifestPlugin(),
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,

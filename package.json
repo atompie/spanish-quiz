@@ -4,14 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "npm run generate:speak-manifest",
+    "predev": "npm run generate:speak-manifest && npm run generate:dialog-manifest",
     "dev": "vite",
-    "prebuild": "npm run generate:speak-manifest",
+    "prebuild": "npm run generate:speak-manifest && npm run generate:dialog-manifest",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "test": "vitest run",
     "validate:verbs": "tsx scripts/validate-verbs.ts",
-    "generate:speak-manifest": "tsx scripts/generate-speak-manifest.ts"
+    "generate:speak-manifest": "tsx scripts/generate-speak-manifest.ts",
+    "generate:dialog-manifest": "tsx scripts/generate-dialog-manifest.ts"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -26,6 +28,7 @@
     "tsx": "^4.23.12",
     "typescript": "~6.0.2",
     "vite": "^8.2.2",
-    "vite-plugin-pwa": "^1.3.0"
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^5.0.0"
   }
 }

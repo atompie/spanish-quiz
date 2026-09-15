@@ -1,0 +1,20 @@
+[
+  {
+    "dialog": "dialog_1",
+    "counts": {
+      "de": 8,
+      "en": 8,
+      "es": 8,
+      "pl": 8
+    }
+  },
+  {
+    "dialog": "dialog_2",
+    "counts": {
+      "de": 18,
+      "en": 18,
+      "es": 18,
+      "pl": 18
+    }
+  }
+]

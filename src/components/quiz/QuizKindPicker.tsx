@@ -12,6 +12,7 @@ export function QuizKindPicker({ onSelect }: QuizKindPickerProps) {
     { id: 'phrase', title: t.quizKindPhraseTitle, description: t.quizKindPhraseDescription },
     { id: 'conjugation', title: t.quizKindConjugationTitle, description: t.quizKindConjugationDescription },
     { id: 'listening', title: t.quizKindListeningTitle, description: t.quizKindListeningDescription },
+    { id: 'dialog', title: t.quizKindDialogTitle, description: t.quizKindDialogDescription },
   ]
 
   return (

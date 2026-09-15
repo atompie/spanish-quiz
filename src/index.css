@@ -30,6 +30,8 @@
   --color-success-soft: #ecfdf3;
   --color-danger: #b91c1c;
   --color-danger-soft: #fef2f2;
+  --color-warning: #f97316;
+  --color-warning-contrast: #ffffff;
 
   color-scheme: light dark;
   font-family: 'Noto Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -737,6 +739,7 @@ button {
 
 .listening-progress-bar-wrapper {
   margin-top: 12px;
+  margin-bottom: 24px;
 }
 
 .progress-bar-row {
@@ -840,7 +843,9 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
   .listening-stage-icon,
-  .listening-stage-sentence {
+  .listening-stage-sentence,
+  .dialog-bubble--live,
+  .dialog-bubble-tag-spinner {
     animation: none;
   }
 }
@@ -872,4 +877,94 @@ button {
   flex-direction: column;
   gap: 12px;
   margin-top: auto;
+}
+
+.dialog-chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  max-width: 480px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dialog-bubble {
+  position: relative;
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.35;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.dialog-bubble--left {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.dialog-bubble--right {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.dialog-bubble--live {
+  animation: listening-audio-pulse 1.6s ease-in-out infinite;
+}
+
+.dialog-bubble--active {
+  background: var(--color-warning);
+  color: var(--color-warning-contrast);
+  border-color: var(--color-warning);
+}
+
+.dialog-bubble-tag {
+  position: absolute;
+  top: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-bubble--left .dialog-bubble-tag {
+  right: -8px;
+}
+
+.dialog-bubble--right .dialog-bubble-tag {
+  left: -8px;
+}
+
+.dialog-bubble-tag--bottom {
+  top: auto;
+  bottom: -8px;
+}
+
+.dialog-bubble-tag-spinner {
+  animation: dialog-tag-spin 1s linear infinite;
+}
+
+@keyframes dialog-tag-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
