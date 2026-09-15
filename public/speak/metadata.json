@@ -2996,5 +2996,195 @@
         ]
       }
     }
+  },
+  "lesson_22": {
+    "level": 1,
+    "parts": {
+      "conectores": {
+        "pl": [
+          "zamiast",
+          "mimo to",
+          "jednak",
+          "nawet",
+          "dlatego",
+          "poza tym",
+          "chociaż",
+          "ponieważ",
+          "potem",
+          "na końcu ",
+          "wtedy",
+          "też",
+          "też nie",
+          "za każdym razem",
+          "dlatego, zatem",
+          "po tym",
+          "właściwie",
+          "przy okazji",
+          "ostatecznie",
+          "pewnego razu",
+          "raz na zawsze",
+          "jednocześnie",
+          "od czasu do czasu",
+          "znowu",
+          "od nowa"
+        ],
+        "de": [
+          "anstatt",
+          "trotzdem",
+          "jedoch",
+          "sogar",
+          "deshalb",
+          "außerdem",
+          "obwohl",
+          "weil",
+          "danach",
+          "am Ende",
+          "also",
+          "auch",
+          "auch nicht",
+          "jedes Mal",
+          "daher, deshalb",
+          "danach",
+          "eigentlich",
+          "übrigens",
+          "letztendlich",
+          "einmal",
+          "ein für alle Mal",
+          "gleichzeitig",
+          "von Zeit zu Zeit",
+          "wieder",
+          "von neuem"
+        ],
+        "en": [
+          "instead of",
+          "even so",
+          "however",
+          "even",
+          "that's why",
+          "besides",
+          "although",
+          "because",
+          "afterwards",
+          "in the end",
+          "then",
+          "also",
+          "neither",
+          "every time",
+          "therefore",
+          "after that",
+          "actually",
+          "by the way",
+          "in the end",
+          "once",
+          "once and for all",
+          "at the same time",
+          "from time to time",
+          "again",
+          "anew"
+        ],
+        "es": [
+          [
+            "En vez de",
+            3
+          ],
+          [
+            "Aun así",
+            3
+          ],
+          [
+            "Sin embargo",
+            3
+          ],
+          [
+            "Aun",
+            3
+          ],
+          [
+            "Por eso",
+            3
+          ],
+          [
+            "Además",
+            3
+          ],
+          [
+            "Aunque",
+            3
+          ],
+          [
+            "Porque",
+            3
+          ],
+          [
+            "Después",
+            3
+          ],
+          [
+            "Al final",
+            3
+          ],
+          [
+            "Entonces",
+            3
+          ],
+          [
+            "También",
+            3
+          ],
+          [
+            "Tampoco",
+            3
+          ],
+          [
+            "Cada vez",
+            3
+          ],
+          [
+            "Por lo tanto",
+            3
+          ],
+          [
+            "Después de eso",
+            3
+          ],
+          [
+            "De hecho",
+            3
+          ],
+          [
+            "Por cierto",
+            3
+          ],
+          [
+            "Al final",
+            3
+          ],
+          [
+            "Una vez",
+            3
+          ],
+          [
+            "De una vez",
+            3
+          ],
+          [
+            "A la vez",
+            3
+          ],
+          [
+            "De vez en cuando",
+            3
+          ],
+          [
+            "Otra vez",
+            3
+          ],
+          [
+            "De nuevo",
+            3
+          ]
+        ]
+      }
+    }
   }
 }
