@@ -2876,5 +2876,125 @@
       ]
     }
   }
-}
+},
+  "lesson_21": {
+    "level": 1,
+    "parts": {
+      "imperativo": {
+        "pl": [
+          "Przyjdź tutaj.",
+          "Wyjdź.",
+          "Wyjdźcie.",
+          "Zostaw to.",
+          "Podnieś to.",
+          "Zostaw mnie.",
+          "Zamknij się.",
+          "Przestań.",
+          "Rozpocznij to.",
+          "Otwórz to.",
+          "Zamknij to.",
+          "Wsiadaj.",
+          "Wysiadaj.",
+          "Wchodzimy.",
+          "Zapytaj go."
+        ],
+        "de": [
+          "Komm her.",
+          "Geh raus.",
+          "Geht raus.",
+          "Lass es.",
+          "Heb es auf.",
+          "Lass mich.",
+          "Sei still.",
+          "Hör auf.",
+          "Fang damit an.",
+          "Mach es auf.",
+          "Mach es zu.",
+          "Steig ein.",
+          "Steig aus.",
+          "Wir gehen hinein.",
+          "Frag ihn."
+        ],
+        "en": [
+          "Come here.",
+          "Go out.",
+          "Go out.",
+          "Leave it.",
+          "Pick it up.",
+          "Leave me.",
+          "Shut up.",
+          "Stop.",
+          "Start it.",
+          "Open it.",
+          "Close it.",
+          "Get in.",
+          "Get out.",
+          "We're going in.",
+          "Ask him."
+        ],
+        "es": [
+          [
+            "Ven aquí.",
+            3
+          ],
+          [
+            "Sal.",
+            3
+          ],
+          [
+            "Salid.",
+            3
+          ],
+          [
+            "Déjalo.",
+            3
+          ],
+          [
+            "Levántalo.",
+            3
+          ],
+          [
+            "Déjame.",
+            3
+          ],
+          [
+            "Cállate.",
+            3
+          ],
+          [
+            "Para.",
+            3
+          ],
+          [
+            "Empieza esto.",
+            3
+          ],
+          [
+            "Ábrelo.",
+            3
+          ],
+          [
+            "Ciérralo.",
+            3
+          ],
+          [
+            "Sube.",
+            3
+          ],
+          [
+            "Baja.",
+            3
+          ],
+          [
+            "Entramos.",
+            3
+          ],
+          [
+            "Pregúntale.",
+            3
+          ]
+        ]
+      }
+    }
+  }
 }
