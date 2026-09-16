@@ -37,7 +37,7 @@ export function getEligibleItems(
   return items
 }
 
-/** Poziom CEFR zakodowany w id lekcji (`lesson_<LEVEL>`, np. `lesson_A1.1`, `lesson_B1.10`). */
+/** Poziom CEFR zakodowany w id lekcji (`lesson_<LEVEL>`, np. `lesson_A1.1`, `lesson_B1.10`, `lesson_A1.1.1`). */
 export interface LessonLevel {
   /** Litera poziomu CEFR: 'A' | 'B' | 'C'. */
   level: 'A' | 'B' | 'C'
@@ -45,11 +45,13 @@ export interface LessonLevel {
   sublevel: 1 | 2
   /** Numer kolejny w ramach podpoziomu (`.N`), albo `0` gdy sufiks `.N` nie występuje. */
   sequence: number
+  /** Numer pod-lekcji w ramach numeru kolejnego (`.N.M`), albo `0` gdy sufiks `.M` nie występuje. */
+  subsequence: number
 }
 
-const LESSON_LEVEL_PATTERN = /^lesson_([ABC])([12])(?:\.(\d+))?$/
+const LESSON_LEVEL_PATTERN = /^lesson_([ABC])([12])(?:\.(\d+))?(?:\.(\d+))?$/
 
-/** Rozbija id lekcji na poziom CEFR + numer kolejny, albo `null` gdy id nie pasuje do wzorca `lesson_<LEVEL>`. */
+/** Rozbija id lekcji na poziom CEFR + numer kolejny + numer pod-lekcji, albo `null` gdy id nie pasuje do wzorca `lesson_<LEVEL>`. */
 export function parseLessonLevel(lesson: string): LessonLevel | null {
   const match = LESSON_LEVEL_PATTERN.exec(lesson)
   if (!match) return null
@@ -57,6 +59,7 @@ export function parseLessonLevel(lesson: string): LessonLevel | null {
     level: match[1] as 'A' | 'B' | 'C',
     sublevel: Number(match[2]) as 1 | 2,
     sequence: match[3] ? Number(match[3]) : 0,
+    subsequence: match[4] ? Number(match[4]) : 0,
   }
 }
 
@@ -65,15 +68,17 @@ export function parseLessonLevel(lesson: string): LessonLevel | null {
 export function lessonLabel(lesson: string, lessonLabelText: string): string {
   const cefr = parseLessonLevel(lesson)
   if (cefr) {
-    const suffix = cefr.sequence > 0 ? `.${cefr.sequence}` : ''
-    return `${lessonLabelText} ${cefr.level}${cefr.sublevel}${suffix}`
+    const sequenceSuffix = cefr.sequence > 0 ? `.${cefr.sequence}` : ''
+    const subsequenceSuffix = cefr.subsequence > 0 ? `.${cefr.subsequence}` : ''
+    return `${lessonLabelText} ${cefr.level}${cefr.sublevel}${sequenceSuffix}${subsequenceSuffix}`
   }
   const match = /^lesson_(\d+)$/.exec(lesson)
   return match ? `${lessonLabelText} ${match[1]}` : lesson
 }
 
-/** Posortowana lista unikalnych lekcji z manifestu: najpierw wg poziomu CEFR (A1 < A2 < B1 < ... < numer kolejny),
- * lekcje ze starym, czysto liczbowym id (`lesson_N`) trafiają przed lekcjami CEFR, posortowane numerycznie. */
+/** Posortowana lista unikalnych lekcji z manifestu: najpierw wg poziomu CEFR (A1 < A2 < B1 < ... < numer kolejny <
+ * numer pod-lekcji), lekcje ze starym, czysto liczbowym id (`lesson_N`) trafiają przed lekcjami CEFR, posortowane
+ * numerycznie. */
 export function getAvailableLessons(manifest: SpeakSentenceManifestEntry[]): string[] {
   const lessons = [...new Set(manifest.map((entry) => entry.lesson))]
   return lessons.sort((a, b) => {
@@ -82,7 +87,8 @@ export function getAvailableLessons(manifest: SpeakSentenceManifestEntry[]): str
     if (levelA && levelB) {
       if (levelA.level !== levelB.level) return levelA.level.localeCompare(levelB.level)
       if (levelA.sublevel !== levelB.sublevel) return levelA.sublevel - levelB.sublevel
-      return levelA.sequence - levelB.sequence
+      if (levelA.sequence !== levelB.sequence) return levelA.sequence - levelB.sequence
+      return levelA.subsequence - levelB.subsequence
     }
     if (levelA) return 1
     if (levelB) return -1
@@ -187,4 +193,15 @@ export function getLessonTopicWord(metadata: SpeakMetadata | null, lesson: strin
   const firstSlug = Object.keys(parts)[0]
   if (!firstSlug) return null
   return getSpeakText(metadata, lesson, firstSlug, 'es', 1)
+}
+
+/** Tytuł lekcji dla języka ojczystego ucznia: `title[nativeLanguage]` gdy istnieje (bez wyszukiwania w innych
+ * językach), inaczej pierwszy klucz `parts` (np. „ser”, „cuando”), albo `null` gdy brak danych lekcji. */
+export function getLessonTitle(metadata: SpeakMetadata | null, lesson: string, nativeLanguage: LanguageCode): string | null {
+  const lessonData = metadata?.[lesson]
+  if (!lessonData) return null
+  const title = lessonData.title?.[nativeLanguage]
+  if (title) return title
+  const firstSlug = Object.keys(lessonData.parts)[0]
+  return firstSlug ?? null
 }

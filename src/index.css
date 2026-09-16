@@ -840,6 +840,14 @@ button {
   gap: 16px;
 }
 
+.listening-stage-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
 .listening-stage-counter {
   display: flex;
   flex-direction: column;

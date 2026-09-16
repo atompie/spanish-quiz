@@ -30,6 +30,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds }: L
     isEmpty,
     hasLoadError,
     currentText,
+    lessonTitle,
     audioRef,
     start,
     togglePause,
@@ -148,6 +149,7 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds }: L
           countdownLabel={countdownLabel}
           secondsRemaining={secondsRemaining}
           currentText={currentText}
+          lessonTitle={lessonTitle}
         />
 
         <div className="listening-controls">

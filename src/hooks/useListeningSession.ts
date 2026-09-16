@@ -4,6 +4,7 @@ import {
   buildSessionPlan,
   estimateRemainingSeconds,
   getEligibleItems,
+  getLessonTitle,
   getSpeakText,
   speakAudioPath,
 } from '../lib/listeningSession'
@@ -33,6 +34,8 @@ export interface UseListeningSessionResult {
   hasLoadError: boolean
   /** Transkrypcja aktualnie odtwarzanego zdania (z metadata.json), albo `null` gdy brak wpisu. */
   currentText: string | null
+  /** Tytuł aktualnej lekcji (z metadata.json, z fallbackiem na pierwszy klucz `parts`), albo `null` gdy brak lekcji/metadanych. */
+  lessonTitle: string | null
   audioRef: RefObject<HTMLAudioElement | null>
   start: () => void
   togglePause: () => void
@@ -283,6 +286,7 @@ export function useListeningSession(
     currentRound && lesson && currentLang
       ? getSpeakText(metadata, lesson, currentRound.slug, currentLang, currentRound.element)
       : null
+  const lessonTitle = lesson ? getLessonTitle(metadata, lesson, nativeLanguage) : null
 
   return {
     phase,
@@ -294,6 +298,7 @@ export function useListeningSession(
     isEmpty,
     hasLoadError,
     currentText,
+    lessonTitle,
     audioRef,
     start,
     togglePause,

@@ -63,8 +63,8 @@ export function LessonPicker({ onSelect, nativeLanguage, answerWaitSeconds }: Le
       {lessons.map((lesson) => {
         const isCompleted = completed.includes(lesson)
         const durationLabel = lessonDurationLabel(lesson)
-        const topicWord = getLessonTopicWord(metadata, lesson)
-        const descriptionLabel = [topicWord, durationLabel].filter(Boolean).join(' · ')
+        const topicLabel = metadata?.[lesson]?.title?.[nativeLanguage] ?? getLessonTopicWord(metadata, lesson)
+        const descriptionLabel = [topicLabel, durationLabel].filter(Boolean).join(' · ')
         return (
           <div key={lesson} className="quiz-kind-option lesson-option">
             <button type="button" className="lesson-option-select" onClick={() => onSelect(lesson)}>

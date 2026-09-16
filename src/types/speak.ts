@@ -19,6 +19,8 @@ export type SpeakEsEntry = [text: string, repeat: number]
 export interface SpeakMetadata {
   [lesson: string]: {
     level: number
+    /** Tytuł lekcji per język UI — opcjonalny, może brakować dla części lub wszystkich języków. */
+    title?: Partial<Record<LanguageCode, string>>
     parts: {
       [slug: string]: Partial<Record<Exclude<AudioLangCode, 'es'>, string[]>> & { es?: SpeakEsEntry[] }
     }
