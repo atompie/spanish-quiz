@@ -114,4 +114,9 @@ export const pl: UiStrings = {
   verbIrregular: 'Nieregularny',
   verbSearchPlaceholder: 'Szukaj czasownika...',
   verbSearchEmpty: 'Nie znaleziono czasowników.',
+
+  sessionResumeTitle: 'Wznowić sesję?',
+  sessionResumeMessage: 'Masz przerwaną sesję. Możesz ją wznowić od miejsca przerwania albo zacząć od nowa.',
+  sessionResumeConfirm: 'WZNÓW',
+  sessionResumeDiscard: 'ZACZNIJ OD NOWA',
 }

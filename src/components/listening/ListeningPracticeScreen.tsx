@@ -38,6 +38,9 @@ export function ListeningPracticeScreen({
     hasLoadError,
     currentText,
     lessonTitle,
+    resumableLesson,
+    resumeSession,
+    discardResumableSession,
     audioRef,
     start,
     togglePause,
@@ -57,6 +60,19 @@ export function ListeningPracticeScreen({
       <>
         {audioElement}
         <LessonPicker onSelect={setLesson} nativeLanguage={nativeLanguage} answerWaitSeconds={answerWaitSeconds} />
+        {resumableLesson && (
+          <ConfirmModal
+            title={t.sessionResumeTitle}
+            message={t.sessionResumeMessage}
+            confirmLabel={t.sessionResumeConfirm}
+            cancelLabel={t.sessionResumeDiscard}
+            onConfirm={() => {
+              setLesson(resumableLesson)
+              resumeSession()
+            }}
+            onCancel={discardResumableSession}
+          />
+        )}
       </>
     )
   }

@@ -114,4 +114,9 @@ export const de: UiStrings = {
   verbIrregular: 'Unregelmäßig',
   verbSearchPlaceholder: 'Verb suchen...',
   verbSearchEmpty: 'Keine Verben gefunden.',
+
+  sessionResumeTitle: 'Sitzung fortsetzen?',
+  sessionResumeMessage: 'Du hast eine unterbrochene Sitzung. Setze sie fort, oder beginne neu.',
+  sessionResumeConfirm: 'FORTSETZEN',
+  sessionResumeDiscard: 'NEU BEGINNEN',
 }

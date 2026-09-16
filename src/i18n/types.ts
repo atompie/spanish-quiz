@@ -112,4 +112,9 @@ export interface UiStrings {
   verbIrregular: string
   verbSearchPlaceholder: string
   verbSearchEmpty: string
+
+  sessionResumeTitle: string
+  sessionResumeMessage: string
+  sessionResumeConfirm: string
+  sessionResumeDiscard: string
 }

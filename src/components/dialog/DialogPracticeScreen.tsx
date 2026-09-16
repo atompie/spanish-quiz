@@ -39,6 +39,9 @@ export function DialogPracticeScreen({ nativeLanguage }: DialogPracticeScreenPro
     currentText,
     history,
     currentTurn,
+    resumableDialog,
+    resumeSession,
+    discardResumableSession,
     audioRef,
     start,
     togglePause,
@@ -66,6 +69,19 @@ export function DialogPracticeScreen({ nativeLanguage }: DialogPracticeScreenPro
       <>
         {audioElement}
         <DialogPicker onSelect={setDialog} />
+        {resumableDialog && (
+          <ConfirmModal
+            title={t.sessionResumeTitle}
+            message={t.sessionResumeMessage}
+            confirmLabel={t.sessionResumeConfirm}
+            cancelLabel={t.sessionResumeDiscard}
+            onConfirm={() => {
+              setDialog(resumableDialog)
+              resumeSession()
+            }}
+            onCancel={discardResumableSession}
+          />
+        )}
       </>
     )
   }
