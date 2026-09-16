@@ -1,6 +1,12 @@
 {
   "lesson_A1.1.1": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika ser w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs ser im Präsens und Imperativ",
+      "en": "Conjugation of the verb ser in the present tense and imperative",
+      "es": "Conjugación del verbo ser en presente e imperativo"
+    },
     "parts": {
       "ser": {
         "pl": [
@@ -52,6 +58,12 @@
   },
   "lesson_A1.1.2": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika estar w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs estar im Präsens und Imperativ",
+      "en": "Conjugation of the verb estar in the present tense and imperative",
+      "es": "Conjugación del verbo estar en presente e imperativo"
+    },
     "parts": {
       "estar": {
         "pl": [
@@ -103,6 +115,12 @@
   },
   "lesson_A1.1.3": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika tener w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs tener im Präsens und Imperativ",
+      "en": "Conjugation of the verb tener in the present tense and imperative",
+      "es": "Conjugación del verbo tener en presente e imperativo"
+    },
     "parts": {
       "tener": {
         "pl": [
@@ -154,6 +172,12 @@
   },
   "lesson_A1.1.4": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika hacer w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs hacer im Präsens und Imperativ",
+      "en": "Conjugation of the verb hacer in the present tense and imperative",
+      "es": "Conjugación del verbo hacer en presente e imperativo"
+    },
     "parts": {
       "hacer": {
         "pl": [
@@ -205,6 +229,12 @@
   },
   "lesson_A1.1.5": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika saber w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs saber im Präsens und Imperativ",
+      "en": "Conjugation of the verb saber in the present tense and imperative",
+      "es": "Conjugación del verbo saber en presente e imperativo"
+    },
     "parts": {
       "saber": {
         "pl": [
@@ -256,6 +286,12 @@
   },
   "lesson_A1.1.6": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika decir w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs decir im Präsens und Imperativ",
+      "en": "Conjugation of the verb decir in the present tense and imperative",
+      "es": "Conjugación del verbo decir en presente e imperativo"
+    },
     "parts": {
       "decir": {
         "pl": [
@@ -307,6 +343,12 @@
   },
   "lesson_A1.1.7": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika ir w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs ir im Präsens und Imperativ",
+      "en": "Conjugation of the verb ir in the present tense and imperative",
+      "es": "Conjugación del verbo ir en presente e imperativo"
+    },
     "parts": {
       "ir": {
         "pl": [
@@ -358,6 +400,12 @@
   },
   "lesson_A1.1.8": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika venir w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs venir im Präsens und Imperativ",
+      "en": "Conjugation of the verb venir in the present tense and imperative",
+      "es": "Conjugación del verbo venir en presente e imperativo"
+    },
     "parts": {
       "venir": {
         "pl": [
@@ -409,6 +457,12 @@
   },
   "lesson_A1.1.9": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika querer w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs querer im Präsens und Imperativ",
+      "en": "Conjugation of the verb querer in the present tense and imperative",
+      "es": "Conjugación del verbo querer en presente e imperativo"
+    },
     "parts": {
       "querer": {
         "pl": [
@@ -460,6 +514,12 @@
   },
   "lesson_A1.1.10": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika ver w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs ver im Präsens und Imperativ",
+      "en": "Conjugation of the verb ver in the present tense and imperative",
+      "es": "Conjugación del verbo ver en presente e imperativo"
+    },
     "parts": {
       "ver": {
         "pl": [
@@ -511,6 +571,12 @@
   },
   "lesson_A1.1.11": {
     "level": "A1",
+    "title": {
+      "pl": "Odmiana czasownika mirar w czasie teraźniejszym i tryb rozkazujący",
+      "de": "Konjugation des Verbs mirar im Präsens und Imperativ",
+      "en": "Conjugation of the verb mirar in the present tense and imperative",
+      "es": "Conjugación del verbo mirar en presente e imperativo"
+    },
     "parts": {
       "mirar": {
         "pl": [
@@ -562,6 +628,12 @@
   },
   "lesson_A1.2.1": {
     "level": 1,
+    "title": {
+      "pl": "Pytania z cuándo i adónde: kiedy i dokąd",
+      "de": "Fragen mit cuándo und adónde: wann und wohin",
+      "en": "Questions with cuándo and adónde: when and where to",
+      "es": "Preguntas con cuándo y adónde"
+    },
     "parts": {
       "cuando": {
         "pl": [
@@ -783,6 +855,12 @@
   },
   "lesson_A1.3.1": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika traducir: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs traducir: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb traducir: present tense, participle and gerund",
+      "es": "Conjugación del verbo traducir: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "traducir",
       "pl": "tłumaczyć",
@@ -944,6 +1022,12 @@
   },
   "lesson_A1.3.2": {
     "level": 1,
+    "title": {
+      "pl": "Czasownik ir: czas teraźniejszy, przeszły, przyszły i wyrażenia utarte",
+      "de": "Das Verb ir: Präsens, Vergangenheit, Zukunft und feste Wendungen",
+      "en": "The verb ir: present, past, future tense and fixed expressions",
+      "es": "El verbo ir: presente, pasado, futuro y expresiones fijas"
+    },
     "parts": {
       "ir": {
         "pl": [
@@ -1196,6 +1280,12 @@
   },
   "lesson_A1.4": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika dormir: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs dormir: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb dormir: present tense, participle and gerund",
+      "es": "Conjugación del verbo dormir: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "dormir",
       "pl": "spać",
@@ -1357,6 +1447,12 @@
   },
   "lesson_A1.5": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika dar: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs dar: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb dar: present tense, participle and gerund",
+      "es": "Conjugación del verbo dar: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "dar",
       "pl": "dać",
@@ -1518,6 +1614,12 @@
   },
   "lesson_A1.6": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika poner: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs poner: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb poner: present tense, participle and gerund",
+      "es": "Conjugación del verbo poner: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "poner",
       "pl": "kłaść / stawiać",
@@ -1679,6 +1781,12 @@
   },
   "lesson_A1.7": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika encontrar: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs encontrar: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb encontrar: present tense, participle and gerund",
+      "es": "Conjugación del verbo encontrar: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "encontrar",
       "pl": "znaleźć",
@@ -1840,6 +1948,12 @@
   },
   "lesson_A1.8": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika llamar: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs llamar: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb llamar: present tense, participle and gerund",
+      "es": "Conjugación del verbo llamar: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "llamar",
       "pl": "dzwonić",
@@ -2001,6 +2115,12 @@
   },
   "lesson_A1.9": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika nacer: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs nacer: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb nacer: present tense, participle and gerund",
+      "es": "Conjugación del verbo nacer: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "nacer",
       "pl": "urodzić się",
@@ -2162,6 +2282,12 @@
   },
   "lesson_A1.10": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika nadar: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs nadar: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb nadar: present tense, participle and gerund",
+      "es": "Conjugación del verbo nadar: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "nadar",
       "pl": "pływać",
@@ -2323,6 +2449,12 @@
   },
   "lesson_A1.11": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika saber: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs saber: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb saber: present tense, participle and gerund",
+      "es": "Conjugación del verbo saber: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "saber",
       "pl": "wiedzieć",
@@ -2484,6 +2616,12 @@
   },
   "lesson_A1.12": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika repetir: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs repetir: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb repetir: present tense, participle and gerund",
+      "es": "Conjugación del verbo repetir: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "repetir",
       "pl": "powtórzyć",
@@ -2645,6 +2783,12 @@
   },
   "lesson_A1.13": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika conducir: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs conducir: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb conducir: present tense, participle and gerund",
+      "es": "Conjugación del verbo conducir: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "conducir",
       "pl": "kierować samochodem",
@@ -2806,6 +2950,12 @@
   },
   "lesson_A1.14": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika recoger: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs recoger: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb recoger: present tense, participle and gerund",
+      "es": "Conjugación del verbo recoger: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "recoger",
       "pl": "odebrać / zebrać / zabrać / podnieść / zgarnąć",
@@ -2967,6 +3117,12 @@
   },
   "lesson_A1.15": {
     "level": 1,
+    "title": {
+      "pl": "Odmiana czasownika sacar: czas teraźniejszy, imiesłów i gerundio",
+      "de": "Konjugation des Verbs sacar: Präsens, Partizip und Gerundium",
+      "en": "Conjugation of the verb sacar: present tense, participle and gerund",
+      "es": "Conjugación del verbo sacar: presente, participio y gerundio"
+    },
     "verb": {
       "infinitive": "sacar",
       "pl": "wyjąć, wypłacić, zrobić, wyprowadzić, mieć, wyrzucić, wynieść",
@@ -3128,6 +3284,12 @@
   },
   "lesson_A1.16": {
     "level": 1,
+    "title": {
+      "pl": "Przyimki miejsca ze słowem la caja (pudełko)",
+      "de": "Ortspräpositionen mit dem Wort la caja (die Schachtel)",
+      "en": "Prepositions of place with the word la caja (the box)",
+      "es": "Preposiciones de lugar con la palabra la caja"
+    },
     "verb": {
       "infinitive": "la caja",
       "pl": "pudełko",
@@ -3268,6 +3430,12 @@
   },
   "lesson_A1.17": {
     "level": 1,
+    "title": {
+      "pl": "Wyrażenia según i de acuerdo con: według / zgodnie z",
+      "de": "Ausdrücke según und de acuerdo con: laut / gemäß",
+      "en": "Expressions según and de acuerdo con: according to",
+      "es": "Expresiones según y de acuerdo con"
+    },
     "parts": {
       "según": {
         "pl": [
@@ -3440,6 +3608,12 @@
   },
   "lesson_A1.18": {
     "level": 1,
+    "title": {
+      "pl": "Tryb rozkazujący: podstawowe polecenia",
+      "de": "Imperativ: grundlegende Befehle",
+      "en": "Imperative mood: basic commands",
+      "es": "Modo imperativo: órdenes básicas"
+    },
     "parts": {
       "imperativo": {
         "pl": [
@@ -3560,6 +3734,12 @@
   },
   "lesson_A1.19": {
     "level": 1,
+    "title": {
+      "pl": "Spójniki i wyrażenia łączące w zdaniach",
+      "de": "Konnektoren und verbindende Ausdrücke",
+      "en": "Connectors and linking expressions",
+      "es": "Conectores y expresiones de enlace"
+    },
     "parts": {
       "conectores": {
         "pl": [
