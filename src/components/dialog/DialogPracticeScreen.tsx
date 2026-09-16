@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDialogSession } from '../../hooks/useDialogSession'
 import { useTranslation } from '../../i18n/LanguageContext'
+import { loadDialogNativeAudioEnabled, saveDialogNativeAudioEnabled } from '../../lib/storage'
 import type { LanguageCode } from '../../types/language'
 import { ProgressBar } from '../common/ProgressBar'
-import { TopBarCloseButton } from '../common/TopBarCloseButton'
 import { ConfirmModal } from '../quiz/ConfirmModal'
 import { DialogPicker } from './DialogPicker'
 import { DialogStage } from './DialogStage'
+import { DialogTopBar } from './DialogTopBar'
 
 interface DialogPracticeScreenProps {
   nativeLanguage: LanguageCode
@@ -15,6 +16,16 @@ interface DialogPracticeScreenProps {
 export function DialogPracticeScreen({ nativeLanguage }: DialogPracticeScreenProps) {
   const { t } = useTranslation()
   const [dialog, setDialog] = useState<string | null>(null)
+  const [nativeAudioEnabled, setNativeAudioEnabled] = useState(() => loadDialogNativeAudioEnabled())
+
+  const toggleNativeAudio = () => {
+    setNativeAudioEnabled((prev) => {
+      const next = !prev
+      saveDialogNativeAudioEnabled(next)
+      return next
+    })
+  }
+
   const {
     phase,
     turnPhase,
@@ -32,7 +43,7 @@ export function DialogPracticeScreen({ nativeLanguage }: DialogPracticeScreenPro
     start,
     togglePause,
     stop,
-  } = useDialogSession(nativeLanguage, dialog)
+  } = useDialogSession(nativeLanguage, dialog, nativeAudioEnabled)
 
   const [showStopConfirm, setShowStopConfirm] = useState(false)
 
@@ -89,7 +100,15 @@ export function DialogPracticeScreen({ nativeLanguage }: DialogPracticeScreenPro
       <>
         {audioElement}
         <div className="listening-screen">
-          <TopBarCloseButton label={t.dialogStop} onClose={() => setDialog(null)} />
+          <DialogTopBar
+            nativeAudioEnabled={nativeAudioEnabled}
+            onToggleNativeAudio={toggleNativeAudio}
+            toggleLabel={t.dialogNativeAudioLabel}
+            enableLabel={t.dialogNativeAudioEnable}
+            disableLabel={t.dialogNativeAudioDisable}
+            closeLabel={t.dialogStop}
+            onClose={() => setDialog(null)}
+          />
         </div>
       </>
     )
@@ -120,7 +139,15 @@ export function DialogPracticeScreen({ nativeLanguage }: DialogPracticeScreenPro
     <>
       {audioElement}
       <div className="listening-screen">
-        <TopBarCloseButton label={t.dialogStop} onClose={() => setShowStopConfirm(true)} />
+        <DialogTopBar
+          nativeAudioEnabled={nativeAudioEnabled}
+          onToggleNativeAudio={toggleNativeAudio}
+          toggleLabel={t.dialogNativeAudioLabel}
+          enableLabel={t.dialogNativeAudioEnable}
+          disableLabel={t.dialogNativeAudioDisable}
+          closeLabel={t.dialogStop}
+          onClose={() => setShowStopConfirm(true)}
+        />
 
         <div className="listening-progress-bar-wrapper">
           <ProgressBar current={progress.current} total={progress.total} />

@@ -106,6 +106,9 @@ export const en: UiStrings = {
   dialogLabel: 'Dialog',
   dialogListLoadError: "Couldn't load the dialog list. Check your connection and try again.",
   dialogListEmptyState: 'No dialogs available yet. Add content in public/dialog/.',
+  dialogNativeAudioEnable: 'Turn on native-language audio',
+  dialogNativeAudioDisable: 'Turn off native-language audio',
+  dialogNativeAudioLabel: 'Speak native language',
 
   verbRegular: 'Regular',
   verbIrregular: 'Irregular',

@@ -65,6 +65,25 @@ export function hasRecording(
   return element <= count
 }
 
+/** Jak potraktować krok w języku ojczystym kwestii ucznia:
+ * - `'play'` — nagranie istnieje i przełącznik audio jest włączony -> odtwórz je.
+ * - `'text-only'` — nagranie istnieje, ale przełącznik jest wyłączony (wybór ucznia) -> pokaż
+ *   tekst i policz czas tłumaczenia w JEDNYM oczekiwaniu (bez dodatkowego, odrębnego countdownu —
+ *   w przeciwieństwie do `'missing'`, gdzie nagranie faktycznie nie istnieje).
+ * - `'missing'` — nagranie nie istnieje niezależnie od przełącznika -> istniejący dwuetapowy
+ *   fallback (`native-wait-fallback` -> `countdown`), niezmieniony. */
+export type NativeStepMode = 'play' | 'text-only' | 'missing'
+
+export function resolveNativeStepMode(
+  nativeAudioEnabled: boolean,
+  entry: DialogManifestEntry | undefined,
+  nativeLanguage: AudioLangCode,
+  element: number,
+): NativeStepMode {
+  if (!hasRecording(entry, nativeLanguage, element)) return 'missing'
+  return nativeAudioEnabled ? 'play' : 'text-only'
+}
+
 export function dialogAudioPath(dialog: string, lang: AudioLangCode, element: number): string {
   return `/dialog/${dialog}/${lang}/${element}.mp3`
 }

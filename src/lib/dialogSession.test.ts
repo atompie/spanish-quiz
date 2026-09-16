@@ -4,6 +4,7 @@ import {
   findDialogManifestEntry,
   hasRecording,
   pauseFromDuration,
+  resolveNativeStepMode,
   sideForIndex,
   speakerForTurn,
   waitFromAudioDuration,
@@ -111,5 +112,25 @@ describe('hasRecording / missing-recording detection', () => {
 
   it('flags every turn as missing when the dialog itself is absent from the manifest', () => {
     expect(hasRecording(findDialogManifestEntry([entry], 'dialog_2'), 'es', 1)).toBe(false)
+  })
+})
+
+describe('resolveNativeStepMode', () => {
+  const entry: DialogManifestEntry = { dialog: 'dialog_1', counts: { es: 3, pl: 2 } }
+
+  it('plays when audio is enabled and the recording exists', () => {
+    expect(resolveNativeStepMode(true, entry, 'pl', 2)).toBe('play')
+  })
+
+  it('is text-only (single wait) when audio is disabled but the recording exists', () => {
+    expect(resolveNativeStepMode(false, entry, 'pl', 2)).toBe('text-only')
+  })
+
+  it('is missing when audio is enabled but the recording does not exist', () => {
+    expect(resolveNativeStepMode(true, entry, 'pl', 3)).toBe('missing')
+  })
+
+  it('is missing when audio is disabled and the recording does not exist', () => {
+    expect(resolveNativeStepMode(false, entry, 'pl', 3)).toBe('missing')
   })
 })

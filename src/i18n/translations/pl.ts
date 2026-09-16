@@ -106,6 +106,9 @@ export const pl: UiStrings = {
   dialogLabel: 'Dialog',
   dialogListLoadError: 'Nie udało się pobrać listy dialogów. Sprawdź połączenie i spróbuj ponownie.',
   dialogListEmptyState: 'Brak dostępnych dialogów. Dodaj materiały w public/dialog/.',
+  dialogNativeAudioEnable: 'Włącz odtwarzanie w języku ojczystym',
+  dialogNativeAudioDisable: 'Wyłącz odtwarzanie w języku ojczystym',
+  dialogNativeAudioLabel: 'Język ojczysty',
 
   verbRegular: 'Regularny',
   verbIrregular: 'Nieregularny',

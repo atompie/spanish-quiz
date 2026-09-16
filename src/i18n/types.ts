@@ -104,6 +104,9 @@ export interface UiStrings {
   dialogLabel: string
   dialogListLoadError: string
   dialogListEmptyState: string
+  dialogNativeAudioEnable: string
+  dialogNativeAudioDisable: string
+  dialogNativeAudioLabel: string
 
   verbRegular: string
   verbIrregular: string

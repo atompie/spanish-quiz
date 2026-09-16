@@ -12,9 +12,12 @@ const KEYS = {
   history: 'quiz.history',
   theme: 'quiz.theme',
   completedLessons: 'quiz.completedLessons',
+  dialogNativeAudioEnabled: 'quiz.dialogNativeAudioEnabled',
 } as const
 
 export const DEFAULT_THEME: Theme = 'system'
+
+export const DEFAULT_DIALOG_NATIVE_AUDIO_ENABLED = false
 
 export const DEFAULT_SETTINGS: QuizSettings = {
   questionCount: 10,
@@ -96,6 +99,14 @@ export function loadTheme(): Theme {
 
 export function saveTheme(theme: Theme): void {
   writeJson(KEYS.theme, theme)
+}
+
+export function loadDialogNativeAudioEnabled(): boolean {
+  return readJson<boolean>(KEYS.dialogNativeAudioEnabled, DEFAULT_DIALOG_NATIVE_AUDIO_ENABLED)
+}
+
+export function saveDialogNativeAudioEnabled(enabled: boolean): void {
+  writeJson(KEYS.dialogNativeAudioEnabled, enabled)
 }
 
 export function loadHistory(): QuizResultSummary[] {

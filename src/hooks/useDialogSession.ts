@@ -6,6 +6,7 @@ import {
   findDialogManifestEntry,
   hasRecording,
   pauseFromDuration,
+  resolveNativeStepMode,
   waitFromAudioDuration,
   waitFromWordCount,
 } from '../lib/dialogSession'
@@ -54,6 +55,7 @@ export interface UseDialogSessionResult {
 export function useDialogSession(
   nativeLanguage: LanguageCode,
   dialog: string | null,
+  nativeAudioEnabled: boolean,
 ): UseDialogSessionResult {
   const [phase, setPhase] = useState<DialogPhase>('idle')
   const [turnPhase, setTurnPhase] = useState<DialogTurnPhase | null>(null)
@@ -82,6 +84,10 @@ export function useDialogSession(
   /** Czas tłumaczenia (native-playing/native-wait-fallback) ostatniej kwestii ucznia — potrzebny
    * do wyliczenia pauzy po odpowiedzi, gdy dotrze się do `post-answer-pause`. */
   const lastTranslationSecondsRef = useRef<number>(0)
+  /** Trzymane w refie (nie w zależnościach `beginTurn`), żeby przełączenie ustawienia w trakcie
+   * sesji nie zmieniało identity `beginTurn`/`start` i nie wywoływało ponownego montowania sesji
+   * przez efekt „start on dialog change” w ekranie. */
+  const nativeAudioEnabledRef = useRef(nativeAudioEnabled)
 
   useEffect(() => {
     phaseRef.current = phase
@@ -92,6 +98,9 @@ export function useDialogSession(
   useEffect(() => {
     currentTurnRef.current = currentTurn
   }, [currentTurn])
+  useEffect(() => {
+    nativeAudioEnabledRef.current = nativeAudioEnabled
+  }, [nativeAudioEnabled])
 
   const clearTimer = useCallback(() => {
     if (intervalRef.current !== null) {
@@ -130,9 +139,24 @@ export function useDialogSession(
     }
 
     const element = turn.index + 1
-    if (hasRecording(manifestEntryRef.current, nativeLanguage, element)) {
+    const nativeStepMode = resolveNativeStepMode(
+      nativeAudioEnabledRef.current,
+      manifestEntryRef.current,
+      nativeLanguage,
+      element,
+    )
+    if (nativeStepMode === 'play') {
       setSecondsRemaining(null)
       setTurnPhase('native-playing')
+    } else if (nativeStepMode === 'text-only') {
+      // Wyłączone przez przełącznik (nie brakujące nagranie) — jedno oczekiwanie zamiast dwóch:
+      // tekst w języku ojczystym liczy się jednocześnie jako czas tłumaczenia, więc od razu
+      // ustawiamy `countdown` (bez pośredniego `native-wait-fallback`).
+      const nativeText = textRef.current[turn.index]?.[nativeLanguage] ?? ''
+      const seconds = waitFromWordCount(nativeText)
+      lastTranslationSecondsRef.current = seconds
+      startDeadline(seconds)
+      setTurnPhase('countdown')
     } else {
       const nativeText = textRef.current[turn.index]?.[nativeLanguage] ?? ''
       startDeadline(waitFromWordCount(nativeText))
