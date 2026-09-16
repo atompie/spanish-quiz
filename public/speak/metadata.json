@@ -1,9 +1,6 @@
 {
   "lesson_A1.1.1": {
     "level": "A1",
-    "title": {
-      "pl": "Czasownik jestem (stan) - ser"
-    },
     "parts": {
       "ser": {
         "pl": [
@@ -12,7 +9,10 @@
           "jest",
           "jesteśmy",
           "jesteście",
-          "są"
+          "są",
+          "bądź",
+          "bądźmy",
+          "bądźcie"
         ],
         "de": [
           "ich bin",
@@ -20,7 +20,10 @@
           "er/sie/es ist",
           "wir sind",
           "ihr seid",
-          "sie sind"
+          "sie sind",
+          "sei",
+          "seien wir",
+          "seid"
         ],
         "en": [
           "I am",
@@ -28,7 +31,10 @@
           "he/she/it is",
           "we are",
           "you are",
-          "they are"
+          "they are",
+          "be",
+          "let's be",
+          "be"
         ],
         "es": [
           ["soy", 3],
@@ -36,7 +42,10 @@
           ["es", 3],
           ["somos", 3],
           ["sois", 3],
-          ["son", 3]
+          ["son", 3],
+          ["sé", 3],
+          ["seamos", 3],
+          ["sed", 3]
         ]
       }
     }
@@ -51,7 +60,10 @@
           "jest",
           "jesteśmy",
           "jesteście",
-          "są"
+          "są",
+          "bądź",
+          "bądźmy",
+          "bądźcie"
         ],
         "de": [
           "ich bin",
@@ -59,7 +71,10 @@
           "er/sie/es ist",
           "wir sind",
           "ihr seid",
-          "sie sind"
+          "sie sind",
+          "sei",
+          "seien wir",
+          "seid"
         ],
         "en": [
           "I am",
@@ -67,7 +82,10 @@
           "he/she/it is",
           "we are",
           "you are",
-          "they are"
+          "they are",
+          "be",
+          "let's be",
+          "be"
         ],
         "es": [
           ["estoy", 3],
@@ -75,12 +93,474 @@
           ["está", 3],
           ["estamos", 3],
           ["estáis", 3],
-          ["están", 3]
+          ["están", 3],
+          ["está", 3],
+          ["estemos", 3],
+          ["estad", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.3": {
+    "level": "A1",
+    "parts": {
+      "tener": {
+        "pl": [
+          "mam",
+          "masz",
+          "ma",
+          "mamy",
+          "macie",
+          "mają",
+          "miej",
+          "miejmy",
+          "miejcie"
+        ],
+        "de": [
+          "ich habe",
+          "du hast",
+          "er/sie/es hat",
+          "wir haben",
+          "ihr habt",
+          "sie haben",
+          "hab",
+          "haben wir",
+          "habt"
+        ],
+        "en": [
+          "I have",
+          "you have",
+          "he/she/it has",
+          "we have",
+          "you have",
+          "they have",
+          "have",
+          "let's have",
+          "have"
+        ],
+        "es": [
+          ["tengo", 3],
+          ["tienes", 3],
+          ["tiene", 3],
+          ["tenemos", 3],
+          ["tenéis", 3],
+          ["tienen", 3],
+          ["ten", 3],
+          ["tengamos", 3],
+          ["tened", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.4": {
+    "level": "A1",
+    "parts": {
+      "hacer": {
+        "pl": [
+          "robię",
+          "robisz",
+          "robi",
+          "robimy",
+          "robicie",
+          "robią",
+          "zrób",
+          "zróbmy",
+          "zróbcie"
+        ],
+        "de": [
+          "ich mache",
+          "du machst",
+          "er/sie/es macht",
+          "wir machen",
+          "ihr macht",
+          "sie machen",
+          "mach",
+          "machen wir",
+          "macht"
+        ],
+        "en": [
+          "I do",
+          "you do",
+          "he/she/it does",
+          "we do",
+          "you do",
+          "they do",
+          "do",
+          "let's do",
+          "do"
+        ],
+        "es": [
+          ["hago", 3],
+          ["haces", 3],
+          ["hace", 3],
+          ["hacemos", 3],
+          ["hacéis", 3],
+          ["hacen", 3],
+          ["haz", 3],
+          ["hagamos", 3],
+          ["haced", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.5": {
+    "level": "A1",
+    "parts": {
+      "saber": {
+        "pl": [
+          "wiem",
+          "wiesz",
+          "wie",
+          "wiemy",
+          "wiecie",
+          "wiedzą",
+          "wiedz",
+          "wiedzmy",
+          "wiedzcie"
+        ],
+        "de": [
+          "ich weiß",
+          "du weißt",
+          "er/sie/es weiß",
+          "wir wissen",
+          "ihr wisst",
+          "sie wissen",
+          "wisse",
+          "wissen wir",
+          "wisst"
+        ],
+        "en": [
+          "I know",
+          "you know",
+          "he/she/it knows",
+          "we know",
+          "you know",
+          "they know",
+          "know",
+          "let's know",
+          "know"
+        ],
+        "es": [
+          ["sé", 3],
+          ["sabes", 3],
+          ["sabe", 3],
+          ["sabemos", 3],
+          ["sabéis", 3],
+          ["saben", 3],
+          ["sabe", 3],
+          ["sepamos", 3],
+          ["sabed", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.6": {
+    "level": "A1",
+    "parts": {
+      "decir": {
+        "pl": [
+          "mówię",
+          "mówisz",
+          "mówi",
+          "mówimy",
+          "mówicie",
+          "mówią",
+          "powiedz",
+          "powiedzmy",
+          "powiedzcie"
+        ],
+        "de": [
+          "ich sage",
+          "du sagst",
+          "er/sie/es sagt",
+          "wir sagen",
+          "ihr sagt",
+          "sie sagen",
+          "sag",
+          "sagen wir",
+          "sagt"
+        ],
+        "en": [
+          "I say",
+          "you say",
+          "he/she/it says",
+          "we say",
+          "you say",
+          "they say",
+          "say",
+          "let's say",
+          "say"
+        ],
+        "es": [
+          ["digo", 3],
+          ["dices", 3],
+          ["dice", 3],
+          ["decimos", 3],
+          ["decís", 3],
+          ["dicen", 3],
+          ["di", 3],
+          ["digamos", 3],
+          ["decid", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.7": {
+    "level": "A1",
+    "parts": {
+      "ir": {
+        "pl": [
+          "idę",
+          "idziesz",
+          "idzie",
+          "idziemy",
+          "idziecie",
+          "idą",
+          "idź",
+          "idźmy",
+          "idźcie"
+        ],
+        "de": [
+          "ich gehe",
+          "du gehst",
+          "er/sie/es geht",
+          "wir gehen",
+          "ihr geht",
+          "sie gehen",
+          "geh",
+          "gehen wir",
+          "geht"
+        ],
+        "en": [
+          "I go",
+          "you go",
+          "he/she/it goes",
+          "we go",
+          "you go",
+          "they go",
+          "go",
+          "let's go",
+          "go"
+        ],
+        "es": [
+          ["voy", 3],
+          ["vas", 3],
+          ["va", 3],
+          ["vamos", 3],
+          ["vais", 3],
+          ["van", 3],
+          ["ve", 3],
+          ["vayamos", 3],
+          ["id", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.8": {
+    "level": "A1",
+    "parts": {
+      "venir": {
+        "pl": [
+          "przychodzę",
+          "przychodzisz",
+          "przychodzi",
+          "przychodzimy",
+          "przychodzicie",
+          "przychodzą",
+          "przyjdź",
+          "przyjdźmy",
+          "przyjdźcie"
+        ],
+        "de": [
+          "ich komme",
+          "du kommst",
+          "er/sie/es kommt",
+          "wir kommen",
+          "ihr kommt",
+          "sie kommen",
+          "komm",
+          "kommen wir",
+          "kommt"
+        ],
+        "en": [
+          "I come",
+          "you come",
+          "he/she/it comes",
+          "we come",
+          "you come",
+          "they come",
+          "come",
+          "let's come",
+          "come"
+        ],
+        "es": [
+          ["vengo", 3],
+          ["vienes", 3],
+          ["viene", 3],
+          ["venimos", 3],
+          ["venís", 3],
+          ["vienen", 3],
+          ["ven", 3],
+          ["vengamos", 3],
+          ["venid", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.9": {
+    "level": "A1",
+    "parts": {
+      "querer": {
+        "pl": [
+          "chcę",
+          "chcesz",
+          "chce",
+          "chcemy",
+          "chcecie",
+          "chcą",
+          "chciej",
+          "chciejmy",
+          "chciejcie"
+        ],
+        "de": [
+          "ich will",
+          "du willst",
+          "er/sie/es will",
+          "wir wollen",
+          "ihr wollt",
+          "sie wollen",
+          "wolle",
+          "wollen wir",
+          "wollt"
+        ],
+        "en": [
+          "I want",
+          "you want",
+          "he/she/it wants",
+          "we want",
+          "you want",
+          "they want",
+          "want",
+          "let's want",
+          "want"
+        ],
+        "es": [
+          ["quiero", 3],
+          ["quieres", 3],
+          ["quiere", 3],
+          ["queremos", 3],
+          ["queréis", 3],
+          ["quieren", 3],
+          ["quiere", 3],
+          ["queramos", 3],
+          ["quered", 3]
         ]
       }
     }
   },
   "lesson_A1.1.10": {
+    "level": "A1",
+    "parts": {
+      "ver": {
+        "pl": [
+          "widzę",
+          "widzisz",
+          "widzi",
+          "widzimy",
+          "widzicie",
+          "widzą",
+          "zobacz",
+          "zobaczmy",
+          "zobaczcie"
+        ],
+        "de": [
+          "ich sehe",
+          "du siehst",
+          "er/sie/es sieht",
+          "wir sehen",
+          "ihr seht",
+          "sie sehen",
+          "sieh",
+          "sehen wir",
+          "seht"
+        ],
+        "en": [
+          "I see",
+          "you see",
+          "he/she/it sees",
+          "we see",
+          "you see",
+          "they see",
+          "see",
+          "let's see",
+          "see"
+        ],
+        "es": [
+          ["veo", 3],
+          ["ves", 3],
+          ["ve", 3],
+          ["vemos", 3],
+          ["veis", 3],
+          ["ven", 3],
+          ["ve", 3],
+          ["veamos", 3],
+          ["ved", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.11": {
+    "level": "A1",
+    "parts": {
+      "mirar": {
+        "pl": [
+          "patrzę",
+          "patrzysz",
+          "patrzy",
+          "patrzymy",
+          "patrzycie",
+          "patrzą",
+          "patrz",
+          "patrzmy",
+          "patrzcie"
+        ],
+        "de": [
+          "ich schaue",
+          "du schaust",
+          "er/sie/es schaut",
+          "wir schauen",
+          "ihr schaut",
+          "sie schauen",
+          "schau",
+          "schauen wir",
+          "schaut"
+        ],
+        "en": [
+          "I look",
+          "you look",
+          "he/she/it looks",
+          "we look",
+          "you look",
+          "they look",
+          "look",
+          "let's look",
+          "look"
+        ],
+        "es": [
+          ["miro", 3],
+          ["miras", 3],
+          ["mira", 3],
+          ["miramos", 3],
+          ["miráis", 3],
+          ["miran", 3],
+          ["mira", 3],
+          ["miremos", 3],
+          ["mirad", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.2.1": {
     "level": 1,
     "parts": {
       "cuando": {
@@ -301,7 +781,6 @@
       }
     }
   },
-
   "lesson_A1.3.1": {
     "level": 1,
     "verb": {
@@ -3271,6 +3750,9 @@
   },
   "lesson_B1.1": {
     "level": "b1",
+    "title": {
+      "pl": "Odmiana słow: estar, acer we czasie terazniejszym, przyszłym i przeszłym prostym"
+    },
     "parts": {
       "estar_hacer": {
         "pl": [
