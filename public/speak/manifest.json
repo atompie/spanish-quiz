@@ -1,7 +1,17 @@
 [
   {
+    "slug": "ser",
+    "lesson": "lesson_A1.1.1",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
     "slug": "adonde",
-    "lesson": "lesson_A1.1",
+    "lesson": "lesson_A1.1.10",
     "counts": {
       "de": 20,
       "en": 20,
@@ -11,7 +21,7 @@
   },
   {
     "slug": "cuando",
-    "lesson": "lesson_A1.1",
+    "lesson": "lesson_A1.1.10",
     "counts": {
       "de": 8,
       "en": 8,
@@ -21,7 +31,7 @@
   },
   {
     "slug": "qual",
-    "lesson": "lesson_A1.1",
+    "lesson": "lesson_A1.1.10",
     "counts": {
       "es": 4,
       "pl": 4
@@ -29,7 +39,7 @@
   },
   {
     "slug": "que",
-    "lesson": "lesson_A1.1",
+    "lesson": "lesson_A1.1.10",
     "counts": {
       "es": 8,
       "pl": 8
@@ -37,10 +47,90 @@
   },
   {
     "slug": "quien",
-    "lesson": "lesson_A1.1",
+    "lesson": "lesson_A1.1.10",
     "counts": {
       "es": 4,
       "pl": 4
+    }
+  },
+  {
+    "slug": "estar",
+    "lesson": "lesson_A1.1.2",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "tener",
+    "lesson": "lesson_A1.1.3",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "hacer",
+    "lesson": "lesson_A1.1.4",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "saber",
+    "lesson": "lesson_A1.1.5",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "decir",
+    "lesson": "lesson_A1.1.6",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "ir",
+    "lesson": "lesson_A1.1.7",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "venir",
+    "lesson": "lesson_A1.1.8",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
+    }
+  },
+  {
+    "slug": "querer",
+    "lesson": "lesson_A1.1.9",
+    "counts": {
+      "de": 6,
+      "en": 6,
+      "es": 6,
+      "pl": 6
     }
   },
   {
@@ -154,8 +244,18 @@
     }
   },
   {
+    "slug": "part_1",
+    "lesson": "lesson_A1.3.1",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
     "slug": "ir",
-    "lesson": "lesson_A1.2",
+    "lesson": "lesson_A1.3.2",
     "counts": {
       "de": 11,
       "en": 11,
@@ -165,7 +265,7 @@
   },
   {
     "slug": "ir_construcciones",
-    "lesson": "lesson_A1.2",
+    "lesson": "lesson_A1.3.2",
     "counts": {
       "de": 12,
       "en": 12,
@@ -175,22 +275,12 @@
   },
   {
     "slug": "ir_pasado_futuro",
-    "lesson": "lesson_A1.2",
+    "lesson": "lesson_A1.3.2",
     "counts": {
       "de": 8,
       "en": 8,
       "es": 8,
       "pl": 8
-    }
-  },
-  {
-    "slug": "part_1",
-    "lesson": "lesson_A1.3",
-    "counts": {
-      "de": 20,
-      "en": 20,
-      "es": 20,
-      "pl": 20
     }
   },
   {

@@ -1,5 +1,86 @@
 {
-  "lesson_A1.1": {
+  "lesson_A1.1.1": {
+    "level": "A1",
+    "title": {
+      "pl": "Czasownik jestem (stan) - ser"
+    },
+    "parts": {
+      "ser": {
+        "pl": [
+          "jestem",
+          "jesteś",
+          "jest",
+          "jesteśmy",
+          "jesteście",
+          "są"
+        ],
+        "de": [
+          "ich bin",
+          "du bist",
+          "er/sie/es ist",
+          "wir sind",
+          "ihr seid",
+          "sie sind"
+        ],
+        "en": [
+          "I am",
+          "you are",
+          "he/she/it is",
+          "we are",
+          "you are",
+          "they are"
+        ],
+        "es": [
+          ["soy", 3],
+          ["eres", 3],
+          ["es", 3],
+          ["somos", 3],
+          ["sois", 3],
+          ["son", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.2": {
+    "level": "A1",
+    "parts": {
+      "estar": {
+        "pl": [
+          "jestem",
+          "jesteś",
+          "jest",
+          "jesteśmy",
+          "jesteście",
+          "są"
+        ],
+        "de": [
+          "ich bin",
+          "du bist",
+          "er/sie/es ist",
+          "wir sind",
+          "ihr seid",
+          "sie sind"
+        ],
+        "en": [
+          "I am",
+          "you are",
+          "he/she/it is",
+          "we are",
+          "you are",
+          "they are"
+        ],
+        "es": [
+          ["estoy", 3],
+          ["estás", 3],
+          ["está", 3],
+          ["estamos", 3],
+          ["estáis", 3],
+          ["están", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.10": {
     "level": 1,
     "parts": {
       "cuando": {
@@ -220,7 +301,169 @@
       }
     }
   },
-  "lesson_A1.2": {
+
+  "lesson_A1.3.1": {
+    "level": 1,
+    "verb": {
+      "infinitive": "traducir",
+      "pl": "tłumaczyć",
+      "de": "übersetzen",
+      "en": "to translate"
+    },
+    "parts": {
+      "part_1": {
+        "pl": [
+          "Tłumaczyć",
+          "Tłumaczę ten tekst na hiszpański.",
+          "Tłumaczysz tę wiadomość na angielski.",
+          "On tłumaczy dokument na niemiecki.",
+          "Ona tłumaczy książkę na hiszpański.",
+          "Tłumaczymy ten tekst razem.",
+          "Tłumaczycie instrukcję na polski.",
+          "Oni tłumaczą artykuł na angielski.",
+          "Czy tłumaczysz ten dokument?",
+          "Mój brat tłumaczy teksty z hiszpańskiego.",
+          "Muszę przetłumaczyć tę wiadomość.",
+          "Czy możecie przetłumaczyć ten tekst?",
+          "Ona często tłumaczy dla swojej firmy.",
+          "Tłumaczymy wszystko na kilka języków.",
+          "Ten program tłumaczy tekst automatycznie.",
+          "Czy oni tłumaczą ten dokument na niemiecki?",
+          "Przetłumaczony",
+          "Ten dokument jest już przetłumaczony.",
+          "Tłumacząc",
+          "On właśnie tłumaczy ten dokument."
+        ],
+        "de": [
+          "übersetzen",
+          "Ich übersetze diesen Text ins Spanische.",
+          "Du übersetzt diese Nachricht ins Englische.",
+          "Er übersetzt das Dokument ins Deutsche.",
+          "Sie übersetzt das Buch ins Spanische.",
+          "Wir übersetzen diesen Text zusammen.",
+          "Ihr übersetzt die Anleitung ins Polnische.",
+          "Sie übersetzen den Artikel ins Englische.",
+          "Übersetzt du dieses Dokument?",
+          "Mein Bruder übersetzt Texte aus dem Spanischen.",
+          "Ich muss diese Nachricht übersetzen.",
+          "Könnt ihr diesen Text übersetzen?",
+          "Sie übersetzt oft für ihre Firma.",
+          "Wir übersetzen alles in mehrere Sprachen.",
+          "Dieses Programm übersetzt den Text automatisch.",
+          "Übersetzen sie dieses Dokument ins Deutsche?",
+          "übersetzt",
+          "Dieses Dokument ist bereits übersetzt.",
+          "übersetzend",
+          "Er übersetzt gerade dieses Dokument."
+        ],
+        "en": [
+          "to translate",
+          "I translate this text into Spanish.",
+          "You translate this message into English.",
+          "He translates the document into German.",
+          "She translates the book into Spanish.",
+          "We translate this text together.",
+          "You translate the instructions into Polish.",
+          "They translate the article into English.",
+          "Do you translate this document?",
+          "My brother translates texts from Spanish.",
+          "I have to translate this message.",
+          "Can you translate this text?",
+          "She often translates for her company.",
+          "We translate everything into several languages.",
+          "This program translates the text automatically.",
+          "Do they translate this document into German?",
+          "translated",
+          "This document is already translated.",
+          "translating",
+          "He is translating this document right now."
+        ],
+        "es": [
+          [
+            "Traducir.",
+            3
+          ],
+          [
+            "Traduzco este texto al español.",
+            3
+          ],
+          [
+            "Traduces este mensaje al inglés.",
+            3
+          ],
+          [
+            "Él traduce el documento al alemán.",
+            3
+          ],
+          [
+            "Ella traduce el libro al español.",
+            3
+          ],
+          [
+            "Traducimos este texto juntos.",
+            3
+          ],
+          [
+            "Traducís las instrucciones al polaco.",
+            3
+          ],
+          [
+            "Ellos traducen el artículo al inglés.",
+            3
+          ],
+          [
+            "¿Traduces este documento?",
+            3
+          ],
+          [
+            "Mi hermano traduce textos del español.",
+            3
+          ],
+          [
+            "Tengo que traducir este mensaje.",
+            3
+          ],
+          [
+            "¿Podéis traducir este texto?",
+            3
+          ],
+          [
+            "Ella traduce a menudo para su empresa.",
+            3
+          ],
+          [
+            "Traducimos todo a varios idiomas.",
+            3
+          ],
+          [
+            "Este programa traduce el texto automáticamente.",
+            3
+          ],
+          [
+            "¿Traducen ellos este documento al alemán?",
+            3
+          ],
+          [
+            "Traducido",
+            3
+          ],
+          [
+            "Este documento ya está traducido.",
+            3
+          ],
+          [
+            "Traduciendo",
+            3
+          ],
+          [
+            "Él está traduciendo este documento ahora mismo.",
+            3
+          ]
+        ]
+      }
+    }
+  },
+  "lesson_A1.3.2": {
     "level": 1,
     "parts": {
       "ir": {
@@ -466,167 +709,6 @@
           ],
           [
             "Esto no va bien.",
-            3
-          ]
-        ]
-      }
-    }
-  },
-  "lesson_A1.3": {
-    "level": 1,
-    "verb": {
-      "infinitive": "traducir",
-      "pl": "tłumaczyć",
-      "de": "übersetzen",
-      "en": "to translate"
-    },
-    "parts": {
-      "part_1": {
-        "pl": [
-          "Tłumaczyć",
-          "Tłumaczę ten tekst na hiszpański.",
-          "Tłumaczysz tę wiadomość na angielski.",
-          "On tłumaczy dokument na niemiecki.",
-          "Ona tłumaczy książkę na hiszpański.",
-          "Tłumaczymy ten tekst razem.",
-          "Tłumaczycie instrukcję na polski.",
-          "Oni tłumaczą artykuł na angielski.",
-          "Czy tłumaczysz ten dokument?",
-          "Mój brat tłumaczy teksty z hiszpańskiego.",
-          "Muszę przetłumaczyć tę wiadomość.",
-          "Czy możecie przetłumaczyć ten tekst?",
-          "Ona często tłumaczy dla swojej firmy.",
-          "Tłumaczymy wszystko na kilka języków.",
-          "Ten program tłumaczy tekst automatycznie.",
-          "Czy oni tłumaczą ten dokument na niemiecki?",
-          "Przetłumaczony",
-          "Ten dokument jest już przetłumaczony.",
-          "Tłumacząc",
-          "On właśnie tłumaczy ten dokument."
-        ],
-        "de": [
-          "übersetzen",
-          "Ich übersetze diesen Text ins Spanische.",
-          "Du übersetzt diese Nachricht ins Englische.",
-          "Er übersetzt das Dokument ins Deutsche.",
-          "Sie übersetzt das Buch ins Spanische.",
-          "Wir übersetzen diesen Text zusammen.",
-          "Ihr übersetzt die Anleitung ins Polnische.",
-          "Sie übersetzen den Artikel ins Englische.",
-          "Übersetzt du dieses Dokument?",
-          "Mein Bruder übersetzt Texte aus dem Spanischen.",
-          "Ich muss diese Nachricht übersetzen.",
-          "Könnt ihr diesen Text übersetzen?",
-          "Sie übersetzt oft für ihre Firma.",
-          "Wir übersetzen alles in mehrere Sprachen.",
-          "Dieses Programm übersetzt den Text automatisch.",
-          "Übersetzen sie dieses Dokument ins Deutsche?",
-          "übersetzt",
-          "Dieses Dokument ist bereits übersetzt.",
-          "übersetzend",
-          "Er übersetzt gerade dieses Dokument."
-        ],
-        "en": [
-          "to translate",
-          "I translate this text into Spanish.",
-          "You translate this message into English.",
-          "He translates the document into German.",
-          "She translates the book into Spanish.",
-          "We translate this text together.",
-          "You translate the instructions into Polish.",
-          "They translate the article into English.",
-          "Do you translate this document?",
-          "My brother translates texts from Spanish.",
-          "I have to translate this message.",
-          "Can you translate this text?",
-          "She often translates for her company.",
-          "We translate everything into several languages.",
-          "This program translates the text automatically.",
-          "Do they translate this document into German?",
-          "translated",
-          "This document is already translated.",
-          "translating",
-          "He is translating this document right now."
-        ],
-        "es": [
-          [
-            "Traducir.",
-            3
-          ],
-          [
-            "Traduzco este texto al español.",
-            3
-          ],
-          [
-            "Traduces este mensaje al inglés.",
-            3
-          ],
-          [
-            "Él traduce el documento al alemán.",
-            3
-          ],
-          [
-            "Ella traduce el libro al español.",
-            3
-          ],
-          [
-            "Traducimos este texto juntos.",
-            3
-          ],
-          [
-            "Traducís las instrucciones al polaco.",
-            3
-          ],
-          [
-            "Ellos traducen el artículo al inglés.",
-            3
-          ],
-          [
-            "¿Traduces este documento?",
-            3
-          ],
-          [
-            "Mi hermano traduce textos del español.",
-            3
-          ],
-          [
-            "Tengo que traducir este mensaje.",
-            3
-          ],
-          [
-            "¿Podéis traducir este texto?",
-            3
-          ],
-          [
-            "Ella traduce a menudo para su empresa.",
-            3
-          ],
-          [
-            "Traducimos todo a varios idiomas.",
-            3
-          ],
-          [
-            "Este programa traduce el texto automáticamente.",
-            3
-          ],
-          [
-            "¿Traducen ellos este documento al alemán?",
-            3
-          ],
-          [
-            "Traducido",
-            3
-          ],
-          [
-            "Este documento ya está traducido.",
-            3
-          ],
-          [
-            "Traduciendo",
-            3
-          ],
-          [
-            "Él está traduciendo este documento ahora mismo.",
             3
           ]
         ]
