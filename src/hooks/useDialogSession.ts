@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
+import { clearSessionState, loadSessionState, saveSessionState } from '../lib/sessionContinuity'
+import { useSessionContinuity } from './useSessionContinuity'
 import {
   buildDialogPlan,
   dialogAudioPath,
@@ -27,6 +29,21 @@ const TICK_MS = 200
 const MODE_TRANSITION_SECONDS = 5
 const MANIFEST_URL = '/dialog/manifest.json'
 const METADATA_URL = '/dialog/metadata.json'
+const SESSION_STORAGE_KIND = 'dialog'
+
+type ActiveDialogPhase = 'mode-a' | 'mode-transition' | 'mode-b'
+
+function isActiveDialogPhase(phase: DialogPhase): phase is ActiveDialogPhase {
+  return phase === 'mode-a' || phase === 'mode-transition' || phase === 'mode-b'
+}
+
+/** Minimalny zestaw do wznowienia po zabiciu procesu: `plan`/`history` są deterministyczne (bez
+ * losowania, w przeciwieństwie do listeningSession), więc odtwarzamy je na nowo z `dialog` +
+ * `planIndex` zamiast przechowywać je w całości. */
+interface PersistedDialogState {
+  dialog: string
+  planIndex: number
+}
 
 export interface UseDialogSessionResult {
   phase: DialogPhase
@@ -46,6 +63,12 @@ export interface UseDialogSessionResult {
   history: DialogHistoryEntry[]
   /** Zawężony widok bieżącej kwestii (indeks i właściciel), do wyboru strony/stylu dymka na żywo. */
   currentTurn: DialogActiveTurn | null
+  /** Dialog z przerwanej (backgrounding/reload) sesji czekającej na wznowienie, albo `null` gdy brak takiej sesji. */
+  resumableDialog: string | null
+  /** Wznawia przerwaną sesję zapisaną w `resumableDialog` — ląduje w `paused`, nigdy nie odtwarza dźwięku automatycznie. */
+  resumeSession: () => void
+  /** Odrzuca przerwaną sesję bez jej wznawiania. */
+  discardResumableSession: () => void
   audioRef: RefObject<HTMLAudioElement | null>
   start: () => void
   togglePause: () => void
@@ -67,6 +90,9 @@ export function useDialogSession(
   const [hasLoadError, setHasLoadError] = useState(false)
   const [text, setText] = useState<DialogTurnText[]>([])
   const [history, setHistory] = useState<DialogHistoryEntry[]>([])
+  const [resumableDialog, setResumableDialog] = useState<string | null>(
+    () => loadSessionState<PersistedDialogState>(SESSION_STORAGE_KIND)?.dialog ?? null,
+  )
 
   const startTokenRef = useRef(0)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -88,6 +114,13 @@ export function useDialogSession(
    * sesji nie zmieniało identity `beginTurn`/`start` i nie wywoływało ponownego montowania sesji
    * przez efekt „start on dialog change” w ekranie. */
   const nativeAudioEnabledRef = useRef(nativeAudioEnabled)
+  /** `true` gdy bieżąca pauza została wywołana przez ukrycie strony, nie przez świadome działanie
+   * ucznia — pozwala automatycznie wznowić po powrocie, gdy proces przetrwał w pamięci. */
+  const implicitlyPausedRef = useRef(false)
+  /** `true` gdy `pausedFromRef` pochodzi z rehydratacji po przeładowaniu (nie ze zwykłej pauzy) —
+   * wtedy wznowienie musi na nowo rozegrać kwestię od początku przez `beginTurn`, a nie próbować
+   * przywrócić nieistniejącą pozycję odtwarzania audio. */
+  const rehydratedTurnRef = useRef(false)
 
   useEffect(() => {
     phaseRef.current = phase
@@ -179,6 +212,7 @@ export function useDialogSession(
 
     if (index >= plan.length) {
       if (previousTurn) completeTurn(previousTurn)
+      clearSessionState(SESSION_STORAGE_KIND)
       setCurrentTurn(null)
       setTurnPhase(null)
       setPhase('finished')
@@ -334,6 +368,8 @@ export function useDialogSession(
 
   const start = useCallback(() => {
     if (!dialog) return
+    clearSessionState(SESSION_STORAGE_KIND)
+    setResumableDialog(null)
     const token = ++startTokenRef.current
     setHasLoadError(false)
 
@@ -383,6 +419,14 @@ export function useDialogSession(
       pausedFromRef.current = null
       if (!restore) return
 
+      if (rehydratedTurnRef.current) {
+        // Rehydrated after a reload — there is no real audio position or countdown to restore,
+        // so re-enter this turn from the top exactly like arriving at it normally would.
+        rehydratedTurnRef.current = false
+        beginTurn(planIndexRef.current)
+        return
+      }
+
       if (restore.turnPhase === 'native-playing' || restore.turnPhase === 'target-playing') {
         // `turnPhase` state is already at this value (pausing never changes it), so setting it
         // again is a same-value no-op and won't re-trigger the audio-playback effect — resume
@@ -415,12 +459,15 @@ export function useDialogSession(
       pausedFromRef.current = { phase, turnPhase }
       setPhase('paused')
     }
-  }, [phase, turnPhase, clearTimer])
+  }, [phase, turnPhase, clearTimer, beginTurn])
 
   const stop = useCallback(() => {
     startTokenRef.current++
     clearTimer()
     audioRef.current?.pause()
+    clearSessionState(SESSION_STORAGE_KIND)
+    implicitlyPausedRef.current = false
+    rehydratedTurnRef.current = false
     pausedFromRef.current = null
     deadlineRef.current = null
     remainingMsAtPauseRef.current = null
@@ -437,6 +484,100 @@ export function useDialogSession(
     setHistory([])
     setPhase('idle')
   }, [clearTimer])
+
+  const resumeSession = useCallback(() => {
+    const persisted = loadSessionState<PersistedDialogState>(SESSION_STORAGE_KIND)
+    if (!persisted) return
+    const token = ++startTokenRef.current
+    setHasLoadError(false)
+
+    void (async () => {
+      let manifest: DialogManifestEntry[]
+      let metadata: DialogMetadata
+      try {
+        const [manifestResponse, metadataResponse] = await Promise.all([
+          fetch(MANIFEST_URL, { cache: 'no-store' }),
+          fetch(METADATA_URL, { cache: 'no-store' }),
+        ])
+        if (!manifestResponse.ok) throw new Error(`HTTP ${manifestResponse.status}`)
+        if (!metadataResponse.ok) throw new Error(`HTTP ${metadataResponse.status}`)
+        manifest = (await manifestResponse.json()) as DialogManifestEntry[]
+        metadata = (await metadataResponse.json()) as DialogMetadata
+      } catch {
+        if (startTokenRef.current !== token) return
+        setHasLoadError(true)
+        clearSessionState(SESSION_STORAGE_KIND)
+        setResumableDialog(null)
+        setPhase('idle')
+        return
+      }
+
+      if (startTokenRef.current !== token) return
+
+      const dialogText = metadata[persisted.dialog]?.text ?? []
+      const plan = buildDialogPlan(dialogText.length)
+      const turn = plan[persisted.planIndex]
+      if (dialogText.length === 0 || !turn) {
+        // Persisted state no longer matches available content (content changed/removed) — fall
+        // back to idle instead of presenting a broken session.
+        clearSessionState(SESSION_STORAGE_KIND)
+        setResumableDialog(null)
+        setIsEmpty(dialogText.length === 0)
+        setPhase('idle')
+        return
+      }
+      setIsEmpty(false)
+
+      textRef.current = dialogText
+      setText(dialogText)
+      manifestEntryRef.current = findDialogManifestEntry(manifest, persisted.dialog)
+      planRef.current = plan
+      setPlanLength(plan.length)
+
+      const modeSegmentStart = turn.mode === 'mode-a' ? 0 : dialogText.length
+      const rehydratedHistory = plan
+        .slice(modeSegmentStart, persisted.planIndex)
+        .map((planTurn) => ({ index: planTurn.index, text: dialogText[planTurn.index]?.es ?? '' }))
+      setHistory(rehydratedHistory)
+
+      planIndexRef.current = persisted.planIndex
+      setPlanIndex(persisted.planIndex)
+      setCurrentTurn(turn)
+      currentTurnRef.current = turn
+
+      rehydratedTurnRef.current = true
+      pausedFromRef.current = { phase: turn.mode, turnPhase: null }
+      setTurnPhase(null)
+      setSecondsRemaining(null)
+      setPhase('paused')
+      setResumableDialog(null)
+    })()
+  }, [])
+
+  const discardResumableSession = useCallback(() => {
+    clearSessionState(SESSION_STORAGE_KIND)
+    setResumableDialog(null)
+  }, [])
+
+  const handleHide = useCallback(() => {
+    if (!isActiveDialogPhase(phaseRef.current)) return
+    implicitlyPausedRef.current = true
+    togglePause()
+    if (dialog) {
+      saveSessionState<PersistedDialogState>(SESSION_STORAGE_KIND, {
+        dialog,
+        planIndex: planIndexRef.current,
+      })
+    }
+  }, [dialog, togglePause])
+
+  const handleShow = useCallback(() => {
+    if (!implicitlyPausedRef.current) return
+    implicitlyPausedRef.current = false
+    togglePause()
+  }, [togglePause])
+
+  useSessionContinuity(isActiveDialogPhase(phase), handleHide, handleShow)
 
   // `turnPhase` state persists unchanged through a pause (only `phase` flips to 'paused'),
   // so it alone is enough to resolve which language's text is currently on screen.
@@ -467,6 +608,9 @@ export function useDialogSession(
     currentText,
     history,
     currentTurn: currentTurn ? { index: currentTurn.index, speaker: currentTurn.speaker } : null,
+    resumableDialog,
+    resumeSession,
+    discardResumableSession,
     audioRef,
     start,
     togglePause,

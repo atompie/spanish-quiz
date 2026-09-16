@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
+import { clearSessionState, loadSessionState, saveSessionState } from '../lib/sessionContinuity'
+import { useSessionContinuity } from './useSessionContinuity'
 import {
   buildSessionPlan,
   estimateRemainingSeconds,
@@ -20,6 +22,20 @@ import type {
 const TICK_MS = 200
 const MANIFEST_URL = '/speak/manifest.json'
 const METADATA_URL = '/speak/metadata.json'
+const SESSION_STORAGE_KIND = 'listening'
+
+type ActiveListeningPhase = 'playing-native' | 'playing-target' | 'answering' | 'gap'
+
+function isActivePhase(phase: ListeningPhase): phase is ActiveListeningPhase {
+  return phase === 'playing-native' || phase === 'playing-target' || phase === 'answering' || phase === 'gap'
+}
+
+interface PersistedListeningState {
+  lesson: string
+  plan: ListeningRound[]
+  roundIndex: number
+  phase: ActiveListeningPhase
+}
 
 export interface UseListeningSessionResult {
   phase: ListeningPhase
@@ -36,6 +52,12 @@ export interface UseListeningSessionResult {
   currentText: string | null
   /** Tytuł aktualnej lekcji (z metadata.json, z fallbackiem na pierwszy klucz `parts`), albo `null` gdy brak lekcji/metadanych. */
   lessonTitle: string | null
+  /** Lekcja z przerwanej (backgrounding/reload) sesji czekającej na wznowienie, albo `null` gdy brak takiej sesji. */
+  resumableLesson: string | null
+  /** Wznawia przerwaną sesję zapisaną w `resumableLesson` — ląduje w `paused`, nigdy nie odtwarza dźwięku automatycznie. */
+  resumeSession: () => void
+  /** Odrzuca przerwaną sesję bez jej wznawiania. */
+  discardResumableSession: () => void
   audioRef: RefObject<HTMLAudioElement | null>
   start: () => void
   togglePause: () => void
@@ -56,6 +78,9 @@ export function useListeningSession(
   const [hasLoadError, setHasLoadError] = useState(false)
   const [pausedFromPhase, setPausedFromPhase] = useState<ListeningPhase | null>(null)
   const [metadata, setMetadata] = useState<SpeakMetadata | null>(null)
+  const [resumableLesson, setResumableLesson] = useState<string | null>(
+    () => loadSessionState<PersistedListeningState>(SESSION_STORAGE_KIND)?.lesson ?? null,
+  )
 
   const startTokenRef = useRef(0)
 
@@ -67,6 +92,9 @@ export function useListeningSession(
   const planRef = useRef<ListeningRound[]>([])
   const roundIndexRef = useRef(0)
   const answerWaitSecondsRef = useRef(answerWaitSeconds)
+  /** `true` gdy bieżąca pauza została wywołana przez ukrycie strony (nie przez świadome działanie
+   * ucznia) — pozwala automatycznie wznowić po powrocie, gdy proces przetrwał w pamięci. */
+  const implicitlyPausedRef = useRef(false)
 
   useEffect(() => {
     phaseRef.current = phase
@@ -87,6 +115,7 @@ export function useListeningSession(
     const plan = planRef.current
     const nextIndex = roundIndexRef.current + 1
     if (nextIndex >= plan.length) {
+      clearSessionState(SESSION_STORAGE_KIND)
       setCurrentRound(null)
       setPhase('finished')
       return
@@ -181,6 +210,8 @@ export function useListeningSession(
 
   const start = useCallback(() => {
     if (!lesson) return
+    clearSessionState(SESSION_STORAGE_KIND)
+    setResumableLesson(null)
     const token = ++startTokenRef.current
     setHasLoadError(false)
 
@@ -254,6 +285,8 @@ export function useListeningSession(
     startTokenRef.current++ // invalidate any in-flight start() fetch
     clearTimer()
     audioRef.current?.pause()
+    clearSessionState(SESSION_STORAGE_KIND)
+    implicitlyPausedRef.current = false
     setPausedFromPhase(null)
     deadlineRef.current = null
     remainingMsAtPauseRef.current = null
@@ -266,6 +299,69 @@ export function useListeningSession(
     setMetadata(null)
     setPhase('idle')
   }, [clearTimer])
+
+  const resumeSession = useCallback(() => {
+    const persisted = loadSessionState<PersistedListeningState>(SESSION_STORAGE_KIND)
+    if (!persisted) return
+    const token = ++startTokenRef.current
+    setHasLoadError(false)
+    setIsEmpty(false)
+
+    planRef.current = persisted.plan
+    roundIndexRef.current = persisted.roundIndex
+    setRoundIndex(persisted.roundIndex)
+    setPlanLength(persisted.plan.length)
+    setCurrentRound(persisted.plan[persisted.roundIndex] ?? null)
+
+    if (persisted.phase === 'answering' || persisted.phase === 'gap') {
+      // Nie znamy dokładnego czasu, jaki minął przed zawieszeniem procesu — wznawiamy z pełnym
+      // czasem oczekiwania zamiast próbować odtworzyć nieznany pozostały czas.
+      remainingMsAtPauseRef.current = answerWaitSecondsRef.current * 1000
+    }
+    setPausedFromPhase(persisted.phase)
+    setPhase('paused')
+    setResumableLesson(null)
+
+    void (async () => {
+      try {
+        const metadataResponse = await fetch(METADATA_URL, { cache: 'no-store' })
+        if (!metadataResponse.ok) throw new Error(`HTTP ${metadataResponse.status}`)
+        const fetchedMetadata = (await metadataResponse.json()) as SpeakMetadata
+        if (startTokenRef.current !== token) return
+        setMetadata(fetchedMetadata)
+      } catch {
+        // Transkrypcja/tytuł nie do pobrania — sesja i tak wznawia się poprawnie, tylko bez tekstu do czasu ponownej próby
+      }
+    })()
+  }, [])
+
+  const discardResumableSession = useCallback(() => {
+    clearSessionState(SESSION_STORAGE_KIND)
+    setResumableLesson(null)
+  }, [])
+
+  const handleHide = useCallback(() => {
+    const activePhase = phaseRef.current
+    if (!isActivePhase(activePhase)) return
+    implicitlyPausedRef.current = true
+    togglePause()
+    if (lesson) {
+      saveSessionState<PersistedListeningState>(SESSION_STORAGE_KIND, {
+        lesson,
+        plan: planRef.current,
+        roundIndex: roundIndexRef.current,
+        phase: activePhase,
+      })
+    }
+  }, [lesson, togglePause])
+
+  const handleShow = useCallback(() => {
+    if (!implicitlyPausedRef.current) return
+    implicitlyPausedRef.current = false
+    togglePause()
+  }, [togglePause])
+
+  useSessionContinuity(isActivePhase(phase), handleHide, handleShow)
 
   const total = planLength
   const current = Math.min(roundIndex + 1, total)
@@ -299,6 +395,9 @@ export function useListeningSession(
     hasLoadError,
     currentText,
     lessonTitle,
+    resumableLesson,
+    resumeSession,
+    discardResumableSession,
     audioRef,
     start,
     togglePause,
