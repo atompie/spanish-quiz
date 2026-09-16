@@ -227,6 +227,46 @@ button {
   border-color: var(--color-accent);
 }
 
+.listening-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.listening-topbar .quiz-topbar {
+  margin-bottom: 0;
+}
+
+.answer-wait-picker {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 18px;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+}
+
+.answer-wait-picker-option {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.answer-wait-picker-option--active {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
 .btn-icon {
   display: flex;
   align-items: center;

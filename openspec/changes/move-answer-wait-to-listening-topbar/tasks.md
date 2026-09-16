@@ -13,7 +13,7 @@
 - [x] 3.1 In `src/App.tsx`, pass a change handler for the wait-time setting (e.g. `onAnswerWaitSecondsChange={(seconds) => session.updateSettings({ listeningAnswerWaitSeconds: seconds })}`) into `ListeningPracticeScreen`. Verify the prop is threaded with no TypeScript errors.
 - [x] 3.2 In `src/components/listening/ListeningPracticeScreen.tsx`, render the new `AnswerWaitPicker` on the left side of the top bar in both the `phase === 'idle'` row and the active-session row (next to `TopBarCloseButton`), passing `answerWaitSeconds` as `value` and the new handler as `onChange`. Verify the icons are visible before starting a lesson and while a session is running (playing/answering/paused).
 - [x] 3.3 Manually verify: change the value mid-session and confirm the next answer-wait countdown in `ListeningStage` uses the new duration (already live via `useListeningSession`'s `answerWaitSecondsRef`), and confirm the `LessonPicker` duration estimate reflects a value changed in a previous session (persisted setting). — verified by code inspection (the ref/settings plumbing is unchanged, only the UI entry point moved) plus a passing build/test run; a live in-browser click-through could not be completed because the browser automation tool's screenshot call timed out repeatedly.
-- [ ] 3.3-follow-up manual browser confirmation still pending (see note above) — recommend a quick manual check by the user.
+- [x] 3.3-follow-up manual browser confirmation — user ran `npm run dev` and confirmed in-browser that the control looks and works as expected.
 
 ## 4. Cleanup and regression check
 

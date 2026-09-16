@@ -47,6 +47,7 @@ function App() {
             <ListeningPracticeScreen
               nativeLanguage={session.settings.language}
               answerWaitSeconds={session.settings.listeningAnswerWaitSeconds}
+              onAnswerWaitSecondsChange={(seconds) => session.updateSettings({ listeningAnswerWaitSeconds: seconds })}
             />
           ) : session.settings.kind === 'dialog' ? (
             <DialogPracticeScreen nativeLanguage={session.settings.language} />

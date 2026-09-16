@@ -8,7 +8,7 @@ import { getLabel } from '../../lib/translation'
 import type { useQuizSession } from '../../hooks/useQuizSession'
 import type { PwaUpdateStatus } from '../../hooks/usePwaUpdate'
 import type { PronounType } from '../../types/grammar'
-import type { ListeningAnswerWaitSeconds, QuestionCount, QuizMode } from '../../types/quiz'
+import type { QuestionCount, QuizMode } from '../../types/quiz'
 import type { Theme } from '../../types/theme'
 import { CheckboxOptionList } from '../common/CheckboxOptionList'
 import { OptionButtonGroup } from '../common/OptionButtonGroup'
@@ -23,7 +23,6 @@ interface SettingsScreenProps {
 }
 
 const QUESTION_COUNTS: QuestionCount[] = [5, 10, 20]
-const LISTENING_ANSWER_WAIT_OPTIONS: ListeningAnswerWaitSeconds[] = [3, 5, 10]
 
 function toggleInArray<T>(arr: T[], value: T): T[] {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value]
@@ -73,15 +72,6 @@ export function SettingsScreen({ session, theme, onThemeChange, updateStatus, on
           options={PERSONS_META.map((person) => ({ id: person.id, label: getLabel(person, language) }))}
           selected={settings.enabledPersons}
           onToggle={(person) => updateSettings({ enabledPersons: toggleInArray(settings.enabledPersons, person) })}
-        />
-      )}
-
-      {settings.kind === 'listening' && (
-        <OptionButtonGroup
-          title={t.settingsListeningWaitTime}
-          options={LISTENING_ANSWER_WAIT_OPTIONS.map((seconds) => ({ id: seconds, label: `${seconds} s` }))}
-          value={settings.listeningAnswerWaitSeconds}
-          onChange={(seconds) => updateSettings({ listeningAnswerWaitSeconds: seconds })}
         />
       )}
 

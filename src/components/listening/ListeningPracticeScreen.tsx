@@ -9,15 +9,21 @@ import { ProgressBar } from '../common/ProgressBar'
 import { RefreshIcon } from '../common/RefreshIcon'
 import { TopBarCloseButton } from '../common/TopBarCloseButton'
 import { ConfirmModal } from '../quiz/ConfirmModal'
+import { AnswerWaitPicker } from './AnswerWaitPicker'
 import { LessonPicker } from './LessonPicker'
 import { ListeningStage } from './ListeningStage'
 
 interface ListeningPracticeScreenProps {
   nativeLanguage: LanguageCode
   answerWaitSeconds: ListeningAnswerWaitSeconds
+  onAnswerWaitSecondsChange: (seconds: ListeningAnswerWaitSeconds) => void
 }
 
-export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds }: ListeningPracticeScreenProps) {
+export function ListeningPracticeScreen({
+  nativeLanguage,
+  answerWaitSeconds,
+  onAnswerWaitSecondsChange,
+}: ListeningPracticeScreenProps) {
   const { t } = useTranslation()
   const [lesson, setLesson] = useState<string | null>(null)
   const {
@@ -84,7 +90,10 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds }: L
       <>
         {audioElement}
         <div className="listening-screen">
-          <TopBarCloseButton label={t.listeningStop} onClose={() => setLesson(null)} />
+          <div className="listening-topbar">
+            <AnswerWaitPicker value={answerWaitSeconds} onChange={onAnswerWaitSecondsChange} />
+            <TopBarCloseButton label={t.listeningStop} onClose={() => setLesson(null)} />
+          </div>
         </div>
       </>
     )
@@ -138,7 +147,10 @@ export function ListeningPracticeScreen({ nativeLanguage, answerWaitSeconds }: L
     <>
       {audioElement}
       <div className="listening-screen">
-        <TopBarCloseButton label={t.listeningStop} onClose={() => setShowStopConfirm(true)} />
+        <div className="listening-topbar">
+          <AnswerWaitPicker value={answerWaitSeconds} onChange={onAnswerWaitSecondsChange} />
+          <TopBarCloseButton label={t.listeningStop} onClose={() => setShowStopConfirm(true)} />
+        </div>
 
         <div className="listening-progress-bar-wrapper">
           <ProgressBar current={progress.current} total={progress.total} centerLabel={estimatedTimeLabel} />
