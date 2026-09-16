@@ -37,10 +37,56 @@ export function getEligibleItems(
   return items
 }
 
-/** Posortowana lista unikalnych lekcji z manifestu (numerycznie po sufiksie `lesson_N`, reszta alfabetycznie). */
+/** Poziom CEFR zakodowany w id lekcji (`lesson_<LEVEL>`, np. `lesson_A1.1`, `lesson_B1.10`). */
+export interface LessonLevel {
+  /** Litera poziomu CEFR: 'A' | 'B' | 'C'. */
+  level: 'A' | 'B' | 'C'
+  /** Cyfra podpoziomu: 1 lub 2. */
+  sublevel: 1 | 2
+  /** Numer kolejny w ramach podpoziomu (`.N`), albo `0` gdy sufiks `.N` nie występuje. */
+  sequence: number
+}
+
+const LESSON_LEVEL_PATTERN = /^lesson_([ABC])([12])(?:\.(\d+))?$/
+
+/** Rozbija id lekcji na poziom CEFR + numer kolejny, albo `null` gdy id nie pasuje do wzorca `lesson_<LEVEL>`. */
+export function parseLessonLevel(lesson: string): LessonLevel | null {
+  const match = LESSON_LEVEL_PATTERN.exec(lesson)
+  if (!match) return null
+  return {
+    level: match[1] as 'A' | 'B' | 'C',
+    sublevel: Number(match[2]) as 1 | 2,
+    sequence: match[3] ? Number(match[3]) : 0,
+  }
+}
+
+/** Przyjazna dla użytkownika etykieta lekcji, np. "Lesson B1.1" dla `lesson_B1.1` — dla id spoza
+ * rozpoznawanych wzorców (CEFR lub stary czysto liczbowy) zwraca surowe id jako fallback. */
+export function lessonLabel(lesson: string, lessonLabelText: string): string {
+  const cefr = parseLessonLevel(lesson)
+  if (cefr) {
+    const suffix = cefr.sequence > 0 ? `.${cefr.sequence}` : ''
+    return `${lessonLabelText} ${cefr.level}${cefr.sublevel}${suffix}`
+  }
+  const match = /^lesson_(\d+)$/.exec(lesson)
+  return match ? `${lessonLabelText} ${match[1]}` : lesson
+}
+
+/** Posortowana lista unikalnych lekcji z manifestu: najpierw wg poziomu CEFR (A1 < A2 < B1 < ... < numer kolejny),
+ * lekcje ze starym, czysto liczbowym id (`lesson_N`) trafiają przed lekcjami CEFR, posortowane numerycznie. */
 export function getAvailableLessons(manifest: SpeakSentenceManifestEntry[]): string[] {
   const lessons = [...new Set(manifest.map((entry) => entry.lesson))]
   return lessons.sort((a, b) => {
+    const levelA = parseLessonLevel(a)
+    const levelB = parseLessonLevel(b)
+    if (levelA && levelB) {
+      if (levelA.level !== levelB.level) return levelA.level.localeCompare(levelB.level)
+      if (levelA.sublevel !== levelB.sublevel) return levelA.sublevel - levelB.sublevel
+      return levelA.sequence - levelB.sequence
+    }
+    if (levelA) return 1
+    if (levelB) return -1
+
     const numA = /^lesson_(\d+)$/.exec(a)
     const numB = /^lesson_(\d+)$/.exec(b)
     if (numA && numB) return Number(numA[1]) - Number(numB[1])

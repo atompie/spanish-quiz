@@ -1,5 +1,5 @@
 {
-  "lesson_1": {
+  "lesson_A1.1": {
     "level": 1,
     "parts": {
       "cuando": {
@@ -220,142 +220,7 @@
       }
     }
   },
-  "lesson_2": {
-    "level": 1,
-    "parts": {
-      "estar_hacer": {
-        "pl": [
-          "Jestem w domu.",
-          "Co robiliście?",
-          "Będę w hotelu.",
-          "Co robisz?",
-          "Byliśmy w restauracji.",
-          "Zrobiła to wczoraj.",
-          "Gdzie będziecie?",
-          "Co zrobimy jutro?",
-          "Byłeś w pracy?",
-          "Robię kolację.",
-          "Kiedy zrobiliście to?",
-          "Ona będzie w domu.",
-          "Co robiłeś wczoraj?",
-          "Byliście tutaj?",
-          "Zrobią to później.",
-          "Gdzie jesteś?",
-          "Co będziesz robił jutro?",
-          "Była w hotelu.",
-          "Robimy to teraz.",
-          "Po co to zrobiłeś?",
-          "Będziemy w Hiszpanii.",
-          "Co zrobili?",
-          "Jesteście w domu?",
-          "Zrobię to później.",
-          "Byłem bardzo zmęczony.",
-          "Co robimy dzisiaj?",
-          "Będziesz w pracy?",
-          "Zrobiła obiad.",
-          "Gdzie byliście wczoraj?",
-          "Robię to teraz."
-        ],
-        "es": [
-          ["Estoy en casa.", 3],
-          ["¿Qué hicisteis?", 3],
-          ["Estaré en el hotel.", 3],
-          ["¿Qué haces?", 3],
-          ["Estuvimos en el restaurante.", 3],
-          ["Lo hizo ayer.", 3],
-          ["¿Dónde estaréis?", 3],
-          ["¿Qué haremos mañana?", 3],
-          ["¿Estuviste en el trabajo?", 3],
-          ["Hago la cena.", 3],
-          ["¿Cuándo hicisteis esto?", 3],
-          ["Ella estará en casa.", 3],
-          ["¿Qué hiciste ayer?", 3],
-          ["¿Estuvisteis aquí?", 3],
-          ["Lo harán más tarde.", 3],
-          ["¿Dónde estás?", 3],
-          ["¿Qué harás mañana?", 3],
-          ["Estuvo en el hotel.", 3],
-          ["Lo hacemos ahora.", 3],
-          ["¿Para qué lo hiciste?", 3],
-          ["Estaremos en España.", 3],
-          ["¿Qué hicieron?", 3],
-          ["¿Estáis en casa?", 3],
-          ["Lo haré más tarde.", 3],
-          ["Estuve muy cansado.", 3],
-          ["¿Qué hacemos hoy?", 3],
-          ["¿Estarás en el trabajo?", 3],
-          ["Hizo la comida.", 3],
-          ["¿Dónde estuvisteis ayer?", 3],
-          ["Lo hago ahora.", 3]
-        ],
-        "en": [
-          "I am at home.",
-          "What did you do?",
-          "I will be at the hotel.",
-          "What are you doing?",
-          "We were at the restaurant.",
-          "She did it yesterday.",
-          "Where will you be?",
-          "What will we do tomorrow?",
-          "Were you at work?",
-          "I am making dinner.",
-          "When did you do this?",
-          "She will be at home.",
-          "What did you do yesterday?",
-          "Were you here?",
-          "They will do it later.",
-          "Where are you?",
-          "What will you do tomorrow?",
-          "She was at the hotel.",
-          "We are doing it now.",
-          "Why did you do it?",
-          "We will be in Spain.",
-          "What did they do?",
-          "Are you at home?",
-          "I will do it later.",
-          "I was very tired.",
-          "What are we doing today?",
-          "Will you be at work?",
-          "She made lunch.",
-          "Where were you yesterday?",
-          "I am doing it now."
-        ],
-        "de": [
-          "Ich bin zu Hause.",
-          "Was habt ihr gemacht?",
-          "Ich werde im Hotel sein.",
-          "Was machst du?",
-          "Wir waren im Restaurant.",
-          "Sie hat es gestern gemacht.",
-          "Wo werdet ihr sein?",
-          "Was werden wir morgen machen?",
-          "Warst du bei der Arbeit?",
-          "Ich mache Abendessen.",
-          "Wann habt ihr das gemacht?",
-          "Sie wird zu Hause sein.",
-          "Was hast du gestern gemacht?",
-          "Wart ihr hier?",
-          "Sie werden es später machen.",
-          "Wo bist du?",
-          "Was wirst du morgen machen?",
-          "Sie war im Hotel.",
-          "Wir machen es jetzt.",
-          "Warum hast du das gemacht?",
-          "Wir werden in Spanien sein.",
-          "Was haben sie gemacht?",
-          "Seid ihr zu Hause?",
-          "Ich werde es später machen.",
-          "Ich war sehr müde.",
-          "Was machen wir heute?",
-          "Wirst du bei der Arbeit sein?",
-          "Sie hat das Mittagessen gemacht.",
-          "Wo wart ihr gestern?",
-          "Ich mache es jetzt."
-        ]
-      }
-    }
-  },
-  "lesson_5": {
+  "lesson_A1.2": {
     "level": 1,
     "parts": {
       "ir": {
@@ -607,7 +472,7 @@
       }
     }
   },
-  "lesson_6": {
+  "lesson_A1.3": {
     "level": 1,
     "verb": {
       "infinitive": "traducir",
@@ -768,7 +633,7 @@
       }
     }
   },
-  "lesson_7": {
+  "lesson_A1.4": {
     "level": 1,
     "verb": {
       "infinitive": "dormir",
@@ -929,7 +794,7 @@
       }
     }
   },
-  "lesson_8": {
+  "lesson_A1.5": {
     "level": 1,
     "verb": {
       "infinitive": "dar",
@@ -1090,7 +955,7 @@
       }
     }
   },
-  "lesson_9": {
+  "lesson_A1.6": {
     "level": 1,
     "verb": {
       "infinitive": "poner",
@@ -1251,7 +1116,7 @@
       }
     }
   },
-  "lesson_10": {
+  "lesson_A1.7": {
     "level": 1,
     "verb": {
       "infinitive": "encontrar",
@@ -1412,7 +1277,7 @@
       }
     }
   },
-  "lesson_11": {
+  "lesson_A1.8": {
     "level": 1,
     "verb": {
       "infinitive": "llamar",
@@ -1573,7 +1438,7 @@
       }
     }
   },
-  "lesson_12": {
+  "lesson_A1.9": {
     "level": 1,
     "verb": {
       "infinitive": "nacer",
@@ -1734,7 +1599,7 @@
       }
     }
   },
-  "lesson_13": {
+  "lesson_A1.10": {
     "level": 1,
     "verb": {
       "infinitive": "nadar",
@@ -1895,7 +1760,7 @@
       }
     }
   },
-  "lesson_14": {
+  "lesson_A1.11": {
     "level": 1,
     "verb": {
       "infinitive": "saber",
@@ -2056,7 +1921,7 @@
       }
     }
   },
-  "lesson_15": {
+  "lesson_A1.12": {
     "level": 1,
     "verb": {
       "infinitive": "repetir",
@@ -2217,7 +2082,7 @@
       }
     }
   },
-  "lesson_16": {
+  "lesson_A1.13": {
     "level": 1,
     "verb": {
       "infinitive": "conducir",
@@ -2378,7 +2243,7 @@
       }
     }
   },
-  "lesson_17": {
+  "lesson_A1.14": {
     "level": 1,
     "verb": {
       "infinitive": "recoger",
@@ -2539,7 +2404,7 @@
       }
     }
   },
-  "lesson_18": {
+  "lesson_A1.15": {
     "level": 1,
     "verb": {
       "infinitive": "sacar",
@@ -2700,7 +2565,7 @@
       }
     }
   },
-  "lesson_19": {
+  "lesson_A1.16": {
     "level": 1,
     "verb": {
       "infinitive": "la caja",
@@ -2840,7 +2705,7 @@
       }
     }
   },
-  "lesson_20": {
+  "lesson_A1.17": {
     "level": 1,
     "parts": {
       "según": {
@@ -3012,7 +2877,7 @@
       }
     }
   },
-  "lesson_21": {
+  "lesson_A1.18": {
     "level": 1,
     "parts": {
       "imperativo": {
@@ -3132,7 +2997,7 @@
       }
     }
   },
-  "lesson_22": {
+  "lesson_A1.19": {
     "level": 1,
     "parts": {
       "conectores": {
@@ -3318,6 +3183,141 @@
             "De nuevo",
             3
           ]
+        ]
+      }
+    }
+  },
+  "lesson_B1.1": {
+    "level": "b1",
+    "parts": {
+      "estar_hacer": {
+        "pl": [
+          "Jestem w domu.",
+          "Co robiliście?",
+          "Będę w hotelu.",
+          "Co robisz?",
+          "Byliśmy w restauracji.",
+          "Zrobiła to wczoraj.",
+          "Gdzie będziecie?",
+          "Co zrobimy jutro?",
+          "Byłeś w pracy?",
+          "Robię kolację.",
+          "Kiedy zrobiliście to?",
+          "Ona będzie w domu.",
+          "Co robiłeś wczoraj?",
+          "Byliście tutaj?",
+          "Zrobią to później.",
+          "Gdzie jesteś?",
+          "Co będziesz robił jutro?",
+          "Była w hotelu.",
+          "Robimy to teraz.",
+          "Po co to zrobiłeś?",
+          "Będziemy w Hiszpanii.",
+          "Co zrobili?",
+          "Jesteście w domu?",
+          "Zrobię to później.",
+          "Byłem bardzo zmęczony.",
+          "Co robimy dzisiaj?",
+          "Będziesz w pracy?",
+          "Zrobiła obiad.",
+          "Gdzie byliście wczoraj?",
+          "Robię to teraz."
+        ],
+        "es": [
+          ["Estoy en casa.", 3],
+          ["¿Qué hicisteis?", 3],
+          ["Estaré en el hotel.", 3],
+          ["¿Qué haces?", 3],
+          ["Estuvimos en el restaurante.", 3],
+          ["Lo hizo ayer.", 3],
+          ["¿Dónde estaréis?", 3],
+          ["¿Qué haremos mañana?", 3],
+          ["¿Estuviste en el trabajo?", 3],
+          ["Hago la cena.", 3],
+          ["¿Cuándo hicisteis esto?", 3],
+          ["Ella estará en casa.", 3],
+          ["¿Qué hiciste ayer?", 3],
+          ["¿Estuvisteis aquí?", 3],
+          ["Lo harán más tarde.", 3],
+          ["¿Dónde estás?", 3],
+          ["¿Qué harás mañana?", 3],
+          ["Estuvo en el hotel.", 3],
+          ["Lo hacemos ahora.", 3],
+          ["¿Para qué lo hiciste?", 3],
+          ["Estaremos en España.", 3],
+          ["¿Qué hicieron?", 3],
+          ["¿Estáis en casa?", 3],
+          ["Lo haré más tarde.", 3],
+          ["Estuve muy cansado.", 3],
+          ["¿Qué hacemos hoy?", 3],
+          ["¿Estarás en el trabajo?", 3],
+          ["Hizo la comida.", 3],
+          ["¿Dónde estuvisteis ayer?", 3],
+          ["Lo hago ahora.", 3]
+        ],
+        "en": [
+          "I am at home.",
+          "What did you do?",
+          "I will be at the hotel.",
+          "What are you doing?",
+          "We were at the restaurant.",
+          "She did it yesterday.",
+          "Where will you be?",
+          "What will we do tomorrow?",
+          "Were you at work?",
+          "I am making dinner.",
+          "When did you do this?",
+          "She will be at home.",
+          "What did you do yesterday?",
+          "Were you here?",
+          "They will do it later.",
+          "Where are you?",
+          "What will you do tomorrow?",
+          "She was at the hotel.",
+          "We are doing it now.",
+          "Why did you do it?",
+          "We will be in Spain.",
+          "What did they do?",
+          "Are you at home?",
+          "I will do it later.",
+          "I was very tired.",
+          "What are we doing today?",
+          "Will you be at work?",
+          "She made lunch.",
+          "Where were you yesterday?",
+          "I am doing it now."
+        ],
+        "de": [
+          "Ich bin zu Hause.",
+          "Was habt ihr gemacht?",
+          "Ich werde im Hotel sein.",
+          "Was machst du?",
+          "Wir waren im Restaurant.",
+          "Sie hat es gestern gemacht.",
+          "Wo werdet ihr sein?",
+          "Was werden wir morgen machen?",
+          "Warst du bei der Arbeit?",
+          "Ich mache Abendessen.",
+          "Wann habt ihr das gemacht?",
+          "Sie wird zu Hause sein.",
+          "Was hast du gestern gemacht?",
+          "Wart ihr hier?",
+          "Sie werden es später machen.",
+          "Wo bist du?",
+          "Was wirst du morgen machen?",
+          "Sie war im Hotel.",
+          "Wir machen es jetzt.",
+          "Warum hast du das gemacht?",
+          "Wir werden in Spanien sein.",
+          "Was haben sie gemacht?",
+          "Seid ihr zu Hause?",
+          "Ich werde es später machen.",
+          "Ich war sehr müde.",
+          "Was machen wir heute?",
+          "Wirst du bei der Arbeit sein?",
+          "Sie hat das Mittagessen gemacht.",
+          "Wo wart ihr gestern?",
+          "Ich mache es jetzt."
         ]
       }
     }

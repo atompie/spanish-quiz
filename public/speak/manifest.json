@@ -1,7 +1,7 @@
 [
   {
     "slug": "adonde",
-    "lesson": "lesson_1",
+    "lesson": "lesson_A1.1",
     "counts": {
       "de": 20,
       "en": 20,
@@ -11,7 +11,7 @@
   },
   {
     "slug": "cuando",
-    "lesson": "lesson_1",
+    "lesson": "lesson_A1.1",
     "counts": {
       "de": 8,
       "en": 8,
@@ -21,7 +21,7 @@
   },
   {
     "slug": "qual",
-    "lesson": "lesson_1",
+    "lesson": "lesson_A1.1",
     "counts": {
       "es": 4,
       "pl": 4
@@ -29,7 +29,7 @@
   },
   {
     "slug": "que",
-    "lesson": "lesson_1",
+    "lesson": "lesson_A1.1",
     "counts": {
       "es": 8,
       "pl": 8
@@ -37,7 +37,7 @@
   },
   {
     "slug": "quien",
-    "lesson": "lesson_1",
+    "lesson": "lesson_A1.1",
     "counts": {
       "es": 4,
       "pl": 4
@@ -45,7 +45,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_10",
+    "lesson": "lesson_A1.10",
     "counts": {
       "de": 20,
       "en": 20,
@@ -55,7 +55,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_11",
+    "lesson": "lesson_A1.11",
     "counts": {
       "de": 20,
       "en": 20,
@@ -65,7 +65,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_12",
+    "lesson": "lesson_A1.12",
     "counts": {
       "de": 20,
       "en": 20,
@@ -75,7 +75,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_13",
+    "lesson": "lesson_A1.13",
     "counts": {
       "de": 20,
       "en": 20,
@@ -85,7 +85,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_14",
+    "lesson": "lesson_A1.14",
     "counts": {
       "de": 20,
       "en": 20,
@@ -95,7 +95,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_15",
+    "lesson": "lesson_A1.15",
     "counts": {
       "de": 20,
       "en": 20,
@@ -105,37 +105,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_16",
-    "counts": {
-      "de": 20,
-      "en": 20,
-      "es": 20,
-      "pl": 20
-    }
-  },
-  {
-    "slug": "part_1",
-    "lesson": "lesson_17",
-    "counts": {
-      "de": 20,
-      "en": 20,
-      "es": 20,
-      "pl": 20
-    }
-  },
-  {
-    "slug": "part_1",
-    "lesson": "lesson_18",
-    "counts": {
-      "de": 20,
-      "en": 20,
-      "es": 20,
-      "pl": 20
-    }
-  },
-  {
-    "slug": "part_1",
-    "lesson": "lesson_19",
+    "lesson": "lesson_A1.16",
     "counts": {
       "de": 17,
       "en": 17,
@@ -144,18 +114,8 @@
     }
   },
   {
-    "slug": "estar_hacer",
-    "lesson": "lesson_2",
-    "counts": {
-      "de": 30,
-      "en": 30,
-      "es": 30,
-      "pl": 30
-    }
-  },
-  {
     "slug": "de acuerdo con",
-    "lesson": "lesson_20",
+    "lesson": "lesson_A1.17",
     "counts": {
       "de": 10,
       "en": 10,
@@ -165,7 +125,7 @@
   },
   {
     "slug": "según",
-    "lesson": "lesson_20",
+    "lesson": "lesson_A1.17",
     "counts": {
       "de": 11,
       "en": 11,
@@ -175,7 +135,7 @@
   },
   {
     "slug": "imperativo",
-    "lesson": "lesson_21",
+    "lesson": "lesson_A1.18",
     "counts": {
       "de": 15,
       "en": 15,
@@ -185,7 +145,7 @@
   },
   {
     "slug": "conectores",
-    "lesson": "lesson_22",
+    "lesson": "lesson_A1.19",
     "counts": {
       "de": 25,
       "en": 25,
@@ -195,7 +155,7 @@
   },
   {
     "slug": "ir",
-    "lesson": "lesson_5",
+    "lesson": "lesson_A1.2",
     "counts": {
       "de": 11,
       "en": 11,
@@ -205,7 +165,7 @@
   },
   {
     "slug": "ir_construcciones",
-    "lesson": "lesson_5",
+    "lesson": "lesson_A1.2",
     "counts": {
       "de": 12,
       "en": 12,
@@ -215,7 +175,7 @@
   },
   {
     "slug": "ir_pasado_futuro",
-    "lesson": "lesson_5",
+    "lesson": "lesson_A1.2",
     "counts": {
       "de": 8,
       "en": 8,
@@ -225,7 +185,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_6",
+    "lesson": "lesson_A1.3",
     "counts": {
       "de": 20,
       "en": 20,
@@ -235,7 +195,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_7",
+    "lesson": "lesson_A1.4",
     "counts": {
       "de": 20,
       "en": 20,
@@ -245,7 +205,7 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_8",
+    "lesson": "lesson_A1.5",
     "counts": {
       "de": 20,
       "en": 20,
@@ -255,12 +215,52 @@
   },
   {
     "slug": "part_1",
-    "lesson": "lesson_9",
+    "lesson": "lesson_A1.6",
     "counts": {
       "de": 20,
       "en": 20,
       "es": 20,
       "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_A1.7",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_A1.8",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "part_1",
+    "lesson": "lesson_A1.9",
+    "counts": {
+      "de": 20,
+      "en": 20,
+      "es": 20,
+      "pl": 20
+    }
+  },
+  {
+    "slug": "estar_hacer",
+    "lesson": "lesson_B1.1",
+    "counts": {
+      "de": 30,
+      "en": 30,
+      "es": 30,
+      "pl": 30
     }
   }
 ]

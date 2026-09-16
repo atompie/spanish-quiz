@@ -6,6 +6,7 @@ import {
   formatEstimatedDuration,
   getEligibleItems,
   getLessonTopicWord,
+  lessonLabel,
 } from '../../lib/listeningSession'
 import { loadCompletedLessons, toggleCompletedLesson } from '../../lib/storage'
 import type { LanguageCode } from '../../types/language'
@@ -16,11 +17,6 @@ interface LessonPickerProps {
   onSelect: (lesson: string) => void
   nativeLanguage: LanguageCode
   answerWaitSeconds: ListeningAnswerWaitSeconds
-}
-
-function lessonLabel(lesson: string, lessonLabelText: string): string {
-  const match = /^lesson_(\d+)$/.exec(lesson)
-  return match ? `${lessonLabelText} ${match[1]}` : lesson
 }
 
 export function LessonPicker({ onSelect, nativeLanguage, answerWaitSeconds }: LessonPickerProps) {
