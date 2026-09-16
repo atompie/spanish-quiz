@@ -4,6 +4,7 @@ import { useTranslation } from '../../i18n/LanguageContext'
 import { formatEstimatedDuration } from '../../lib/listeningSession'
 import type { LanguageCode } from '../../types/language'
 import type { ListeningAnswerWaitSeconds } from '../../types/quiz'
+import { PauseIcon } from '../common/PauseIcon'
 import { PlayIcon } from '../common/PlayIcon'
 import { ProgressBar } from '../common/ProgressBar'
 import { RefreshIcon } from '../common/RefreshIcon'
@@ -149,7 +150,19 @@ export function ListeningPracticeScreen({
       <div className="listening-screen">
         <div className="listening-topbar">
           <AnswerWaitPicker value={answerWaitSeconds} onChange={onAnswerWaitSecondsChange} />
-          <TopBarCloseButton label={t.listeningStop} onClose={() => setShowStopConfirm(true)} />
+          <div className="listening-topbar-actions">
+            <button
+              type="button"
+              className={`btn-icon${isPaused ? ' btn-icon--inverted' : ''}`}
+              aria-label={isPaused ? t.listeningResume : t.listeningPause}
+              title={isPaused ? t.listeningResume : t.listeningPause}
+              aria-pressed={isPaused}
+              onClick={togglePause}
+            >
+              {isPaused ? <PlayIcon /> : <PauseIcon />}
+            </button>
+            <TopBarCloseButton label={t.listeningStop} onClose={() => setShowStopConfirm(true)} />
+          </div>
         </div>
 
         <div className="listening-progress-bar-wrapper">
@@ -163,12 +176,6 @@ export function ListeningPracticeScreen({
           currentText={currentText}
           lessonTitle={lessonTitle}
         />
-
-        <div className="listening-controls">
-          <button type="button" className="btn btn-primary" onClick={togglePause}>
-            {isPaused ? t.listeningResume : t.listeningPause}
-          </button>
-        </div>
       </div>
 
       {showStopConfirm && (

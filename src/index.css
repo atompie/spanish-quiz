@@ -238,6 +238,13 @@ button {
   margin-bottom: 0;
 }
 
+.listening-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .answer-wait-picker {
   display: flex;
   flex-shrink: 0;
@@ -959,13 +966,6 @@ button {
   padding: 20px 28px;
   border-radius: 16px;
   animation: listening-audio-pulse 1.6s ease-in-out infinite;
-}
-
-.listening-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: auto;
 }
 
 .dialog-chat-log {
