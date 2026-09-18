@@ -2,8 +2,12 @@ import type { UiStrings } from '../types'
 
 export const de: UiStrings = {
   navQuiz: 'Quiz',
-  navVerbs: 'Verben',
+  navVocabulary: 'Vokabular',
   navSettings: 'Einstellungen',
+
+  vocabPickerTitle: 'Wähle eine Vokabelkategorie',
+  vocabCategoryVerbs: 'Verben',
+  vocabCategoryVerbsDescription: 'Durchsuche die Verben der App mit Konjugation und Übersetzung.',
 
   commonClose: 'Schließen',
 

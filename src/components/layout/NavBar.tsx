@@ -1,7 +1,7 @@
 import { useTranslation } from '../../i18n/LanguageContext'
 import { QuizIcon, SettingsIcon, VerbsIcon } from './NavIcons'
 
-export type Screen = 'quiz' | 'verbs' | 'settings'
+export type Screen = 'quiz' | 'vocabulary' | 'settings'
 
 interface NavBarProps {
   current: Screen
@@ -12,7 +12,7 @@ export function NavBar({ current, onChange }: NavBarProps) {
   const { t } = useTranslation()
   const tabs: { id: Screen; label: string; Icon: typeof QuizIcon }[] = [
     { id: 'quiz', label: t.navQuiz, Icon: QuizIcon },
-    { id: 'verbs', label: t.navVerbs, Icon: VerbsIcon },
+    { id: 'vocabulary', label: t.navVocabulary, Icon: VerbsIcon },
     { id: 'settings', label: t.navSettings, Icon: SettingsIcon },
   ]
   return (

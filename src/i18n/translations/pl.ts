@@ -2,8 +2,12 @@ import type { UiStrings } from '../types'
 
 export const pl: UiStrings = {
   navQuiz: 'Quiz',
-  navVerbs: 'Czasowniki',
+  navVocabulary: 'Słownictwo',
   navSettings: 'Ustawienia',
+
+  vocabPickerTitle: 'Wybierz kategorię słownictwa',
+  vocabCategoryVerbs: 'Czasowniki',
+  vocabCategoryVerbsDescription: 'Przeglądaj czasowniki dostępne w aplikacji wraz z ich odmianą i tłumaczeniem.',
 
   commonClose: 'Zamknij',
 

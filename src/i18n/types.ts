@@ -1,7 +1,11 @@
 export interface UiStrings {
   navQuiz: string
-  navVerbs: string
+  navVocabulary: string
   navSettings: string
+
+  vocabPickerTitle: string
+  vocabCategoryVerbs: string
+  vocabCategoryVerbsDescription: string
 
   commonClose: string
 

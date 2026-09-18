@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { AppShell } from './components/layout/AppShell'
 import type { Screen } from './components/layout/NavBar'
-import { ExplanationModal } from './components/common/ExplanationModal'
 import { DialogPracticeScreen } from './components/dialog/DialogPracticeScreen'
 import { ListeningPracticeScreen } from './components/listening/ListeningPracticeScreen'
 import { QuizKindPicker } from './components/quiz/QuizKindPicker'
 import { QuizScreen } from './components/quiz/QuizScreen'
 import { SettingsScreen } from './components/settings/SettingsScreen'
-import { VerbsListScreen } from './components/verbs/VerbsListScreen'
+import { VocabularyScreen } from './components/vocabulary/VocabularyScreen'
+import type { VocabularyCategoryId } from './data/vocabularyCategories'
 import { usePwaUpdate } from './hooks/usePwaUpdate'
 import { useQuizSession } from './hooks/useQuizSession'
 import { useTheme } from './hooks/useTheme'
@@ -17,6 +17,7 @@ import type { QuizKind } from './types/quiz'
 function App() {
   const [screen, setScreen] = useState<Screen>('quiz')
   const [selectedVerbId, setSelectedVerbId] = useState<string | null>(null)
+  const [vocabularyCategory, setVocabularyCategory] = useState<VocabularyCategoryId | null>(null)
   const [showQuizPicker, setShowQuizPicker] = useState(true)
   const session = useQuizSession()
   const { theme, setTheme } = useTheme()
@@ -30,6 +31,12 @@ function App() {
     setScreen(next)
     setSelectedVerbId(null)
     if (next === 'quiz') setShowQuizPicker(true)
+    if (next === 'vocabulary') setVocabularyCategory(null)
+  }
+
+  function handleVocabularyBack() {
+    setVocabularyCategory(null)
+    setSelectedVerbId(null)
   }
 
   function handlePickQuizKind(kind: QuizKind) {
@@ -54,13 +61,15 @@ function App() {
           ) : (
             <QuizScreen session={session} />
           ))}
-        {screen === 'verbs' && (
-          <>
-            <VerbsListScreen onSelect={setSelectedVerbId} />
-            {selectedVerbId && (
-              <ExplanationModal verbId={selectedVerbId} onClose={() => setSelectedVerbId(null)} />
-            )}
-          </>
+        {screen === 'vocabulary' && (
+          <VocabularyScreen
+            selectedCategory={vocabularyCategory}
+            onSelectCategory={setVocabularyCategory}
+            onBack={handleVocabularyBack}
+            selectedVerbId={selectedVerbId}
+            onSelectVerb={setSelectedVerbId}
+            onCloseVerbExplanation={() => setSelectedVerbId(null)}
+          />
         )}
         {screen === 'settings' && (
           <SettingsScreen
