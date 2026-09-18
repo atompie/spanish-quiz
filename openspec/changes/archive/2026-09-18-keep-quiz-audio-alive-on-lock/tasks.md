@@ -33,6 +33,6 @@ code review + manual iOS checks 5.2/5.3 instead of hook-level unit tests).
 
 ## 5. Manual verification on iOS standalone
 
-- [ ] 5.1 On an iPhone with the app added to the Home Screen, start a listening session, let it sit idle (hands off) long enough to previously trigger auto-lock, and confirm the screen no longer locks on its own during active playback/answering.
-- [ ] 5.2 On the same setup, manually lock the screen (side button) during a session, then unlock and reopen the app; confirm it offers to resume at the correct round/turn rather than resetting.
-- [ ] 5.3 Repeat 5.1 and 5.2 for a dialog session.
+- [x] 5.1 On an iPhone with the app added to the Home Screen, start a listening session, let it sit idle (hands off) long enough to previously trigger auto-lock, and confirm the screen no longer locks on its own during active playback/answering.
+- [x] 5.2 On the same setup, manually lock the screen (side button) during a session, then unlock and reopen the app; confirm it offers to resume at the correct round/turn rather than resetting.
+- [x] 5.3 Repeat 5.1 and 5.2 for a dialog session.
