@@ -626,6 +626,210 @@
       }
     }
   },
+  "lesson_A1.1.12": {
+    "level": "A1",
+    "parts": {
+      "traer": {
+        "pl": [
+          "przynoszę",
+          "przynosisz",
+          "przynosi",
+          "przynosimy",
+          "przynosicie",
+          "przynoszą",
+          "przynieś",
+          "przynieśmy",
+          "przynieście"
+        ],
+        "de": [
+          "ich bringe",
+          "du bringst",
+          "er/sie/es bringt",
+          "wir bringen",
+          "ihr bringt",
+          "sie bringen",
+          "bring",
+          "bringen wir",
+          "bringt"
+        ],
+        "en": [
+          "I bring",
+          "you bring",
+          "he/she/it brings",
+          "we bring",
+          "you bring",
+          "they bring",
+          "bring",
+          "let's bring",
+          "bring"
+        ],
+        "es": [
+          ["traigo", 3],
+          ["traes", 3],
+          ["trae", 3],
+          ["traemos", 3],
+          ["traéis", 3],
+          ["traen", 3],
+          ["trae", 3],
+          ["traigamos", 3],
+          ["traed", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.13": {
+    "level": "A1",
+    "parts": {
+      "andar": {
+        "pl": [
+          "chodzę",
+          "chodzisz",
+          "chodzi",
+          "chodzimy",
+          "chodzicie",
+          "chodzą",
+          "chodź",
+          "chodźmy",
+          "chodźcie"
+        ],
+        "de": [
+          "ich gehe",
+          "du gehst",
+          "er/sie/es geht",
+          "wir gehen",
+          "ihr geht",
+          "sie gehen",
+          "geh",
+          "gehen wir",
+          "geht"
+        ],
+        "en": [
+          "I walk",
+          "you walk",
+          "he/she/it walks",
+          "we walk",
+          "you walk",
+          "they walk",
+          "walk",
+          "let's walk",
+          "walk"
+        ],
+        "es": [
+          ["ando", 3],
+          ["andas", 3],
+          ["anda", 3],
+          ["andamos", 3],
+          ["andáis", 3],
+          ["andan", 3],
+          ["anda", 3],
+          ["andemos", 3],
+          ["andad", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.14": {
+    "level": "A1",
+    "parts": {
+      "molestar": {
+        "pl": [
+          "przeszkadzam",
+          "przeszkadzasz",
+          "przeszkadza",
+          "przeszkadzamy",
+          "przeszkadzacie",
+          "przeszkadzają",
+          "nie przeszkadzaj",
+          "nie przeszkadzajmy",
+          "nie przeszkadzajcie"
+        ],
+        "de": [
+          "ich störe",
+          "du störst",
+          "er/sie/es stört",
+          "wir stören",
+          "ihr stört",
+          "sie stören",
+          "stör nicht",
+          "stören wir nicht",
+          "stört nicht"
+        ],
+        "en": [
+          "I bother",
+          "you bother",
+          "he/she/it bothers",
+          "we bother",
+          "you bother",
+          "they bother",
+          "don't bother",
+          "let's not bother",
+          "don't bother"
+        ],
+        "es": [
+          ["molesto", 3],
+          ["molestas", 3],
+          ["molesta", 3],
+          ["molestamos", 3],
+          ["molestáis", 3],
+          ["molestan", 3],
+          ["no molestes", 3],
+          ["no molestemos", 3],
+          ["no molestéis", 3]
+        ]
+      }
+    }
+  },
+  "lesson_A1.1.15": {
+    "level": "A1",
+    "parts": {
+      "cuidar": {
+        "pl": [
+          "dbam",
+          "dbasz",
+          "dba",
+          "dbamy",
+          "dbacie",
+          "dbają",
+          "dbaj",
+          "dbajmy",
+          "dbajcie"
+        ],
+        "de": [
+          "ich kümmere mich",
+          "du kümmerst dich",
+          "er/sie/es kümmert sich",
+          "wir kümmern uns",
+          "ihr kümmert euch",
+          "sie kümmern sich",
+          "kümmere dich",
+          "kümmern wir uns",
+          "kümmert euch"
+        ],
+        "en": [
+          "I take care",
+          "you take care",
+          "he/she/it takes care",
+          "we take care",
+          "you take care",
+          "they take care",
+          "take care",
+          "let's take care",
+          "take care"
+        ],
+        "es": [
+          ["cuido", 3],
+          ["cuidas", 3],
+          ["cuida", 3],
+          ["cuidamos", 3],
+          ["cuidáis", 3],
+          ["cuidan", 3],
+          ["cuida", 3],
+          ["cuidemos", 3],
+          ["cuidad", 3]
+        ]
+      }
+    }
+  },
   "lesson_A1.2.1": {
     "level": 1,
     "title": {
