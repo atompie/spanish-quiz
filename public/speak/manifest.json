@@ -30,6 +30,46 @@
     }
   },
   {
+    "slug": "traer",
+    "lesson": "lesson_A1.1.12",
+    "counts": {
+      "de": 9,
+      "en": 9,
+      "es": 9,
+      "pl": 9
+    }
+  },
+  {
+    "slug": "andar",
+    "lesson": "lesson_A1.1.13",
+    "counts": {
+      "de": 9,
+      "en": 9,
+      "es": 9,
+      "pl": 9
+    }
+  },
+  {
+    "slug": "molestar",
+    "lesson": "lesson_A1.1.14",
+    "counts": {
+      "de": 9,
+      "en": 9,
+      "es": 9,
+      "pl": 9
+    }
+  },
+  {
+    "slug": "cuidar",
+    "lesson": "lesson_A1.1.15",
+    "counts": {
+      "de": 9,
+      "en": 9,
+      "es": 9,
+      "pl": 9
+    }
+  },
+  {
     "slug": "estar",
     "lesson": "lesson_A1.1.2",
     "counts": {
