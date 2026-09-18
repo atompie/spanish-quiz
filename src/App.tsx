@@ -17,6 +17,7 @@ import type { QuizKind } from './types/quiz'
 function App() {
   const [screen, setScreen] = useState<Screen>('quiz')
   const [selectedVerbId, setSelectedVerbId] = useState<string | null>(null)
+  const [selectedNounId, setSelectedNounId] = useState<string | null>(null)
   const [vocabularyCategory, setVocabularyCategory] = useState<VocabularyCategoryId | null>(null)
   const [showQuizPicker, setShowQuizPicker] = useState(true)
   const session = useQuizSession()
@@ -30,6 +31,7 @@ function App() {
   function handleScreenChange(next: Screen) {
     setScreen(next)
     setSelectedVerbId(null)
+    setSelectedNounId(null)
     if (next === 'quiz') setShowQuizPicker(true)
     if (next === 'vocabulary') setVocabularyCategory(null)
   }
@@ -37,6 +39,7 @@ function App() {
   function handleVocabularyBack() {
     setVocabularyCategory(null)
     setSelectedVerbId(null)
+    setSelectedNounId(null)
   }
 
   function handlePickQuizKind(kind: QuizKind) {
@@ -69,6 +72,9 @@ function App() {
             selectedVerbId={selectedVerbId}
             onSelectVerb={setSelectedVerbId}
             onCloseVerbExplanation={() => setSelectedVerbId(null)}
+            selectedNounId={selectedNounId}
+            onSelectNoun={setSelectedNounId}
+            onCloseNounExplanation={() => setSelectedNounId(null)}
           />
         )}
         {screen === 'settings' && (

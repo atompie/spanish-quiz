@@ -1,0 +1,597 @@
+{
+  "noun_1": {
+    "es": {
+      "singular": "cosa",
+      "article": "la",
+      "plural": "cosas"
+    },
+    "pl": {
+      "singular": "rzecz",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "thing"
+    },
+    "de": {
+      "singular": "Sache",
+      "article": "die"
+    }
+  },
+  "noun_2": {
+    "es": {
+      "singular": "persona",
+      "article": "la",
+      "plural": "personas"
+    },
+    "pl": {
+      "singular": "osoba",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "person"
+    },
+    "de": {
+      "singular": "Person",
+      "article": "die"
+    }
+  },
+  "noun_3": {
+    "es": {
+      "singular": "día",
+      "article": "el",
+      "plural": "días"
+    },
+    "pl": {
+      "singular": "dzień",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "day"
+    },
+    "de": {
+      "singular": "Tag",
+      "article": "der"
+    }
+  },
+  "noun_4": {
+    "es": {
+      "singular": "tiempo",
+      "article": "el",
+      "plural": "tiempos"
+    },
+    "pl": {
+      "singular": "czas / pogoda",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "time / weather"
+    },
+    "de": {
+      "singular": "Zeit / Wetter",
+      "article": "die"
+    }
+  },
+  "noun_5": {
+    "es": {
+      "singular": "año",
+      "article": "el",
+      "plural": "años"
+    },
+    "pl": {
+      "singular": "rok",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "year"
+    },
+    "de": {
+      "singular": "Jahr",
+      "article": "das"
+    }
+  },
+  "noun_6": {
+    "es": {
+      "singular": "vez",
+      "article": "la",
+      "plural": "veces"
+    },
+    "pl": {
+      "singular": "raz",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "time"
+    },
+    "de": {
+      "singular": "Mal",
+      "article": "das"
+    }
+  },
+  "noun_7": {
+    "es": {
+      "singular": "casa",
+      "article": "la",
+      "plural": "casas"
+    },
+    "pl": {
+      "singular": "dom",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "house"
+    },
+    "de": {
+      "singular": "Haus",
+      "article": "das"
+    }
+  },
+  "noun_8": {
+    "es": {
+      "singular": "vida",
+      "article": "la",
+      "plural": "vidas"
+    },
+    "pl": {
+      "singular": "życie",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "life"
+    },
+    "de": {
+      "singular": "Leben",
+      "article": "das"
+    }
+  },
+  "noun_9": {
+    "es": {
+      "singular": "mundo",
+      "article": "el",
+      "plural": "mundos"
+    },
+    "pl": {
+      "singular": "świat",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "world"
+    },
+    "de": {
+      "singular": "Welt",
+      "article": "die"
+    }
+  },
+  "noun_10": {
+    "es": {
+      "singular": "país",
+      "article": "el",
+      "plural": "países"
+    },
+    "pl": {
+      "singular": "kraj",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "country"
+    },
+    "de": {
+      "singular": "Land",
+      "article": "das"
+    }
+  },
+  "noun_11": {
+    "es": {
+      "singular": "lugar",
+      "article": "el",
+      "plural": "lugares"
+    },
+    "pl": {
+      "singular": "miejsce",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "place"
+    },
+    "de": {
+      "singular": "Ort / Platz",
+      "article": "der"
+    }
+  },
+  "noun_12": {
+    "es": {
+      "singular": "trabajo",
+      "article": "el",
+      "plural": "trabajos"
+    },
+    "pl": {
+      "singular": "praca",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "work / job"
+    },
+    "de": {
+      "singular": "Arbeit / Job",
+      "article": "die"
+    }
+  },
+  "noun_13": {
+    "es": {
+      "singular": "problema",
+      "article": "el",
+      "plural": "problemas"
+    },
+    "pl": {
+      "singular": "problem",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "problem"
+    },
+    "de": {
+      "singular": "Problem",
+      "article": "das"
+    }
+  },
+  "noun_14": {
+    "es": {
+      "singular": "pregunta",
+      "article": "la",
+      "plural": "preguntas"
+    },
+    "pl": {
+      "singular": "pytanie",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "question"
+    },
+    "de": {
+      "singular": "Frage",
+      "article": "die"
+    }
+  },
+  "noun_15": {
+    "es": {
+      "singular": "respuesta",
+      "article": "la",
+      "plural": "respuestas"
+    },
+    "pl": {
+      "singular": "odpowiedź",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "answer"
+    },
+    "de": {
+      "singular": "Antwort",
+      "article": "die"
+    }
+  },
+  "noun_16": {
+    "es": {
+      "singular": "parte",
+      "article": "la",
+      "plural": "partes"
+    },
+    "pl": {
+      "singular": "część",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "part"
+    },
+    "de": {
+      "singular": "Teil",
+      "article": "der"
+    }
+  },
+  "noun_17": {
+    "es": {
+      "singular": "momento",
+      "article": "el",
+      "plural": "momentos"
+    },
+    "pl": {
+      "singular": "moment / chwila",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "moment"
+    },
+    "de": {
+      "singular": "Moment / Augenblick",
+      "article": "der"
+    }
+  },
+  "noun_18": {
+    "es": {
+      "singular": "forma",
+      "article": "la",
+      "plural": "formas"
+    },
+    "pl": {
+      "singular": "sposób / forma",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "way / form"
+    },
+    "de": {
+      "singular": "Art / Form",
+      "article": "die"
+    }
+  },
+  "noun_19": {
+    "es": {
+      "singular": "manera",
+      "article": "la",
+      "plural": "maneras"
+    },
+    "pl": {
+      "singular": "sposób",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "way / manner"
+    },
+    "de": {
+      "singular": "Art / Weise",
+      "article": "die"
+    }
+  },
+  "noun_20": {
+    "es": {
+      "singular": "idea",
+      "article": "la",
+      "plural": "ideas"
+    },
+    "pl": {
+      "singular": "pomysł / idea",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "idea"
+    },
+    "de": {
+      "singular": "Idee",
+      "article": "die"
+    }
+  },
+  "noun_21": {
+    "es": {
+      "singular": "palabra",
+      "article": "la",
+      "plural": "palabras"
+    },
+    "pl": {
+      "singular": "słowo",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "word"
+    },
+    "de": {
+      "singular": "Wort",
+      "article": "das"
+    }
+  },
+  "noun_22": {
+    "es": {
+      "singular": "nombre",
+      "article": "el",
+      "plural": "nombres"
+    },
+    "pl": {
+      "singular": "imię / nazwa",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "name"
+    },
+    "de": {
+      "singular": "Name",
+      "article": "der"
+    }
+  },
+  "noun_23": {
+    "es": {
+      "singular": "hombre",
+      "article": "el",
+      "plural": "hombres"
+    },
+    "pl": {
+      "singular": "mężczyzna / człowiek",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "man"
+    },
+    "de": {
+      "singular": "Mann",
+      "article": "der"
+    }
+  },
+  "noun_24": {
+    "es": {
+      "singular": "mujer",
+      "article": "la",
+      "plural": "mujeres"
+    },
+    "pl": {
+      "singular": "kobieta",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "woman"
+    },
+    "de": {
+      "singular": "Frau",
+      "article": "die"
+    }
+  },
+  "noun_25": {
+    "es": {
+      "singular": "niño",
+      "article": "el",
+      "plural": "niños"
+    },
+    "pl": {
+      "singular": "dziecko / chłopiec",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "child / boy"
+    },
+    "de": {
+      "singular": "Kind / Junge",
+      "article": "das"
+    }
+  },
+  "noun_26": {
+    "es": {
+      "singular": "amigo",
+      "article": "el",
+      "plural": "amigos"
+    },
+    "pl": {
+      "singular": "przyjaciel",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "friend"
+    },
+    "de": {
+      "singular": "Freund",
+      "article": "der"
+    }
+  },
+  "noun_27": {
+    "es": {
+      "singular": "familia",
+      "article": "la",
+      "plural": "familias"
+    },
+    "pl": {
+      "singular": "rodzina",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "family"
+    },
+    "de": {
+      "singular": "Familie",
+      "article": "die"
+    }
+  },
+  "noun_28": {
+    "es": {
+      "singular": "dinero",
+      "article": "el",
+      "plural": "dineros"
+    },
+    "pl": {
+      "singular": "pieniądze",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "money"
+    },
+    "de": {
+      "singular": "Geld",
+      "article": "das"
+    }
+  },
+  "noun_29": {
+    "es": {
+      "singular": "agua",
+      "article": "el",
+      "plural": "aguas",
+      "pluralArticle": "las"
+    },
+    "pl": {
+      "singular": "woda",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "water"
+    },
+    "de": {
+      "singular": "Wasser",
+      "article": "das"
+    }
+  },
+  "noun_30": {
+    "es": {
+      "singular": "comida",
+      "article": "la",
+      "plural": "comidas"
+    },
+    "pl": {
+      "singular": "jedzenie",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "food"
+    },
+    "de": {
+      "singular": "Essen",
+      "article": "das"
+    }
+  },
+  "noun_31": {
+    "es": {
+      "singular": "coche",
+      "article": "el",
+      "plural": "coches"
+    },
+    "pl": {
+      "singular": "samochód",
+      "gender": "masculine"
+    },
+    "en": {
+      "singular": "car"
+    },
+    "de": {
+      "singular": "Auto",
+      "article": "das"
+    }
+  },
+  "noun_32": {
+    "es": {
+      "singular": "camino",
+      "article": "el",
+      "plural": "caminos"
+    },
+    "pl": {
+      "singular": "droga",
+      "gender": "feminine"
+    },
+    "en": {
+      "singular": "road / path"
+    },
+    "de": {
+      "singular": "Weg / Straße",
+      "article": "der"
+    }
+  },
+  "noun_33": {
+    "es": {
+      "singular": "ciudad",
+      "article": "la",
+      "plural": "ciudades"
+    },
+    "pl": {
+      "singular": "miasto",
+      "gender": "neuter"
+    },
+    "en": {
+      "singular": "city"
+    },
+    "de": {
+      "singular": "Stadt",
+      "article": "die"
+    }
+  }
+}

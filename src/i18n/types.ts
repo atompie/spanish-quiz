@@ -6,6 +6,8 @@ export interface UiStrings {
   vocabPickerTitle: string
   vocabCategoryVerbs: string
   vocabCategoryVerbsDescription: string
+  vocabCategoryNouns: string
+  vocabCategoryNounsDescription: string
 
   commonClose: string
 
@@ -14,6 +16,7 @@ export interface UiStrings {
   explanationPronoun: string
   explanationPrevTense: string
   explanationNextTense: string
+  explanationPlural: string
 
   hintAriaLabel: string
 
@@ -117,6 +120,10 @@ export interface UiStrings {
   verbIrregular: string
   verbSearchPlaceholder: string
   verbSearchEmpty: string
+
+  nounSearchPlaceholder: string
+  nounSearchEmpty: string
+  nounListLoadError: string
 
   sessionResumeTitle: string
   sessionResumeMessage: string

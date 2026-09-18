@@ -8,6 +8,8 @@ export const pl: UiStrings = {
   vocabPickerTitle: 'Wybierz kategorię słownictwa',
   vocabCategoryVerbs: 'Czasowniki',
   vocabCategoryVerbsDescription: 'Przeglądaj czasowniki dostępne w aplikacji wraz z ich odmianą i tłumaczeniem.',
+  vocabCategoryNouns: 'Rzeczowniki',
+  vocabCategoryNounsDescription: 'Przeglądaj rzeczowniki dostępne w aplikacji wraz z rodzajnikiem, liczbą mnogą i tłumaczeniem.',
 
   commonClose: 'Zamknij',
 
@@ -16,6 +18,7 @@ export const pl: UiStrings = {
   explanationPronoun: 'Zaimek:',
   explanationPrevTense: 'Poprzedni czas',
   explanationNextTense: 'Następny czas',
+  explanationPlural: 'Liczba mnoga:',
 
   hintAriaLabel: 'Podpowiedź',
 
@@ -119,6 +122,10 @@ export const pl: UiStrings = {
   verbIrregular: 'Nieregularny',
   verbSearchPlaceholder: 'Szukaj czasownika...',
   verbSearchEmpty: 'Nie znaleziono czasowników.',
+
+  nounSearchPlaceholder: 'Szukaj rzeczownika...',
+  nounSearchEmpty: 'Nie znaleziono rzeczowników.',
+  nounListLoadError: 'Nie udało się pobrać listy rzeczowników. Sprawdź połączenie i spróbuj ponownie.',
 
   sessionResumeTitle: 'Wznowić sesję?',
   sessionResumeMessage: 'Masz przerwaną sesję. Możesz ją wznowić od miejsca przerwania albo zacząć od nowa.',

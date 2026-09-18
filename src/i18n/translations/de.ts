@@ -8,6 +8,8 @@ export const de: UiStrings = {
   vocabPickerTitle: 'Wähle eine Vokabelkategorie',
   vocabCategoryVerbs: 'Verben',
   vocabCategoryVerbsDescription: 'Durchsuche die Verben der App mit Konjugation und Übersetzung.',
+  vocabCategoryNouns: 'Substantive',
+  vocabCategoryNounsDescription: 'Durchsuche die Substantive der App mit Artikel, Pluralform und Übersetzung.',
 
   commonClose: 'Schließen',
 
@@ -16,6 +18,7 @@ export const de: UiStrings = {
   explanationPronoun: 'Pronomen:',
   explanationPrevTense: 'Vorherige Zeitform',
   explanationNextTense: 'Nächste Zeitform',
+  explanationPlural: 'Plural:',
 
   hintAriaLabel: 'Hinweis',
 
@@ -119,6 +122,10 @@ export const de: UiStrings = {
   verbIrregular: 'Unregelmäßig',
   verbSearchPlaceholder: 'Verb suchen...',
   verbSearchEmpty: 'Keine Verben gefunden.',
+
+  nounSearchPlaceholder: 'Substantiv suchen...',
+  nounSearchEmpty: 'Keine Substantive gefunden.',
+  nounListLoadError: 'Die Liste der Substantive konnte nicht geladen werden. Prüfe deine Verbindung und versuche es erneut.',
 
   sessionResumeTitle: 'Sitzung fortsetzen?',
   sessionResumeMessage: 'Du hast eine unterbrochene Sitzung. Setze sie fort, oder beginne neu.',

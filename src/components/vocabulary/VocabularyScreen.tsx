@@ -2,6 +2,8 @@ import type { VocabularyCategoryId } from '../../data/vocabularyCategories'
 import { useTranslation } from '../../i18n/LanguageContext'
 import { ExplanationModal } from '../common/ExplanationModal'
 import { TopBarCloseButton } from '../common/TopBarCloseButton'
+import { NounExplanationModal } from '../nouns/NounExplanationModal'
+import { NounsListScreen } from '../nouns/NounsListScreen'
 import { VerbsListScreen } from '../verbs/VerbsListScreen'
 import { VocabularyCategoryList } from './VocabularyCategoryList'
 
@@ -12,6 +14,9 @@ interface VocabularyScreenProps {
   selectedVerbId: string | null
   onSelectVerb: (verbId: string) => void
   onCloseVerbExplanation: () => void
+  selectedNounId: string | null
+  onSelectNoun: (nounId: string) => void
+  onCloseNounExplanation: () => void
 }
 
 export function VocabularyScreen({
@@ -21,6 +26,9 @@ export function VocabularyScreen({
   selectedVerbId,
   onSelectVerb,
   onCloseVerbExplanation,
+  selectedNounId,
+  onSelectNoun,
+  onCloseNounExplanation,
 }: VocabularyScreenProps) {
   const { t } = useTranslation()
 
@@ -31,8 +39,18 @@ export function VocabularyScreen({
   return (
     <>
       <TopBarCloseButton label={t.commonClose} onClose={onBack} />
-      <VerbsListScreen onSelect={onSelectVerb} />
-      {selectedVerbId && <ExplanationModal verbId={selectedVerbId} onClose={onCloseVerbExplanation} />}
+      {selectedCategory === 'verbs' && (
+        <>
+          <VerbsListScreen onSelect={onSelectVerb} />
+          {selectedVerbId && <ExplanationModal verbId={selectedVerbId} onClose={onCloseVerbExplanation} />}
+        </>
+      )}
+      {selectedCategory === 'nouns' && (
+        <>
+          <NounsListScreen onSelect={onSelectNoun} />
+          {selectedNounId && <NounExplanationModal nounId={selectedNounId} onClose={onCloseNounExplanation} />}
+        </>
+      )}
     </>
   )
 }

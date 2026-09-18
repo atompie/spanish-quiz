@@ -8,11 +8,14 @@ export const en: UiStrings = {
   vocabPickerTitle: 'Choose a vocabulary category',
   vocabCategoryVerbs: 'Verbs',
   vocabCategoryVerbsDescription: 'Browse the verbs available in the app, with their conjugation and translation.',
+  vocabCategoryNouns: 'Nouns',
+  vocabCategoryNounsDescription: 'Browse the nouns available in the app, with their article, plural form, and translation.',
 
   commonClose: 'Close',
 
   explanationParticiple: 'Participle:',
   explanationGerund: 'Gerund:',
+  explanationPlural: 'Plural:',
   explanationPronoun: 'Pronoun:',
   explanationPrevTense: 'Previous tense',
   explanationNextTense: 'Next tense',
@@ -119,6 +122,10 @@ export const en: UiStrings = {
   verbIrregular: 'Irregular',
   verbSearchPlaceholder: 'Search verb...',
   verbSearchEmpty: 'No verbs found.',
+
+  nounSearchPlaceholder: 'Search noun...',
+  nounSearchEmpty: 'No nouns found.',
+  nounListLoadError: "Couldn't load the noun list. Check your connection and try again.",
 
   sessionResumeTitle: 'Resume your session?',
   sessionResumeMessage: 'You have an interrupted session. Resume it where you left off, or start fresh.',

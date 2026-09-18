@@ -1,6 +1,6 @@
 import type { UiStrings } from '../i18n/types'
 
-export type VocabularyCategoryId = 'verbs'
+export type VocabularyCategoryId = 'verbs' | 'nouns'
 
 export interface VocabularyCategory {
   id: VocabularyCategoryId
@@ -10,4 +10,5 @@ export interface VocabularyCategory {
 
 export const VOCABULARY_CATEGORIES: VocabularyCategory[] = [
   { id: 'verbs', labelKey: 'vocabCategoryVerbs', descriptionKey: 'vocabCategoryVerbsDescription' },
+  { id: 'nouns', labelKey: 'vocabCategoryNouns', descriptionKey: 'vocabCategoryNounsDescription' },
 ]
