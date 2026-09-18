@@ -8,6 +8,7 @@ export const en: UiStrings = {
   commonClose: 'Close',
 
   explanationParticiple: 'Participle:',
+  explanationGerund: 'Gerund:',
   explanationPronoun: 'Pronoun:',
   explanationPrevTense: 'Previous tense',
   explanationNextTense: 'Next tense',

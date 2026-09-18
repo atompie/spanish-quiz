@@ -1,5 +1,5 @@
 import type { Verb } from '../types/verb'
-import { conjugateRegular } from './verbTemplates'
+import { conjugateGerundRegular, conjugateRegular } from './verbTemplates'
 
 export const VERBS: Verb[] = [
   {
@@ -7,12 +7,15 @@ export const VERBS: Verb[] = [
     infinitive: 'ser',
     regular: false,
     participle: 'sido',
+    gerund: 'siendo',
     conjugations: {
       presente: { yo: 'soy', tu: 'eres', el: 'es', nosotros: 'somos', vosotros: 'sois', ellos: 'son' },
       preterite: { yo: 'fui', tu: 'fuiste', el: 'fue', nosotros: 'fuimos', vosotros: 'fuisteis', ellos: 'fueron' },
       futuro: { yo: 'seré', tu: 'serás', el: 'será', nosotros: 'seremos', vosotros: 'seréis', ellos: 'serán' },
       ir_a_infinitivo: { yo: 'voy a ser', tu: 'vas a ser', el: 'va a ser', nosotros: 'vamos a ser', vosotros: 'vais a ser', ellos: 'van a ser' },
       acabar_de_infinitivo: { yo: 'acabo de ser', tu: 'acabas de ser', el: 'acaba de ser', nosotros: 'acabamos de ser', vosotros: 'acabáis de ser', ellos: 'acaban de ser' },
+      imperativo_afirmativo: { yo: '—', tu: 'sé', el: 'sea', nosotros: 'seamos', vosotros: 'sed', ellos: 'sean' },
+      imperativo_negativo: { yo: '—', tu: 'no seas', el: 'no sea', nosotros: 'no seamos', vosotros: 'no seáis', ellos: 'no sean' },
     },
     translations: {
       pl: {
@@ -23,6 +26,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę', tu: 'będziesz', el: 'będzie', nosotros: 'będziemy', vosotros: 'będziecie', ellos: 'będą' },
           ir_a_infinitivo: { yo: 'zamierzam być', tu: 'zamierzasz być', el: 'zamierza być', nosotros: 'zamierzamy być', vosotros: 'zamierzacie być', ellos: 'zamierzają być' },
           acabar_de_infinitivo: { yo: 'właśnie byłem', tu: 'właśnie byłeś', el: 'właśnie był', nosotros: 'właśnie byliśmy', vosotros: 'właśnie byliście', ellos: 'właśnie byli' },
+          imperativo_afirmativo: { yo: '—', tu: 'bądź', el: 'niech jest', nosotros: 'bądźmy', vosotros: 'bądźcie', ellos: 'niech są' },
+          imperativo_negativo: { yo: '—', tu: 'nie bądź', el: 'niech nie jest', nosotros: 'nie bądźmy', vosotros: 'nie bądźcie', ellos: 'niech nie są' },
         },
       },
       en: {
@@ -33,6 +38,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will be', tu: 'you will be', el: 'he/she will be', nosotros: 'we will be', vosotros: 'you (all) will be', ellos: 'they will be' },
           ir_a_infinitivo: { yo: 'I am going to be', tu: 'you are going to be', el: 'he/she is going to be', nosotros: 'we are going to be', vosotros: 'you (all) are going to be', ellos: 'they are going to be' },
           acabar_de_infinitivo: { yo: 'I just was', tu: 'you just were', el: 'he/she just was', nosotros: 'we just were', vosotros: 'you (all) just were', ellos: 'they just were' },
+          imperativo_afirmativo: { yo: '—', tu: 'be!', el: 'be!', nosotros: 'let\'s be!', vosotros: 'be!', ellos: 'be!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t be!', el: 'don\'t be!', nosotros: 'let\'s not be!', vosotros: 'don\'t be!', ellos: 'don\'t be!' },
         },
       },
       de: {
@@ -43,6 +50,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sein', tu: 'du wirst sein', el: 'er/sie/es wird sein', nosotros: 'wir werden sein', vosotros: 'ihr werdet sein', ellos: 'sie werden sein' },
           ir_a_infinitivo: { yo: 'ich werde gleich sein', tu: 'du wirst gleich sein', el: 'er/sie/es wird gleich sein', nosotros: 'wir werden gleich sein', vosotros: 'ihr werdet gleich sein', ellos: 'sie werden gleich sein' },
           acabar_de_infinitivo: { yo: 'ich war gerade eben', tu: 'du warst gerade eben', el: 'er/sie/es war gerade eben', nosotros: 'wir waren gerade eben', vosotros: 'ihr wart gerade eben', ellos: 'sie waren gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'sei!', el: 'Seien Sie!', nosotros: 'Seien wir!', vosotros: 'seid!', ellos: 'Seien Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'sei nicht!', el: 'Seien Sie nicht!', nosotros: 'Seien wir nicht!', vosotros: 'seid nicht!', ellos: 'Seien Sie nicht!' },
         },
       },
     },
@@ -57,6 +66,7 @@ export const VERBS: Verb[] = [
       { id: 'ser-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Byliśmy szczęśliwi.', en: 'We were happy.', de: 'Wir waren glücklich.' }, spanish: 'fuimos felices' },
       { id: 'ser-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Byli szczęśliwi.', en: 'They were happy.', de: 'Sie waren glücklich.' }, spanish: 'fueron felices' },
       { id: 'ser-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie lekarzami.', en: 'You (all) will be doctors.', de: 'Ihr werdet Ärzte sein.' }, spanish: 'seréis médicos' },
+      { id: 'ser-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'bądź cierpliwy', en: 'be patient', de: 'sei geduldig' }, spanish: 'sé paciente' },
     ],
   },
   {
@@ -64,12 +74,15 @@ export const VERBS: Verb[] = [
     infinitive: 'estar',
     regular: false,
     participle: 'estado',
+    gerund: 'estando',
     conjugations: {
       presente: { yo: 'estoy', tu: 'estás', el: 'está', nosotros: 'estamos', vosotros: 'estáis', ellos: 'están' },
       preterite: { yo: 'estuve', tu: 'estuviste', el: 'estuvo', nosotros: 'estuvimos', vosotros: 'estuvisteis', ellos: 'estuvieron' },
       futuro: { yo: 'estaré', tu: 'estarás', el: 'estará', nosotros: 'estaremos', vosotros: 'estaréis', ellos: 'estarán' },
       ir_a_infinitivo: { yo: 'voy a estar', tu: 'vas a estar', el: 'va a estar', nosotros: 'vamos a estar', vosotros: 'vais a estar', ellos: 'van a estar' },
       acabar_de_infinitivo: { yo: 'acabo de estar', tu: 'acabas de estar', el: 'acaba de estar', nosotros: 'acabamos de estar', vosotros: 'acabáis de estar', ellos: 'acaban de estar' },
+      imperativo_afirmativo: { yo: '—', tu: 'está', el: 'esté', nosotros: 'estemos', vosotros: 'estad', ellos: 'estén' },
+      imperativo_negativo: { yo: '—', tu: 'no estés', el: 'no esté', nosotros: 'no estemos', vosotros: 'no estéis', ellos: 'no estén' },
     },
     translations: {
       pl: {
@@ -80,6 +93,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę', tu: 'będziesz', el: 'będzie', nosotros: 'będziemy', vosotros: 'będziecie', ellos: 'będą' },
           ir_a_infinitivo: { yo: 'zamierzam być', tu: 'zamierzasz być', el: 'zamierza być', nosotros: 'zamierzamy być', vosotros: 'zamierzacie być', ellos: 'zamierzają być' },
           acabar_de_infinitivo: { yo: 'właśnie byłem', tu: 'właśnie byłeś', el: 'właśnie był', nosotros: 'właśnie byliśmy', vosotros: 'właśnie byliście', ellos: 'właśnie byli' },
+          imperativo_afirmativo: { yo: '—', tu: 'bądź', el: 'niech jest', nosotros: 'bądźmy', vosotros: 'bądźcie', ellos: 'niech są' },
+          imperativo_negativo: { yo: '—', tu: 'nie bądź', el: 'niech nie jest', nosotros: 'nie bądźmy', vosotros: 'nie bądźcie', ellos: 'niech nie są' },
         },
       },
       en: {
@@ -90,6 +105,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will be', tu: 'you will be', el: 'he/she will be', nosotros: 'we will be', vosotros: 'you (all) will be', ellos: 'they will be' },
           ir_a_infinitivo: { yo: 'I am going to be', tu: 'you are going to be', el: 'he/she is going to be', nosotros: 'we are going to be', vosotros: 'you (all) are going to be', ellos: 'they are going to be' },
           acabar_de_infinitivo: { yo: 'I just was', tu: 'you just were', el: 'he/she just was', nosotros: 'we just were', vosotros: 'you (all) just were', ellos: 'they just were' },
+          imperativo_afirmativo: { yo: '—', tu: 'be!', el: 'be!', nosotros: 'let\'s be!', vosotros: 'be!', ellos: 'be!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t be!', el: 'don\'t be!', nosotros: 'let\'s not be!', vosotros: 'don\'t be!', ellos: 'don\'t be!' },
         },
       },
       de: {
@@ -100,6 +117,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sein', tu: 'du wirst sein', el: 'er/sie/es wird sein', nosotros: 'wir werden sein', vosotros: 'ihr werdet sein', ellos: 'sie werden sein' },
           ir_a_infinitivo: { yo: 'ich werde gleich sein', tu: 'du wirst gleich sein', el: 'er/sie/es wird gleich sein', nosotros: 'wir werden gleich sein', vosotros: 'ihr werdet gleich sein', ellos: 'sie werden gleich sein' },
           acabar_de_infinitivo: { yo: 'ich war gerade eben', tu: 'du warst gerade eben', el: 'er/sie/es war gerade eben', nosotros: 'wir waren gerade eben', vosotros: 'ihr wart gerade eben', ellos: 'sie waren gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'sei!', el: 'Seien Sie!', nosotros: 'Seien wir!', vosotros: 'seid!', ellos: 'Seien Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'sei nicht!', el: 'Seien Sie nicht!', nosotros: 'Seien wir nicht!', vosotros: 'seid nicht!', ellos: 'Seien Sie nicht!' },
         },
       },
     },
@@ -114,6 +133,7 @@ export const VERBS: Verb[] = [
       { id: 'estar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Byliśmy w domu.', en: 'We were at home.', de: 'Wir waren zu Hause.' }, spanish: 'estuvimos en casa' },
       { id: 'estar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Byli w domu.', en: 'They were at home.', de: 'Sie waren zu Hause.' }, spanish: 'estuvieron en casa' },
       { id: 'estar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie w domu.', en: 'You (all) will be at home.', de: 'Ihr werdet zu Hause sein.' }, spanish: 'estaréis en casa' },
+      { id: 'estar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'bądź spokojny', en: 'be calm', de: 'sei ruhig' }, spanish: 'está tranquilo' },
     ],
   },
   {
@@ -121,12 +141,15 @@ export const VERBS: Verb[] = [
     infinitive: 'tener',
     regular: false,
     participle: 'tenido',
+    gerund: 'teniendo',
     conjugations: {
       presente: { yo: 'tengo', tu: 'tienes', el: 'tiene', nosotros: 'tenemos', vosotros: 'tenéis', ellos: 'tienen' },
       preterite: { yo: 'tuve', tu: 'tuviste', el: 'tuvo', nosotros: 'tuvimos', vosotros: 'tuvisteis', ellos: 'tuvieron' },
       futuro: { yo: 'tendré', tu: 'tendrás', el: 'tendrá', nosotros: 'tendremos', vosotros: 'tendréis', ellos: 'tendrán' },
       ir_a_infinitivo: { yo: 'voy a tener', tu: 'vas a tener', el: 'va a tener', nosotros: 'vamos a tener', vosotros: 'vais a tener', ellos: 'van a tener' },
       acabar_de_infinitivo: { yo: 'acabo de tener', tu: 'acabas de tener', el: 'acaba de tener', nosotros: 'acabamos de tener', vosotros: 'acabáis de tener', ellos: 'acaban de tener' },
+      imperativo_afirmativo: { yo: '—', tu: 'ten', el: 'tenga', nosotros: 'tengamos', vosotros: 'tened', ellos: 'tengan' },
+      imperativo_negativo: { yo: '—', tu: 'no tengas', el: 'no tenga', nosotros: 'no tengamos', vosotros: 'no tengáis', ellos: 'no tengan' },
     },
     translations: {
       pl: {
@@ -137,6 +160,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę miał', tu: 'będziesz miał', el: 'będzie miał', nosotros: 'będziemy mieli', vosotros: 'będziecie mieli', ellos: 'będą mieli' },
           ir_a_infinitivo: { yo: 'zamierzam mieć', tu: 'zamierzasz mieć', el: 'zamierza mieć', nosotros: 'zamierzamy mieć', vosotros: 'zamierzacie mieć', ellos: 'zamierzają mieć' },
           acabar_de_infinitivo: { yo: 'właśnie miałem', tu: 'właśnie miałeś', el: 'właśnie miał', nosotros: 'właśnie mieliśmy', vosotros: 'właśnie mieliście', ellos: 'właśnie mieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'miej', el: 'niech ma', nosotros: 'miejmy', vosotros: 'miejcie', ellos: 'niech mają' },
+          imperativo_negativo: { yo: '—', tu: 'nie miej', el: 'niech nie ma', nosotros: 'nie miejmy', vosotros: 'nie miejcie', ellos: 'niech nie mają' },
         },
       },
       en: {
@@ -147,6 +172,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will have', tu: 'you will have', el: 'he/she will have', nosotros: 'we will have', vosotros: 'you (all) will have', ellos: 'they will have' },
           ir_a_infinitivo: { yo: 'I am going to have', tu: 'you are going to have', el: 'he/she is going to have', nosotros: 'we are going to have', vosotros: 'you (all) are going to have', ellos: 'they are going to have' },
           acabar_de_infinitivo: { yo: 'I just had', tu: 'you just had', el: 'he/she just had', nosotros: 'we just had', vosotros: 'you (all) just had', ellos: 'they just had' },
+          imperativo_afirmativo: { yo: '—', tu: 'have!', el: 'have!', nosotros: 'let\'s have!', vosotros: 'have!', ellos: 'have!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t have!', el: 'don\'t have!', nosotros: 'let\'s not have!', vosotros: 'don\'t have!', ellos: 'don\'t have!' },
         },
       },
       de: {
@@ -157,6 +184,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde haben', tu: 'du wirst haben', el: 'er/sie/es wird haben', nosotros: 'wir werden haben', vosotros: 'ihr werdet haben', ellos: 'sie werden haben' },
           ir_a_infinitivo: { yo: 'ich werde gleich haben', tu: 'du wirst gleich haben', el: 'er/sie/es wird gleich haben', nosotros: 'wir werden gleich haben', vosotros: 'ihr werdet gleich haben', ellos: 'sie werden gleich haben' },
           acabar_de_infinitivo: { yo: 'ich hatte gerade eben', tu: 'du hattest gerade eben', el: 'er/sie/es hatte gerade eben', nosotros: 'wir hatten gerade eben', vosotros: 'ihr hattet gerade eben', ellos: 'sie hatten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'hab!', el: 'Haben Sie!', nosotros: 'Haben wir!', vosotros: 'habt!', ellos: 'Haben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'hab nicht!', el: 'Haben Sie nicht!', nosotros: 'Haben wir nicht!', vosotros: 'habt nicht!', ellos: 'Haben Sie nicht!' },
         },
       },
     },
@@ -171,6 +200,7 @@ export const VERBS: Verb[] = [
       { id: 'tener-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Mieliśmy czas.', en: 'We had time.', de: 'Wir hatten Zeit.' }, spanish: 'tuvimos tiempo' },
       { id: 'tener-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Mieli czas.', en: 'They had time.', de: 'Sie hatten Zeit.' }, spanish: 'tuvieron tiempo' },
       { id: 'tener-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie mieli czas.', en: 'You (all) will have time.', de: 'Ihr werdet Zeit haben.' }, spanish: 'tendréis tiempo' },
+      { id: 'tener-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'miej się na baczności', en: 'be careful', de: 'hab Vorsicht' }, spanish: 'ten cuidado' },
     ],
   },
   {
@@ -178,12 +208,15 @@ export const VERBS: Verb[] = [
     infinitive: 'hacer',
     regular: false,
     participle: 'hecho',
+    gerund: 'haciendo',
     conjugations: {
       presente: { yo: 'hago', tu: 'haces', el: 'hace', nosotros: 'hacemos', vosotros: 'hacéis', ellos: 'hacen' },
       preterite: { yo: 'hice', tu: 'hiciste', el: 'hizo', nosotros: 'hicimos', vosotros: 'hicisteis', ellos: 'hicieron' },
       futuro: { yo: 'haré', tu: 'harás', el: 'hará', nosotros: 'haremos', vosotros: 'haréis', ellos: 'harán' },
       ir_a_infinitivo: { yo: 'voy a hacer', tu: 'vas a hacer', el: 'va a hacer', nosotros: 'vamos a hacer', vosotros: 'vais a hacer', ellos: 'van a hacer' },
       acabar_de_infinitivo: { yo: 'acabo de hacer', tu: 'acabas de hacer', el: 'acaba de hacer', nosotros: 'acabamos de hacer', vosotros: 'acabáis de hacer', ellos: 'acaban de hacer' },
+      imperativo_afirmativo: { yo: '—', tu: 'haz', el: 'haga', nosotros: 'hagamos', vosotros: 'haced', ellos: 'hagan' },
+      imperativo_negativo: { yo: '—', tu: 'no hagas', el: 'no haga', nosotros: 'no hagamos', vosotros: 'no hagáis', ellos: 'no hagan' },
     },
     translations: {
       pl: {
@@ -194,6 +227,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zrobię', tu: 'zrobisz', el: 'zrobi', nosotros: 'zrobimy', vosotros: 'zrobicie', ellos: 'zrobią' },
           ir_a_infinitivo: { yo: 'zamierzam robić', tu: 'zamierzasz robić', el: 'zamierza robić', nosotros: 'zamierzamy robić', vosotros: 'zamierzacie robić', ellos: 'zamierzają robić' },
           acabar_de_infinitivo: { yo: 'właśnie zrobiłem', tu: 'właśnie zrobiłeś', el: 'właśnie zrobił', nosotros: 'właśnie zrobiliśmy', vosotros: 'właśnie zrobiliście', ellos: 'właśnie zrobili' },
+          imperativo_afirmativo: { yo: '—', tu: 'rób', el: 'niech robi', nosotros: 'róbmy', vosotros: 'róbcie', ellos: 'niech robią' },
+          imperativo_negativo: { yo: '—', tu: 'nie rób', el: 'niech nie robi', nosotros: 'nie róbmy', vosotros: 'nie róbcie', ellos: 'niech nie robią' },
         },
       },
       en: {
@@ -204,6 +239,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will do', tu: 'you will do', el: 'he/she will do', nosotros: 'we will do', vosotros: 'you (all) will do', ellos: 'they will do' },
           ir_a_infinitivo: { yo: 'I am going to do', tu: 'you are going to do', el: 'he/she is going to do', nosotros: 'we are going to do', vosotros: 'you (all) are going to do', ellos: 'they are going to do' },
           acabar_de_infinitivo: { yo: 'I just did', tu: 'you just did', el: 'he/she just did', nosotros: 'we just did', vosotros: 'you (all) just did', ellos: 'they just did' },
+          imperativo_afirmativo: { yo: '—', tu: 'do!', el: 'do!', nosotros: 'let\'s do!', vosotros: 'do!', ellos: 'do!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t do!', el: 'don\'t do!', nosotros: 'let\'s not do!', vosotros: 'don\'t do!', ellos: 'don\'t do!' },
         },
       },
       de: {
@@ -214,6 +251,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde machen', tu: 'du wirst machen', el: 'er/sie/es wird machen', nosotros: 'wir werden machen', vosotros: 'ihr werdet machen', ellos: 'sie werden machen' },
           ir_a_infinitivo: { yo: 'ich werde gleich machen', tu: 'du wirst gleich machen', el: 'er/sie/es wird gleich machen', nosotros: 'wir werden gleich machen', vosotros: 'ihr werdet gleich machen', ellos: 'sie werden gleich machen' },
           acabar_de_infinitivo: { yo: 'ich machte gerade eben', tu: 'du machtest gerade eben', el: 'er/sie/es machte gerade eben', nosotros: 'wir machten gerade eben', vosotros: 'ihr machtet gerade eben', ellos: 'sie machten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'mach!', el: 'Machen Sie!', nosotros: 'Machen wir!', vosotros: 'macht!', ellos: 'Machen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'mach nicht!', el: 'Machen Sie nicht!', nosotros: 'Machen wir nicht!', vosotros: 'macht nicht!', ellos: 'Machen Sie nicht!' },
         },
       },
     },
@@ -228,6 +267,7 @@ export const VERBS: Verb[] = [
       { id: 'hacer-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zrobiliśmy obiad.', en: 'We made lunch.', de: 'Wir machten das Mittagessen.' }, spanish: 'hicimos la comida' },
       { id: 'hacer-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zrobili obiad.', en: 'They made lunch.', de: 'Sie machten das Mittagessen.' }, spanish: 'hicieron la comida' },
       { id: 'hacer-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Zrobicie obiad.', en: 'You (all) will make lunch.', de: 'Ihr werdet das Mittagessen machen.' }, spanish: 'haréis la comida' },
+      { id: 'hacer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zrób zadanie', en: 'do the homework', de: 'mach die Hausaufgaben' }, spanish: 'haz la tarea' },
     ],
   },
   {
@@ -235,12 +275,15 @@ export const VERBS: Verb[] = [
     infinitive: 'ir',
     regular: false,
     participle: 'ido',
+    gerund: 'yendo',
     conjugations: {
       presente: { yo: 'voy', tu: 'vas', el: 'va', nosotros: 'vamos', vosotros: 'vais', ellos: 'van' },
       preterite: { yo: 'fui', tu: 'fuiste', el: 'fue', nosotros: 'fuimos', vosotros: 'fuisteis', ellos: 'fueron' },
       futuro: { yo: 'iré', tu: 'irás', el: 'irá', nosotros: 'iremos', vosotros: 'iréis', ellos: 'irán' },
       ir_a_infinitivo: { yo: 'voy a ir', tu: 'vas a ir', el: 'va a ir', nosotros: 'vamos a ir', vosotros: 'vais a ir', ellos: 'van a ir' },
       acabar_de_infinitivo: { yo: 'acabo de ir', tu: 'acabas de ir', el: 'acaba de ir', nosotros: 'acabamos de ir', vosotros: 'acabáis de ir', ellos: 'acaban de ir' },
+      imperativo_afirmativo: { yo: '—', tu: 've', el: 'vaya', nosotros: 'vamos', vosotros: 'id', ellos: 'vayan' },
+      imperativo_negativo: { yo: '—', tu: 'no vayas', el: 'no vaya', nosotros: 'no vayamos', vosotros: 'no vayáis', ellos: 'no vayan' },
     },
     translations: {
       pl: {
@@ -251,6 +294,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'pójdę', tu: 'pójdziesz', el: 'pójdzie', nosotros: 'pójdziemy', vosotros: 'pójdziecie', ellos: 'pójdą' },
           ir_a_infinitivo: { yo: 'zamierzam iść', tu: 'zamierzasz iść', el: 'zamierza iść', nosotros: 'zamierzamy iść', vosotros: 'zamierzacie iść', ellos: 'zamierzają iść' },
           acabar_de_infinitivo: { yo: 'właśnie poszedłem', tu: 'właśnie poszedłeś', el: 'właśnie poszedł', nosotros: 'właśnie poszliśmy', vosotros: 'właśnie poszliście', ellos: 'właśnie poszli' },
+          imperativo_afirmativo: { yo: '—', tu: 'idź', el: 'niech idzie', nosotros: 'idźmy', vosotros: 'idźcie', ellos: 'niech idą' },
+          imperativo_negativo: { yo: '—', tu: 'nie idź', el: 'niech nie idzie', nosotros: 'nie idźmy', vosotros: 'nie idźcie', ellos: 'niech nie idą' },
         },
       },
       en: {
@@ -261,6 +306,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will go', tu: 'you will go', el: 'he/she will go', nosotros: 'we will go', vosotros: 'you (all) will go', ellos: 'they will go' },
           ir_a_infinitivo: { yo: 'I am going to go', tu: 'you are going to go', el: 'he/she is going to go', nosotros: 'we are going to go', vosotros: 'you (all) are going to go', ellos: 'they are going to go' },
           acabar_de_infinitivo: { yo: 'I just went', tu: 'you just went', el: 'he/she just went', nosotros: 'we just went', vosotros: 'you (all) just went', ellos: 'they just went' },
+          imperativo_afirmativo: { yo: '—', tu: 'go!', el: 'go!', nosotros: 'let\'s go!', vosotros: 'go!', ellos: 'go!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t go!', el: 'don\'t go!', nosotros: 'let\'s not go!', vosotros: 'don\'t go!', ellos: 'don\'t go!' },
         },
       },
       de: {
@@ -271,6 +318,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde gehen', tu: 'du wirst gehen', el: 'er/sie/es wird gehen', nosotros: 'wir werden gehen', vosotros: 'ihr werdet gehen', ellos: 'sie werden gehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich gehen', tu: 'du wirst gleich gehen', el: 'er/sie/es wird gleich gehen', nosotros: 'wir werden gleich gehen', vosotros: 'ihr werdet gleich gehen', ellos: 'sie werden gleich gehen' },
           acabar_de_infinitivo: { yo: 'ich ging gerade eben', tu: 'du gingst gerade eben', el: 'er/sie/es ging gerade eben', nosotros: 'wir gingen gerade eben', vosotros: 'ihr gingt gerade eben', ellos: 'sie gingen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'geh!', el: 'Gehen Sie!', nosotros: 'Gehen wir!', vosotros: 'geht!', ellos: 'Gehen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'geh nicht!', el: 'Gehen Sie nicht!', nosotros: 'Gehen wir nicht!', vosotros: 'geht nicht!', ellos: 'Gehen Sie nicht!' },
         },
       },
     },
@@ -285,6 +334,7 @@ export const VERBS: Verb[] = [
       { id: 'ir-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Poszliśmy do domu.', en: 'We went home.', de: 'Wir gingen nach Hause.' }, spanish: 'fuimos a casa' },
       { id: 'ir-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Poszli do domu.', en: 'They went home.', de: 'Sie gingen nach Hause.' }, spanish: 'fueron a casa' },
       { id: 'ir-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Pójdziecie do domu.', en: 'You (all) will go home.', de: 'Ihr werdet nach Hause gehen.' }, spanish: 'iréis a casa' },
+      { id: 'ir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'idź do domu', en: 'go home', de: 'geh nach Hause' }, spanish: 've a casa' },
     ],
   },
   {
@@ -292,12 +342,15 @@ export const VERBS: Verb[] = [
     infinitive: 'venir',
     regular: false,
     participle: 'venido',
+    gerund: 'viniendo',
     conjugations: {
       presente: { yo: 'vengo', tu: 'vienes', el: 'viene', nosotros: 'venimos', vosotros: 'venís', ellos: 'vienen' },
       preterite: { yo: 'vine', tu: 'viniste', el: 'vino', nosotros: 'vinimos', vosotros: 'vinisteis', ellos: 'vinieron' },
       futuro: { yo: 'vendré', tu: 'vendrás', el: 'vendrá', nosotros: 'vendremos', vosotros: 'vendréis', ellos: 'vendrán' },
       ir_a_infinitivo: { yo: 'voy a venir', tu: 'vas a venir', el: 'va a venir', nosotros: 'vamos a venir', vosotros: 'vais a venir', ellos: 'van a venir' },
       acabar_de_infinitivo: { yo: 'acabo de venir', tu: 'acabas de venir', el: 'acaba de venir', nosotros: 'acabamos de venir', vosotros: 'acabáis de venir', ellos: 'acaban de venir' },
+      imperativo_afirmativo: { yo: '—', tu: 'ven', el: 'venga', nosotros: 'vengamos', vosotros: 'venid', ellos: 'vengan' },
+      imperativo_negativo: { yo: '—', tu: 'no vengas', el: 'no venga', nosotros: 'no vengamos', vosotros: 'no vengáis', ellos: 'no vengan' },
     },
     translations: {
       pl: {
@@ -308,6 +361,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przyjdę', tu: 'przyjdziesz', el: 'przyjdzie', nosotros: 'przyjdziemy', vosotros: 'przyjdziecie', ellos: 'przyjdą' },
           ir_a_infinitivo: { yo: 'zamierzam przychodzić', tu: 'zamierzasz przychodzić', el: 'zamierza przychodzić', nosotros: 'zamierzamy przychodzić', vosotros: 'zamierzacie przychodzić', ellos: 'zamierzają przychodzić' },
           acabar_de_infinitivo: { yo: 'właśnie przyszedłem', tu: 'właśnie przyszedłeś', el: 'właśnie przyszedł', nosotros: 'właśnie przyszliśmy', vosotros: 'właśnie przyszliście', ellos: 'właśnie przyszli' },
+          imperativo_afirmativo: { yo: '—', tu: 'przyjdź', el: 'niech przychodzi', nosotros: 'przyjdźmy', vosotros: 'przyjdźcie', ellos: 'niech przychodzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie przyjdź', el: 'niech nie przychodzi', nosotros: 'nie przyjdźmy', vosotros: 'nie przyjdźcie', ellos: 'niech nie przychodzą' },
         },
       },
       en: {
@@ -318,6 +373,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will come', tu: 'you will come', el: 'he/she will come', nosotros: 'we will come', vosotros: 'you (all) will come', ellos: 'they will come' },
           ir_a_infinitivo: { yo: 'I am going to come', tu: 'you are going to come', el: 'he/she is going to come', nosotros: 'we are going to come', vosotros: 'you (all) are going to come', ellos: 'they are going to come' },
           acabar_de_infinitivo: { yo: 'I just came', tu: 'you just came', el: 'he/she just came', nosotros: 'we just came', vosotros: 'you (all) just came', ellos: 'they just came' },
+          imperativo_afirmativo: { yo: '—', tu: 'come!', el: 'come!', nosotros: 'let\'s come!', vosotros: 'come!', ellos: 'come!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t come!', el: 'don\'t come!', nosotros: 'let\'s not come!', vosotros: 'don\'t come!', ellos: 'don\'t come!' },
         },
       },
       de: {
@@ -328,6 +385,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde kommen', tu: 'du wirst kommen', el: 'er/sie/es wird kommen', nosotros: 'wir werden kommen', vosotros: 'ihr werdet kommen', ellos: 'sie werden kommen' },
           ir_a_infinitivo: { yo: 'ich werde gleich kommen', tu: 'du wirst gleich kommen', el: 'er/sie/es wird gleich kommen', nosotros: 'wir werden gleich kommen', vosotros: 'ihr werdet gleich kommen', ellos: 'sie werden gleich kommen' },
           acabar_de_infinitivo: { yo: 'ich kam gerade eben', tu: 'du kamst gerade eben', el: 'er/sie/es kam gerade eben', nosotros: 'wir kamen gerade eben', vosotros: 'ihr kamt gerade eben', ellos: 'sie kamen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'komm!', el: 'Kommen Sie!', nosotros: 'Kommen wir!', vosotros: 'kommt!', ellos: 'Kommen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'komm nicht!', el: 'Kommen Sie nicht!', nosotros: 'Kommen wir nicht!', vosotros: 'kommt nicht!', ellos: 'Kommen Sie nicht!' },
         },
       },
     },
@@ -342,6 +401,7 @@ export const VERBS: Verb[] = [
       { id: 'venir-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Przyszliśmy do domu.', en: 'We came home.', de: 'Wir kamen nach Hause.' }, spanish: 'vinimos a casa' },
       { id: 'venir-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Przyszli do domu.', en: 'They came home.', de: 'Sie kamen nach Hause.' }, spanish: 'vinieron a casa' },
       { id: 'venir-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Przyjdziecie do domu.', en: 'You (all) will come home.', de: 'Ihr werdet nach Hause kommen.' }, spanish: 'vendréis a casa' },
+      { id: 'venir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'przyjdź tutaj', en: 'come here', de: 'komm hierher' }, spanish: 'ven aquí' },
     ],
   },
   {
@@ -349,12 +409,15 @@ export const VERBS: Verb[] = [
     infinitive: 'ver',
     regular: false,
     participle: 'visto',
+    gerund: 'viendo',
     conjugations: {
       presente: { yo: 'veo', tu: 'ves', el: 've', nosotros: 'vemos', vosotros: 'veis', ellos: 'ven' },
       preterite: { yo: 'vi', tu: 'viste', el: 'vio', nosotros: 'vimos', vosotros: 'visteis', ellos: 'vieron' },
       futuro: { yo: 'veré', tu: 'verás', el: 'verá', nosotros: 'veremos', vosotros: 'veréis', ellos: 'verán' },
       ir_a_infinitivo: { yo: 'voy a ver', tu: 'vas a ver', el: 'va a ver', nosotros: 'vamos a ver', vosotros: 'vais a ver', ellos: 'van a ver' },
       acabar_de_infinitivo: { yo: 'acabo de ver', tu: 'acabas de ver', el: 'acaba de ver', nosotros: 'acabamos de ver', vosotros: 'acabáis de ver', ellos: 'acaban de ver' },
+      imperativo_afirmativo: { yo: '—', tu: 've', el: 'vea', nosotros: 'veamos', vosotros: 'ved', ellos: 'vean' },
+      imperativo_negativo: { yo: '—', tu: 'no veas', el: 'no vea', nosotros: 'no veamos', vosotros: 'no veáis', ellos: 'no vean' },
     },
     translations: {
       pl: {
@@ -365,6 +428,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zobaczę', tu: 'zobaczysz', el: 'zobaczy', nosotros: 'zobaczymy', vosotros: 'zobaczycie', ellos: 'zobaczą' },
           ir_a_infinitivo: { yo: 'zamierzam widzieć', tu: 'zamierzasz widzieć', el: 'zamierza widzieć', nosotros: 'zamierzamy widzieć', vosotros: 'zamierzacie widzieć', ellos: 'zamierzają widzieć' },
           acabar_de_infinitivo: { yo: 'właśnie widziałem', tu: 'właśnie widziałeś', el: 'właśnie widział', nosotros: 'właśnie widzieliśmy', vosotros: 'właśnie widzieliście', ellos: 'właśnie widzieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zobacz', el: 'niech widzi', nosotros: 'zobaczmy', vosotros: 'zobaczcie', ellos: 'niech widzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie zobacz', el: 'niech nie widzi', nosotros: 'nie zobaczmy', vosotros: 'nie zobaczcie', ellos: 'niech nie widzą' },
         },
       },
       en: {
@@ -375,6 +440,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will see', tu: 'you will see', el: 'he/she will see', nosotros: 'we will see', vosotros: 'you (all) will see', ellos: 'they will see' },
           ir_a_infinitivo: { yo: 'I am going to see', tu: 'you are going to see', el: 'he/she is going to see', nosotros: 'we are going to see', vosotros: 'you (all) are going to see', ellos: 'they are going to see' },
           acabar_de_infinitivo: { yo: 'I just saw', tu: 'you just saw', el: 'he/she just saw', nosotros: 'we just saw', vosotros: 'you (all) just saw', ellos: 'they just saw' },
+          imperativo_afirmativo: { yo: '—', tu: 'see!', el: 'see!', nosotros: 'let\'s see!', vosotros: 'see!', ellos: 'see!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t see!', el: 'don\'t see!', nosotros: 'let\'s not see!', vosotros: 'don\'t see!', ellos: 'don\'t see!' },
         },
       },
       de: {
@@ -385,6 +452,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sehen', tu: 'du wirst sehen', el: 'er/sie/es wird sehen', nosotros: 'wir werden sehen', vosotros: 'ihr werdet sehen', ellos: 'sie werden sehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich sehen', tu: 'du wirst gleich sehen', el: 'er/sie/es wird gleich sehen', nosotros: 'wir werden gleich sehen', vosotros: 'ihr werdet gleich sehen', ellos: 'sie werden gleich sehen' },
           acabar_de_infinitivo: { yo: 'ich sah gerade eben', tu: 'du sahst gerade eben', el: 'er/sie/es sah gerade eben', nosotros: 'wir sahen gerade eben', vosotros: 'ihr saht gerade eben', ellos: 'sie sahen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'sieh!', el: 'Sehen Sie!', nosotros: 'Sehen wir!', vosotros: 'seht!', ellos: 'Sehen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'sieh nicht!', el: 'Sehen Sie nicht!', nosotros: 'Sehen wir nicht!', vosotros: 'seht nicht!', ellos: 'Sehen Sie nicht!' },
         },
       },
     },
@@ -400,6 +469,7 @@ export const VERBS: Verb[] = [
       { id: 'ver-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Widzieliśmy je.', en: 'We saw them.', de: 'Wir sahen sie.' }, spanish: 'las vimos' },
       { id: 'ver-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Zobaczą was.', en: 'They will see you (all).', de: 'Sie werden euch sehen.' }, spanish: 'os verán' },
       { id: 'ver-ir_a_infinitivo-la-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'direct', pronoun: 'la', translations: { pl: 'Zamierzasz ją zobaczyć.', en: 'You are going to see her.', de: 'Du wirst sie gleich sehen.' }, spanish: 'la vas a ver', alternativeAnswers: ['vas a verla'] },
+      { id: 'ver-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zobacz to', en: 'see this', de: 'sieh dir das an' }, spanish: 've esto' },
     ],
   },
   {
@@ -407,12 +477,15 @@ export const VERBS: Verb[] = [
     infinitive: 'dar',
     regular: false,
     participle: 'dado',
+    gerund: 'dando',
     conjugations: {
       presente: { yo: 'doy', tu: 'das', el: 'da', nosotros: 'damos', vosotros: 'dais', ellos: 'dan' },
       preterite: { yo: 'di', tu: 'diste', el: 'dio', nosotros: 'dimos', vosotros: 'disteis', ellos: 'dieron' },
       futuro: { yo: 'daré', tu: 'darás', el: 'dará', nosotros: 'daremos', vosotros: 'daréis', ellos: 'darán' },
       ir_a_infinitivo: { yo: 'voy a dar', tu: 'vas a dar', el: 'va a dar', nosotros: 'vamos a dar', vosotros: 'vais a dar', ellos: 'van a dar' },
       acabar_de_infinitivo: { yo: 'acabo de dar', tu: 'acabas de dar', el: 'acaba de dar', nosotros: 'acabamos de dar', vosotros: 'acabáis de dar', ellos: 'acaban de dar' },
+      imperativo_afirmativo: { yo: '—', tu: 'da', el: 'dé', nosotros: 'demos', vosotros: 'dad', ellos: 'den' },
+      imperativo_negativo: { yo: '—', tu: 'no des', el: 'no dé', nosotros: 'no demos', vosotros: 'no deis', ellos: 'no den' },
     },
     translations: {
       pl: {
@@ -423,6 +496,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'dam', tu: 'dasz', el: 'da', nosotros: 'damy', vosotros: 'dacie', ellos: 'dadzą' },
           ir_a_infinitivo: { yo: 'zamierzam dawać', tu: 'zamierzasz dawać', el: 'zamierza dawać', nosotros: 'zamierzamy dawać', vosotros: 'zamierzacie dawać', ellos: 'zamierzają dawać' },
           acabar_de_infinitivo: { yo: 'właśnie dałem', tu: 'właśnie dałeś', el: 'właśnie dał', nosotros: 'właśnie daliśmy', vosotros: 'właśnie daliście', ellos: 'właśnie dali' },
+          imperativo_afirmativo: { yo: '—', tu: 'daj', el: 'niech daje', nosotros: 'dajmy', vosotros: 'dajcie', ellos: 'niech dają' },
+          imperativo_negativo: { yo: '—', tu: 'nie daj', el: 'niech nie daje', nosotros: 'nie dajmy', vosotros: 'nie dajcie', ellos: 'niech nie dają' },
         },
       },
       en: {
@@ -433,6 +508,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will give', tu: 'you will give', el: 'he/she will give', nosotros: 'we will give', vosotros: 'you (all) will give', ellos: 'they will give' },
           ir_a_infinitivo: { yo: 'I am going to give', tu: 'you are going to give', el: 'he/she is going to give', nosotros: 'we are going to give', vosotros: 'you (all) are going to give', ellos: 'they are going to give' },
           acabar_de_infinitivo: { yo: 'I just gave', tu: 'you just gave', el: 'he/she just gave', nosotros: 'we just gave', vosotros: 'you (all) just gave', ellos: 'they just gave' },
+          imperativo_afirmativo: { yo: '—', tu: 'give!', el: 'give!', nosotros: 'let\'s give!', vosotros: 'give!', ellos: 'give!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t give!', el: 'don\'t give!', nosotros: 'let\'s not give!', vosotros: 'don\'t give!', ellos: 'don\'t give!' },
         },
       },
       de: {
@@ -443,6 +520,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde geben', tu: 'du wirst geben', el: 'er/sie/es wird geben', nosotros: 'wir werden geben', vosotros: 'ihr werdet geben', ellos: 'sie werden geben' },
           ir_a_infinitivo: { yo: 'ich werde gleich geben', tu: 'du wirst gleich geben', el: 'er/sie/es wird gleich geben', nosotros: 'wir werden gleich geben', vosotros: 'ihr werdet gleich geben', ellos: 'sie werden gleich geben' },
           acabar_de_infinitivo: { yo: 'ich gab gerade eben', tu: 'du gabst gerade eben', el: 'er/sie/es gab gerade eben', nosotros: 'wir gaben gerade eben', vosotros: 'ihr gabt gerade eben', ellos: 'sie gaben gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'gib!', el: 'Geben Sie!', nosotros: 'Geben wir!', vosotros: 'gebt!', ellos: 'Geben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'gib nicht!', el: 'Geben Sie nicht!', nosotros: 'Geben wir nicht!', vosotros: 'gebt nicht!', ellos: 'Geben Sie nicht!' },
         },
       },
     },
@@ -459,6 +538,7 @@ export const VERBS: Verb[] = [
       { id: 'dar-preterite-te-ellos', tense: 'preterite', person: 'ellos', pronounType: 'indirect', pronoun: 'te', translations: { pl: 'Dali ci.', en: 'They gave to you.', de: 'Sie gaben dir.' }, spanish: 'te dieron' },
       { id: 'dar-futuro-me-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'indirect', pronoun: 'me', translations: { pl: 'Dacie mi.', en: 'You (all) will give to me.', de: 'Ihr werdet mir geben.' }, spanish: 'me daréis' },
       { id: 'dar-ir_a_infinitivo-le-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'indirect', pronoun: 'le', translations: { pl: 'Zamierzam dać mu prezent.', en: 'I am going to give him a present.', de: 'Ich werde ihm gleich ein Geschenk geben.' }, spanish: 'le voy a dar un regalo', alternativeAnswers: ['voy a darle un regalo'] },
+      { id: 'dar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'daj mi książkę', en: 'give me the book', de: 'gib mir das Buch' }, spanish: 'dame el libro' },
     ],
   },
   {
@@ -466,12 +546,15 @@ export const VERBS: Verb[] = [
     infinitive: 'decir',
     regular: false,
     participle: 'dicho',
+    gerund: 'diciendo',
     conjugations: {
       presente: { yo: 'digo', tu: 'dices', el: 'dice', nosotros: 'decimos', vosotros: 'decís', ellos: 'dicen' },
       preterite: { yo: 'dije', tu: 'dijiste', el: 'dijo', nosotros: 'dijimos', vosotros: 'dijisteis', ellos: 'dijeron' },
       futuro: { yo: 'diré', tu: 'dirás', el: 'dirá', nosotros: 'diremos', vosotros: 'diréis', ellos: 'dirán' },
       ir_a_infinitivo: { yo: 'voy a decir', tu: 'vas a decir', el: 'va a decir', nosotros: 'vamos a decir', vosotros: 'vais a decir', ellos: 'van a decir' },
       acabar_de_infinitivo: { yo: 'acabo de decir', tu: 'acabas de decir', el: 'acaba de decir', nosotros: 'acabamos de decir', vosotros: 'acabáis de decir', ellos: 'acaban de decir' },
+      imperativo_afirmativo: { yo: '—', tu: 'di', el: 'diga', nosotros: 'digamos', vosotros: 'decid', ellos: 'digan' },
+      imperativo_negativo: { yo: '—', tu: 'no digas', el: 'no diga', nosotros: 'no digamos', vosotros: 'no digáis', ellos: 'no digan' },
     },
     translations: {
       pl: {
@@ -482,6 +565,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'powiem', tu: 'powiesz', el: 'powie', nosotros: 'powiemy', vosotros: 'powiecie', ellos: 'powiedzą' },
           ir_a_infinitivo: { yo: 'zamierzam mówić', tu: 'zamierzasz mówić', el: 'zamierza mówić', nosotros: 'zamierzamy mówić', vosotros: 'zamierzacie mówić', ellos: 'zamierzają mówić' },
           acabar_de_infinitivo: { yo: 'właśnie powiedziałem', tu: 'właśnie powiedziałeś', el: 'właśnie powiedział', nosotros: 'właśnie powiedzieliśmy', vosotros: 'właśnie powiedzieliście', ellos: 'właśnie powiedzieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'powiedz', el: 'niech mówi', nosotros: 'powiedzmy', vosotros: 'powiedzcie', ellos: 'niech mówią' },
+          imperativo_negativo: { yo: '—', tu: 'nie powiedz', el: 'niech nie mówi', nosotros: 'nie powiedzmy', vosotros: 'nie powiedzcie', ellos: 'niech nie mówią' },
         },
       },
       en: {
@@ -492,6 +577,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will say', tu: 'you will say', el: 'he/she will say', nosotros: 'we will say', vosotros: 'you (all) will say', ellos: 'they will say' },
           ir_a_infinitivo: { yo: 'I am going to say', tu: 'you are going to say', el: 'he/she is going to say', nosotros: 'we are going to say', vosotros: 'you (all) are going to say', ellos: 'they are going to say' },
           acabar_de_infinitivo: { yo: 'I just said', tu: 'you just said', el: 'he/she just said', nosotros: 'we just said', vosotros: 'you (all) just said', ellos: 'they just said' },
+          imperativo_afirmativo: { yo: '—', tu: 'say!', el: 'say!', nosotros: 'let\'s say!', vosotros: 'say!', ellos: 'say!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t say!', el: 'don\'t say!', nosotros: 'let\'s not say!', vosotros: 'don\'t say!', ellos: 'don\'t say!' },
         },
       },
       de: {
@@ -502,6 +589,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sagen', tu: 'du wirst sagen', el: 'er/sie/es wird sagen', nosotros: 'wir werden sagen', vosotros: 'ihr werdet sagen', ellos: 'sie werden sagen' },
           ir_a_infinitivo: { yo: 'ich werde gleich sagen', tu: 'du wirst gleich sagen', el: 'er/sie/es wird gleich sagen', nosotros: 'wir werden gleich sagen', vosotros: 'ihr werdet gleich sagen', ellos: 'sie werden gleich sagen' },
           acabar_de_infinitivo: { yo: 'ich sagte gerade eben', tu: 'du sagtest gerade eben', el: 'er/sie/es sagte gerade eben', nosotros: 'wir sagten gerade eben', vosotros: 'ihr sagtet gerade eben', ellos: 'sie sagten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'sag!', el: 'Sagen Sie!', nosotros: 'Sagen wir!', vosotros: 'sagt!', ellos: 'Sagen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'sag nicht!', el: 'Sagen Sie nicht!', nosotros: 'Sagen wir nicht!', vosotros: 'sagt nicht!', ellos: 'Sagen Sie nicht!' },
         },
       },
     },
@@ -517,6 +606,7 @@ export const VERBS: Verb[] = [
       { id: 'decir-preterite-les-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'indirect', pronoun: 'les', translations: { pl: 'Powiedzieliśmy im.', en: 'We told them.', de: 'Wir sagten ihnen.' }, spanish: 'les dijimos' },
       { id: 'decir-preterite-te-ellos', tense: 'preterite', person: 'ellos', pronounType: 'indirect', pronoun: 'te', translations: { pl: 'Powiedzieli ci.', en: 'They told you.', de: 'Sie sagten dir.' }, spanish: 'te dijeron' },
       { id: 'decir-futuro-me-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'indirect', pronoun: 'me', translations: { pl: 'Powiecie mi.', en: 'You (all) will tell me.', de: 'Ihr werdet mir sagen.' }, spanish: 'me diréis' },
+      { id: 'decir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'powiedz mi prawdę', en: 'tell me the truth', de: 'sag mir die Wahrheit' }, spanish: 'dime la verdad' },
     ],
   },
   {
@@ -524,12 +614,15 @@ export const VERBS: Verb[] = [
     infinitive: 'saber',
     regular: false,
     participle: 'sabido',
+    gerund: 'sabiendo',
     conjugations: {
       presente: { yo: 'sé', tu: 'sabes', el: 'sabe', nosotros: 'sabemos', vosotros: 'sabéis', ellos: 'saben' },
       preterite: { yo: 'supe', tu: 'supiste', el: 'supo', nosotros: 'supimos', vosotros: 'supisteis', ellos: 'supieron' },
       futuro: { yo: 'sabré', tu: 'sabrás', el: 'sabrá', nosotros: 'sabremos', vosotros: 'sabréis', ellos: 'sabrán' },
       ir_a_infinitivo: { yo: 'voy a saber', tu: 'vas a saber', el: 'va a saber', nosotros: 'vamos a saber', vosotros: 'vais a saber', ellos: 'van a saber' },
       acabar_de_infinitivo: { yo: 'acabo de saber', tu: 'acabas de saber', el: 'acaba de saber', nosotros: 'acabamos de saber', vosotros: 'acabáis de saber', ellos: 'acaban de saber' },
+      imperativo_afirmativo: { yo: '—', tu: 'sabe', el: 'sepa', nosotros: 'sepamos', vosotros: 'sabed', ellos: 'sepan' },
+      imperativo_negativo: { yo: '—', tu: 'no sepas', el: 'no sepa', nosotros: 'no sepamos', vosotros: 'no sepáis', ellos: 'no sepan' },
     },
     translations: {
       pl: {
@@ -540,6 +633,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę wiedział', tu: 'będziesz wiedział', el: 'będzie wiedział', nosotros: 'będziemy wiedzieli', vosotros: 'będziecie wiedzieli', ellos: 'będą wiedzieli' },
           ir_a_infinitivo: { yo: 'zamierzam wiedzieć', tu: 'zamierzasz wiedzieć', el: 'zamierza wiedzieć', nosotros: 'zamierzamy wiedzieć', vosotros: 'zamierzacie wiedzieć', ellos: 'zamierzają wiedzieć' },
           acabar_de_infinitivo: { yo: 'właśnie dowiedziałem się', tu: 'właśnie dowiedziałeś się', el: 'właśnie dowiedział się', nosotros: 'właśnie dowiedzieliśmy się', vosotros: 'właśnie dowiedzieliście się', ellos: 'właśnie dowiedzieli się' },
+          imperativo_afirmativo: { yo: '—', tu: 'wiedz', el: 'niech wie', nosotros: 'wiedzmy', vosotros: 'wiedzcie', ellos: 'niech wiedzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie wiedz', el: 'niech nie wie', nosotros: 'nie wiedzmy', vosotros: 'nie wiedzcie', ellos: 'niech nie wiedzą' },
         },
       },
       en: {
@@ -550,6 +645,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will know', tu: 'you will know', el: 'he/she will know', nosotros: 'we will know', vosotros: 'you (all) will know', ellos: 'they will know' },
           ir_a_infinitivo: { yo: 'I am going to know', tu: 'you are going to know', el: 'he/she is going to know', nosotros: 'we are going to know', vosotros: 'you (all) are going to know', ellos: 'they are going to know' },
           acabar_de_infinitivo: { yo: 'I just found out', tu: 'you just found out', el: 'he/she just found out', nosotros: 'we just found out', vosotros: 'you (all) just found out', ellos: 'they just found out' },
+          imperativo_afirmativo: { yo: '—', tu: 'know!', el: 'know!', nosotros: 'let\'s know!', vosotros: 'know!', ellos: 'know!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t know!', el: 'don\'t know!', nosotros: 'let\'s not know!', vosotros: 'don\'t know!', ellos: 'don\'t know!' },
         },
       },
       de: {
@@ -560,6 +657,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde wissen', tu: 'du wirst wissen', el: 'er/sie/es wird wissen', nosotros: 'wir werden wissen', vosotros: 'ihr werdet wissen', ellos: 'sie werden wissen' },
           ir_a_infinitivo: { yo: 'ich werde gleich wissen', tu: 'du wirst gleich wissen', el: 'er/sie/es wird gleich wissen', nosotros: 'wir werden gleich wissen', vosotros: 'ihr werdet gleich wissen', ellos: 'sie werden gleich wissen' },
           acabar_de_infinitivo: { yo: 'ich erfuhr gerade eben', tu: 'du erfuhrst gerade eben', el: 'er/sie/es erfuhr gerade eben', nosotros: 'wir erfuhren gerade eben', vosotros: 'ihr erfuhrt gerade eben', ellos: 'sie erfuhren gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'wisse!', el: 'Wissen Sie!', nosotros: 'Wissen wir!', vosotros: 'wisst!', ellos: 'Wissen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'wisse nicht!', el: 'Wissen Sie nicht!', nosotros: 'Wissen wir nicht!', vosotros: 'wisst nicht!', ellos: 'Wissen Sie nicht!' },
         },
       },
     },
@@ -574,6 +673,7 @@ export const VERBS: Verb[] = [
       { id: 'saber-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Dowiedzieliśmy się prawdy.', en: 'We found out the truth.', de: 'Wir erfuhren die Wahrheit.' }, spanish: 'supimos la verdad' },
       { id: 'saber-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Dowiedzieli się prawdy.', en: 'They found out the truth.', de: 'Sie erfuhren die Wahrheit.' }, spanish: 'supieron la verdad' },
       { id: 'saber-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie wiedzieli prawdę.', en: 'You (all) will know the truth.', de: 'Ihr werdet die Wahrheit wissen.' }, spanish: 'sabréis la verdad' },
+      { id: 'saber-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wiedz, jaka jest odpowiedź', en: 'know the answer', de: 'wisse die Antwort' }, spanish: 'sabe la respuesta' },
     ],
   },
   {
@@ -581,12 +681,15 @@ export const VERBS: Verb[] = [
     infinitive: 'querer',
     regular: false,
     participle: 'querido',
+    gerund: 'queriendo',
     conjugations: {
       presente: { yo: 'quiero', tu: 'quieres', el: 'quiere', nosotros: 'queremos', vosotros: 'queréis', ellos: 'quieren' },
       preterite: { yo: 'quise', tu: 'quisiste', el: 'quiso', nosotros: 'quisimos', vosotros: 'quisisteis', ellos: 'quisieron' },
       futuro: { yo: 'querré', tu: 'querrás', el: 'querrá', nosotros: 'querremos', vosotros: 'querréis', ellos: 'querrán' },
       ir_a_infinitivo: { yo: 'voy a querer', tu: 'vas a querer', el: 'va a querer', nosotros: 'vamos a querer', vosotros: 'vais a querer', ellos: 'van a querer' },
       acabar_de_infinitivo: { yo: 'acabo de querer', tu: 'acabas de querer', el: 'acaba de querer', nosotros: 'acabamos de querer', vosotros: 'acabáis de querer', ellos: 'acaban de querer' },
+      imperativo_afirmativo: { yo: '—', tu: 'quiere', el: 'quiera', nosotros: 'queramos', vosotros: 'quered', ellos: 'quieran' },
+      imperativo_negativo: { yo: '—', tu: 'no quieras', el: 'no quiera', nosotros: 'no queramos', vosotros: 'no queráis', ellos: 'no quieran' },
     },
     translations: {
       pl: {
@@ -597,6 +700,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę chciał', tu: 'będziesz chciał', el: 'będzie chciał', nosotros: 'będziemy chcieli', vosotros: 'będziecie chcieli', ellos: 'będą chcieli' },
           ir_a_infinitivo: { yo: 'zamierzam chcieć', tu: 'zamierzasz chcieć', el: 'zamierza chcieć', nosotros: 'zamierzamy chcieć', vosotros: 'zamierzacie chcieć', ellos: 'zamierzają chcieć' },
           acabar_de_infinitivo: { yo: 'właśnie chciałem', tu: 'właśnie chciałeś', el: 'właśnie chciał', nosotros: 'właśnie chcieliśmy', vosotros: 'właśnie chcieliście', ellos: 'właśnie chcieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'chciej', el: 'niech chce', nosotros: 'chciejmy', vosotros: 'chciejcie', ellos: 'niech chcą' },
+          imperativo_negativo: { yo: '—', tu: 'nie chciej', el: 'niech nie chce', nosotros: 'nie chciejmy', vosotros: 'nie chciejcie', ellos: 'niech nie chcą' },
         },
       },
       en: {
@@ -607,6 +712,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will want', tu: 'you will want', el: 'he/she will want', nosotros: 'we will want', vosotros: 'you (all) will want', ellos: 'they will want' },
           ir_a_infinitivo: { yo: 'I am going to want', tu: 'you are going to want', el: 'he/she is going to want', nosotros: 'we are going to want', vosotros: 'you (all) are going to want', ellos: 'they are going to want' },
           acabar_de_infinitivo: { yo: 'I just wanted', tu: 'you just wanted', el: 'he/she just wanted', nosotros: 'we just wanted', vosotros: 'you (all) just wanted', ellos: 'they just wanted' },
+          imperativo_afirmativo: { yo: '—', tu: 'want!', el: 'want!', nosotros: 'let\'s want!', vosotros: 'want!', ellos: 'want!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t want!', el: 'don\'t want!', nosotros: 'let\'s not want!', vosotros: 'don\'t want!', ellos: 'don\'t want!' },
         },
       },
       de: {
@@ -617,6 +724,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde wollen', tu: 'du wirst wollen', el: 'er/sie/es wird wollen', nosotros: 'wir werden wollen', vosotros: 'ihr werdet wollen', ellos: 'sie werden wollen' },
           ir_a_infinitivo: { yo: 'ich werde gleich wollen', tu: 'du wirst gleich wollen', el: 'er/sie/es wird gleich wollen', nosotros: 'wir werden gleich wollen', vosotros: 'ihr werdet gleich wollen', ellos: 'sie werden gleich wollen' },
           acabar_de_infinitivo: { yo: 'ich wollte gerade eben', tu: 'du wolltest gerade eben', el: 'er/sie/es wollte gerade eben', nosotros: 'wir wollten gerade eben', vosotros: 'ihr wolltet gerade eben', ellos: 'sie wollten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'wolle!', el: 'Wollen Sie!', nosotros: 'Wollen wir!', vosotros: 'wollt!', ellos: 'Wollen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'wolle nicht!', el: 'Wollen Sie nicht!', nosotros: 'Wollen wir nicht!', vosotros: 'wollt nicht!', ellos: 'Wollen Sie nicht!' },
         },
       },
     },
@@ -631,6 +740,7 @@ export const VERBS: Verb[] = [
       { id: 'querer-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Chcieliśmy kawę.', en: 'We wanted coffee.', de: 'Wir wollten Kaffee.' }, spanish: 'quisimos café' },
       { id: 'querer-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Chcieli kawę.', en: 'They wanted coffee.', de: 'Sie wollten Kaffee.' }, spanish: 'quisieron café' },
       { id: 'querer-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie chcieli kawę.', en: 'You (all) will want coffee.', de: 'Ihr werdet Kaffee wollen.' }, spanish: 'querréis café' },
+      { id: 'querer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'chciej dla siebie jak najlepiej', en: 'want the best for yourself', de: 'wolle das Beste für dich' }, spanish: 'quiere lo mejor para ti' },
     ],
   },
   {
@@ -638,12 +748,15 @@ export const VERBS: Verb[] = [
     infinitive: 'poder',
     regular: false,
     participle: 'podido',
+    gerund: 'pudiendo',
     conjugations: {
       presente: { yo: 'puedo', tu: 'puedes', el: 'puede', nosotros: 'podemos', vosotros: 'podéis', ellos: 'pueden' },
       preterite: { yo: 'pude', tu: 'pudiste', el: 'pudo', nosotros: 'pudimos', vosotros: 'pudisteis', ellos: 'pudieron' },
       futuro: { yo: 'podré', tu: 'podrás', el: 'podrá', nosotros: 'podremos', vosotros: 'podréis', ellos: 'podrán' },
       ir_a_infinitivo: { yo: 'voy a poder', tu: 'vas a poder', el: 'va a poder', nosotros: 'vamos a poder', vosotros: 'vais a poder', ellos: 'van a poder' },
       acabar_de_infinitivo: { yo: 'acabo de poder', tu: 'acabas de poder', el: 'acaba de poder', nosotros: 'acabamos de poder', vosotros: 'acabáis de poder', ellos: 'acaban de poder' },
+      imperativo_afirmativo: { yo: '—', tu: 'puede', el: 'pueda', nosotros: 'podamos', vosotros: 'poded', ellos: 'puedan' },
+      imperativo_negativo: { yo: '—', tu: 'no puedas', el: 'no pueda', nosotros: 'no podamos', vosotros: 'no podáis', ellos: 'no puedan' },
     },
     translations: {
       pl: {
@@ -654,6 +767,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę mógł', tu: 'będziesz mógł', el: 'będzie mógł', nosotros: 'będziemy mogli', vosotros: 'będziecie mogli', ellos: 'będą mogli' },
           ir_a_infinitivo: { yo: 'zamierzam móc', tu: 'zamierzasz móc', el: 'zamierza móc', nosotros: 'zamierzamy móc', vosotros: 'zamierzacie móc', ellos: 'zamierzają móc' },
           acabar_de_infinitivo: { yo: 'właśnie mogłem', tu: 'właśnie mogłeś', el: 'właśnie mógł', nosotros: 'właśnie mogliśmy', vosotros: 'właśnie mogliście', ellos: 'właśnie mogli' },
+          imperativo_afirmativo: { yo: '—', tu: 'daj radę', el: 'niech może', nosotros: 'daj radęmy', vosotros: 'daj radęcie', ellos: 'niech mogą' },
+          imperativo_negativo: { yo: '—', tu: 'nie daj radę', el: 'niech nie może', nosotros: 'nie daj radęmy', vosotros: 'nie daj radęcie', ellos: 'niech nie mogą' },
         },
       },
       en: {
@@ -664,6 +779,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will be able to', tu: 'you will be able to', el: 'he/she will be able to', nosotros: 'we will be able to', vosotros: 'you (all) will be able to', ellos: 'they will be able to' },
           ir_a_infinitivo: { yo: 'I am going to be able to', tu: 'you are going to be able to', el: 'he/she is going to be able to', nosotros: 'we are going to be able to', vosotros: 'you (all) are going to be able to', ellos: 'they are going to be able to' },
           acabar_de_infinitivo: { yo: 'I just could', tu: 'you just could', el: 'he/she just could', nosotros: 'we just could', vosotros: 'you (all) just could', ellos: 'they just could' },
+          imperativo_afirmativo: { yo: '—', tu: 'be able to!', el: 'be able to!', nosotros: 'let\'s be able to!', vosotros: 'be able to!', ellos: 'be able to!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t be able to!', el: 'don\'t be able to!', nosotros: 'let\'s not be able to!', vosotros: 'don\'t be able to!', ellos: 'don\'t be able to!' },
         },
       },
       de: {
@@ -674,6 +791,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde können', tu: 'du wirst können', el: 'er/sie/es wird können', nosotros: 'wir werden können', vosotros: 'ihr werdet können', ellos: 'sie werden können' },
           ir_a_infinitivo: { yo: 'ich werde gleich können', tu: 'du wirst gleich können', el: 'er/sie/es wird gleich können', nosotros: 'wir werden gleich können', vosotros: 'ihr werdet gleich können', ellos: 'sie werden gleich können' },
           acabar_de_infinitivo: { yo: 'ich konnte gerade eben', tu: 'du konntest gerade eben', el: 'er/sie/es konnte gerade eben', nosotros: 'wir konnten gerade eben', vosotros: 'ihr konntet gerade eben', ellos: 'sie konnten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'sei fähig!', el: 'Seien Sie fähig!', nosotros: 'Seien wir fähig!', vosotros: 'könnt!', ellos: 'Seien Sie fähig!' },
+          imperativo_negativo: { yo: '—', tu: 'sei fähig nicht!', el: 'Seien Sie fähig nicht!', nosotros: 'Seien wir fähig nicht!', vosotros: 'könnt nicht!', ellos: 'Seien Sie fähig nicht!' },
         },
       },
     },
@@ -688,6 +807,7 @@ export const VERBS: Verb[] = [
       { id: 'poder-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Mogliśmy przyjść.', en: 'We could come.', de: 'Wir konnten kommen.' }, spanish: 'pudimos venir' },
       { id: 'poder-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Mogli przyjść.', en: 'They could come.', de: 'Sie konnten kommen.' }, spanish: 'pudieron venir' },
       { id: 'poder-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie mogli przyjść.', en: 'You (all) will be able to come.', de: 'Ihr werdet kommen können.' }, spanish: 'podréis venir' },
+      { id: 'poder-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'dasz radę z tym', en: 'you can handle this', de: 'du bist dazu fähig' }, spanish: 'puede con esto' },
     ],
   },
   {
@@ -695,6 +815,7 @@ export const VERBS: Verb[] = [
     infinitive: 'deber',
     regular: true,
     participle: 'debido',
+    gerund: 'debiendo',
     conjugations: conjugateRegular('deber'),
     translations: {
       pl: {
@@ -705,6 +826,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę musiał', tu: 'będziesz musiał', el: 'będzie musiał', nosotros: 'będziemy musieli', vosotros: 'będziecie musieli', ellos: 'będą musieli' },
           ir_a_infinitivo: { yo: 'zamierzam musieć', tu: 'zamierzasz musieć', el: 'zamierza musieć', nosotros: 'zamierzamy musieć', vosotros: 'zamierzacie musieć', ellos: 'zamierzają musieć' },
           acabar_de_infinitivo: { yo: 'właśnie musiałem', tu: 'właśnie musiałeś', el: 'właśnie musiał', nosotros: 'właśnie musieliśmy', vosotros: 'właśnie musieliście', ellos: 'właśnie musieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'musisz', el: 'niech musi', nosotros: 'musiszmy', vosotros: 'musiszcie', ellos: 'niech muszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie musisz', el: 'niech nie musi', nosotros: 'nie musiszmy', vosotros: 'nie musiszcie', ellos: 'niech nie muszą' },
         },
       },
       en: {
@@ -715,6 +838,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will have to', tu: 'you will have to', el: 'he/she will have to', nosotros: 'we will have to', vosotros: 'you (all) will have to', ellos: 'they will have to' },
           ir_a_infinitivo: { yo: 'I am going to must', tu: 'you are going to must', el: 'he/she is going to must', nosotros: 'we are going to must', vosotros: 'you (all) are going to must', ellos: 'they are going to must' },
           acabar_de_infinitivo: { yo: 'I just had to', tu: 'you just had to', el: 'he/she just had to', nosotros: 'we just had to', vosotros: 'you (all) just had to', ellos: 'they just had to' },
+          imperativo_afirmativo: { yo: '—', tu: 'must!', el: 'must!', nosotros: 'let\'s must!', vosotros: 'must!', ellos: 'must!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t must!', el: 'don\'t must!', nosotros: 'let\'s not must!', vosotros: 'don\'t must!', ellos: 'don\'t must!' },
         },
       },
       de: {
@@ -725,6 +850,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde müssen', tu: 'du wirst müssen', el: 'er/sie/es wird müssen', nosotros: 'wir werden müssen', vosotros: 'ihr werdet müssen', ellos: 'sie werden müssen' },
           ir_a_infinitivo: { yo: 'ich werde gleich müssen', tu: 'du wirst gleich müssen', el: 'er/sie/es wird gleich müssen', nosotros: 'wir werden gleich müssen', vosotros: 'ihr werdet gleich müssen', ellos: 'sie werden gleich müssen' },
           acabar_de_infinitivo: { yo: 'ich musste gerade eben', tu: 'du musstest gerade eben', el: 'er/sie/es musste gerade eben', nosotros: 'wir mussten gerade eben', vosotros: 'ihr musstet gerade eben', ellos: 'sie mussten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'du musst!', el: 'Sie müssen!', nosotros: 'wir müssen!', vosotros: 'müsst!', ellos: 'Sie müssen!' },
+          imperativo_negativo: { yo: '—', tu: 'du musst nicht!', el: 'Sie müssen nicht!', nosotros: 'wir müssen nicht!', vosotros: 'müsst nicht!', ellos: 'Sie müssen nicht!' },
         },
       },
     },
@@ -739,6 +866,7 @@ export const VERBS: Verb[] = [
       { id: 'deber-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Musieliśmy pracować.', en: 'We had to work.', de: 'Wir mussten arbeiten.' }, spanish: 'debimos trabajar' },
       { id: 'deber-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Musieli pracować.', en: 'They had to work.', de: 'Sie mussten arbeiten.' }, spanish: 'debieron trabajar' },
       { id: 'deber-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie musieli pracować.', en: 'You (all) will have to work.', de: 'Ihr werdet arbeiten müssen.' }, spanish: 'deberéis trabajar' },
+      { id: 'deber-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'musisz to teraz zrobić', en: 'you must do it now', de: 'du musst es jetzt tun' }, spanish: 'debe hacerlo ahora' },
     ],
   },
   {
@@ -746,12 +874,15 @@ export const VERBS: Verb[] = [
     infinitive: 'poner',
     regular: false,
     participle: 'puesto',
+    gerund: 'poniendo',
     conjugations: {
       presente: { yo: 'pongo', tu: 'pones', el: 'pone', nosotros: 'ponemos', vosotros: 'ponéis', ellos: 'ponen' },
       preterite: { yo: 'puse', tu: 'pusiste', el: 'puso', nosotros: 'pusimos', vosotros: 'pusisteis', ellos: 'pusieron' },
       futuro: { yo: 'pondré', tu: 'pondrás', el: 'pondrá', nosotros: 'pondremos', vosotros: 'pondréis', ellos: 'pondrán' },
       ir_a_infinitivo: { yo: 'voy a poner', tu: 'vas a poner', el: 'va a poner', nosotros: 'vamos a poner', vosotros: 'vais a poner', ellos: 'van a poner' },
       acabar_de_infinitivo: { yo: 'acabo de poner', tu: 'acabas de poner', el: 'acaba de poner', nosotros: 'acabamos de poner', vosotros: 'acabáis de poner', ellos: 'acaban de poner' },
+      imperativo_afirmativo: { yo: '—', tu: 'pon', el: 'ponga', nosotros: 'pongamos', vosotros: 'poned', ellos: 'pongan' },
+      imperativo_negativo: { yo: '—', tu: 'no pongas', el: 'no ponga', nosotros: 'no pongamos', vosotros: 'no pongáis', ellos: 'no pongan' },
     },
     translations: {
       pl: {
@@ -762,6 +893,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'położę', tu: 'położysz', el: 'położy', nosotros: 'położymy', vosotros: 'położycie', ellos: 'położą' },
           ir_a_infinitivo: { yo: 'zamierzam kłaść', tu: 'zamierzasz kłaść', el: 'zamierza kłaść', nosotros: 'zamierzamy kłaść', vosotros: 'zamierzacie kłaść', ellos: 'zamierzają kłaść' },
           acabar_de_infinitivo: { yo: 'właśnie położyłem', tu: 'właśnie położyłeś', el: 'właśnie położył', nosotros: 'właśnie położyliśmy', vosotros: 'właśnie położyliście', ellos: 'właśnie położyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'połóż', el: 'niech kładzie', nosotros: 'połóżmy', vosotros: 'połóżcie', ellos: 'niech kładą' },
+          imperativo_negativo: { yo: '—', tu: 'nie połóż', el: 'niech nie kładzie', nosotros: 'nie połóżmy', vosotros: 'nie połóżcie', ellos: 'niech nie kładą' },
         },
       },
       en: {
@@ -772,6 +905,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will put', tu: 'you will put', el: 'he/she will put', nosotros: 'we will put', vosotros: 'you (all) will put', ellos: 'they will put' },
           ir_a_infinitivo: { yo: 'I am going to put', tu: 'you are going to put', el: 'he/she is going to put', nosotros: 'we are going to put', vosotros: 'you (all) are going to put', ellos: 'they are going to put' },
           acabar_de_infinitivo: { yo: 'I just put', tu: 'you just put', el: 'he/she just put', nosotros: 'we just put', vosotros: 'you (all) just put', ellos: 'they just put' },
+          imperativo_afirmativo: { yo: '—', tu: 'put!', el: 'put!', nosotros: 'let\'s put!', vosotros: 'put!', ellos: 'put!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t put!', el: 'don\'t put!', nosotros: 'let\'s not put!', vosotros: 'don\'t put!', ellos: 'don\'t put!' },
         },
       },
       de: {
@@ -782,6 +917,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde legen', tu: 'du wirst legen', el: 'er/sie/es wird legen', nosotros: 'wir werden legen', vosotros: 'ihr werdet legen', ellos: 'sie werden legen' },
           ir_a_infinitivo: { yo: 'ich werde gleich legen', tu: 'du wirst gleich legen', el: 'er/sie/es wird gleich legen', nosotros: 'wir werden gleich legen', vosotros: 'ihr werdet gleich legen', ellos: 'sie werden gleich legen' },
           acabar_de_infinitivo: { yo: 'ich legte gerade eben', tu: 'du legtest gerade eben', el: 'er/sie/es legte gerade eben', nosotros: 'wir legten gerade eben', vosotros: 'ihr legtet gerade eben', ellos: 'sie legten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'leg!', el: 'Legen Sie!', nosotros: 'Legen wir!', vosotros: 'legt!', ellos: 'Legen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'leg nicht!', el: 'Legen Sie nicht!', nosotros: 'Legen wir nicht!', vosotros: 'legt nicht!', ellos: 'Legen Sie nicht!' },
         },
       },
     },
@@ -796,6 +933,7 @@ export const VERBS: Verb[] = [
       { id: 'poner-preterite-las-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Położył je.', en: 'He put them down.', de: 'Er legte sie hin.' }, spanish: 'las puso' },
       { id: 'poner-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Położyliśmy ich.', en: 'We put them down.', de: 'Wir legten sie hin.' }, spanish: 'los pusimos' },
       { id: 'poner-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Położą je.', en: 'They will put them down.', de: 'Sie werden sie hinlegen.' }, spanish: 'las pondrán' },
+      { id: 'poner-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'nakryj do stołu', en: 'set the table', de: 'deck den Tisch' }, spanish: 'pon la mesa' },
     ],
   },
   {
@@ -803,12 +941,15 @@ export const VERBS: Verb[] = [
     infinitive: 'salir',
     regular: false,
     participle: 'salido',
+    gerund: 'saliendo',
     conjugations: {
       presente: { yo: 'salgo', tu: 'sales', el: 'sale', nosotros: 'salimos', vosotros: 'salís', ellos: 'salen' },
       preterite: { yo: 'salí', tu: 'saliste', el: 'salió', nosotros: 'salimos', vosotros: 'salisteis', ellos: 'salieron' },
       futuro: { yo: 'saldré', tu: 'saldrás', el: 'saldrá', nosotros: 'saldremos', vosotros: 'saldréis', ellos: 'saldrán' },
       ir_a_infinitivo: { yo: 'voy a salir', tu: 'vas a salir', el: 'va a salir', nosotros: 'vamos a salir', vosotros: 'vais a salir', ellos: 'van a salir' },
       acabar_de_infinitivo: { yo: 'acabo de salir', tu: 'acabas de salir', el: 'acaba de salir', nosotros: 'acabamos de salir', vosotros: 'acabáis de salir', ellos: 'acaban de salir' },
+      imperativo_afirmativo: { yo: '—', tu: 'sal', el: 'salga', nosotros: 'salgamos', vosotros: 'salid', ellos: 'salgan' },
+      imperativo_negativo: { yo: '—', tu: 'no salgas', el: 'no salga', nosotros: 'no salgamos', vosotros: 'no salgáis', ellos: 'no salgan' },
     },
     translations: {
       pl: {
@@ -819,6 +960,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wyjdę', tu: 'wyjdziesz', el: 'wyjdzie', nosotros: 'wyjdziemy', vosotros: 'wyjdziecie', ellos: 'wyjdą' },
           ir_a_infinitivo: { yo: 'zamierzam wychodzić', tu: 'zamierzasz wychodzić', el: 'zamierza wychodzić', nosotros: 'zamierzamy wychodzić', vosotros: 'zamierzacie wychodzić', ellos: 'zamierzają wychodzić' },
           acabar_de_infinitivo: { yo: 'właśnie wyszedłem', tu: 'właśnie wyszedłeś', el: 'właśnie wyszedł', nosotros: 'właśnie wyszliśmy', vosotros: 'właśnie wyszliście', ellos: 'właśnie wyszli' },
+          imperativo_afirmativo: { yo: '—', tu: 'wyjdź', el: 'niech wychodzi', nosotros: 'wyjdźmy', vosotros: 'wyjdźcie', ellos: 'niech wychodzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie wyjdź', el: 'niech nie wychodzi', nosotros: 'nie wyjdźmy', vosotros: 'nie wyjdźcie', ellos: 'niech nie wychodzą' },
         },
       },
       en: {
@@ -829,6 +972,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will leave', tu: 'you will leave', el: 'he/she will leave', nosotros: 'we will leave', vosotros: 'you (all) will leave', ellos: 'they will leave' },
           ir_a_infinitivo: { yo: 'I am going to leave', tu: 'you are going to leave', el: 'he/she is going to leave', nosotros: 'we are going to leave', vosotros: 'you (all) are going to leave', ellos: 'they are going to leave' },
           acabar_de_infinitivo: { yo: 'I just left', tu: 'you just left', el: 'he/she just left', nosotros: 'we just left', vosotros: 'you (all) just left', ellos: 'they just left' },
+          imperativo_afirmativo: { yo: '—', tu: 'leave!', el: 'leave!', nosotros: 'let\'s leave!', vosotros: 'leave!', ellos: 'leave!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t leave!', el: 'don\'t leave!', nosotros: 'let\'s not leave!', vosotros: 'don\'t leave!', ellos: 'don\'t leave!' },
         },
       },
       de: {
@@ -839,6 +984,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde ausgehen', tu: 'du wirst ausgehen', el: 'er/sie/es wird ausgehen', nosotros: 'wir werden ausgehen', vosotros: 'ihr werdet ausgehen', ellos: 'sie werden ausgehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich ausgehen', tu: 'du wirst gleich ausgehen', el: 'er/sie/es wird gleich ausgehen', nosotros: 'wir werden gleich ausgehen', vosotros: 'ihr werdet gleich ausgehen', ellos: 'sie werden gleich ausgehen' },
           acabar_de_infinitivo: { yo: 'ich ging aus gerade eben', tu: 'du gingst aus gerade eben', el: 'er/sie/es ging aus gerade eben', nosotros: 'wir gingen aus gerade eben', vosotros: 'ihr gingt aus gerade eben', ellos: 'sie gingen aus gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'geh aus!', el: 'Gehen Sie aus!', nosotros: 'Gehen wir aus!', vosotros: 'geht aus!', ellos: 'Gehen Sie aus!' },
+          imperativo_negativo: { yo: '—', tu: 'geh aus nicht!', el: 'Gehen Sie aus nicht!', nosotros: 'Gehen wir aus nicht!', vosotros: 'geht aus nicht!', ellos: 'Gehen Sie aus nicht!' },
         },
       },
     },
@@ -853,6 +1000,7 @@ export const VERBS: Verb[] = [
       { id: 'salir-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Wyszliśmy z domu.', en: 'We left home.', de: 'Wir gingen aus dem Haus.' }, spanish: 'salimos de casa' },
       { id: 'salir-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Wyszli z domu.', en: 'They left home.', de: 'Sie gingen aus dem Haus.' }, spanish: 'salieron de casa' },
       { id: 'salir-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Wyjdziecie z domu.', en: 'You (all) will leave home.', de: 'Ihr werdet aus dem Haus gehen.' }, spanish: 'saldréis de casa' },
+      { id: 'salir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wyjdź stąd', en: 'get out of here', de: 'geh hier raus' }, spanish: 'sal de aquí' },
     ],
   },
   {
@@ -860,12 +1008,15 @@ export const VERBS: Verb[] = [
     infinitive: 'llegar',
     regular: false,
     participle: 'llegado',
+    gerund: 'llegando',
     conjugations: {
       presente: { yo: 'llego', tu: 'llegas', el: 'llega', nosotros: 'llegamos', vosotros: 'llegáis', ellos: 'llegan' },
       preterite: { yo: 'llegué', tu: 'llegaste', el: 'llegó', nosotros: 'llegamos', vosotros: 'llegasteis', ellos: 'llegaron' },
       futuro: { yo: 'llegaré', tu: 'llegarás', el: 'llegará', nosotros: 'llegaremos', vosotros: 'llegaréis', ellos: 'llegarán' },
       ir_a_infinitivo: { yo: 'voy a llegar', tu: 'vas a llegar', el: 'va a llegar', nosotros: 'vamos a llegar', vosotros: 'vais a llegar', ellos: 'van a llegar' },
       acabar_de_infinitivo: { yo: 'acabo de llegar', tu: 'acabas de llegar', el: 'acaba de llegar', nosotros: 'acabamos de llegar', vosotros: 'acabáis de llegar', ellos: 'acaban de llegar' },
+      imperativo_afirmativo: { yo: '—', tu: 'llega', el: 'llegue', nosotros: 'lleguemos', vosotros: 'llegad', ellos: 'lleguen' },
+      imperativo_negativo: { yo: '—', tu: 'no llegues', el: 'no llegue', nosotros: 'no lleguemos', vosotros: 'no lleguéis', ellos: 'no lleguen' },
     },
     translations: {
       pl: {
@@ -876,6 +1027,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przyjadę', tu: 'przyjedziesz', el: 'przyjedzie', nosotros: 'przyjedziemy', vosotros: 'przyjedziecie', ellos: 'przyjadą' },
           ir_a_infinitivo: { yo: 'zamierzam przychodzić', tu: 'zamierzasz przychodzić', el: 'zamierza przychodzić', nosotros: 'zamierzamy przychodzić', vosotros: 'zamierzacie przychodzić', ellos: 'zamierzają przychodzić' },
           acabar_de_infinitivo: { yo: 'właśnie przyjechałem', tu: 'właśnie przyjechałeś', el: 'właśnie przyjechał', nosotros: 'właśnie przyjechaliśmy', vosotros: 'właśnie przyjechaliście', ellos: 'właśnie przyjechali' },
+          imperativo_afirmativo: { yo: '—', tu: 'przyjedź', el: 'niech przyjeżdża', nosotros: 'przyjedźmy', vosotros: 'przyjedźcie', ellos: 'niech przyjeżdżają' },
+          imperativo_negativo: { yo: '—', tu: 'nie przyjedź', el: 'niech nie przyjeżdża', nosotros: 'nie przyjedźmy', vosotros: 'nie przyjedźcie', ellos: 'niech nie przyjeżdżają' },
         },
       },
       en: {
@@ -886,6 +1039,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will arrive', tu: 'you will arrive', el: 'he/she will arrive', nosotros: 'we will arrive', vosotros: 'you (all) will arrive', ellos: 'they will arrive' },
           ir_a_infinitivo: { yo: 'I am going to arrive', tu: 'you are going to arrive', el: 'he/she is going to arrive', nosotros: 'we are going to arrive', vosotros: 'you (all) are going to arrive', ellos: 'they are going to arrive' },
           acabar_de_infinitivo: { yo: 'I just arrived', tu: 'you just arrived', el: 'he/she just arrived', nosotros: 'we just arrived', vosotros: 'you (all) just arrived', ellos: 'they just arrived' },
+          imperativo_afirmativo: { yo: '—', tu: 'arrive!', el: 'arrive!', nosotros: 'let\'s arrive!', vosotros: 'arrive!', ellos: 'arrive!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t arrive!', el: 'don\'t arrive!', nosotros: 'let\'s not arrive!', vosotros: 'don\'t arrive!', ellos: 'don\'t arrive!' },
         },
       },
       de: {
@@ -896,6 +1051,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde ankommen', tu: 'du wirst ankommen', el: 'er/sie/es wird ankommen', nosotros: 'wir werden ankommen', vosotros: 'ihr werdet ankommen', ellos: 'sie werden ankommen' },
           ir_a_infinitivo: { yo: 'ich werde gleich ankommen', tu: 'du wirst gleich ankommen', el: 'er/sie/es wird gleich ankommen', nosotros: 'wir werden gleich ankommen', vosotros: 'ihr werdet gleich ankommen', ellos: 'sie werden gleich ankommen' },
           acabar_de_infinitivo: { yo: 'ich kam an gerade eben', tu: 'du kamst an gerade eben', el: 'er/sie/es kam an gerade eben', nosotros: 'wir kamen an gerade eben', vosotros: 'ihr kamt an gerade eben', ellos: 'sie kamen an gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'komm an!', el: 'Kommen Sie an!', nosotros: 'Kommen wir an!', vosotros: 'kommt an!', ellos: 'Kommen Sie an!' },
+          imperativo_negativo: { yo: '—', tu: 'komm an nicht!', el: 'Kommen Sie an nicht!', nosotros: 'Kommen wir an nicht!', vosotros: 'kommt an nicht!', ellos: 'Kommen Sie an nicht!' },
         },
       },
     },
@@ -911,6 +1068,7 @@ export const VERBS: Verb[] = [
       { id: 'llegar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Przyjechali na czas.', en: 'They arrived on time.', de: 'Sie kamen pünktlich an.' }, spanish: 'llegaron a tiempo' },
       { id: 'llegar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Przyjedziecie na czas.', en: 'You (all) will arrive on time.', de: 'Ihr werdet pünktlich ankommen.' }, spanish: 'llegaréis a tiempo' },
       { id: 'llegar-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie przyjechałem.', en: 'I just arrived.', de: 'Ich bin gerade angekommen.' }, spanish: 'acabo de llegar' },
+      { id: 'llegar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'przyjedź wcześnie', en: 'arrive early', de: 'komm früh an' }, spanish: 'llega temprano' },
     ],
   },
   {
@@ -918,6 +1076,7 @@ export const VERBS: Verb[] = [
     infinitive: 'llevar',
     regular: true,
     participle: 'llevado',
+    gerund: 'llevando',
     conjugations: conjugateRegular('llevar'),
     translations: {
       pl: {
@@ -928,6 +1087,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zabiorę', tu: 'zabierzesz', el: 'zabierze', nosotros: 'zabierzemy', vosotros: 'zabierzecie', ellos: 'zabiorą' },
           ir_a_infinitivo: { yo: 'zamierzam nosić', tu: 'zamierzasz nosić', el: 'zamierza nosić', nosotros: 'zamierzamy nosić', vosotros: 'zamierzacie nosić', ellos: 'zamierzają nosić' },
           acabar_de_infinitivo: { yo: 'właśnie zabrałem', tu: 'właśnie zabrałeś', el: 'właśnie zabrał', nosotros: 'właśnie zabraliśmy', vosotros: 'właśnie zabraliście', ellos: 'właśnie zabrali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zabierz', el: 'niech zabiera', nosotros: 'zabierzmy', vosotros: 'zabierzcie', ellos: 'niech zabierają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zabierz', el: 'niech nie zabiera', nosotros: 'nie zabierzmy', vosotros: 'nie zabierzcie', ellos: 'niech nie zabierają' },
         },
       },
       en: {
@@ -938,6 +1099,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will carry', tu: 'you will carry', el: 'he/she will carry', nosotros: 'we will carry', vosotros: 'you (all) will carry', ellos: 'they will carry' },
           ir_a_infinitivo: { yo: 'I am going to carry', tu: 'you are going to carry', el: 'he/she is going to carry', nosotros: 'we are going to carry', vosotros: 'you (all) are going to carry', ellos: 'they are going to carry' },
           acabar_de_infinitivo: { yo: 'I just carried', tu: 'you just carried', el: 'he/she just carried', nosotros: 'we just carried', vosotros: 'you (all) just carried', ellos: 'they just carried' },
+          imperativo_afirmativo: { yo: '—', tu: 'carry!', el: 'carry!', nosotros: 'let\'s carry!', vosotros: 'carry!', ellos: 'carry!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t carry!', el: 'don\'t carry!', nosotros: 'let\'s not carry!', vosotros: 'don\'t carry!', ellos: 'don\'t carry!' },
         },
       },
       de: {
@@ -948,6 +1111,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde mitnehmen', tu: 'du wirst mitnehmen', el: 'er/sie/es wird mitnehmen', nosotros: 'wir werden mitnehmen', vosotros: 'ihr werdet mitnehmen', ellos: 'sie werden mitnehmen' },
           ir_a_infinitivo: { yo: 'ich werde gleich mitnehmen', tu: 'du wirst gleich mitnehmen', el: 'er/sie/es wird gleich mitnehmen', nosotros: 'wir werden gleich mitnehmen', vosotros: 'ihr werdet gleich mitnehmen', ellos: 'sie werden gleich mitnehmen' },
           acabar_de_infinitivo: { yo: 'ich nahm mit gerade eben', tu: 'du nahmst mit gerade eben', el: 'er/sie/es nahm mit gerade eben', nosotros: 'wir nahmen mit gerade eben', vosotros: 'ihr nahmt mit gerade eben', ellos: 'sie nahmen mit gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'nimm mit!', el: 'Nehmen Sie mit!', nosotros: 'Nehmen wir mit!', vosotros: 'nehmt mit!', ellos: 'Nehmen Sie mit!' },
+          imperativo_negativo: { yo: '—', tu: 'nimm mit nicht!', el: 'Nehmen Sie mit nicht!', nosotros: 'Nehmen wir mit nicht!', vosotros: 'nehmt mit nicht!', ellos: 'Nehmen Sie mit nicht!' },
         },
       },
     },
@@ -962,6 +1127,7 @@ export const VERBS: Verb[] = [
       { id: 'llevar-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Zabrał ich.', en: 'He took them.', de: 'Er nahm sie mit.' }, spanish: 'los llevó' },
       { id: 'llevar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zabraliśmy je.', en: 'We took them.', de: 'Wir nahmen sie mit.' }, spanish: 'las llevamos' },
       { id: 'llevar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Zabiorą was.', en: 'They will take you (all).', de: 'Sie werden euch mitnehmen.' }, spanish: 'os llevarán' },
+      { id: 'llevar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zabierz parasol', en: 'take the umbrella', de: 'nimm den Regenschirm mit' }, spanish: 'lleva el paraguas' },
     ],
   },
   {
@@ -969,12 +1135,15 @@ export const VERBS: Verb[] = [
     infinitive: 'traer',
     regular: false,
     participle: 'traído',
+    gerund: 'trayendo',
     conjugations: {
       presente: { yo: 'traigo', tu: 'traes', el: 'trae', nosotros: 'traemos', vosotros: 'traéis', ellos: 'traen' },
       preterite: { yo: 'traje', tu: 'trajiste', el: 'trajo', nosotros: 'trajimos', vosotros: 'trajisteis', ellos: 'trajeron' },
       futuro: { yo: 'traeré', tu: 'traerás', el: 'traerá', nosotros: 'traeremos', vosotros: 'traeréis', ellos: 'traerán' },
       ir_a_infinitivo: { yo: 'voy a traer', tu: 'vas a traer', el: 'va a traer', nosotros: 'vamos a traer', vosotros: 'vais a traer', ellos: 'van a traer' },
       acabar_de_infinitivo: { yo: 'acabo de traer', tu: 'acabas de traer', el: 'acaba de traer', nosotros: 'acabamos de traer', vosotros: 'acabáis de traer', ellos: 'acaban de traer' },
+      imperativo_afirmativo: { yo: '—', tu: 'trae', el: 'traiga', nosotros: 'traigamos', vosotros: 'traed', ellos: 'traigan' },
+      imperativo_negativo: { yo: '—', tu: 'no traigas', el: 'no traiga', nosotros: 'no traigamos', vosotros: 'no traigáis', ellos: 'no traigan' },
     },
     translations: {
       pl: {
@@ -985,6 +1154,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przyniosę', tu: 'przyniesiesz', el: 'przyniesie', nosotros: 'przyniesiemy', vosotros: 'przyniesiecie', ellos: 'przyniosą' },
           ir_a_infinitivo: { yo: 'zamierzam przynosić', tu: 'zamierzasz przynosić', el: 'zamierza przynosić', nosotros: 'zamierzamy przynosić', vosotros: 'zamierzacie przynosić', ellos: 'zamierzają przynosić' },
           acabar_de_infinitivo: { yo: 'właśnie przyniosłem', tu: 'właśnie przyniosłeś', el: 'właśnie przyniósł', nosotros: 'właśnie przynieśliśmy', vosotros: 'właśnie przynieśliście', ellos: 'właśnie przynieśli' },
+          imperativo_afirmativo: { yo: '—', tu: 'przynieś', el: 'niech przynosi', nosotros: 'przynieśmy', vosotros: 'przynieście', ellos: 'niech przynoszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie przynieś', el: 'niech nie przynosi', nosotros: 'nie przynieśmy', vosotros: 'nie przynieście', ellos: 'niech nie przynoszą' },
         },
       },
       en: {
@@ -995,6 +1166,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will bring', tu: 'you will bring', el: 'he/she will bring', nosotros: 'we will bring', vosotros: 'you (all) will bring', ellos: 'they will bring' },
           ir_a_infinitivo: { yo: 'I am going to bring', tu: 'you are going to bring', el: 'he/she is going to bring', nosotros: 'we are going to bring', vosotros: 'you (all) are going to bring', ellos: 'they are going to bring' },
           acabar_de_infinitivo: { yo: 'I just brought', tu: 'you just brought', el: 'he/she just brought', nosotros: 'we just brought', vosotros: 'you (all) just brought', ellos: 'they just brought' },
+          imperativo_afirmativo: { yo: '—', tu: 'bring!', el: 'bring!', nosotros: 'let\'s bring!', vosotros: 'bring!', ellos: 'bring!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t bring!', el: 'don\'t bring!', nosotros: 'let\'s not bring!', vosotros: 'don\'t bring!', ellos: 'don\'t bring!' },
         },
       },
       de: {
@@ -1005,6 +1178,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde bringen', tu: 'du wirst bringen', el: 'er/sie/es wird bringen', nosotros: 'wir werden bringen', vosotros: 'ihr werdet bringen', ellos: 'sie werden bringen' },
           ir_a_infinitivo: { yo: 'ich werde gleich bringen', tu: 'du wirst gleich bringen', el: 'er/sie/es wird gleich bringen', nosotros: 'wir werden gleich bringen', vosotros: 'ihr werdet gleich bringen', ellos: 'sie werden gleich bringen' },
           acabar_de_infinitivo: { yo: 'ich brachte gerade eben', tu: 'du brachtest gerade eben', el: 'er/sie/es brachte gerade eben', nosotros: 'wir brachten gerade eben', vosotros: 'ihr brachtet gerade eben', ellos: 'sie brachten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'bring!', el: 'Bringen Sie!', nosotros: 'Bringen wir!', vosotros: 'bringt!', ellos: 'Bringen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bring nicht!', el: 'Bringen Sie nicht!', nosotros: 'Bringen wir nicht!', vosotros: 'bringt nicht!', ellos: 'Bringen Sie nicht!' },
         },
       },
     },
@@ -1019,6 +1194,7 @@ export const VERBS: Verb[] = [
       { id: 'traer-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Przyniósł ich.', en: 'He brought them.', de: 'Er brachte sie.' }, spanish: 'los trajo' },
       { id: 'traer-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Przynieśliśmy je.', en: 'We brought them.', de: 'Wir brachten sie.' }, spanish: 'las trajimos' },
       { id: 'traer-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Przyniosą was.', en: 'They will bring you (all).', de: 'Sie werden euch bringen.' }, spanish: 'os traerán' },
+      { id: 'traer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'przynieś parasol', en: 'bring the umbrella', de: 'bring den Regenschirm' }, spanish: 'trae el paraguas' },
     ],
   },
   {
@@ -1026,6 +1202,7 @@ export const VERBS: Verb[] = [
     infinitive: 'dejar',
     regular: true,
     participle: 'dejado',
+    gerund: 'dejando',
     conjugations: conjugateRegular('dejar'),
     translations: {
       pl: {
@@ -1036,6 +1213,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zostawię', tu: 'zostawisz', el: 'zostawi', nosotros: 'zostawimy', vosotros: 'zostawicie', ellos: 'zostawią' },
           ir_a_infinitivo: { yo: 'zamierzam zostawiać', tu: 'zamierzasz zostawiać', el: 'zamierza zostawiać', nosotros: 'zamierzamy zostawiać', vosotros: 'zamierzacie zostawiać', ellos: 'zamierzają zostawiać' },
           acabar_de_infinitivo: { yo: 'właśnie zostawiłem', tu: 'właśnie zostawiłeś', el: 'właśnie zostawił', nosotros: 'właśnie zostawiliśmy', vosotros: 'właśnie zostawiliście', ellos: 'właśnie zostawili' },
+          imperativo_afirmativo: { yo: '—', tu: 'zostaw', el: 'niech zostawia', nosotros: 'zostawmy', vosotros: 'zostawcie', ellos: 'niech zostawiają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zostaw', el: 'niech nie zostawia', nosotros: 'nie zostawmy', vosotros: 'nie zostawcie', ellos: 'niech nie zostawiają' },
         },
       },
       en: {
@@ -1046,6 +1225,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will leave', tu: 'you will leave', el: 'he/she will leave', nosotros: 'we will leave', vosotros: 'you (all) will leave', ellos: 'they will leave' },
           ir_a_infinitivo: { yo: 'I am going to leave (behind)', tu: 'you are going to leave (behind)', el: 'he/she is going to leave (behind)', nosotros: 'we are going to leave (behind)', vosotros: 'you (all) are going to leave (behind)', ellos: 'they are going to leave (behind)' },
           acabar_de_infinitivo: { yo: 'I just left', tu: 'you just left', el: 'he/she just left', nosotros: 'we just left', vosotros: 'you (all) just left', ellos: 'they just left' },
+          imperativo_afirmativo: { yo: '—', tu: 'leave!', el: 'leave!', nosotros: 'let\'s leave!', vosotros: 'leave!', ellos: 'leave!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t leave!', el: 'don\'t leave!', nosotros: 'let\'s not leave!', vosotros: 'don\'t leave!', ellos: 'don\'t leave!' },
         },
       },
       de: {
@@ -1056,6 +1237,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde lassen', tu: 'du wirst lassen', el: 'er/sie/es wird lassen', nosotros: 'wir werden lassen', vosotros: 'ihr werdet lassen', ellos: 'sie werden lassen' },
           ir_a_infinitivo: { yo: 'ich werde gleich lassen (zurücklassen)', tu: 'du wirst gleich lassen (zurücklassen)', el: 'er/sie/es wird gleich lassen (zurücklassen)', nosotros: 'wir werden gleich lassen (zurücklassen)', vosotros: 'ihr werdet gleich lassen (zurücklassen)', ellos: 'sie werden gleich lassen (zurücklassen)' },
           acabar_de_infinitivo: { yo: 'ich ließ gerade eben', tu: 'du ließest gerade eben', el: 'er/sie/es ließ gerade eben', nosotros: 'wir ließen gerade eben', vosotros: 'ihr ließt gerade eben', ellos: 'sie ließen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'lass!', el: 'Lassen Sie!', nosotros: 'Lassen wir!', vosotros: 'lasst!', ellos: 'Lassen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lass nicht!', el: 'Lassen Sie nicht!', nosotros: 'Lassen wir nicht!', vosotros: 'lasst nicht!', ellos: 'Lassen Sie nicht!' },
         },
       },
     },
@@ -1070,6 +1253,7 @@ export const VERBS: Verb[] = [
       { id: 'dejar-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Zostawił ich.', en: 'He left them.', de: 'Er ließ sie.' }, spanish: 'los dejó' },
       { id: 'dejar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zostawiliśmy je.', en: 'We left them.', de: 'Wir ließen sie.' }, spanish: 'las dejamos' },
       { id: 'dejar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Zostawią was.', en: 'They will leave you (all).', de: 'Sie werden euch lassen.' }, spanish: 'os dejarán' },
+      { id: 'dejar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zostaw książkę na stole', en: 'leave the book on the table', de: 'lass das Buch auf dem Tisch' }, spanish: 'deja el libro en la mesa' },
     ],
   },
   {
@@ -1077,12 +1261,15 @@ export const VERBS: Verb[] = [
     infinitive: 'encontrar',
     regular: false,
     participle: 'encontrado',
+    gerund: 'encontrando',
     conjugations: {
       presente: { yo: 'encuentro', tu: 'encuentras', el: 'encuentra', nosotros: 'encontramos', vosotros: 'encontráis', ellos: 'encuentran' },
       preterite: { yo: 'encontré', tu: 'encontraste', el: 'encontró', nosotros: 'encontramos', vosotros: 'encontrasteis', ellos: 'encontraron' },
       futuro: { yo: 'encontraré', tu: 'encontrarás', el: 'encontrará', nosotros: 'encontraremos', vosotros: 'encontraréis', ellos: 'encontrarán' },
       ir_a_infinitivo: { yo: 'voy a encontrar', tu: 'vas a encontrar', el: 'va a encontrar', nosotros: 'vamos a encontrar', vosotros: 'vais a encontrar', ellos: 'van a encontrar' },
       acabar_de_infinitivo: { yo: 'acabo de encontrar', tu: 'acabas de encontrar', el: 'acaba de encontrar', nosotros: 'acabamos de encontrar', vosotros: 'acabáis de encontrar', ellos: 'acaban de encontrar' },
+      imperativo_afirmativo: { yo: '—', tu: 'encuentra', el: 'encuentre', nosotros: 'encontremos', vosotros: 'encontrad', ellos: 'encuentren' },
+      imperativo_negativo: { yo: '—', tu: 'no encuentres', el: 'no encuentre', nosotros: 'no encontremos', vosotros: 'no encontréis', ellos: 'no encuentren' },
     },
     translations: {
       pl: {
@@ -1093,6 +1280,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'znajdę', tu: 'znajdziesz', el: 'znajdzie', nosotros: 'znajdziemy', vosotros: 'znajdziecie', ellos: 'znajdą' },
           ir_a_infinitivo: { yo: 'zamierzam znajdować', tu: 'zamierzasz znajdować', el: 'zamierza znajdować', nosotros: 'zamierzamy znajdować', vosotros: 'zamierzacie znajdować', ellos: 'zamierzają znajdować' },
           acabar_de_infinitivo: { yo: 'właśnie znalazłem', tu: 'właśnie znalazłeś', el: 'właśnie znalazł', nosotros: 'właśnie znaleźliśmy', vosotros: 'właśnie znaleźliście', ellos: 'właśnie znaleźli' },
+          imperativo_afirmativo: { yo: '—', tu: 'znajdź', el: 'niech znajduje', nosotros: 'znajdźmy', vosotros: 'znajdźcie', ellos: 'niech znajdują' },
+          imperativo_negativo: { yo: '—', tu: 'nie znajdź', el: 'niech nie znajduje', nosotros: 'nie znajdźmy', vosotros: 'nie znajdźcie', ellos: 'niech nie znajdują' },
         },
       },
       en: {
@@ -1103,6 +1292,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will find', tu: 'you will find', el: 'he/she will find', nosotros: 'we will find', vosotros: 'you (all) will find', ellos: 'they will find' },
           ir_a_infinitivo: { yo: 'I am going to find', tu: 'you are going to find', el: 'he/she is going to find', nosotros: 'we are going to find', vosotros: 'you (all) are going to find', ellos: 'they are going to find' },
           acabar_de_infinitivo: { yo: 'I just found', tu: 'you just found', el: 'he/she just found', nosotros: 'we just found', vosotros: 'you (all) just found', ellos: 'they just found' },
+          imperativo_afirmativo: { yo: '—', tu: 'find!', el: 'find!', nosotros: 'let\'s find!', vosotros: 'find!', ellos: 'find!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t find!', el: 'don\'t find!', nosotros: 'let\'s not find!', vosotros: 'don\'t find!', ellos: 'don\'t find!' },
         },
       },
       de: {
@@ -1113,6 +1304,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde finden', tu: 'du wirst finden', el: 'er/sie/es wird finden', nosotros: 'wir werden finden', vosotros: 'ihr werdet finden', ellos: 'sie werden finden' },
           ir_a_infinitivo: { yo: 'ich werde gleich finden', tu: 'du wirst gleich finden', el: 'er/sie/es wird gleich finden', nosotros: 'wir werden gleich finden', vosotros: 'ihr werdet gleich finden', ellos: 'sie werden gleich finden' },
           acabar_de_infinitivo: { yo: 'ich fand gerade eben', tu: 'du fandest gerade eben', el: 'er/sie/es fand gerade eben', nosotros: 'wir fanden gerade eben', vosotros: 'ihr fandet gerade eben', ellos: 'sie fanden gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'find!', el: 'Finden Sie!', nosotros: 'Finden wir!', vosotros: 'findet!', ellos: 'Finden Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'find nicht!', el: 'Finden Sie nicht!', nosotros: 'Finden wir nicht!', vosotros: 'findet nicht!', ellos: 'Finden Sie nicht!' },
         },
       },
     },
@@ -1127,6 +1320,7 @@ export const VERBS: Verb[] = [
       { id: 'encontrar-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Znalazł ich.', en: 'He found them.', de: 'Er fand sie.' }, spanish: 'los encontró' },
       { id: 'encontrar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Znaleźliśmy je.', en: 'We found them.', de: 'Wir fanden sie.' }, spanish: 'las encontramos' },
       { id: 'encontrar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Znajdą was.', en: 'They will find you (all).', de: 'Sie werden euch finden.' }, spanish: 'os encontrarán' },
+      { id: 'encontrar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'znajdź klucze', en: 'find the keys', de: 'find die Schlüssel' }, spanish: 'encuentra las llaves' },
     ],
   },
   {
@@ -1134,12 +1328,15 @@ export const VERBS: Verb[] = [
     infinitive: 'buscar',
     regular: false,
     participle: 'buscado',
+    gerund: 'buscando',
     conjugations: {
       presente: { yo: 'busco', tu: 'buscas', el: 'busca', nosotros: 'buscamos', vosotros: 'buscáis', ellos: 'buscan' },
       preterite: { yo: 'busqué', tu: 'buscaste', el: 'buscó', nosotros: 'buscamos', vosotros: 'buscasteis', ellos: 'buscaron' },
       futuro: { yo: 'buscaré', tu: 'buscarás', el: 'buscará', nosotros: 'buscaremos', vosotros: 'buscaréis', ellos: 'buscarán' },
       ir_a_infinitivo: { yo: 'voy a buscar', tu: 'vas a buscar', el: 'va a buscar', nosotros: 'vamos a buscar', vosotros: 'vais a buscar', ellos: 'van a buscar' },
       acabar_de_infinitivo: { yo: 'acabo de buscar', tu: 'acabas de buscar', el: 'acaba de buscar', nosotros: 'acabamos de buscar', vosotros: 'acabáis de buscar', ellos: 'acaban de buscar' },
+      imperativo_afirmativo: { yo: '—', tu: 'busca', el: 'busque', nosotros: 'busquemos', vosotros: 'buscad', ellos: 'busquen' },
+      imperativo_negativo: { yo: '—', tu: 'no busques', el: 'no busque', nosotros: 'no busquemos', vosotros: 'no busquéis', ellos: 'no busquen' },
     },
     translations: {
       pl: {
@@ -1150,6 +1347,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'poszukam', tu: 'poszukasz', el: 'poszuka', nosotros: 'poszukamy', vosotros: 'poszukacie', ellos: 'poszukają' },
           ir_a_infinitivo: { yo: 'zamierzam szukać', tu: 'zamierzasz szukać', el: 'zamierza szukać', nosotros: 'zamierzamy szukać', vosotros: 'zamierzacie szukać', ellos: 'zamierzają szukać' },
           acabar_de_infinitivo: { yo: 'właśnie szukałem', tu: 'właśnie szukałeś', el: 'właśnie szukał', nosotros: 'właśnie szukaliśmy', vosotros: 'właśnie szukaliście', ellos: 'właśnie szukali' },
+          imperativo_afirmativo: { yo: '—', tu: 'szukaj', el: 'niech szuka', nosotros: 'szukajmy', vosotros: 'szukajcie', ellos: 'niech szukają' },
+          imperativo_negativo: { yo: '—', tu: 'nie szukaj', el: 'niech nie szuka', nosotros: 'nie szukajmy', vosotros: 'nie szukajcie', ellos: 'niech nie szukają' },
         },
       },
       en: {
@@ -1160,6 +1359,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will look for', tu: 'you will look for', el: 'he/she will look for', nosotros: 'we will look for', vosotros: 'you (all) will look for', ellos: 'they will look for' },
           ir_a_infinitivo: { yo: 'I am going to look for', tu: 'you are going to look for', el: 'he/she is going to look for', nosotros: 'we are going to look for', vosotros: 'you (all) are going to look for', ellos: 'they are going to look for' },
           acabar_de_infinitivo: { yo: 'I just looked for', tu: 'you just looked for', el: 'he/she just looked for', nosotros: 'we just looked for', vosotros: 'you (all) just looked for', ellos: 'they just looked for' },
+          imperativo_afirmativo: { yo: '—', tu: 'look for!', el: 'look for!', nosotros: 'let\'s look for!', vosotros: 'look for!', ellos: 'look for!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t look for!', el: 'don\'t look for!', nosotros: 'let\'s not look for!', vosotros: 'don\'t look for!', ellos: 'don\'t look for!' },
         },
       },
       de: {
@@ -1170,6 +1371,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde suchen', tu: 'du wirst suchen', el: 'er/sie/es wird suchen', nosotros: 'wir werden suchen', vosotros: 'ihr werdet suchen', ellos: 'sie werden suchen' },
           ir_a_infinitivo: { yo: 'ich werde gleich suchen', tu: 'du wirst gleich suchen', el: 'er/sie/es wird gleich suchen', nosotros: 'wir werden gleich suchen', vosotros: 'ihr werdet gleich suchen', ellos: 'sie werden gleich suchen' },
           acabar_de_infinitivo: { yo: 'ich suchte gerade eben', tu: 'du suchtest gerade eben', el: 'er/sie/es suchte gerade eben', nosotros: 'wir suchten gerade eben', vosotros: 'ihr suchtet gerade eben', ellos: 'sie suchten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'such!', el: 'Suchen Sie!', nosotros: 'Suchen wir!', vosotros: 'sucht!', ellos: 'Suchen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'such nicht!', el: 'Suchen Sie nicht!', nosotros: 'Suchen wir nicht!', vosotros: 'sucht nicht!', ellos: 'Suchen Sie nicht!' },
         },
       },
     },
@@ -1185,6 +1388,7 @@ export const VERBS: Verb[] = [
       { id: 'buscar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Szukaliśmy ich.', en: 'We looked for them.', de: 'Wir suchten sie.' }, spanish: 'las buscamos' },
       { id: 'buscar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Będą was szukać.', en: 'They will look for you (all).', de: 'Sie werden euch suchen.' }, spanish: 'os buscarán' },
       { id: 'buscar-acabar_de_infinitivo-te-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'direct', pronoun: 'te', translations: { pl: 'Właśnie cię szukaliśmy.', en: 'We just looked for you.', de: 'Wir haben gerade nach dir gesucht.' }, spanish: 'te acabamos de buscar', alternativeAnswers: ['acabamos de buscarte'] },
+      { id: 'buscar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'szukaj swoich kluczy', en: 'look for your keys', de: 'such deine Schlüssel' }, spanish: 'busca tus llaves' },
     ],
   },
   {
@@ -1192,6 +1396,7 @@ export const VERBS: Verb[] = [
     infinitive: 'hablar',
     regular: true,
     participle: 'hablado',
+    gerund: 'hablando',
     conjugations: conjugateRegular('hablar'),
     translations: {
       pl: {
@@ -1202,6 +1407,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę mówił', tu: 'będziesz mówił', el: 'będzie mówił', nosotros: 'będziemy mówili', vosotros: 'będziecie mówili', ellos: 'będą mówili' },
           ir_a_infinitivo: { yo: 'zamierzam mówić', tu: 'zamierzasz mówić', el: 'zamierza mówić', nosotros: 'zamierzamy mówić', vosotros: 'zamierzacie mówić', ellos: 'zamierzają mówić' },
           acabar_de_infinitivo: { yo: 'właśnie mówiłem', tu: 'właśnie mówiłeś', el: 'właśnie mówił', nosotros: 'właśnie mówiliśmy', vosotros: 'właśnie mówiliście', ellos: 'właśnie mówili' },
+          imperativo_afirmativo: { yo: '—', tu: 'mów', el: 'niech mówi', nosotros: 'mówmy', vosotros: 'mówcie', ellos: 'niech mówią' },
+          imperativo_negativo: { yo: '—', tu: 'nie mów', el: 'niech nie mówi', nosotros: 'nie mówmy', vosotros: 'nie mówcie', ellos: 'niech nie mówią' },
         },
       },
       en: {
@@ -1212,6 +1419,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will speak', tu: 'you will speak', el: 'he/she will speak', nosotros: 'we will speak', vosotros: 'you (all) will speak', ellos: 'they will speak' },
           ir_a_infinitivo: { yo: 'I am going to speak', tu: 'you are going to speak', el: 'he/she is going to speak', nosotros: 'we are going to speak', vosotros: 'you (all) are going to speak', ellos: 'they are going to speak' },
           acabar_de_infinitivo: { yo: 'I just spoke', tu: 'you just spoke', el: 'he/she just spoke', nosotros: 'we just spoke', vosotros: 'you (all) just spoke', ellos: 'they just spoke' },
+          imperativo_afirmativo: { yo: '—', tu: 'speak!', el: 'speak!', nosotros: 'let\'s speak!', vosotros: 'speak!', ellos: 'speak!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t speak!', el: 'don\'t speak!', nosotros: 'let\'s not speak!', vosotros: 'don\'t speak!', ellos: 'don\'t speak!' },
         },
       },
       de: {
@@ -1222,6 +1431,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sprechen', tu: 'du wirst sprechen', el: 'er/sie/es wird sprechen', nosotros: 'wir werden sprechen', vosotros: 'ihr werdet sprechen', ellos: 'sie werden sprechen' },
           ir_a_infinitivo: { yo: 'ich werde gleich sprechen', tu: 'du wirst gleich sprechen', el: 'er/sie/es wird gleich sprechen', nosotros: 'wir werden gleich sprechen', vosotros: 'ihr werdet gleich sprechen', ellos: 'sie werden gleich sprechen' },
           acabar_de_infinitivo: { yo: 'ich sprach gerade eben', tu: 'du sprachst gerade eben', el: 'er/sie/es sprach gerade eben', nosotros: 'wir sprachen gerade eben', vosotros: 'ihr spracht gerade eben', ellos: 'sie sprachen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'sprich!', el: 'Sprechen Sie!', nosotros: 'Sprechen wir!', vosotros: 'sprecht!', ellos: 'Sprechen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'sprich nicht!', el: 'Sprechen Sie nicht!', nosotros: 'Sprechen wir nicht!', vosotros: 'sprecht nicht!', ellos: 'Sprechen Sie nicht!' },
         },
       },
     },
@@ -1237,6 +1448,7 @@ export const VERBS: Verb[] = [
       { id: 'hablar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Mówili po hiszpańsku.', en: 'They spoke Spanish.', de: 'Sie sprachen Spanisch.' }, spanish: 'hablaron español' },
       { id: 'hablar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie mówili po hiszpańsku.', en: 'You (all) will speak Spanish.', de: 'Ihr werdet Spanisch sprechen.' }, spanish: 'hablaréis español' },
       { id: 'hablar-ir_a_infinitivo-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Zamierzam mówić po hiszpańsku.', en: 'I am going to speak Spanish.', de: 'Ich werde gleich Spanisch sprechen.' }, spanish: 'voy a hablar español' },
+      { id: 'hablar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'mów wolniej', en: 'speak more slowly', de: 'sprich langsamer' }, spanish: 'habla más despacio' },
     ],
   },
   {
@@ -1244,6 +1456,7 @@ export const VERBS: Verb[] = [
     infinitive: 'comer',
     regular: true,
     participle: 'comido',
+    gerund: 'comiendo',
     conjugations: conjugateRegular('comer'),
     translations: {
       pl: {
@@ -1254,6 +1467,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę jadł', tu: 'będziesz jadł', el: 'będzie jadł', nosotros: 'będziemy jedli', vosotros: 'będziecie jedli', ellos: 'będą jedli' },
           ir_a_infinitivo: { yo: 'zamierzam jeść', tu: 'zamierzasz jeść', el: 'zamierza jeść', nosotros: 'zamierzamy jeść', vosotros: 'zamierzacie jeść', ellos: 'zamierzają jeść' },
           acabar_de_infinitivo: { yo: 'właśnie jadłem', tu: 'właśnie jadłeś', el: 'właśnie jadł', nosotros: 'właśnie jedliśmy', vosotros: 'właśnie jedliście', ellos: 'właśnie jedli' },
+          imperativo_afirmativo: { yo: '—', tu: 'jedz', el: 'niech je', nosotros: 'jedzmy', vosotros: 'jedzcie', ellos: 'niech jedzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie jedz', el: 'niech nie je', nosotros: 'nie jedzmy', vosotros: 'nie jedzcie', ellos: 'niech nie jedzą' },
         },
       },
       en: {
@@ -1264,6 +1479,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will eat', tu: 'you will eat', el: 'he/she will eat', nosotros: 'we will eat', vosotros: 'you (all) will eat', ellos: 'they will eat' },
           ir_a_infinitivo: { yo: 'I am going to eat', tu: 'you are going to eat', el: 'he/she is going to eat', nosotros: 'we are going to eat', vosotros: 'you (all) are going to eat', ellos: 'they are going to eat' },
           acabar_de_infinitivo: { yo: 'I just ate', tu: 'you just ate', el: 'he/she just ate', nosotros: 'we just ate', vosotros: 'you (all) just ate', ellos: 'they just ate' },
+          imperativo_afirmativo: { yo: '—', tu: 'eat!', el: 'eat!', nosotros: 'let\'s eat!', vosotros: 'eat!', ellos: 'eat!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t eat!', el: 'don\'t eat!', nosotros: 'let\'s not eat!', vosotros: 'don\'t eat!', ellos: 'don\'t eat!' },
         },
       },
       de: {
@@ -1274,6 +1491,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde essen', tu: 'du wirst essen', el: 'er/sie/es wird essen', nosotros: 'wir werden essen', vosotros: 'ihr werdet essen', ellos: 'sie werden essen' },
           ir_a_infinitivo: { yo: 'ich werde gleich essen', tu: 'du wirst gleich essen', el: 'er/sie/es wird gleich essen', nosotros: 'wir werden gleich essen', vosotros: 'ihr werdet gleich essen', ellos: 'sie werden gleich essen' },
           acabar_de_infinitivo: { yo: 'ich aß gerade eben', tu: 'du aßest gerade eben', el: 'er/sie/es aß gerade eben', nosotros: 'wir aßen gerade eben', vosotros: 'ihr aßt gerade eben', ellos: 'sie aßen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'iss!', el: 'Essen Sie!', nosotros: 'Essen wir!', vosotros: 'esst!', ellos: 'Essen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'iss nicht!', el: 'Essen Sie nicht!', nosotros: 'Essen wir nicht!', vosotros: 'esst nicht!', ellos: 'Essen Sie nicht!' },
         },
       },
     },
@@ -1290,6 +1509,7 @@ export const VERBS: Verb[] = [
       { id: 'comer-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie jedli owoce.', en: 'You (all) will eat fruit.', de: 'Ihr werdet Obst essen.' }, spanish: 'comeréis fruta' },
       { id: 'comer-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamierzasz jeść owoce.', en: 'You are going to eat fruit.', de: 'Du wirst gleich Obst essen.' }, spanish: 'vas a comer fruta' },
       { id: 'comer-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zjedliśmy obiad.', en: 'We just ate lunch.', de: 'Wir haben gerade zu Mittag gegessen.' }, spanish: 'acabamos de comer' },
+      { id: 'comer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'jedz więcej warzyw', en: 'eat more vegetables', de: 'iss mehr Gemüse' }, spanish: 'come más verduras' },
     ],
   },
   {
@@ -1297,6 +1517,7 @@ export const VERBS: Verb[] = [
     infinitive: 'vender',
     regular: true,
     participle: 'vendido',
+    gerund: 'vendiendo',
     conjugations: conjugateRegular('vender'),
     translations: {
       pl: {
@@ -1307,6 +1528,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'sprzedam', tu: 'sprzedasz', el: 'sprzeda', nosotros: 'sprzedamy', vosotros: 'sprzedacie', ellos: 'sprzedadzą' },
           ir_a_infinitivo: { yo: 'zamierzam sprzedać', tu: 'zamierzasz sprzedać', el: 'zamierza sprzedać', nosotros: 'zamierzamy sprzedać', vosotros: 'zamierzacie sprzedać', ellos: 'zamierzają sprzedać' },
           acabar_de_infinitivo: { yo: 'właśnie sprzedałem', tu: 'właśnie sprzedałeś', el: 'właśnie sprzedał', nosotros: 'właśnie sprzedaliśmy', vosotros: 'właśnie sprzedaliście', ellos: 'właśnie sprzedali' },
+          imperativo_afirmativo: { yo: '—', tu: 'sprzedawaj', el: 'niech sprzedaje', nosotros: 'sprzedawajmy', vosotros: 'sprzedawajcie', ellos: 'niech sprzedają' },
+          imperativo_negativo: { yo: '—', tu: 'nie sprzedawaj', el: 'niech nie sprzedaje', nosotros: 'nie sprzedawajmy', vosotros: 'nie sprzedawajcie', ellos: 'niech nie sprzedają' },
         },
       },
       en: {
@@ -1317,6 +1540,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will sell', tu: 'you will sell', el: 'he/she will sell', nosotros: 'we will sell', vosotros: 'you (all) will sell', ellos: 'they will sell' },
           ir_a_infinitivo: { yo: 'I am going to sell', tu: 'you are going to sell', el: 'he/she is going to sell', nosotros: 'we are going to sell', vosotros: 'you (all) are going to sell', ellos: 'they are going to sell' },
           acabar_de_infinitivo: { yo: 'I just sold', tu: 'you just sold', el: 'he/she just sold', nosotros: 'we just sold', vosotros: 'you (all) just sold', ellos: 'they just sold' },
+          imperativo_afirmativo: { yo: '—', tu: 'sell!', el: 'sell!', nosotros: 'let\'s sell!', vosotros: 'sell!', ellos: 'sell!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t sell!', el: 'don\'t sell!', nosotros: 'let\'s not sell!', vosotros: 'don\'t sell!', ellos: 'don\'t sell!' },
         },
       },
       de: {
@@ -1327,6 +1552,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde verkaufen', tu: 'du wirst verkaufen', el: 'er/sie/es wird verkaufen', nosotros: 'wir werden verkaufen', vosotros: 'ihr werdet verkaufen', ellos: 'sie werden verkaufen' },
           ir_a_infinitivo: { yo: 'ich werde gleich verkaufen', tu: 'du wirst gleich verkaufen', el: 'er/sie/es wird gleich verkaufen', nosotros: 'wir werden gleich verkaufen', vosotros: 'ihr werdet gleich verkaufen', ellos: 'sie werden gleich verkaufen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade verkauft', tu: 'du hast gerade verkauft', el: 'er/sie/es hat gerade verkauft', nosotros: 'wir haben gerade verkauft', vosotros: 'ihr habt gerade verkauft', ellos: 'sie haben gerade verkauft' },
+          imperativo_afirmativo: { yo: '—', tu: 'verkauf!', el: 'Verkaufen Sie!', nosotros: 'Verkaufen wir!', vosotros: 'verkauft!', ellos: 'Verkaufen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'verkauf nicht!', el: 'Verkaufen Sie nicht!', nosotros: 'Verkaufen wir nicht!', vosotros: 'verkauft nicht!', ellos: 'Verkaufen Sie nicht!' },
         },
       },
     },
@@ -1344,6 +1571,7 @@ export const VERBS: Verb[] = [
       { id: 'vender-preterite-la', tense: 'preterite', person: 'yo', pronounType: 'direct', pronoun: 'la', translations: { pl: 'Sprzedałem ją.', en: 'I sold it.', de: 'Ich verkaufte es.' }, spanish: 'la vendí' },
       { id: 'vender-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamierzasz sprzedać samochód.', en: 'You are going to sell the car.', de: 'Du wirst gleich das Auto verkaufen.' }, spanish: 'vas a vender el coche' },
       { id: 'vender-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie sprzedaliśmy samochód.', en: 'We just sold the car.', de: 'Wir haben gerade das Auto verkauft.' }, spanish: 'acabamos de vender el coche' },
+      { id: 'vender-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'sprzedaj dom szybko', en: 'sell the house soon', de: 'verkauf das Haus bald' }, spanish: 'vende la casa pronto' },
     ],
   },
   {
@@ -1351,6 +1579,7 @@ export const VERBS: Verb[] = [
     infinitive: 'beber',
     regular: true,
     participle: 'bebido',
+    gerund: 'bebiendo',
     conjugations: conjugateRegular('beber'),
     translations: {
       pl: {
@@ -1361,6 +1590,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę pił', tu: 'będziesz pił', el: 'będzie pił', nosotros: 'będziemy pili', vosotros: 'będziecie pili', ellos: 'będą pili' },
           ir_a_infinitivo: { yo: 'zamierzam pić', tu: 'zamierzasz pić', el: 'zamierza pić', nosotros: 'zamierzamy pić', vosotros: 'zamierzacie pić', ellos: 'zamierzają pić' },
           acabar_de_infinitivo: { yo: 'właśnie piłem', tu: 'właśnie piłeś', el: 'właśnie pił', nosotros: 'właśnie piliśmy', vosotros: 'właśnie piliście', ellos: 'właśnie pili' },
+          imperativo_afirmativo: { yo: '—', tu: 'pij', el: 'niech pije', nosotros: 'pijmy', vosotros: 'pijcie', ellos: 'niech piją' },
+          imperativo_negativo: { yo: '—', tu: 'nie pij', el: 'niech nie pije', nosotros: 'nie pijmy', vosotros: 'nie pijcie', ellos: 'niech nie piją' },
         },
       },
       en: {
@@ -1371,6 +1602,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will drink', tu: 'you will drink', el: 'he/she will drink', nosotros: 'we will drink', vosotros: 'you (all) will drink', ellos: 'they will drink' },
           ir_a_infinitivo: { yo: 'I am going to drink', tu: 'you are going to drink', el: 'he/she is going to drink', nosotros: 'we are going to drink', vosotros: 'you (all) are going to drink', ellos: 'they are going to drink' },
           acabar_de_infinitivo: { yo: 'I just drank', tu: 'you just drank', el: 'he/she just drank', nosotros: 'we just drank', vosotros: 'you (all) just drank', ellos: 'they just drank' },
+          imperativo_afirmativo: { yo: '—', tu: 'drink!', el: 'drink!', nosotros: 'let\'s drink!', vosotros: 'drink!', ellos: 'drink!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t drink!', el: 'don\'t drink!', nosotros: 'let\'s not drink!', vosotros: 'don\'t drink!', ellos: 'don\'t drink!' },
         },
       },
       de: {
@@ -1381,6 +1614,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde trinken', tu: 'du wirst trinken', el: 'er/sie/es wird trinken', nosotros: 'wir werden trinken', vosotros: 'ihr werdet trinken', ellos: 'sie werden trinken' },
           ir_a_infinitivo: { yo: 'ich werde gleich trinken', tu: 'du wirst gleich trinken', el: 'er/sie/es wird gleich trinken', nosotros: 'wir werden gleich trinken', vosotros: 'ihr werdet gleich trinken', ellos: 'sie werden gleich trinken' },
           acabar_de_infinitivo: { yo: 'ich trank gerade eben', tu: 'du trankst gerade eben', el: 'er/sie/es trank gerade eben', nosotros: 'wir tranken gerade eben', vosotros: 'ihr trankt gerade eben', ellos: 'sie tranken gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'trink!', el: 'Trinken Sie!', nosotros: 'Trinken wir!', vosotros: 'trinkt!', ellos: 'Trinken Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'trink nicht!', el: 'Trinken Sie nicht!', nosotros: 'Trinken wir nicht!', vosotros: 'trinkt nicht!', ellos: 'Trinken Sie nicht!' },
         },
       },
     },
@@ -1395,6 +1630,7 @@ export const VERBS: Verb[] = [
       { id: 'beber-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Piliśmy wodę.', en: 'We drank water.', de: 'Wir tranken Wasser.' }, spanish: 'bebimos agua' },
       { id: 'beber-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Pili wodę.', en: 'They drank water.', de: 'Sie tranken Wasser.' }, spanish: 'bebieron agua' },
       { id: 'beber-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie pili wodę.', en: 'You (all) will drink water.', de: 'Ihr werdet Wasser trinken.' }, spanish: 'beberéis agua' },
+      { id: 'beber-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pij wodę', en: 'drink water', de: 'trink Wasser' }, spanish: 'bebe agua' },
     ],
   },
   {
@@ -1402,6 +1638,7 @@ export const VERBS: Verb[] = [
     infinitive: 'vivir',
     regular: true,
     participle: 'vivido',
+    gerund: 'viviendo',
     conjugations: conjugateRegular('vivir'),
     translations: {
       pl: {
@@ -1412,6 +1649,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę mieszkał', tu: 'będziesz mieszkał', el: 'będzie mieszkał', nosotros: 'będziemy mieszkali', vosotros: 'będziecie mieszkali', ellos: 'będą mieszkali' },
           ir_a_infinitivo: { yo: 'zamierzam mieszkać', tu: 'zamierzasz mieszkać', el: 'zamierza mieszkać', nosotros: 'zamierzamy mieszkać', vosotros: 'zamierzacie mieszkać', ellos: 'zamierzają mieszkać' },
           acabar_de_infinitivo: { yo: 'właśnie mieszkałem', tu: 'właśnie mieszkałeś', el: 'właśnie mieszkał', nosotros: 'właśnie mieszkaliśmy', vosotros: 'właśnie mieszkaliście', ellos: 'właśnie mieszkali' },
+          imperativo_afirmativo: { yo: '—', tu: 'mieszkaj', el: 'niech mieszka', nosotros: 'mieszkajmy', vosotros: 'mieszkajcie', ellos: 'niech mieszkają' },
+          imperativo_negativo: { yo: '—', tu: 'nie mieszkaj', el: 'niech nie mieszka', nosotros: 'nie mieszkajmy', vosotros: 'nie mieszkajcie', ellos: 'niech nie mieszkają' },
         },
       },
       en: {
@@ -1422,6 +1661,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will live', tu: 'you will live', el: 'he/she will live', nosotros: 'we will live', vosotros: 'you (all) will live', ellos: 'they will live' },
           ir_a_infinitivo: { yo: 'I am going to live', tu: 'you are going to live', el: 'he/she is going to live', nosotros: 'we are going to live', vosotros: 'you (all) are going to live', ellos: 'they are going to live' },
           acabar_de_infinitivo: { yo: 'I just lived', tu: 'you just lived', el: 'he/she just lived', nosotros: 'we just lived', vosotros: 'you (all) just lived', ellos: 'they just lived' },
+          imperativo_afirmativo: { yo: '—', tu: 'live!', el: 'live!', nosotros: 'let\'s live!', vosotros: 'live!', ellos: 'live!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t live!', el: 'don\'t live!', nosotros: 'let\'s not live!', vosotros: 'don\'t live!', ellos: 'don\'t live!' },
         },
       },
       de: {
@@ -1432,6 +1673,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde leben', tu: 'du wirst leben', el: 'er/sie/es wird leben', nosotros: 'wir werden leben', vosotros: 'ihr werdet leben', ellos: 'sie werden leben' },
           ir_a_infinitivo: { yo: 'ich werde gleich leben', tu: 'du wirst gleich leben', el: 'er/sie/es wird gleich leben', nosotros: 'wir werden gleich leben', vosotros: 'ihr werdet gleich leben', ellos: 'sie werden gleich leben' },
           acabar_de_infinitivo: { yo: 'ich lebte gerade eben', tu: 'du lebtest gerade eben', el: 'er/sie/es lebte gerade eben', nosotros: 'wir lebten gerade eben', vosotros: 'ihr lebtet gerade eben', ellos: 'sie lebten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'leb!', el: 'Leben Sie!', nosotros: 'Leben wir!', vosotros: 'lebt!', ellos: 'Leben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'leb nicht!', el: 'Leben Sie nicht!', nosotros: 'Leben wir nicht!', vosotros: 'lebt nicht!', ellos: 'Leben Sie nicht!' },
         },
       },
     },
@@ -1446,6 +1689,7 @@ export const VERBS: Verb[] = [
       { id: 'vivir-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Mieszkaliśmy w Madrycie.', en: 'We lived in Madrid.', de: 'Wir lebten in Madrid.' }, spanish: 'vivimos en Madrid' },
       { id: 'vivir-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Mieszkali w Madrycie.', en: 'They lived in Madrid.', de: 'Sie lebten in Madrid.' }, spanish: 'vivieron en Madrid' },
       { id: 'vivir-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie mieszkali w Madrycie.', en: 'You (all) will live in Madrid.', de: 'Ihr werdet in Madrid leben.' }, spanish: 'viviréis en Madrid' },
+      { id: 'vivir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'żyj chwilą', en: 'live in the moment', de: 'lebe im Moment' }, spanish: 'vive el momento' },
     ],
   },
   {
@@ -1453,6 +1697,7 @@ export const VERBS: Verb[] = [
     infinitive: 'trabajar',
     regular: true,
     participle: 'trabajado',
+    gerund: 'trabajando',
     conjugations: conjugateRegular('trabajar'),
     translations: {
       pl: {
@@ -1463,6 +1708,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę pracował', tu: 'będziesz pracował', el: 'będzie pracował', nosotros: 'będziemy pracowali', vosotros: 'będziecie pracowali', ellos: 'będą pracowali' },
           ir_a_infinitivo: { yo: 'zamierzam pracować', tu: 'zamierzasz pracować', el: 'zamierza pracować', nosotros: 'zamierzamy pracować', vosotros: 'zamierzacie pracować', ellos: 'zamierzają pracować' },
           acabar_de_infinitivo: { yo: 'właśnie pracowałem', tu: 'właśnie pracowałeś', el: 'właśnie pracował', nosotros: 'właśnie pracowaliśmy', vosotros: 'właśnie pracowaliście', ellos: 'właśnie pracowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pracuj', el: 'niech pracuje', nosotros: 'pracujmy', vosotros: 'pracujcie', ellos: 'niech pracują' },
+          imperativo_negativo: { yo: '—', tu: 'nie pracuj', el: 'niech nie pracuje', nosotros: 'nie pracujmy', vosotros: 'nie pracujcie', ellos: 'niech nie pracują' },
         },
       },
       en: {
@@ -1473,6 +1720,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will work', tu: 'you will work', el: 'he/she will work', nosotros: 'we will work', vosotros: 'you (all) will work', ellos: 'they will work' },
           ir_a_infinitivo: { yo: 'I am going to work', tu: 'you are going to work', el: 'he/she is going to work', nosotros: 'we are going to work', vosotros: 'you (all) are going to work', ellos: 'they are going to work' },
           acabar_de_infinitivo: { yo: 'I just worked', tu: 'you just worked', el: 'he/she just worked', nosotros: 'we just worked', vosotros: 'you (all) just worked', ellos: 'they just worked' },
+          imperativo_afirmativo: { yo: '—', tu: 'work!', el: 'work!', nosotros: 'let\'s work!', vosotros: 'work!', ellos: 'work!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t work!', el: 'don\'t work!', nosotros: 'let\'s not work!', vosotros: 'don\'t work!', ellos: 'don\'t work!' },
         },
       },
       de: {
@@ -1483,6 +1732,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde arbeiten', tu: 'du wirst arbeiten', el: 'er/sie/es wird arbeiten', nosotros: 'wir werden arbeiten', vosotros: 'ihr werdet arbeiten', ellos: 'sie werden arbeiten' },
           ir_a_infinitivo: { yo: 'ich werde gleich arbeiten', tu: 'du wirst gleich arbeiten', el: 'er/sie/es wird gleich arbeiten', nosotros: 'wir werden gleich arbeiten', vosotros: 'ihr werdet gleich arbeiten', ellos: 'sie werden gleich arbeiten' },
           acabar_de_infinitivo: { yo: 'ich arbeitete gerade eben', tu: 'du arbeitetest gerade eben', el: 'er/sie/es arbeitete gerade eben', nosotros: 'wir arbeiteten gerade eben', vosotros: 'ihr arbeitetet gerade eben', ellos: 'sie arbeiteten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'arbeite!', el: 'Arbeiten Sie!', nosotros: 'Arbeiten wir!', vosotros: 'arbeitet!', ellos: 'Arbeiten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'arbeite nicht!', el: 'Arbeiten Sie nicht!', nosotros: 'Arbeiten wir nicht!', vosotros: 'arbeitet nicht!', ellos: 'Arbeiten Sie nicht!' },
         },
       },
     },
@@ -1497,6 +1748,7 @@ export const VERBS: Verb[] = [
       { id: 'trabajar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Pracowaliśmy dużo.', en: 'We worked a lot.', de: 'Wir arbeiteten viel.' }, spanish: 'trabajamos mucho' },
       { id: 'trabajar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Pracowali dużo.', en: 'They worked a lot.', de: 'Sie arbeiteten viel.' }, spanish: 'trabajaron mucho' },
       { id: 'trabajar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie pracowali dużo.', en: 'You (all) will work a lot.', de: 'Ihr werdet viel arbeiten.' }, spanish: 'trabajaréis mucho' },
+      { id: 'trabajar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pracuj ostrożnie', en: 'work carefully', de: 'arbeite sorgfältig' }, spanish: 'trabaja con cuidado' },
     ],
   },
   {
@@ -1504,6 +1756,7 @@ export const VERBS: Verb[] = [
     infinitive: 'estudiar',
     regular: true,
     participle: 'estudiado',
+    gerund: 'estudiando',
     conjugations: conjugateRegular('estudiar'),
     translations: {
       pl: {
@@ -1514,6 +1767,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę studiował', tu: 'będziesz studiował', el: 'będzie studiował', nosotros: 'będziemy studiowali', vosotros: 'będziecie studiowali', ellos: 'będą studiowali' },
           ir_a_infinitivo: { yo: 'zamierzam uczyć się', tu: 'zamierzasz uczyć się', el: 'zamierza uczyć się', nosotros: 'zamierzamy uczyć się', vosotros: 'zamierzacie uczyć się', ellos: 'zamierzają uczyć się' },
           acabar_de_infinitivo: { yo: 'właśnie studiowałem', tu: 'właśnie studiowałeś', el: 'właśnie studiował', nosotros: 'właśnie studiowaliśmy', vosotros: 'właśnie studiowaliście', ellos: 'właśnie studiowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'ucz się', el: 'niech studiuje', nosotros: 'ucz sięmy', vosotros: 'ucz sięcie', ellos: 'niech studiują' },
+          imperativo_negativo: { yo: '—', tu: 'nie ucz się', el: 'niech nie studiuje', nosotros: 'nie ucz sięmy', vosotros: 'nie ucz sięcie', ellos: 'niech nie studiują' },
         },
       },
       en: {
@@ -1524,6 +1779,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will study', tu: 'you will study', el: 'he/she will study', nosotros: 'we will study', vosotros: 'you (all) will study', ellos: 'they will study' },
           ir_a_infinitivo: { yo: 'I am going to study', tu: 'you are going to study', el: 'he/she is going to study', nosotros: 'we are going to study', vosotros: 'you (all) are going to study', ellos: 'they are going to study' },
           acabar_de_infinitivo: { yo: 'I just studied', tu: 'you just studied', el: 'he/she just studied', nosotros: 'we just studied', vosotros: 'you (all) just studied', ellos: 'they just studied' },
+          imperativo_afirmativo: { yo: '—', tu: 'study!', el: 'study!', nosotros: 'let\'s study!', vosotros: 'study!', ellos: 'study!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t study!', el: 'don\'t study!', nosotros: 'let\'s not study!', vosotros: 'don\'t study!', ellos: 'don\'t study!' },
         },
       },
       de: {
@@ -1534,6 +1791,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde studieren', tu: 'du wirst studieren', el: 'er/sie/es wird studieren', nosotros: 'wir werden studieren', vosotros: 'ihr werdet studieren', ellos: 'sie werden studieren' },
           ir_a_infinitivo: { yo: 'ich werde gleich studieren', tu: 'du wirst gleich studieren', el: 'er/sie/es wird gleich studieren', nosotros: 'wir werden gleich studieren', vosotros: 'ihr werdet gleich studieren', ellos: 'sie werden gleich studieren' },
           acabar_de_infinitivo: { yo: 'ich studierte gerade eben', tu: 'du studiertest gerade eben', el: 'er/sie/es studierte gerade eben', nosotros: 'wir studierten gerade eben', vosotros: 'ihr studiertet gerade eben', ellos: 'sie studierten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'studier!', el: 'Studieren Sie!', nosotros: 'Studieren wir!', vosotros: 'studiert!', ellos: 'Studieren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'studier nicht!', el: 'Studieren Sie nicht!', nosotros: 'Studieren wir nicht!', vosotros: 'studiert nicht!', ellos: 'Studieren Sie nicht!' },
         },
       },
     },
@@ -1549,6 +1808,7 @@ export const VERBS: Verb[] = [
       { id: 'estudiar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Studiowali hiszpański.', en: 'They studied Spanish.', de: 'Sie studierten Spanisch.' }, spanish: 'estudiaron español' },
       { id: 'estudiar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Będziecie studiowali hiszpański.', en: 'You (all) will study Spanish.', de: 'Ihr werdet Spanisch studieren.' }, spanish: 'estudiaréis español' },
       { id: 'estudiar-ir_a_infinitivo-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Zamierzam uczyć się hiszpańskiego.', en: 'I am going to study Spanish.', de: 'Ich werde gleich Spanisch lernen.' }, spanish: 'voy a estudiar español' },
+      { id: 'estudiar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'ucz się do egzaminu', en: 'study for the exam', de: 'lerne für die Prüfung' }, spanish: 'estudia para el examen' },
     ],
   },
   {
@@ -1556,6 +1816,7 @@ export const VERBS: Verb[] = [
     infinitive: 'aprender',
     regular: true,
     participle: 'aprendido',
+    gerund: 'aprendiendo',
     conjugations: conjugateRegular('aprender'),
     translations: {
       pl: {
@@ -1566,6 +1827,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'nauczę się', tu: 'nauczysz się', el: 'nauczy się', nosotros: 'nauczymy się', vosotros: 'nauczycie się', ellos: 'nauczą się' },
           ir_a_infinitivo: { yo: 'zamierzam uczyć się', tu: 'zamierzasz uczyć się', el: 'zamierza uczyć się', nosotros: 'zamierzamy uczyć się', vosotros: 'zamierzacie uczyć się', ellos: 'zamierzają uczyć się' },
           acabar_de_infinitivo: { yo: 'właśnie nauczyłem się', tu: 'właśnie nauczyłeś się', el: 'właśnie nauczył się', nosotros: 'właśnie nauczyliśmy się', vosotros: 'właśnie nauczyliście się', ellos: 'właśnie nauczyli się' },
+          imperativo_afirmativo: { yo: '—', tu: 'ucz się', el: 'niech uczy się', nosotros: 'ucz sięmy', vosotros: 'ucz sięcie', ellos: 'niech uczą się' },
+          imperativo_negativo: { yo: '—', tu: 'nie ucz się', el: 'niech nie uczy się', nosotros: 'nie ucz sięmy', vosotros: 'nie ucz sięcie', ellos: 'niech nie uczą się' },
         },
       },
       en: {
@@ -1576,6 +1839,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will learn', tu: 'you will learn', el: 'he/she will learn', nosotros: 'we will learn', vosotros: 'you (all) will learn', ellos: 'they will learn' },
           ir_a_infinitivo: { yo: 'I am going to learn', tu: 'you are going to learn', el: 'he/she is going to learn', nosotros: 'we are going to learn', vosotros: 'you (all) are going to learn', ellos: 'they are going to learn' },
           acabar_de_infinitivo: { yo: 'I just learned', tu: 'you just learned', el: 'he/she just learned', nosotros: 'we just learned', vosotros: 'you (all) just learned', ellos: 'they just learned' },
+          imperativo_afirmativo: { yo: '—', tu: 'learn!', el: 'learn!', nosotros: 'let\'s learn!', vosotros: 'learn!', ellos: 'learn!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t learn!', el: 'don\'t learn!', nosotros: 'let\'s not learn!', vosotros: 'don\'t learn!', ellos: 'don\'t learn!' },
         },
       },
       de: {
@@ -1586,6 +1851,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde lernen', tu: 'du wirst lernen', el: 'er/sie/es wird lernen', nosotros: 'wir werden lernen', vosotros: 'ihr werdet lernen', ellos: 'sie werden lernen' },
           ir_a_infinitivo: { yo: 'ich werde gleich lernen', tu: 'du wirst gleich lernen', el: 'er/sie/es wird gleich lernen', nosotros: 'wir werden gleich lernen', vosotros: 'ihr werdet gleich lernen', ellos: 'sie werden gleich lernen' },
           acabar_de_infinitivo: { yo: 'ich lernte gerade eben', tu: 'du lerntest gerade eben', el: 'er/sie/es lernte gerade eben', nosotros: 'wir lernten gerade eben', vosotros: 'ihr lerntet gerade eben', ellos: 'sie lernten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'lern!', el: 'Lernen Sie!', nosotros: 'Lernen wir!', vosotros: 'lernt!', ellos: 'Lernen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lern nicht!', el: 'Lernen Sie nicht!', nosotros: 'Lernen wir nicht!', vosotros: 'lernt nicht!', ellos: 'Lernen Sie nicht!' },
         },
       },
     },
@@ -1600,6 +1867,7 @@ export const VERBS: Verb[] = [
       { id: 'aprender-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Nauczyliśmy się szybko.', en: 'We learned fast.', de: 'Wir lernten schnell.' }, spanish: 'aprendimos rápido' },
       { id: 'aprender-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Nauczyli się szybko.', en: 'They learned fast.', de: 'Sie lernten schnell.' }, spanish: 'aprendieron rápido' },
       { id: 'aprender-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Nauczycie się szybko.', en: 'You (all) will learn fast.', de: 'Ihr werdet schnell lernen.' }, spanish: 'aprenderéis rápido' },
+      { id: 'aprender-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'ucz się słownictwa', en: 'learn the vocabulary', de: 'lerne den Wortschatz' }, spanish: 'aprende el vocabulario' },
     ],
   },
   {
@@ -1607,12 +1875,15 @@ export const VERBS: Verb[] = [
     infinitive: 'entender',
     regular: false,
     participle: 'entendido',
+    gerund: 'entendiendo',
     conjugations: {
       presente: { yo: 'entiendo', tu: 'entiendes', el: 'entiende', nosotros: 'entendemos', vosotros: 'entendéis', ellos: 'entienden' },
       preterite: { yo: 'entendí', tu: 'entendiste', el: 'entendió', nosotros: 'entendimos', vosotros: 'entendisteis', ellos: 'entendieron' },
       futuro: { yo: 'entenderé', tu: 'entenderás', el: 'entenderá', nosotros: 'entenderemos', vosotros: 'entenderéis', ellos: 'entenderán' },
       ir_a_infinitivo: { yo: 'voy a entender', tu: 'vas a entender', el: 'va a entender', nosotros: 'vamos a entender', vosotros: 'vais a entender', ellos: 'van a entender' },
       acabar_de_infinitivo: { yo: 'acabo de entender', tu: 'acabas de entender', el: 'acaba de entender', nosotros: 'acabamos de entender', vosotros: 'acabáis de entender', ellos: 'acaban de entender' },
+      imperativo_afirmativo: { yo: '—', tu: 'entiende', el: 'entienda', nosotros: 'entendamos', vosotros: 'entended', ellos: 'entiendan' },
+      imperativo_negativo: { yo: '—', tu: 'no entiendas', el: 'no entienda', nosotros: 'no entendamos', vosotros: 'no entendáis', ellos: 'no entiendan' },
     },
     translations: {
       pl: {
@@ -1623,6 +1894,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zrozumiem', tu: 'zrozumiesz', el: 'zrozumie', nosotros: 'zrozumiemy', vosotros: 'zrozumiecie', ellos: 'zrozumieją' },
           ir_a_infinitivo: { yo: 'zamierzam rozumieć', tu: 'zamierzasz rozumieć', el: 'zamierza rozumieć', nosotros: 'zamierzamy rozumieć', vosotros: 'zamierzacie rozumieć', ellos: 'zamierzają rozumieć' },
           acabar_de_infinitivo: { yo: 'właśnie zrozumiałem', tu: 'właśnie zrozumiałeś', el: 'właśnie zrozumiał', nosotros: 'właśnie zrozumieliśmy', vosotros: 'właśnie zrozumieliście', ellos: 'właśnie zrozumieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zrozum', el: 'niech rozumie', nosotros: 'zrozummy', vosotros: 'zrozumcie', ellos: 'niech rozumieją' },
+          imperativo_negativo: { yo: '—', tu: 'nie zrozum', el: 'niech nie rozumie', nosotros: 'nie zrozummy', vosotros: 'nie zrozumcie', ellos: 'niech nie rozumieją' },
         },
       },
       en: {
@@ -1633,6 +1906,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will understand', tu: 'you will understand', el: 'he/she will understand', nosotros: 'we will understand', vosotros: 'you (all) will understand', ellos: 'they will understand' },
           ir_a_infinitivo: { yo: 'I am going to understand', tu: 'you are going to understand', el: 'he/she is going to understand', nosotros: 'we are going to understand', vosotros: 'you (all) are going to understand', ellos: 'they are going to understand' },
           acabar_de_infinitivo: { yo: 'I just understood', tu: 'you just understood', el: 'he/she just understood', nosotros: 'we just understood', vosotros: 'you (all) just understood', ellos: 'they just understood' },
+          imperativo_afirmativo: { yo: '—', tu: 'understand!', el: 'understand!', nosotros: 'let\'s understand!', vosotros: 'understand!', ellos: 'understand!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t understand!', el: 'don\'t understand!', nosotros: 'let\'s not understand!', vosotros: 'don\'t understand!', ellos: 'don\'t understand!' },
         },
       },
       de: {
@@ -1643,6 +1918,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde verstehen', tu: 'du wirst verstehen', el: 'er/sie/es wird verstehen', nosotros: 'wir werden verstehen', vosotros: 'ihr werdet verstehen', ellos: 'sie werden verstehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich verstehen', tu: 'du wirst gleich verstehen', el: 'er/sie/es wird gleich verstehen', nosotros: 'wir werden gleich verstehen', vosotros: 'ihr werdet gleich verstehen', ellos: 'sie werden gleich verstehen' },
           acabar_de_infinitivo: { yo: 'ich verstand gerade eben', tu: 'du verstandest gerade eben', el: 'er/sie/es verstand gerade eben', nosotros: 'wir verstanden gerade eben', vosotros: 'ihr verstandet gerade eben', ellos: 'sie verstanden gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'versteh!', el: 'Verstehen Sie!', nosotros: 'Verstehen wir!', vosotros: 'versteht!', ellos: 'Verstehen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'versteh nicht!', el: 'Verstehen Sie nicht!', nosotros: 'Verstehen wir nicht!', vosotros: 'versteht nicht!', ellos: 'Verstehen Sie nicht!' },
         },
       },
     },
@@ -1657,6 +1934,7 @@ export const VERBS: Verb[] = [
       { id: 'entender-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Zrozumiał ich.', en: 'He understood them.', de: 'Er verstand sie.' }, spanish: 'los entendió' },
       { id: 'entender-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zrozumieliśmy je.', en: 'We understood them.', de: 'Wir verstanden sie.' }, spanish: 'las entendimos' },
       { id: 'entender-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Zrozumieją was.', en: 'They will understand you (all).', de: 'Sie werden euch verstehen.' }, spanish: 'os entenderán' },
+      { id: 'entender-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zrozum to dobrze', en: 'understand this well', de: 'versteh das gut' }, spanish: 'entiende esto bien' },
     ],
   },
   {
@@ -1664,12 +1942,15 @@ export const VERBS: Verb[] = [
     infinitive: 'conocer',
     regular: false,
     participle: 'conocido',
+    gerund: 'conociendo',
     conjugations: {
       presente: { yo: 'conozco', tu: 'conoces', el: 'conoce', nosotros: 'conocemos', vosotros: 'conocéis', ellos: 'conocen' },
       preterite: { yo: 'conocí', tu: 'conociste', el: 'conoció', nosotros: 'conocimos', vosotros: 'conocisteis', ellos: 'conocieron' },
       futuro: { yo: 'conoceré', tu: 'conocerás', el: 'conocerá', nosotros: 'conoceremos', vosotros: 'conoceréis', ellos: 'conocerán' },
       ir_a_infinitivo: { yo: 'voy a conocer', tu: 'vas a conocer', el: 'va a conocer', nosotros: 'vamos a conocer', vosotros: 'vais a conocer', ellos: 'van a conocer' },
       acabar_de_infinitivo: { yo: 'acabo de conocer', tu: 'acabas de conocer', el: 'acaba de conocer', nosotros: 'acabamos de conocer', vosotros: 'acabáis de conocer', ellos: 'acaban de conocer' },
+      imperativo_afirmativo: { yo: '—', tu: 'conoce', el: 'conozca', nosotros: 'conozcamos', vosotros: 'conoced', ellos: 'conozcan' },
+      imperativo_negativo: { yo: '—', tu: 'no conozcas', el: 'no conozca', nosotros: 'no conozcamos', vosotros: 'no conozcáis', ellos: 'no conozcan' },
     },
     translations: {
       pl: {
@@ -1680,6 +1961,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'poznam', tu: 'poznasz', el: 'pozna', nosotros: 'poznamy', vosotros: 'poznacie', ellos: 'poznają' },
           ir_a_infinitivo: { yo: 'zamierzam znać', tu: 'zamierzasz znać', el: 'zamierza znać', nosotros: 'zamierzamy znać', vosotros: 'zamierzacie znać', ellos: 'zamierzają znać' },
           acabar_de_infinitivo: { yo: 'właśnie spotkałem', tu: 'właśnie spotkałeś', el: 'właśnie spotkał', nosotros: 'właśnie spotkaliśmy', vosotros: 'właśnie spotkaliście', ellos: 'właśnie spotkali' },
+          imperativo_afirmativo: { yo: '—', tu: 'poznaj', el: 'niech zna', nosotros: 'poznajmy', vosotros: 'poznajcie', ellos: 'niech znają' },
+          imperativo_negativo: { yo: '—', tu: 'nie poznaj', el: 'niech nie zna', nosotros: 'nie poznajmy', vosotros: 'nie poznajcie', ellos: 'niech nie znają' },
         },
       },
       en: {
@@ -1690,6 +1973,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will meet', tu: 'you will meet', el: 'he/she will meet', nosotros: 'we will meet', vosotros: 'you (all) will meet', ellos: 'they will meet' },
           ir_a_infinitivo: { yo: 'I am going to know', tu: 'you are going to know', el: 'he/she is going to know', nosotros: 'we are going to know', vosotros: 'you (all) are going to know', ellos: 'they are going to know' },
           acabar_de_infinitivo: { yo: 'I just met', tu: 'you just met', el: 'he/she just met', nosotros: 'we just met', vosotros: 'you (all) just met', ellos: 'they just met' },
+          imperativo_afirmativo: { yo: '—', tu: 'know!', el: 'know!', nosotros: 'let\'s know!', vosotros: 'know!', ellos: 'know!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t know!', el: 'don\'t know!', nosotros: 'let\'s not know!', vosotros: 'don\'t know!', ellos: 'don\'t know!' },
         },
       },
       de: {
@@ -1700,6 +1985,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde kennenlernen', tu: 'du wirst kennenlernen', el: 'er/sie/es wird kennenlernen', nosotros: 'wir werden kennenlernen', vosotros: 'ihr werdet kennenlernen', ellos: 'sie werden kennenlernen' },
           ir_a_infinitivo: { yo: 'ich werde gleich kennen', tu: 'du wirst gleich kennen', el: 'er/sie/es wird gleich kennen', nosotros: 'wir werden gleich kennen', vosotros: 'ihr werdet gleich kennen', ellos: 'sie werden gleich kennen' },
           acabar_de_infinitivo: { yo: 'ich lernte kennen gerade eben', tu: 'du lerntest kennen gerade eben', el: 'er/sie/es lernte kennen gerade eben', nosotros: 'wir lernten kennen gerade eben', vosotros: 'ihr lerntet kennen gerade eben', ellos: 'sie lernten kennen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'kenne!', el: 'Kennen Sie!', nosotros: 'Kennen wir!', vosotros: 'kennt!', ellos: 'Kennen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'kenne nicht!', el: 'Kennen Sie nicht!', nosotros: 'Kennen wir nicht!', vosotros: 'kennt nicht!', ellos: 'Kennen Sie nicht!' },
         },
       },
     },
@@ -1714,6 +2001,7 @@ export const VERBS: Verb[] = [
       { id: 'conocer-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Spotkał ich.', en: 'He met them.', de: 'Er lernte sie kennen.' }, spanish: 'los conoció' },
       { id: 'conocer-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Spotkaliśmy je.', en: 'We met them.', de: 'Wir lernten sie kennen.' }, spanish: 'las conocimos' },
       { id: 'conocer-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Poznają was.', en: 'They will get to know you (all).', de: 'Sie werden euch kennenlernen.' }, spanish: 'os conocerán' },
+      { id: 'conocer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'poznaj miasto', en: 'get to know the city', de: 'kenne die Stadt' }, spanish: 'conoce la ciudad' },
     ],
   },
   {
@@ -1721,12 +2009,15 @@ export const VERBS: Verb[] = [
     infinitive: 'reconocer',
     regular: false,
     participle: 'reconocido',
+    gerund: 'reconociendo',
     conjugations: {
       presente: { yo: 'reconozco', tu: 'reconoces', el: 'reconoce', nosotros: 'reconocemos', vosotros: 'reconocéis', ellos: 'reconocen' },
       preterite: { yo: 'reconocí', tu: 'reconociste', el: 'reconoció', nosotros: 'reconocimos', vosotros: 'reconocisteis', ellos: 'reconocieron' },
       futuro: { yo: 'reconoceré', tu: 'reconocerás', el: 'reconocerá', nosotros: 'reconoceremos', vosotros: 'reconoceréis', ellos: 'reconocerán' },
       ir_a_infinitivo: { yo: 'voy a reconocer', tu: 'vas a reconocer', el: 'va a reconocer', nosotros: 'vamos a reconocer', vosotros: 'vais a reconocer', ellos: 'van a reconocer' },
       acabar_de_infinitivo: { yo: 'acabo de reconocer', tu: 'acabas de reconocer', el: 'acaba de reconocer', nosotros: 'acabamos de reconocer', vosotros: 'acabáis de reconocer', ellos: 'acaban de reconocer' },
+      imperativo_afirmativo: { yo: '—', tu: 'reconoce', el: 'reconozca', nosotros: 'reconozcamos', vosotros: 'reconoced', ellos: 'reconozcan' },
+      imperativo_negativo: { yo: '—', tu: 'no reconozcas', el: 'no reconozca', nosotros: 'no reconozcamos', vosotros: 'no reconozcáis', ellos: 'no reconozcan' },
     },
     translations: {
       pl: {
@@ -1737,6 +2028,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'rozpoznam', tu: 'rozpoznasz', el: 'rozpozna', nosotros: 'rozpoznamy', vosotros: 'rozpoznacie', ellos: 'rozpoznają' },
           ir_a_infinitivo: { yo: 'zamierzam rozpoznać', tu: 'zamierzasz rozpoznać', el: 'zamierza rozpoznać', nosotros: 'zamierzamy rozpoznać', vosotros: 'zamierzacie rozpoznać', ellos: 'zamierzają rozpoznać' },
           acabar_de_infinitivo: { yo: 'właśnie rozpoznałem', tu: 'właśnie rozpoznałeś', el: 'właśnie rozpoznał', nosotros: 'właśnie rozpoznaliśmy', vosotros: 'właśnie rozpoznaliście', ellos: 'właśnie rozpoznali' },
+          imperativo_afirmativo: { yo: '—', tu: 'rozpoznaj', el: 'niech rozpoznaje', nosotros: 'rozpoznajmy', vosotros: 'rozpoznajcie', ellos: 'niech rozpoznają' },
+          imperativo_negativo: { yo: '—', tu: 'nie rozpoznaj', el: 'niech nie rozpoznaje', nosotros: 'nie rozpoznajmy', vosotros: 'nie rozpoznajcie', ellos: 'niech nie rozpoznają' },
         },
       },
       en: {
@@ -1747,6 +2040,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will recognize', tu: 'you will recognize', el: 'he/she will recognize', nosotros: 'we will recognize', vosotros: 'you (all) will recognize', ellos: 'they will recognize' },
           ir_a_infinitivo: { yo: 'I am going to recognize', tu: 'you are going to recognize', el: 'he/she is going to recognize', nosotros: 'we are going to recognize', vosotros: 'you (all) are going to recognize', ellos: 'they are going to recognize' },
           acabar_de_infinitivo: { yo: 'I just recognized', tu: 'you just recognized', el: 'he/she just recognized', nosotros: 'we just recognized', vosotros: 'you (all) just recognized', ellos: 'they just recognized' },
+          imperativo_afirmativo: { yo: '—', tu: 'recognize!', el: 'recognize!', nosotros: 'let\'s recognize!', vosotros: 'recognize!', ellos: 'recognize!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t recognize!', el: 'don\'t recognize!', nosotros: 'let\'s not recognize!', vosotros: 'don\'t recognize!', ellos: 'don\'t recognize!' },
         },
       },
       de: {
@@ -1757,6 +2052,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde erkennen', tu: 'du wirst erkennen', el: 'er/sie/es wird erkennen', nosotros: 'wir werden erkennen', vosotros: 'ihr werdet erkennen', ellos: 'sie werden erkennen' },
           ir_a_infinitivo: { yo: 'ich werde gleich erkennen', tu: 'du wirst gleich erkennen', el: 'er/sie/es wird gleich erkennen', nosotros: 'wir werden gleich erkennen', vosotros: 'ihr werdet gleich erkennen', ellos: 'sie werden gleich erkennen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade erkannt', tu: 'du hast gerade erkannt', el: 'er/sie/es hat gerade erkannt', nosotros: 'wir haben gerade erkannt', vosotros: 'ihr habt gerade erkannt', ellos: 'sie haben gerade erkannt' },
+          imperativo_afirmativo: { yo: '—', tu: 'erkenne!', el: 'Erkennen Sie!', nosotros: 'Erkennen wir!', vosotros: 'erkennt!', ellos: 'Erkennen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'erkenne nicht!', el: 'Erkennen Sie nicht!', nosotros: 'Erkennen wir nicht!', vosotros: 'erkennt nicht!', ellos: 'Erkennen Sie nicht!' },
         },
       },
     },
@@ -1771,6 +2068,7 @@ export const VERBS: Verb[] = [
       { id: 'reconocer-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Rozpoznał ich.', en: 'He recognized them.', de: 'Er erkannte sie.' }, spanish: 'los reconoció' },
       { id: 'reconocer-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Rozpoznaliśmy je.', en: 'We recognized them.', de: 'Wir erkannten sie.' }, spanish: 'las reconocimos' },
       { id: 'reconocer-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Rozpoznają was.', en: 'They will recognize you (all).', de: 'Sie werden euch erkennen.' }, spanish: 'os reconocerán' },
+      { id: 'reconocer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'rozpoznaj swój błąd', en: 'recognize your mistake', de: 'erkenne deinen Fehler' }, spanish: 'reconoce tu error' },
     ],
   },
   {
@@ -1778,12 +2076,15 @@ export const VERBS: Verb[] = [
     infinitive: 'pensar',
     regular: false,
     participle: 'pensado',
+    gerund: 'pensando',
     conjugations: {
       presente: { yo: 'pienso', tu: 'piensas', el: 'piensa', nosotros: 'pensamos', vosotros: 'pensáis', ellos: 'piensan' },
       preterite: { yo: 'pensé', tu: 'pensaste', el: 'pensó', nosotros: 'pensamos', vosotros: 'pensasteis', ellos: 'pensaron' },
       futuro: { yo: 'pensaré', tu: 'pensarás', el: 'pensará', nosotros: 'pensaremos', vosotros: 'pensaréis', ellos: 'pensarán' },
       ir_a_infinitivo: { yo: 'voy a pensar', tu: 'vas a pensar', el: 'va a pensar', nosotros: 'vamos a pensar', vosotros: 'vais a pensar', ellos: 'van a pensar' },
       acabar_de_infinitivo: { yo: 'acabo de pensar', tu: 'acabas de pensar', el: 'acaba de pensar', nosotros: 'acabamos de pensar', vosotros: 'acabáis de pensar', ellos: 'acaban de pensar' },
+      imperativo_afirmativo: { yo: '—', tu: 'piensa', el: 'piense', nosotros: 'pensemos', vosotros: 'pensad', ellos: 'piensen' },
+      imperativo_negativo: { yo: '—', tu: 'no pienses', el: 'no piense', nosotros: 'no pensemos', vosotros: 'no penséis', ellos: 'no piensen' },
     },
     translations: {
       pl: {
@@ -1794,6 +2095,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'pomyślę', tu: 'pomyślisz', el: 'pomyśli', nosotros: 'pomyślimy', vosotros: 'pomyślicie', ellos: 'pomyślą' },
           ir_a_infinitivo: { yo: 'zamierzam myśleć', tu: 'zamierzasz myśleć', el: 'zamierza myśleć', nosotros: 'zamierzamy myśleć', vosotros: 'zamierzacie myśleć', ellos: 'zamierzają myśleć' },
           acabar_de_infinitivo: { yo: 'właśnie pomyślałem', tu: 'właśnie pomyślałeś', el: 'właśnie pomyślał', nosotros: 'właśnie pomyśleliśmy', vosotros: 'właśnie pomyśleliście', ellos: 'właśnie pomyśleli' },
+          imperativo_afirmativo: { yo: '—', tu: 'pomyśl', el: 'niech myśli', nosotros: 'pomyślmy', vosotros: 'pomyślcie', ellos: 'niech myślą' },
+          imperativo_negativo: { yo: '—', tu: 'nie pomyśl', el: 'niech nie myśli', nosotros: 'nie pomyślmy', vosotros: 'nie pomyślcie', ellos: 'niech nie myślą' },
         },
       },
       en: {
@@ -1804,6 +2107,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will think', tu: 'you will think', el: 'he/she will think', nosotros: 'we will think', vosotros: 'you (all) will think', ellos: 'they will think' },
           ir_a_infinitivo: { yo: 'I am going to think', tu: 'you are going to think', el: 'he/she is going to think', nosotros: 'we are going to think', vosotros: 'you (all) are going to think', ellos: 'they are going to think' },
           acabar_de_infinitivo: { yo: 'I just thought', tu: 'you just thought', el: 'he/she just thought', nosotros: 'we just thought', vosotros: 'you (all) just thought', ellos: 'they just thought' },
+          imperativo_afirmativo: { yo: '—', tu: 'think!', el: 'think!', nosotros: 'let\'s think!', vosotros: 'think!', ellos: 'think!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t think!', el: 'don\'t think!', nosotros: 'let\'s not think!', vosotros: 'don\'t think!', ellos: 'don\'t think!' },
         },
       },
       de: {
@@ -1814,6 +2119,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde denken', tu: 'du wirst denken', el: 'er/sie/es wird denken', nosotros: 'wir werden denken', vosotros: 'ihr werdet denken', ellos: 'sie werden denken' },
           ir_a_infinitivo: { yo: 'ich werde gleich denken', tu: 'du wirst gleich denken', el: 'er/sie/es wird gleich denken', nosotros: 'wir werden gleich denken', vosotros: 'ihr werdet gleich denken', ellos: 'sie werden gleich denken' },
           acabar_de_infinitivo: { yo: 'ich dachte gerade eben', tu: 'du dachtest gerade eben', el: 'er/sie/es dachte gerade eben', nosotros: 'wir dachten gerade eben', vosotros: 'ihr dachtet gerade eben', ellos: 'sie dachten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'denk!', el: 'Denken Sie!', nosotros: 'Denken wir!', vosotros: 'denkt!', ellos: 'Denken Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'denk nicht!', el: 'Denken Sie nicht!', nosotros: 'Denken wir nicht!', vosotros: 'denkt nicht!', ellos: 'Denken Sie nicht!' },
         },
       },
     },
@@ -1828,6 +2135,7 @@ export const VERBS: Verb[] = [
       { id: 'pensar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Pomyśleliśmy o nich.', en: 'We thought about them.', de: 'Wir dachten an sie.' }, spanish: 'pensamos en ellos' },
       { id: 'pensar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Pomyśleli o nas.', en: 'They thought about us.', de: 'Sie dachten an uns.' }, spanish: 'pensaron en nosotros' },
       { id: 'pensar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Pomyślicie o nim.', en: 'You (all) will think about him.', de: 'Ihr werdet an ihn denken.' }, spanish: 'pensaréis en él' },
+      { id: 'pensar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pomyśl, zanim coś powiesz', en: 'think before you speak', de: 'denk nach, bevor du sprichst' }, spanish: 'piensa antes de hablar' },
     ],
   },
   {
@@ -1835,12 +2143,15 @@ export const VERBS: Verb[] = [
     infinitive: 'creer',
     regular: false,
     participle: 'creído',
+    gerund: 'creyendo',
     conjugations: {
       presente: { yo: 'creo', tu: 'crees', el: 'cree', nosotros: 'creemos', vosotros: 'creéis', ellos: 'creen' },
       preterite: { yo: 'creí', tu: 'creíste', el: 'creyó', nosotros: 'creímos', vosotros: 'creísteis', ellos: 'creyeron' },
       futuro: { yo: 'creeré', tu: 'creerás', el: 'creerá', nosotros: 'creeremos', vosotros: 'creeréis', ellos: 'creerán' },
       ir_a_infinitivo: { yo: 'voy a creer', tu: 'vas a creer', el: 'va a creer', nosotros: 'vamos a creer', vosotros: 'vais a creer', ellos: 'van a creer' },
       acabar_de_infinitivo: { yo: 'acabo de creer', tu: 'acabas de creer', el: 'acaba de creer', nosotros: 'acabamos de creer', vosotros: 'acabáis de creer', ellos: 'acaban de creer' },
+      imperativo_afirmativo: { yo: '—', tu: 'cree', el: 'crea', nosotros: 'creamos', vosotros: 'creed', ellos: 'crean' },
+      imperativo_negativo: { yo: '—', tu: 'no creas', el: 'no crea', nosotros: 'no creamos', vosotros: 'no creáis', ellos: 'no crean' },
     },
     translations: {
       pl: {
@@ -1851,6 +2162,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'uwierzę', tu: 'uwierzysz', el: 'uwierzy', nosotros: 'uwierzymy', vosotros: 'uwierzycie', ellos: 'uwierzą' },
           ir_a_infinitivo: { yo: 'zamierzam wierzyć', tu: 'zamierzasz wierzyć', el: 'zamierza wierzyć', nosotros: 'zamierzamy wierzyć', vosotros: 'zamierzacie wierzyć', ellos: 'zamierzają wierzyć' },
           acabar_de_infinitivo: { yo: 'właśnie uwierzyłem', tu: 'właśnie uwierzyłeś', el: 'właśnie uwierzył', nosotros: 'właśnie uwierzyliśmy', vosotros: 'właśnie uwierzyliście', ellos: 'właśnie uwierzyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'uwierz', el: 'niech wierzy', nosotros: 'uwierzmy', vosotros: 'uwierzcie', ellos: 'niech wierzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie uwierz', el: 'niech nie wierzy', nosotros: 'nie uwierzmy', vosotros: 'nie uwierzcie', ellos: 'niech nie wierzą' },
         },
       },
       en: {
@@ -1861,6 +2174,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will believe', tu: 'you will believe', el: 'he/she will believe', nosotros: 'we will believe', vosotros: 'you (all) will believe', ellos: 'they will believe' },
           ir_a_infinitivo: { yo: 'I am going to believe', tu: 'you are going to believe', el: 'he/she is going to believe', nosotros: 'we are going to believe', vosotros: 'you (all) are going to believe', ellos: 'they are going to believe' },
           acabar_de_infinitivo: { yo: 'I just believed', tu: 'you just believed', el: 'he/she just believed', nosotros: 'we just believed', vosotros: 'you (all) just believed', ellos: 'they just believed' },
+          imperativo_afirmativo: { yo: '—', tu: 'believe!', el: 'believe!', nosotros: 'let\'s believe!', vosotros: 'believe!', ellos: 'believe!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t believe!', el: 'don\'t believe!', nosotros: 'let\'s not believe!', vosotros: 'don\'t believe!', ellos: 'don\'t believe!' },
         },
       },
       de: {
@@ -1871,6 +2186,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde glauben', tu: 'du wirst glauben', el: 'er/sie/es wird glauben', nosotros: 'wir werden glauben', vosotros: 'ihr werdet glauben', ellos: 'sie werden glauben' },
           ir_a_infinitivo: { yo: 'ich werde gleich glauben', tu: 'du wirst gleich glauben', el: 'er/sie/es wird gleich glauben', nosotros: 'wir werden gleich glauben', vosotros: 'ihr werdet gleich glauben', ellos: 'sie werden gleich glauben' },
           acabar_de_infinitivo: { yo: 'ich glaubte gerade eben', tu: 'du glaubtest gerade eben', el: 'er/sie/es glaubte gerade eben', nosotros: 'wir glaubten gerade eben', vosotros: 'ihr glaubtet gerade eben', ellos: 'sie glaubten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'glaub!', el: 'Glauben Sie!', nosotros: 'Glauben wir!', vosotros: 'glaubt!', ellos: 'Glauben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'glaub nicht!', el: 'Glauben Sie nicht!', nosotros: 'Glauben wir nicht!', vosotros: 'glaubt nicht!', ellos: 'Glauben Sie nicht!' },
         },
       },
     },
@@ -1885,6 +2202,7 @@ export const VERBS: Verb[] = [
       { id: 'creer-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Uwierzyliśmy w to.', en: 'We believed that.', de: 'Wir glaubten das.' }, spanish: 'creímos eso', alternativeAnswers: ['lo creímos'] },
       { id: 'creer-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Uwierzyli w to.', en: 'They believed that.', de: 'Sie glaubten das.' }, spanish: 'creyeron eso', alternativeAnswers: ['lo creyeron'] },
       { id: 'creer-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Uwierzycie w to.', en: 'You (all) will believe that.', de: 'Ihr werdet das glauben.' }, spanish: 'creeréis eso', alternativeAnswers: ['lo creeréis'] },
+      { id: 'creer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'uwierz w siebie', en: 'believe in yourself', de: 'glaub an dich selbst' }, spanish: 'cree en ti mismo' },
     ],
   },
   {
@@ -1892,12 +2210,15 @@ export const VERBS: Verb[] = [
     infinitive: 'sentir',
     regular: false,
     participle: 'sentido',
+    gerund: 'sintiendo',
     conjugations: {
       presente: { yo: 'siento', tu: 'sientes', el: 'siente', nosotros: 'sentimos', vosotros: 'sentís', ellos: 'sienten' },
       preterite: { yo: 'sentí', tu: 'sentiste', el: 'sintió', nosotros: 'sentimos', vosotros: 'sentisteis', ellos: 'sintieron' },
       futuro: { yo: 'sentiré', tu: 'sentirás', el: 'sentirá', nosotros: 'sentiremos', vosotros: 'sentiréis', ellos: 'sentirán' },
       ir_a_infinitivo: { yo: 'voy a sentir', tu: 'vas a sentir', el: 'va a sentir', nosotros: 'vamos a sentir', vosotros: 'vais a sentir', ellos: 'van a sentir' },
       acabar_de_infinitivo: { yo: 'acabo de sentir', tu: 'acabas de sentir', el: 'acaba de sentir', nosotros: 'acabamos de sentir', vosotros: 'acabáis de sentir', ellos: 'acaban de sentir' },
+      imperativo_afirmativo: { yo: '—', tu: 'siente', el: 'sienta', nosotros: 'sintamos', vosotros: 'sentid', ellos: 'sientan' },
+      imperativo_negativo: { yo: '—', tu: 'no sientas', el: 'no sienta', nosotros: 'no sintamos', vosotros: 'no sintáis', ellos: 'no sientan' },
     },
     translations: {
       pl: {
@@ -1908,6 +2229,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'poczuję', tu: 'poczujesz', el: 'poczuje', nosotros: 'poczujemy', vosotros: 'poczujecie', ellos: 'poczują' },
           ir_a_infinitivo: { yo: 'zamierzam czuć', tu: 'zamierzasz czuć', el: 'zamierza czuć', nosotros: 'zamierzamy czuć', vosotros: 'zamierzacie czuć', ellos: 'zamierzają czuć' },
           acabar_de_infinitivo: { yo: 'właśnie poczułem', tu: 'właśnie poczułeś', el: 'właśnie poczuł', nosotros: 'właśnie poczuliśmy', vosotros: 'właśnie poczuliście', ellos: 'właśnie poczuli' },
+          imperativo_afirmativo: { yo: '—', tu: 'poczuj', el: 'niech czuje', nosotros: 'poczujmy', vosotros: 'poczujcie', ellos: 'niech czują' },
+          imperativo_negativo: { yo: '—', tu: 'nie poczuj', el: 'niech nie czuje', nosotros: 'nie poczujmy', vosotros: 'nie poczujcie', ellos: 'niech nie czują' },
         },
       },
       en: {
@@ -1918,6 +2241,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will feel', tu: 'you will feel', el: 'he/she will feel', nosotros: 'we will feel', vosotros: 'you (all) will feel', ellos: 'they will feel' },
           ir_a_infinitivo: { yo: 'I am going to feel', tu: 'you are going to feel', el: 'he/she is going to feel', nosotros: 'we are going to feel', vosotros: 'you (all) are going to feel', ellos: 'they are going to feel' },
           acabar_de_infinitivo: { yo: 'I just felt', tu: 'you just felt', el: 'he/she just felt', nosotros: 'we just felt', vosotros: 'you (all) just felt', ellos: 'they just felt' },
+          imperativo_afirmativo: { yo: '—', tu: 'feel!', el: 'feel!', nosotros: 'let\'s feel!', vosotros: 'feel!', ellos: 'feel!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t feel!', el: 'don\'t feel!', nosotros: 'let\'s not feel!', vosotros: 'don\'t feel!', ellos: 'don\'t feel!' },
         },
       },
       de: {
@@ -1928,6 +2253,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde fühlen', tu: 'du wirst fühlen', el: 'er/sie/es wird fühlen', nosotros: 'wir werden fühlen', vosotros: 'ihr werdet fühlen', ellos: 'sie werden fühlen' },
           ir_a_infinitivo: { yo: 'ich werde gleich fühlen', tu: 'du wirst gleich fühlen', el: 'er/sie/es wird gleich fühlen', nosotros: 'wir werden gleich fühlen', vosotros: 'ihr werdet gleich fühlen', ellos: 'sie werden gleich fühlen' },
           acabar_de_infinitivo: { yo: 'ich fühlte gerade eben', tu: 'du fühltest gerade eben', el: 'er/sie/es fühlte gerade eben', nosotros: 'wir fühlten gerade eben', vosotros: 'ihr fühltet gerade eben', ellos: 'sie fühlten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'fühl!', el: 'Fühlen Sie!', nosotros: 'Fühlen wir!', vosotros: 'fühlt!', ellos: 'Fühlen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'fühl nicht!', el: 'Fühlen Sie nicht!', nosotros: 'Fühlen wir nicht!', vosotros: 'fühlt nicht!', ellos: 'Fühlen Sie nicht!' },
         },
       },
     },
@@ -1942,6 +2269,7 @@ export const VERBS: Verb[] = [
       { id: 'sentir-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Poczuliśmy zimno.', en: 'We felt cold.', de: 'Wir fühlten Kälte.' }, spanish: 'sentimos frío' },
       { id: 'sentir-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Poczuli zimno.', en: 'They felt cold.', de: 'Sie fühlten Kälte.' }, spanish: 'sintieron frío' },
       { id: 'sentir-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Poczujecie zimno.', en: 'You (all) will feel cold.', de: 'Ihr werdet Kälte fühlen.' }, spanish: 'sentiréis frío' },
+      { id: 'sentir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'poczuj muzykę', en: 'feel the music', de: 'fühl die Musik' }, spanish: 'siente la música' },
     ],
   },
   {
@@ -1949,6 +2277,7 @@ export const VERBS: Verb[] = [
     infinitive: 'mirar',
     regular: true,
     participle: 'mirado',
+    gerund: 'mirando',
     conjugations: conjugateRegular('mirar'),
     translations: {
       pl: {
@@ -1959,6 +2288,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'popatrzę', tu: 'popatrzysz', el: 'popatrzy', nosotros: 'popatrzymy', vosotros: 'popatrzycie', ellos: 'popatrzą' },
           ir_a_infinitivo: { yo: 'zamierzam patrzeć', tu: 'zamierzasz patrzeć', el: 'zamierza patrzeć', nosotros: 'zamierzamy patrzeć', vosotros: 'zamierzacie patrzeć', ellos: 'zamierzają patrzeć' },
           acabar_de_infinitivo: { yo: 'właśnie popatrzyłem', tu: 'właśnie popatrzyłeś', el: 'właśnie popatrzył', nosotros: 'właśnie popatrzyliśmy', vosotros: 'właśnie popatrzyliście', ellos: 'właśnie popatrzyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'patrz', el: 'niech patrzy', nosotros: 'patrzmy', vosotros: 'patrzcie', ellos: 'niech patrzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie patrz', el: 'niech nie patrzy', nosotros: 'nie patrzmy', vosotros: 'nie patrzcie', ellos: 'niech nie patrzą' },
         },
       },
       en: {
@@ -1969,6 +2300,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will look', tu: 'you will look', el: 'he/she will look', nosotros: 'we will look', vosotros: 'you (all) will look', ellos: 'they will look' },
           ir_a_infinitivo: { yo: 'I am going to look (at)', tu: 'you are going to look (at)', el: 'he/she is going to look (at)', nosotros: 'we are going to look (at)', vosotros: 'you (all) are going to look (at)', ellos: 'they are going to look (at)' },
           acabar_de_infinitivo: { yo: 'I just looked', tu: 'you just looked', el: 'he/she just looked', nosotros: 'we just looked', vosotros: 'you (all) just looked', ellos: 'they just looked' },
+          imperativo_afirmativo: { yo: '—', tu: 'look!', el: 'look!', nosotros: 'let\'s look!', vosotros: 'look!', ellos: 'look!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t look!', el: 'don\'t look!', nosotros: 'let\'s not look!', vosotros: 'don\'t look!', ellos: 'don\'t look!' },
         },
       },
       de: {
@@ -1979,6 +2312,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde anschauen', tu: 'du wirst anschauen', el: 'er/sie/es wird anschauen', nosotros: 'wir werden anschauen', vosotros: 'ihr werdet anschauen', ellos: 'sie werden anschauen' },
           ir_a_infinitivo: { yo: 'ich werde gleich anschauen', tu: 'du wirst gleich anschauen', el: 'er/sie/es wird gleich anschauen', nosotros: 'wir werden gleich anschauen', vosotros: 'ihr werdet gleich anschauen', ellos: 'sie werden gleich anschauen' },
           acabar_de_infinitivo: { yo: 'ich schaute an gerade eben', tu: 'du schautest an gerade eben', el: 'er/sie/es schaute an gerade eben', nosotros: 'wir schauten an gerade eben', vosotros: 'ihr schautet an gerade eben', ellos: 'sie schauten an gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'schau an!', el: 'Schauen Sie an!', nosotros: 'Schauen wir an!', vosotros: 'schaut an!', ellos: 'Schauen Sie an!' },
+          imperativo_negativo: { yo: '—', tu: 'schau an nicht!', el: 'Schauen Sie an nicht!', nosotros: 'Schauen wir an nicht!', vosotros: 'schaut an nicht!', ellos: 'Schauen Sie an nicht!' },
         },
       },
     },
@@ -1993,6 +2328,7 @@ export const VERBS: Verb[] = [
       { id: 'mirar-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Popatrzył na nich.', en: 'He looked at them.', de: 'Er schaute sie an.' }, spanish: 'los miró' },
       { id: 'mirar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Popatrzyliśmy na nie.', en: 'We looked at them.', de: 'Wir schauten sie an.' }, spanish: 'las miramos' },
       { id: 'mirar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Popatrzą na was.', en: 'They will look at you (all).', de: 'Sie werden euch anschauen.' }, spanish: 'os mirarán' },
+      { id: 'mirar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'popatrz na obraz', en: 'look at the painting', de: 'schau dir das Bild an' }, spanish: 'mira el cuadro' },
     ],
   },
   {
@@ -2000,6 +2336,7 @@ export const VERBS: Verb[] = [
     infinitive: 'escuchar',
     regular: true,
     participle: 'escuchado',
+    gerund: 'escuchando',
     conjugations: conjugateRegular('escuchar'),
     translations: {
       pl: {
@@ -2010,6 +2347,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'posłucham', tu: 'posłuchasz', el: 'posłucha', nosotros: 'posłuchamy', vosotros: 'posłuchacie', ellos: 'posłuchają' },
           ir_a_infinitivo: { yo: 'zamierzam słuchać', tu: 'zamierzasz słuchać', el: 'zamierza słuchać', nosotros: 'zamierzamy słuchać', vosotros: 'zamierzacie słuchać', ellos: 'zamierzają słuchać' },
           acabar_de_infinitivo: { yo: 'właśnie słuchałem', tu: 'właśnie słuchałeś', el: 'właśnie słuchał', nosotros: 'właśnie słuchaliśmy', vosotros: 'właśnie słuchaliście', ellos: 'właśnie słuchali' },
+          imperativo_afirmativo: { yo: '—', tu: 'słuchaj', el: 'niech słucha', nosotros: 'słuchajmy', vosotros: 'słuchajcie', ellos: 'niech słuchają' },
+          imperativo_negativo: { yo: '—', tu: 'nie słuchaj', el: 'niech nie słucha', nosotros: 'nie słuchajmy', vosotros: 'nie słuchajcie', ellos: 'niech nie słuchają' },
         },
       },
       en: {
@@ -2020,6 +2359,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will listen', tu: 'you will listen', el: 'he/she will listen', nosotros: 'we will listen', vosotros: 'you (all) will listen', ellos: 'they will listen' },
           ir_a_infinitivo: { yo: 'I am going to listen (to)', tu: 'you are going to listen (to)', el: 'he/she is going to listen (to)', nosotros: 'we are going to listen (to)', vosotros: 'you (all) are going to listen (to)', ellos: 'they are going to listen (to)' },
           acabar_de_infinitivo: { yo: 'I just listened', tu: 'you just listened', el: 'he/she just listened', nosotros: 'we just listened', vosotros: 'you (all) just listened', ellos: 'they just listened' },
+          imperativo_afirmativo: { yo: '—', tu: 'listen!', el: 'listen!', nosotros: 'let\'s listen!', vosotros: 'listen!', ellos: 'listen!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t listen!', el: 'don\'t listen!', nosotros: 'let\'s not listen!', vosotros: 'don\'t listen!', ellos: 'don\'t listen!' },
         },
       },
       de: {
@@ -2030,6 +2371,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde zuhören', tu: 'du wirst zuhören', el: 'er/sie/es wird zuhören', nosotros: 'wir werden zuhören', vosotros: 'ihr werdet zuhören', ellos: 'sie werden zuhören' },
           ir_a_infinitivo: { yo: 'ich werde gleich zuhören', tu: 'du wirst gleich zuhören', el: 'er/sie/es wird gleich zuhören', nosotros: 'wir werden gleich zuhören', vosotros: 'ihr werdet gleich zuhören', ellos: 'sie werden gleich zuhören' },
           acabar_de_infinitivo: { yo: 'ich hörte zu gerade eben', tu: 'du hörtest zu gerade eben', el: 'er/sie/es hörte zu gerade eben', nosotros: 'wir hörten zu gerade eben', vosotros: 'ihr hörtet zu gerade eben', ellos: 'sie hörten zu gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'hör zu!', el: 'Hören Sie zu!', nosotros: 'Hören wir zu!', vosotros: 'hört zu!', ellos: 'Hören Sie zu!' },
+          imperativo_negativo: { yo: '—', tu: 'hör zu nicht!', el: 'Hören Sie zu nicht!', nosotros: 'Hören wir zu nicht!', vosotros: 'hört zu nicht!', ellos: 'Hören Sie zu nicht!' },
         },
       },
     },
@@ -2044,6 +2387,7 @@ export const VERBS: Verb[] = [
       { id: 'escuchar-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Słuchał ich.', en: 'He listened to them.', de: 'Er hörte ihnen zu.' }, spanish: 'los escuchó' },
       { id: 'escuchar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Słuchaliśmy ich.', en: 'We listened to them.', de: 'Wir hörten ihnen zu.' }, spanish: 'las escuchamos' },
       { id: 'escuchar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Posłuchają was.', en: 'They will listen to you (all).', de: 'Sie werden euch zuhören.' }, spanish: 'os escucharán' },
+      { id: 'escuchar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'słuchaj piosenki', en: 'listen to the song', de: 'hör dir das Lied an' }, spanish: 'escucha la canción' },
     ],
   },
   {
@@ -2051,6 +2395,7 @@ export const VERBS: Verb[] = [
     infinitive: 'preguntar',
     regular: true,
     participle: 'preguntado',
+    gerund: 'preguntando',
     conjugations: conjugateRegular('preguntar'),
     translations: {
       pl: {
@@ -2061,6 +2406,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zapytam', tu: 'zapytasz', el: 'zapyta', nosotros: 'zapytamy', vosotros: 'zapytacie', ellos: 'zapytają' },
           ir_a_infinitivo: { yo: 'zamierzam pytać', tu: 'zamierzasz pytać', el: 'zamierza pytać', nosotros: 'zamierzamy pytać', vosotros: 'zamierzacie pytać', ellos: 'zamierzają pytać' },
           acabar_de_infinitivo: { yo: 'właśnie zapytałem', tu: 'właśnie zapytałeś', el: 'właśnie zapytał', nosotros: 'właśnie zapytaliśmy', vosotros: 'właśnie zapytaliście', ellos: 'właśnie zapytali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pytaj', el: 'niech pyta', nosotros: 'pytajmy', vosotros: 'pytajcie', ellos: 'niech pytają' },
+          imperativo_negativo: { yo: '—', tu: 'nie pytaj', el: 'niech nie pyta', nosotros: 'nie pytajmy', vosotros: 'nie pytajcie', ellos: 'niech nie pytają' },
         },
       },
       en: {
@@ -2071,6 +2418,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will ask', tu: 'you will ask', el: 'he/she will ask', nosotros: 'we will ask', vosotros: 'you (all) will ask', ellos: 'they will ask' },
           ir_a_infinitivo: { yo: 'I am going to ask', tu: 'you are going to ask', el: 'he/she is going to ask', nosotros: 'we are going to ask', vosotros: 'you (all) are going to ask', ellos: 'they are going to ask' },
           acabar_de_infinitivo: { yo: 'I just asked', tu: 'you just asked', el: 'he/she just asked', nosotros: 'we just asked', vosotros: 'you (all) just asked', ellos: 'they just asked' },
+          imperativo_afirmativo: { yo: '—', tu: 'ask!', el: 'ask!', nosotros: 'let\'s ask!', vosotros: 'ask!', ellos: 'ask!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t ask!', el: 'don\'t ask!', nosotros: 'let\'s not ask!', vosotros: 'don\'t ask!', ellos: 'don\'t ask!' },
         },
       },
       de: {
@@ -2081,6 +2430,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde fragen', tu: 'du wirst fragen', el: 'er/sie/es wird fragen', nosotros: 'wir werden fragen', vosotros: 'ihr werdet fragen', ellos: 'sie werden fragen' },
           ir_a_infinitivo: { yo: 'ich werde gleich fragen', tu: 'du wirst gleich fragen', el: 'er/sie/es wird gleich fragen', nosotros: 'wir werden gleich fragen', vosotros: 'ihr werdet gleich fragen', ellos: 'sie werden gleich fragen' },
           acabar_de_infinitivo: { yo: 'ich fragte gerade eben', tu: 'du fragtest gerade eben', el: 'er/sie/es fragte gerade eben', nosotros: 'wir fragten gerade eben', vosotros: 'ihr fragtet gerade eben', ellos: 'sie fragten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'frag!', el: 'Fragen Sie!', nosotros: 'Fragen wir!', vosotros: 'fragt!', ellos: 'Fragen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'frag nicht!', el: 'Fragen Sie nicht!', nosotros: 'Fragen wir nicht!', vosotros: 'fragt nicht!', ellos: 'Fragen Sie nicht!' },
         },
       },
     },
@@ -2096,6 +2447,7 @@ export const VERBS: Verb[] = [
       { id: 'preguntar-preterite-les-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'indirect', pronoun: 'les', translations: { pl: 'Zapytaliśmy ich.', en: 'We asked them.', de: 'Wir fragten sie.' }, spanish: 'les preguntamos' },
       { id: 'preguntar-preterite-te-ellos', tense: 'preterite', person: 'ellos', pronounType: 'indirect', pronoun: 'te', translations: { pl: 'Zapytali cię.', en: 'They asked you.', de: 'Sie fragten dich.' }, spanish: 'te preguntaron' },
       { id: 'preguntar-futuro-me-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'indirect', pronoun: 'me', translations: { pl: 'Zapytacie mnie.', en: 'You (all) will ask me.', de: 'Ihr werdet mich fragen.' }, spanish: 'me preguntaréis' },
+      { id: 'preguntar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zapytaj nauczyciela', en: 'ask the teacher', de: 'frag den Lehrer' }, spanish: 'pregunta al profesor' },
     ],
   },
   {
@@ -2103,6 +2455,7 @@ export const VERBS: Verb[] = [
     infinitive: 'responder',
     regular: true,
     participle: 'respondido',
+    gerund: 'respondiendo',
     conjugations: conjugateRegular('responder'),
     translations: {
       pl: {
@@ -2113,6 +2466,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'odpowiem', tu: 'odpowiesz', el: 'odpowie', nosotros: 'odpowiemy', vosotros: 'odpowiecie', ellos: 'odpowiedzą' },
           ir_a_infinitivo: { yo: 'zamierzam odpowiadać', tu: 'zamierzasz odpowiadać', el: 'zamierza odpowiadać', nosotros: 'zamierzamy odpowiadać', vosotros: 'zamierzacie odpowiadać', ellos: 'zamierzają odpowiadać' },
           acabar_de_infinitivo: { yo: 'właśnie odpowiedziałem', tu: 'właśnie odpowiedziałeś', el: 'właśnie odpowiedział', nosotros: 'właśnie odpowiedzieliśmy', vosotros: 'właśnie odpowiedzieliście', ellos: 'właśnie odpowiedzieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'odpowiadaj', el: 'niech odpowiada', nosotros: 'odpowiadajmy', vosotros: 'odpowiadajcie', ellos: 'niech odpowiadają' },
+          imperativo_negativo: { yo: '—', tu: 'nie odpowiadaj', el: 'niech nie odpowiada', nosotros: 'nie odpowiadajmy', vosotros: 'nie odpowiadajcie', ellos: 'niech nie odpowiadają' },
         },
       },
       en: {
@@ -2123,6 +2478,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will answer', tu: 'you will answer', el: 'he/she will answer', nosotros: 'we will answer', vosotros: 'you (all) will answer', ellos: 'they will answer' },
           ir_a_infinitivo: { yo: 'I am going to answer', tu: 'you are going to answer', el: 'he/she is going to answer', nosotros: 'we are going to answer', vosotros: 'you (all) are going to answer', ellos: 'they are going to answer' },
           acabar_de_infinitivo: { yo: 'I just answered', tu: 'you just answered', el: 'he/she just answered', nosotros: 'we just answered', vosotros: 'you (all) just answered', ellos: 'they just answered' },
+          imperativo_afirmativo: { yo: '—', tu: 'answer!', el: 'answer!', nosotros: 'let\'s answer!', vosotros: 'answer!', ellos: 'answer!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t answer!', el: 'don\'t answer!', nosotros: 'let\'s not answer!', vosotros: 'don\'t answer!', ellos: 'don\'t answer!' },
         },
       },
       de: {
@@ -2133,6 +2490,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde antworten', tu: 'du wirst antworten', el: 'er/sie/es wird antworten', nosotros: 'wir werden antworten', vosotros: 'ihr werdet antworten', ellos: 'sie werden antworten' },
           ir_a_infinitivo: { yo: 'ich werde gleich antworten', tu: 'du wirst gleich antworten', el: 'er/sie/es wird gleich antworten', nosotros: 'wir werden gleich antworten', vosotros: 'ihr werdet gleich antworten', ellos: 'sie werden gleich antworten' },
           acabar_de_infinitivo: { yo: 'ich antwortete gerade eben', tu: 'du antwortetest gerade eben', el: 'er/sie/es antwortete gerade eben', nosotros: 'wir antworteten gerade eben', vosotros: 'ihr antwortetet gerade eben', ellos: 'sie antworteten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'antworte!', el: 'Antworten Sie!', nosotros: 'Antworten wir!', vosotros: 'antwortet!', ellos: 'Antworten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'antworte nicht!', el: 'Antworten Sie nicht!', nosotros: 'Antworten wir nicht!', vosotros: 'antwortet nicht!', ellos: 'Antworten Sie nicht!' },
         },
       },
     },
@@ -2148,6 +2507,7 @@ export const VERBS: Verb[] = [
       { id: 'responder-preterite-les-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'indirect', pronoun: 'les', translations: { pl: 'Odpowiedzieliśmy im.', en: 'We answered them.', de: 'Wir antworteten ihnen.' }, spanish: 'les respondimos' },
       { id: 'responder-preterite-te-ellos', tense: 'preterite', person: 'ellos', pronounType: 'indirect', pronoun: 'te', translations: { pl: 'Odpowiedzieli ci.', en: 'They answered you.', de: 'Sie antworteten dir.' }, spanish: 'te respondieron' },
       { id: 'responder-futuro-me-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'indirect', pronoun: 'me', translations: { pl: 'Odpowiecie mi.', en: 'You (all) will answer me.', de: 'Ihr werdet mir antworten.' }, spanish: 'me responderéis' },
+      { id: 'responder-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'odpowiadaj szybko', en: 'answer quickly', de: 'antworte schnell' }, spanish: 'responde rápido' },
     ],
   },
   {
@@ -2155,6 +2515,7 @@ export const VERBS: Verb[] = [
     infinitive: 'ayudar',
     regular: true,
     participle: 'ayudado',
+    gerund: 'ayudando',
     conjugations: conjugateRegular('ayudar'),
     translations: {
       pl: {
@@ -2165,6 +2526,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'pomogę', tu: 'pomożesz', el: 'pomoże', nosotros: 'pomożemy', vosotros: 'pomożecie', ellos: 'pomogą' },
           ir_a_infinitivo: { yo: 'zamierzam pomagać', tu: 'zamierzasz pomagać', el: 'zamierza pomagać', nosotros: 'zamierzamy pomagać', vosotros: 'zamierzacie pomagać', ellos: 'zamierzają pomagać' },
           acabar_de_infinitivo: { yo: 'właśnie pomogłem', tu: 'właśnie pomogłeś', el: 'właśnie pomógł', nosotros: 'właśnie pomogliśmy', vosotros: 'właśnie pomogliście', ellos: 'właśnie pomogli' },
+          imperativo_afirmativo: { yo: '—', tu: 'pomóż', el: 'niech pomaga', nosotros: 'pomóżmy', vosotros: 'pomóżcie', ellos: 'niech pomagają' },
+          imperativo_negativo: { yo: '—', tu: 'nie pomóż', el: 'niech nie pomaga', nosotros: 'nie pomóżmy', vosotros: 'nie pomóżcie', ellos: 'niech nie pomagają' },
         },
       },
       en: {
@@ -2175,6 +2538,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will help', tu: 'you will help', el: 'he/she will help', nosotros: 'we will help', vosotros: 'you (all) will help', ellos: 'they will help' },
           ir_a_infinitivo: { yo: 'I am going to help', tu: 'you are going to help', el: 'he/she is going to help', nosotros: 'we are going to help', vosotros: 'you (all) are going to help', ellos: 'they are going to help' },
           acabar_de_infinitivo: { yo: 'I just helped', tu: 'you just helped', el: 'he/she just helped', nosotros: 'we just helped', vosotros: 'you (all) just helped', ellos: 'they just helped' },
+          imperativo_afirmativo: { yo: '—', tu: 'help!', el: 'help!', nosotros: 'let\'s help!', vosotros: 'help!', ellos: 'help!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t help!', el: 'don\'t help!', nosotros: 'let\'s not help!', vosotros: 'don\'t help!', ellos: 'don\'t help!' },
         },
       },
       de: {
@@ -2185,6 +2550,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde helfen', tu: 'du wirst helfen', el: 'er/sie/es wird helfen', nosotros: 'wir werden helfen', vosotros: 'ihr werdet helfen', ellos: 'sie werden helfen' },
           ir_a_infinitivo: { yo: 'ich werde gleich helfen', tu: 'du wirst gleich helfen', el: 'er/sie/es wird gleich helfen', nosotros: 'wir werden gleich helfen', vosotros: 'ihr werdet gleich helfen', ellos: 'sie werden gleich helfen' },
           acabar_de_infinitivo: { yo: 'ich half gerade eben', tu: 'du halfst gerade eben', el: 'er/sie/es half gerade eben', nosotros: 'wir halfen gerade eben', vosotros: 'ihr halft gerade eben', ellos: 'sie halfen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'hilf!', el: 'Helfen Sie!', nosotros: 'Helfen wir!', vosotros: 'helft!', ellos: 'Helfen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'hilf nicht!', el: 'Helfen Sie nicht!', nosotros: 'Helfen wir nicht!', vosotros: 'helft nicht!', ellos: 'Helfen Sie nicht!' },
         },
       },
     },
@@ -2200,6 +2567,7 @@ export const VERBS: Verb[] = [
       { id: 'ayudar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Pomogliśmy im.', en: 'We helped them.', de: 'Wir halfen ihnen.' }, spanish: 'las ayudamos' },
       { id: 'ayudar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Pomogą wam.', en: 'They will help you (all).', de: 'Sie werden euch helfen.' }, spanish: 'os ayudarán' },
       { id: 'ayudar-acabar_de_infinitivo-me-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'direct', pronoun: 'me', translations: { pl: 'Właśnie mi pomógł.', en: 'He just helped me.', de: 'Er hat mir gerade geholfen.' }, spanish: 'me acaba de ayudar', alternativeAnswers: ['acaba de ayudarme'] },
+      { id: 'ayudar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pomóż swojemu bratu', en: 'help your brother', de: 'hilf deinem Bruder' }, spanish: 'ayuda a tu hermano' },
     ],
   },
   {
@@ -2207,6 +2575,7 @@ export const VERBS: Verb[] = [
     infinitive: 'usar',
     regular: true,
     participle: 'usado',
+    gerund: 'usando',
     conjugations: conjugateRegular('usar'),
     translations: {
       pl: {
@@ -2217,6 +2586,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'użyję', tu: 'użyjesz', el: 'użyje', nosotros: 'użyjemy', vosotros: 'użyjecie', ellos: 'użyją' },
           ir_a_infinitivo: { yo: 'zamierzam używać', tu: 'zamierzasz używać', el: 'zamierza używać', nosotros: 'zamierzamy używać', vosotros: 'zamierzacie używać', ellos: 'zamierzają używać' },
           acabar_de_infinitivo: { yo: 'właśnie użyłem', tu: 'właśnie użyłeś', el: 'właśnie użył', nosotros: 'właśnie użyliśmy', vosotros: 'właśnie użyliście', ellos: 'właśnie użyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'używaj', el: 'niech używa', nosotros: 'używajmy', vosotros: 'używajcie', ellos: 'niech używają' },
+          imperativo_negativo: { yo: '—', tu: 'nie używaj', el: 'niech nie używa', nosotros: 'nie używajmy', vosotros: 'nie używajcie', ellos: 'niech nie używają' },
         },
       },
       en: {
@@ -2227,6 +2598,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will use', tu: 'you will use', el: 'he/she will use', nosotros: 'we will use', vosotros: 'you (all) will use', ellos: 'they will use' },
           ir_a_infinitivo: { yo: 'I am going to use', tu: 'you are going to use', el: 'he/she is going to use', nosotros: 'we are going to use', vosotros: 'you (all) are going to use', ellos: 'they are going to use' },
           acabar_de_infinitivo: { yo: 'I just used', tu: 'you just used', el: 'he/she just used', nosotros: 'we just used', vosotros: 'you (all) just used', ellos: 'they just used' },
+          imperativo_afirmativo: { yo: '—', tu: 'use!', el: 'use!', nosotros: 'let\'s use!', vosotros: 'use!', ellos: 'use!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t use!', el: 'don\'t use!', nosotros: 'let\'s not use!', vosotros: 'don\'t use!', ellos: 'don\'t use!' },
         },
       },
       de: {
@@ -2237,6 +2610,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde benutzen', tu: 'du wirst benutzen', el: 'er/sie/es wird benutzen', nosotros: 'wir werden benutzen', vosotros: 'ihr werdet benutzen', ellos: 'sie werden benutzen' },
           ir_a_infinitivo: { yo: 'ich werde gleich benutzen', tu: 'du wirst gleich benutzen', el: 'er/sie/es wird gleich benutzen', nosotros: 'wir werden gleich benutzen', vosotros: 'ihr werdet gleich benutzen', ellos: 'sie werden gleich benutzen' },
           acabar_de_infinitivo: { yo: 'ich benutzte gerade eben', tu: 'du benutztest gerade eben', el: 'er/sie/es benutzte gerade eben', nosotros: 'wir benutzten gerade eben', vosotros: 'ihr benutztet gerade eben', ellos: 'sie benutzten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'benutze!', el: 'Benutzen Sie!', nosotros: 'Benutzen wir!', vosotros: 'benutzt!', ellos: 'Benutzen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'benutze nicht!', el: 'Benutzen Sie nicht!', nosotros: 'Benutzen wir nicht!', vosotros: 'benutzt nicht!', ellos: 'Benutzen Sie nicht!' },
         },
       },
     },
@@ -2251,6 +2626,7 @@ export const VERBS: Verb[] = [
       { id: 'usar-preterite-las-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Użył ich.', en: 'He used them.', de: 'Er benutzte sie.' }, spanish: 'las usó' },
       { id: 'usar-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Użyliśmy ich.', en: 'We used them.', de: 'Wir benutzten sie.' }, spanish: 'los usamos' },
       { id: 'usar-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Użyją ich.', en: 'They will use them.', de: 'Sie werden sie benutzen.' }, spanish: 'las usarán' },
+      { id: 'usar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'używaj kasku', en: 'use the helmet', de: 'benutze den Helm' }, spanish: 'usa el casco' },
     ],
   },
   {
@@ -2258,6 +2634,7 @@ export const VERBS: Verb[] = [
     infinitive: 'necesitar',
     regular: true,
     participle: 'necesitado',
+    gerund: 'necesitando',
     conjugations: conjugateRegular('necesitar'),
     translations: {
       pl: {
@@ -2268,6 +2645,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę potrzebował', tu: 'będziesz potrzebował', el: 'będzie potrzebował', nosotros: 'będziemy potrzebowali', vosotros: 'będziecie potrzebowali', ellos: 'będą potrzebowali' },
           ir_a_infinitivo: { yo: 'zamierzam potrzebować', tu: 'zamierzasz potrzebować', el: 'zamierza potrzebować', nosotros: 'zamierzamy potrzebować', vosotros: 'zamierzacie potrzebować', ellos: 'zamierzają potrzebować' },
           acabar_de_infinitivo: { yo: 'właśnie potrzebowałem', tu: 'właśnie potrzebowałeś', el: 'właśnie potrzebował', nosotros: 'właśnie potrzebowaliśmy', vosotros: 'właśnie potrzebowaliście', ellos: 'właśnie potrzebowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'potrzebuj', el: 'niech potrzebuje', nosotros: 'potrzebujmy', vosotros: 'potrzebujcie', ellos: 'niech potrzebują' },
+          imperativo_negativo: { yo: '—', tu: 'nie potrzebuj', el: 'niech nie potrzebuje', nosotros: 'nie potrzebujmy', vosotros: 'nie potrzebujcie', ellos: 'niech nie potrzebują' },
         },
       },
       en: {
@@ -2278,6 +2657,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will need', tu: 'you will need', el: 'he/she will need', nosotros: 'we will need', vosotros: 'you (all) will need', ellos: 'they will need' },
           ir_a_infinitivo: { yo: 'I am going to need', tu: 'you are going to need', el: 'he/she is going to need', nosotros: 'we are going to need', vosotros: 'you (all) are going to need', ellos: 'they are going to need' },
           acabar_de_infinitivo: { yo: 'I just needed', tu: 'you just needed', el: 'he/she just needed', nosotros: 'we just needed', vosotros: 'you (all) just needed', ellos: 'they just needed' },
+          imperativo_afirmativo: { yo: '—', tu: 'need!', el: 'need!', nosotros: 'let\'s need!', vosotros: 'need!', ellos: 'need!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t need!', el: 'don\'t need!', nosotros: 'let\'s not need!', vosotros: 'don\'t need!', ellos: 'don\'t need!' },
         },
       },
       de: {
@@ -2288,6 +2669,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde brauchen', tu: 'du wirst brauchen', el: 'er/sie/es wird brauchen', nosotros: 'wir werden brauchen', vosotros: 'ihr werdet brauchen', ellos: 'sie werden brauchen' },
           ir_a_infinitivo: { yo: 'ich werde gleich brauchen', tu: 'du wirst gleich brauchen', el: 'er/sie/es wird gleich brauchen', nosotros: 'wir werden gleich brauchen', vosotros: 'ihr werdet gleich brauchen', ellos: 'sie werden gleich brauchen' },
           acabar_de_infinitivo: { yo: 'ich brauchte gerade eben', tu: 'du brauchtest gerade eben', el: 'er/sie/es brauchte gerade eben', nosotros: 'wir brauchten gerade eben', vosotros: 'ihr brauchtet gerade eben', ellos: 'sie brauchten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'brauch!', el: 'Brauchen Sie!', nosotros: 'Brauchen wir!', vosotros: 'braucht!', ellos: 'Brauchen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'brauch nicht!', el: 'Brauchen Sie nicht!', nosotros: 'Brauchen wir nicht!', vosotros: 'braucht nicht!', ellos: 'Brauchen Sie nicht!' },
         },
       },
     },
@@ -2302,6 +2685,7 @@ export const VERBS: Verb[] = [
       { id: 'necesitar-preterite-las-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Potrzebował ich.', en: 'He needed them.', de: 'Er brauchte sie.' }, spanish: 'las necesitó' },
       { id: 'necesitar-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Potrzebowaliśmy ich.', en: 'We needed them.', de: 'Wir brauchten sie.' }, spanish: 'los necesitamos' },
       { id: 'necesitar-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Będą ich potrzebować.', en: 'They will need them.', de: 'Sie werden sie brauchen.' }, spanish: 'las necesitarán' },
+      { id: 'necesitar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'potrzebujesz pomocy', en: 'you need help', de: 'du brauchst Hilfe' }, spanish: 'necesita ayuda' },
     ],
   },
   {
@@ -2309,6 +2693,7 @@ export const VERBS: Verb[] = [
     infinitive: 'esperar',
     regular: true,
     participle: 'esperado',
+    gerund: 'esperando',
     conjugations: conjugateRegular('esperar'),
     translations: {
       pl: {
@@ -2319,6 +2704,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'poczekam', tu: 'poczekasz', el: 'poczeka', nosotros: 'poczekamy', vosotros: 'poczekacie', ellos: 'poczekają' },
           ir_a_infinitivo: { yo: 'zamierzam czekać', tu: 'zamierzasz czekać', el: 'zamierza czekać', nosotros: 'zamierzamy czekać', vosotros: 'zamierzacie czekać', ellos: 'zamierzają czekać' },
           acabar_de_infinitivo: { yo: 'właśnie czekałem', tu: 'właśnie czekałeś', el: 'właśnie czekał', nosotros: 'właśnie czekaliśmy', vosotros: 'właśnie czekaliście', ellos: 'właśnie czekali' },
+          imperativo_afirmativo: { yo: '—', tu: 'czekaj', el: 'niech czeka', nosotros: 'czekajmy', vosotros: 'czekajcie', ellos: 'niech czekają' },
+          imperativo_negativo: { yo: '—', tu: 'nie czekaj', el: 'niech nie czeka', nosotros: 'nie czekajmy', vosotros: 'nie czekajcie', ellos: 'niech nie czekają' },
         },
       },
       en: {
@@ -2329,6 +2716,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will wait', tu: 'you will wait', el: 'he/she will wait', nosotros: 'we will wait', vosotros: 'you (all) will wait', ellos: 'they will wait' },
           ir_a_infinitivo: { yo: 'I am going to wait (for)', tu: 'you are going to wait (for)', el: 'he/she is going to wait (for)', nosotros: 'we are going to wait (for)', vosotros: 'you (all) are going to wait (for)', ellos: 'they are going to wait (for)' },
           acabar_de_infinitivo: { yo: 'I just waited', tu: 'you just waited', el: 'he/she just waited', nosotros: 'we just waited', vosotros: 'you (all) just waited', ellos: 'they just waited' },
+          imperativo_afirmativo: { yo: '—', tu: 'wait!', el: 'wait!', nosotros: 'let\'s wait!', vosotros: 'wait!', ellos: 'wait!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t wait!', el: 'don\'t wait!', nosotros: 'let\'s not wait!', vosotros: 'don\'t wait!', ellos: 'don\'t wait!' },
         },
       },
       de: {
@@ -2339,6 +2728,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde warten', tu: 'du wirst warten', el: 'er/sie/es wird warten', nosotros: 'wir werden warten', vosotros: 'ihr werdet warten', ellos: 'sie werden warten' },
           ir_a_infinitivo: { yo: 'ich werde gleich warten (auf)', tu: 'du wirst gleich warten (auf)', el: 'er/sie/es wird gleich warten (auf)', nosotros: 'wir werden gleich warten (auf)', vosotros: 'ihr werdet gleich warten (auf)', ellos: 'sie werden gleich warten (auf)' },
           acabar_de_infinitivo: { yo: 'ich wartete gerade eben', tu: 'du wartetest gerade eben', el: 'er/sie/es wartete gerade eben', nosotros: 'wir warteten gerade eben', vosotros: 'ihr wartetet gerade eben', ellos: 'sie warteten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'warte!', el: 'Warten Sie!', nosotros: 'Warten wir!', vosotros: 'wartet!', ellos: 'Warten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'warte nicht!', el: 'Warten Sie nicht!', nosotros: 'Warten wir nicht!', vosotros: 'wartet nicht!', ellos: 'Warten Sie nicht!' },
         },
       },
     },
@@ -2353,6 +2744,7 @@ export const VERBS: Verb[] = [
       { id: 'esperar-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Czekał na nich.', en: 'He waited for them.', de: 'Er wartete auf sie.' }, spanish: 'los esperó' },
       { id: 'esperar-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Czekaliśmy na nie.', en: 'We waited for them.', de: 'Wir warteten auf sie.' }, spanish: 'las esperamos' },
       { id: 'esperar-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Będą na was czekać.', en: 'They will wait for you (all).', de: 'Sie werden auf euch warten.' }, spanish: 'os esperarán' },
+      { id: 'esperar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'poczekaj chwilę', en: 'wait a moment', de: 'warte einen Moment' }, spanish: 'espera un momento' },
     ],
   },
   {
@@ -2360,6 +2752,7 @@ export const VERBS: Verb[] = [
     infinitive: 'quedar',
     regular: true,
     participle: 'quedado',
+    gerund: 'quedando',
     conjugations: conjugateRegular('quedar'),
     translations: {
       pl: {
@@ -2370,6 +2763,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'umówię się', tu: 'umówisz się', el: 'umówi się', nosotros: 'umówimy się', vosotros: 'umówicie się', ellos: 'umówią się' },
           ir_a_infinitivo: { yo: 'zamierzam umówić się', tu: 'zamierzasz umówić się', el: 'zamierza umówić się', nosotros: 'zamierzamy umówić się', vosotros: 'zamierzacie umówić się', ellos: 'zamierzają umówić się' },
           acabar_de_infinitivo: { yo: 'właśnie umówiłem się', tu: 'właśnie umówiłeś się', el: 'właśnie umówił się', nosotros: 'właśnie umówiliśmy się', vosotros: 'właśnie umówiliście się', ellos: 'właśnie umówili się' },
+          imperativo_afirmativo: { yo: '—', tu: 'zostań', el: 'niech umawia się', nosotros: 'zostańmy', vosotros: 'zostańcie', ellos: 'niech umawiają się' },
+          imperativo_negativo: { yo: '—', tu: 'nie zostań', el: 'niech nie umawia się', nosotros: 'nie zostańmy', vosotros: 'nie zostańcie', ellos: 'niech nie umawiają się' },
         },
       },
       en: {
@@ -2380,6 +2775,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will meet up', tu: 'you will meet up', el: 'he/she will meet up', nosotros: 'we will meet up', vosotros: 'you (all) will meet up', ellos: 'they will meet up' },
           ir_a_infinitivo: { yo: 'I am going to meet up', tu: 'you are going to meet up', el: 'he/she is going to meet up', nosotros: 'we are going to meet up', vosotros: 'you (all) are going to meet up', ellos: 'they are going to meet up' },
           acabar_de_infinitivo: { yo: 'I just met up', tu: 'you just met up', el: 'he/she just met up', nosotros: 'we just met up', vosotros: 'you (all) just met up', ellos: 'they just met up' },
+          imperativo_afirmativo: { yo: '—', tu: 'stay!', el: 'stay!', nosotros: 'let\'s stay!', vosotros: 'stay!', ellos: 'stay!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t stay!', el: 'don\'t stay!', nosotros: 'let\'s not stay!', vosotros: 'don\'t stay!', ellos: 'don\'t stay!' },
         },
       },
       de: {
@@ -2390,6 +2787,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde mich verabreden', tu: 'du wirst dich verabreden', el: 'er/sie/es wird sich verabreden', nosotros: 'wir werden uns verabreden', vosotros: 'ihr werdet euch verabreden', ellos: 'sie werden sich verabreden' },
           ir_a_infinitivo: { yo: 'ich werde mich gleich verabreden', tu: 'du wirst dich gleich verabreden', el: 'er/sie/es wird sich gleich verabreden', nosotros: 'wir werden uns gleich verabreden', vosotros: 'ihr werdet euch gleich verabreden', ellos: 'sie werden sich gleich verabreden' },
           acabar_de_infinitivo: { yo: 'ich verabredete mich gerade eben', tu: 'du verabredetest dich gerade eben', el: 'er/sie/es verabredete sich gerade eben', nosotros: 'wir verabredeten uns gerade eben', vosotros: 'ihr verabredetet euch gerade eben', ellos: 'sie verabredeten sich gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'bleib!', el: 'Bleiben Sie!', nosotros: 'Bleiben wir!', vosotros: 'verabredet euch!', ellos: 'Bleiben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bleib nicht!', el: 'Bleiben Sie nicht!', nosotros: 'Bleiben wir nicht!', vosotros: 'verabredet euch nicht!', ellos: 'Bleiben Sie nicht!' },
         },
       },
     },
@@ -2404,6 +2803,7 @@ export const VERBS: Verb[] = [
       { id: 'quedar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Umówiliśmy się z nimi.', en: 'We met up with them.', de: 'Wir verabredeten uns mit ihnen.' }, spanish: 'quedamos con ellos' },
       { id: 'quedar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Umówili się z nami.', en: 'They met up with us.', de: 'Sie verabredeten sich mit uns.' }, spanish: 'quedaron con nosotros' },
       { id: 'quedar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Umówicie się z nim.', en: 'You (all) will meet up with him.', de: 'Ihr werdet euch mit ihm verabreden.' }, spanish: 'quedaréis con él' },
+      { id: 'quedar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zostań tutaj', en: 'stay here', de: 'bleib hier' }, spanish: 'quédate aquí' },
     ],
   },
   {
@@ -2411,12 +2811,15 @@ export const VERBS: Verb[] = [
     infinitive: 'volver',
     regular: false,
     participle: 'vuelto',
+    gerund: 'volviendo',
     conjugations: {
       presente: { yo: 'vuelvo', tu: 'vuelves', el: 'vuelve', nosotros: 'volvemos', vosotros: 'volvéis', ellos: 'vuelven' },
       preterite: { yo: 'volví', tu: 'volviste', el: 'volvió', nosotros: 'volvimos', vosotros: 'volvisteis', ellos: 'volvieron' },
       futuro: { yo: 'volveré', tu: 'volverás', el: 'volverá', nosotros: 'volveremos', vosotros: 'volveréis', ellos: 'volverán' },
       ir_a_infinitivo: { yo: 'voy a volver', tu: 'vas a volver', el: 'va a volver', nosotros: 'vamos a volver', vosotros: 'vais a volver', ellos: 'van a volver' },
       acabar_de_infinitivo: { yo: 'acabo de volver', tu: 'acabas de volver', el: 'acaba de volver', nosotros: 'acabamos de volver', vosotros: 'acabáis de volver', ellos: 'acaban de volver' },
+      imperativo_afirmativo: { yo: '—', tu: 'vuelve', el: 'vuelva', nosotros: 'volvamos', vosotros: 'volved', ellos: 'vuelvan' },
+      imperativo_negativo: { yo: '—', tu: 'no vuelvas', el: 'no vuelva', nosotros: 'no volvamos', vosotros: 'no volváis', ellos: 'no vuelvan' },
     },
     translations: {
       pl: {
@@ -2427,6 +2830,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wrócę', tu: 'wrócisz', el: 'wróci', nosotros: 'wrócimy', vosotros: 'wrócicie', ellos: 'wrócą' },
           ir_a_infinitivo: { yo: 'zamierzam wracać', tu: 'zamierzasz wracać', el: 'zamierza wracać', nosotros: 'zamierzamy wracać', vosotros: 'zamierzacie wracać', ellos: 'zamierzają wracać' },
           acabar_de_infinitivo: { yo: 'właśnie wróciłem', tu: 'właśnie wróciłeś', el: 'właśnie wrócił', nosotros: 'właśnie wróciliśmy', vosotros: 'właśnie wróciliście', ellos: 'właśnie wrócili' },
+          imperativo_afirmativo: { yo: '—', tu: 'wróć', el: 'niech wraca', nosotros: 'wróćmy', vosotros: 'wróćcie', ellos: 'niech wracają' },
+          imperativo_negativo: { yo: '—', tu: 'nie wróć', el: 'niech nie wraca', nosotros: 'nie wróćmy', vosotros: 'nie wróćcie', ellos: 'niech nie wracają' },
         },
       },
       en: {
@@ -2437,6 +2842,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will return', tu: 'you will return', el: 'he/she will return', nosotros: 'we will return', vosotros: 'you (all) will return', ellos: 'they will return' },
           ir_a_infinitivo: { yo: 'I am going to return', tu: 'you are going to return', el: 'he/she is going to return', nosotros: 'we are going to return', vosotros: 'you (all) are going to return', ellos: 'they are going to return' },
           acabar_de_infinitivo: { yo: 'I just returned', tu: 'you just returned', el: 'he/she just returned', nosotros: 'we just returned', vosotros: 'you (all) just returned', ellos: 'they just returned' },
+          imperativo_afirmativo: { yo: '—', tu: 'return!', el: 'return!', nosotros: 'let\'s return!', vosotros: 'return!', ellos: 'return!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t return!', el: 'don\'t return!', nosotros: 'let\'s not return!', vosotros: 'don\'t return!', ellos: 'don\'t return!' },
         },
       },
       de: {
@@ -2447,6 +2854,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde zurückkommen', tu: 'du wirst zurückkommen', el: 'er/sie/es wird zurückkommen', nosotros: 'wir werden zurückkommen', vosotros: 'ihr werdet zurückkommen', ellos: 'sie werden zurückkommen' },
           ir_a_infinitivo: { yo: 'ich werde gleich zurückkehren', tu: 'du wirst gleich zurückkehren', el: 'er/sie/es wird gleich zurückkehren', nosotros: 'wir werden gleich zurückkehren', vosotros: 'ihr werdet gleich zurückkehren', ellos: 'sie werden gleich zurückkehren' },
           acabar_de_infinitivo: { yo: 'ich kam zurück gerade eben', tu: 'du kamst zurück gerade eben', el: 'er/sie/es kam zurück gerade eben', nosotros: 'wir kamen zurück gerade eben', vosotros: 'ihr kamt zurück gerade eben', ellos: 'sie kamen zurück gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'komm zurück!', el: 'Kommen Sie zurück!', nosotros: 'Kommen wir zurück!', vosotros: 'kommt zurück!', ellos: 'Kommen Sie zurück!' },
+          imperativo_negativo: { yo: '—', tu: 'komm zurück nicht!', el: 'Kommen Sie zurück nicht!', nosotros: 'Kommen wir zurück nicht!', vosotros: 'kommt zurück nicht!', ellos: 'Kommen Sie zurück nicht!' },
         },
       },
     },
@@ -2461,6 +2870,7 @@ export const VERBS: Verb[] = [
       { id: 'volver-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Wróciliśmy do domu.', en: 'We returned home.', de: 'Wir kamen nach Hause zurück.' }, spanish: 'volvimos a casa' },
       { id: 'volver-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Wrócili do domu.', en: 'They returned home.', de: 'Sie kamen nach Hause zurück.' }, spanish: 'volvieron a casa' },
       { id: 'volver-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Wrócicie do domu.', en: 'You (all) will return home.', de: 'Ihr werdet nach Hause zurückkommen.' }, spanish: 'volveréis a casa' },
+      { id: 'volver-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wróć szybko', en: 'come back soon', de: 'komm bald zurück' }, spanish: 'vuelve pronto' },
     ],
   },
   {
@@ -2468,12 +2878,15 @@ export const VERBS: Verb[] = [
     infinitive: 'empezar',
     regular: false,
     participle: 'empezado',
+    gerund: 'empezando',
     conjugations: {
       presente: { yo: 'empiezo', tu: 'empiezas', el: 'empieza', nosotros: 'empezamos', vosotros: 'empezáis', ellos: 'empiezan' },
       preterite: { yo: 'empecé', tu: 'empezaste', el: 'empezó', nosotros: 'empezamos', vosotros: 'empezasteis', ellos: 'empezaron' },
       futuro: { yo: 'empezaré', tu: 'empezarás', el: 'empezará', nosotros: 'empezaremos', vosotros: 'empezaréis', ellos: 'empezarán' },
       ir_a_infinitivo: { yo: 'voy a empezar', tu: 'vas a empezar', el: 'va a empezar', nosotros: 'vamos a empezar', vosotros: 'vais a empezar', ellos: 'van a empezar' },
       acabar_de_infinitivo: { yo: 'acabo de empezar', tu: 'acabas de empezar', el: 'acaba de empezar', nosotros: 'acabamos de empezar', vosotros: 'acabáis de empezar', ellos: 'acaban de empezar' },
+      imperativo_afirmativo: { yo: '—', tu: 'empieza', el: 'empiece', nosotros: 'empecemos', vosotros: 'empezad', ellos: 'empiecen' },
+      imperativo_negativo: { yo: '—', tu: 'no empieces', el: 'no empiece', nosotros: 'no empecemos', vosotros: 'no empecéis', ellos: 'no empiecen' },
     },
     translations: {
       pl: {
@@ -2484,6 +2897,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zacznę', tu: 'zaczniesz', el: 'zacznie', nosotros: 'zaczniemy', vosotros: 'zaczniecie', ellos: 'zaczną' },
           ir_a_infinitivo: { yo: 'zamierzam zaczynać', tu: 'zamierzasz zaczynać', el: 'zamierza zaczynać', nosotros: 'zamierzamy zaczynać', vosotros: 'zamierzacie zaczynać', ellos: 'zamierzają zaczynać' },
           acabar_de_infinitivo: { yo: 'właśnie zacząłem', tu: 'właśnie zacząłeś', el: 'właśnie zaczął', nosotros: 'właśnie zaczęliśmy', vosotros: 'właśnie zaczęliście', ellos: 'właśnie zaczęli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zacznij', el: 'niech zaczyna', nosotros: 'zacznijmy', vosotros: 'zacznijcie', ellos: 'niech zaczynają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zacznij', el: 'niech nie zaczyna', nosotros: 'nie zacznijmy', vosotros: 'nie zacznijcie', ellos: 'niech nie zaczynają' },
         },
       },
       en: {
@@ -2494,6 +2909,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will start', tu: 'you will start', el: 'he/she will start', nosotros: 'we will start', vosotros: 'you (all) will start', ellos: 'they will start' },
           ir_a_infinitivo: { yo: 'I am going to start', tu: 'you are going to start', el: 'he/she is going to start', nosotros: 'we are going to start', vosotros: 'you (all) are going to start', ellos: 'they are going to start' },
           acabar_de_infinitivo: { yo: 'I just started', tu: 'you just started', el: 'he/she just started', nosotros: 'we just started', vosotros: 'you (all) just started', ellos: 'they just started' },
+          imperativo_afirmativo: { yo: '—', tu: 'start!', el: 'start!', nosotros: 'let\'s start!', vosotros: 'start!', ellos: 'start!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t start!', el: 'don\'t start!', nosotros: 'let\'s not start!', vosotros: 'don\'t start!', ellos: 'don\'t start!' },
         },
       },
       de: {
@@ -2504,6 +2921,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde anfangen', tu: 'du wirst anfangen', el: 'er/sie/es wird anfangen', nosotros: 'wir werden anfangen', vosotros: 'ihr werdet anfangen', ellos: 'sie werden anfangen' },
           ir_a_infinitivo: { yo: 'ich werde gleich anfangen', tu: 'du wirst gleich anfangen', el: 'er/sie/es wird gleich anfangen', nosotros: 'wir werden gleich anfangen', vosotros: 'ihr werdet gleich anfangen', ellos: 'sie werden gleich anfangen' },
           acabar_de_infinitivo: { yo: 'ich fing an gerade eben', tu: 'du fingst an gerade eben', el: 'er/sie/es fing an gerade eben', nosotros: 'wir fingen an gerade eben', vosotros: 'ihr fingt an gerade eben', ellos: 'sie fingen an gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'fang an!', el: 'Fangen Sie an!', nosotros: 'Fangen wir an!', vosotros: 'fangt an!', ellos: 'Fangen Sie an!' },
+          imperativo_negativo: { yo: '—', tu: 'fang an nicht!', el: 'Fangen Sie an nicht!', nosotros: 'Fangen wir an nicht!', vosotros: 'fangt an nicht!', ellos: 'Fangen Sie an nicht!' },
         },
       },
     },
@@ -2518,6 +2937,7 @@ export const VERBS: Verb[] = [
       { id: 'empezar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zaczęliśmy pracę.', en: 'We started the job.', de: 'Wir fingen die Arbeit an.' }, spanish: 'empezamos el trabajo' },
       { id: 'empezar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zaczęli pracę.', en: 'They started the job.', de: 'Sie fingen die Arbeit an.' }, spanish: 'empezaron el trabajo' },
       { id: 'empezar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Zaczniecie pracę.', en: 'You (all) will start the job.', de: 'Ihr werdet die Arbeit anfangen.' }, spanish: 'empezaréis el trabajo' },
+      { id: 'empezar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zacznij teraz', en: 'start now', de: 'fang jetzt an' }, spanish: 'empieza ahora' },
     ],
   },
   {
@@ -2525,6 +2945,7 @@ export const VERBS: Verb[] = [
     infinitive: 'terminar',
     regular: true,
     participle: 'terminado',
+    gerund: 'terminando',
     conjugations: conjugateRegular('terminar'),
     translations: {
       pl: {
@@ -2535,6 +2956,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'skończę', tu: 'skończysz', el: 'skończy', nosotros: 'skończymy', vosotros: 'skończycie', ellos: 'skończą' },
           ir_a_infinitivo: { yo: 'zamierzam kończyć', tu: 'zamierzasz kończyć', el: 'zamierza kończyć', nosotros: 'zamierzamy kończyć', vosotros: 'zamierzacie kończyć', ellos: 'zamierzają kończyć' },
           acabar_de_infinitivo: { yo: 'właśnie skończyłem', tu: 'właśnie skończyłeś', el: 'właśnie skończył', nosotros: 'właśnie skończyliśmy', vosotros: 'właśnie skończyliście', ellos: 'właśnie skończyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'skończ', el: 'niech kończy', nosotros: 'skończmy', vosotros: 'skończcie', ellos: 'niech kończą' },
+          imperativo_negativo: { yo: '—', tu: 'nie skończ', el: 'niech nie kończy', nosotros: 'nie skończmy', vosotros: 'nie skończcie', ellos: 'niech nie kończą' },
         },
       },
       en: {
@@ -2545,6 +2968,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will finish', tu: 'you will finish', el: 'he/she will finish', nosotros: 'we will finish', vosotros: 'you (all) will finish', ellos: 'they will finish' },
           ir_a_infinitivo: { yo: 'I am going to finish', tu: 'you are going to finish', el: 'he/she is going to finish', nosotros: 'we are going to finish', vosotros: 'you (all) are going to finish', ellos: 'they are going to finish' },
           acabar_de_infinitivo: { yo: 'I just finished', tu: 'you just finished', el: 'he/she just finished', nosotros: 'we just finished', vosotros: 'you (all) just finished', ellos: 'they just finished' },
+          imperativo_afirmativo: { yo: '—', tu: 'finish!', el: 'finish!', nosotros: 'let\'s finish!', vosotros: 'finish!', ellos: 'finish!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t finish!', el: 'don\'t finish!', nosotros: 'let\'s not finish!', vosotros: 'don\'t finish!', ellos: 'don\'t finish!' },
         },
       },
       de: {
@@ -2555,6 +2980,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde beenden', tu: 'du wirst beenden', el: 'er/sie/es wird beenden', nosotros: 'wir werden beenden', vosotros: 'ihr werdet beenden', ellos: 'sie werden beenden' },
           ir_a_infinitivo: { yo: 'ich werde gleich beenden', tu: 'du wirst gleich beenden', el: 'er/sie/es wird gleich beenden', nosotros: 'wir werden gleich beenden', vosotros: 'ihr werdet gleich beenden', ellos: 'sie werden gleich beenden' },
           acabar_de_infinitivo: { yo: 'ich beendete gerade eben', tu: 'du beendetest gerade eben', el: 'er/sie/es beendete gerade eben', nosotros: 'wir beendeten gerade eben', vosotros: 'ihr beendetet gerade eben', ellos: 'sie beendeten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'beende!', el: 'Beenden Sie!', nosotros: 'Beenden wir!', vosotros: 'beendet!', ellos: 'Beenden Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'beende nicht!', el: 'Beenden Sie nicht!', nosotros: 'Beenden wir nicht!', vosotros: 'beendet nicht!', ellos: 'Beenden Sie nicht!' },
         },
       },
     },
@@ -2571,6 +2998,7 @@ export const VERBS: Verb[] = [
       { id: 'terminar-futuro-vosotros', tense: 'futuro', person: 'vosotros', pronounType: 'none', translations: { pl: 'Skończycie pracę.', en: 'You (all) will finish the job.', de: 'Ihr werdet die Arbeit beenden.' }, spanish: 'terminaréis el trabajo' },
       { id: 'terminar-ir_a_infinitivo-ellos', tense: 'ir_a_infinitivo', person: 'ellos', pronounType: 'none', translations: { pl: 'Zamierzają skończyć pracę.', en: 'They are going to finish the work.', de: 'Sie werden die Arbeit gleich beenden.' }, spanish: 'van a terminar el trabajo' },
       { id: 'terminar-acabar_de_infinitivo-tu', tense: 'acabar_de_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Właśnie skończyłeś pracę.', en: 'You just finished the work.', de: 'Du hast gerade die Arbeit beendet.' }, spanish: 'acabas de terminar el trabajo' },
+      { id: 'terminar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'skończ zadanie', en: 'finish the task', de: 'beende die Aufgabe' }, spanish: 'termina la tarea' },
     ],
   },
   {
@@ -2578,6 +3006,7 @@ export const VERBS: Verb[] = [
     infinitive: 'abrir',
     regular: true,
     participle: 'abierto',
+    gerund: 'abriendo',
     conjugations: conjugateRegular('abrir'),
     translations: {
       pl: {
@@ -2588,6 +3017,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'otworzę', tu: 'otworzysz', el: 'otworzy', nosotros: 'otworzymy', vosotros: 'otworzycie', ellos: 'otworzą' },
           ir_a_infinitivo: { yo: 'zamierzam otwierać', tu: 'zamierzasz otwierać', el: 'zamierza otwierać', nosotros: 'zamierzamy otwierać', vosotros: 'zamierzacie otwierać', ellos: 'zamierzają otwierać' },
           acabar_de_infinitivo: { yo: 'właśnie otworzyłem', tu: 'właśnie otworzyłeś', el: 'właśnie otworzył', nosotros: 'właśnie otworzyliśmy', vosotros: 'właśnie otworzyliście', ellos: 'właśnie otworzyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'otwórz', el: 'niech otwiera', nosotros: 'otwórzmy', vosotros: 'otwórzcie', ellos: 'niech otwierają' },
+          imperativo_negativo: { yo: '—', tu: 'nie otwórz', el: 'niech nie otwiera', nosotros: 'nie otwórzmy', vosotros: 'nie otwórzcie', ellos: 'niech nie otwierają' },
         },
       },
       en: {
@@ -2598,6 +3029,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will open', tu: 'you will open', el: 'he/she will open', nosotros: 'we will open', vosotros: 'you (all) will open', ellos: 'they will open' },
           ir_a_infinitivo: { yo: 'I am going to open', tu: 'you are going to open', el: 'he/she is going to open', nosotros: 'we are going to open', vosotros: 'you (all) are going to open', ellos: 'they are going to open' },
           acabar_de_infinitivo: { yo: 'I just opened', tu: 'you just opened', el: 'he/she just opened', nosotros: 'we just opened', vosotros: 'you (all) just opened', ellos: 'they just opened' },
+          imperativo_afirmativo: { yo: '—', tu: 'open!', el: 'open!', nosotros: 'let\'s open!', vosotros: 'open!', ellos: 'open!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t open!', el: 'don\'t open!', nosotros: 'let\'s not open!', vosotros: 'don\'t open!', ellos: 'don\'t open!' },
         },
       },
       de: {
@@ -2608,6 +3041,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde öffnen', tu: 'du wirst öffnen', el: 'er/sie/es wird öffnen', nosotros: 'wir werden öffnen', vosotros: 'ihr werdet öffnen', ellos: 'sie werden öffnen' },
           ir_a_infinitivo: { yo: 'ich werde gleich öffnen', tu: 'du wirst gleich öffnen', el: 'er/sie/es wird gleich öffnen', nosotros: 'wir werden gleich öffnen', vosotros: 'ihr werdet gleich öffnen', ellos: 'sie werden gleich öffnen' },
           acabar_de_infinitivo: { yo: 'ich öffnete gerade eben', tu: 'du öffnetest gerade eben', el: 'er/sie/es öffnete gerade eben', nosotros: 'wir öffneten gerade eben', vosotros: 'ihr öffnetet gerade eben', ellos: 'sie öffneten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'öffne!', el: 'Öffnen Sie!', nosotros: 'Öffnen wir!', vosotros: 'öffnet!', ellos: 'Öffnen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'öffne nicht!', el: 'Öffnen Sie nicht!', nosotros: 'Öffnen wir nicht!', vosotros: 'öffnet nicht!', ellos: 'Öffnen Sie nicht!' },
         },
       },
     },
@@ -2623,6 +3058,7 @@ export const VERBS: Verb[] = [
       { id: 'abrir-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Otworzyliśmy ich.', en: 'We opened them.', de: 'Wir öffneten sie.' }, spanish: 'los abrimos' },
       { id: 'abrir-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Otworzą je.', en: 'They will open them.', de: 'Sie werden sie öffnen.' }, spanish: 'las abrirán' },
       { id: 'abrir-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie otworzyłem drzwi.', en: 'I just opened the door.', de: 'Ich habe gerade die Tür geöffnet.' }, spanish: 'acabo de abrir la puerta' },
+      { id: 'abrir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'otwórz okno', en: 'open the window', de: 'öffne das Fenster' }, spanish: 'abre la ventana' },
     ],
   },
   {
@@ -2630,12 +3066,15 @@ export const VERBS: Verb[] = [
     infinitive: 'cerrar',
     regular: false,
     participle: 'cerrado',
+    gerund: 'cerrando',
     conjugations: {
       presente: { yo: 'cierro', tu: 'cierras', el: 'cierra', nosotros: 'cerramos', vosotros: 'cerráis', ellos: 'cierran' },
       preterite: { yo: 'cerré', tu: 'cerraste', el: 'cerró', nosotros: 'cerramos', vosotros: 'cerrasteis', ellos: 'cerraron' },
       futuro: { yo: 'cerraré', tu: 'cerrarás', el: 'cerrará', nosotros: 'cerraremos', vosotros: 'cerraréis', ellos: 'cerrarán' },
       ir_a_infinitivo: { yo: 'voy a cerrar', tu: 'vas a cerrar', el: 'va a cerrar', nosotros: 'vamos a cerrar', vosotros: 'vais a cerrar', ellos: 'van a cerrar' },
       acabar_de_infinitivo: { yo: 'acabo de cerrar', tu: 'acabas de cerrar', el: 'acaba de cerrar', nosotros: 'acabamos de cerrar', vosotros: 'acabáis de cerrar', ellos: 'acaban de cerrar' },
+      imperativo_afirmativo: { yo: '—', tu: 'cierra', el: 'cierre', nosotros: 'cerremos', vosotros: 'cerrad', ellos: 'cierren' },
+      imperativo_negativo: { yo: '—', tu: 'no cierres', el: 'no cierre', nosotros: 'no cerremos', vosotros: 'no cerréis', ellos: 'no cierren' },
     },
     translations: {
       pl: {
@@ -2646,6 +3085,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zamknę', tu: 'zamkniesz', el: 'zamknie', nosotros: 'zamkniemy', vosotros: 'zamkniecie', ellos: 'zamkną' },
           ir_a_infinitivo: { yo: 'zamierzam zamykać', tu: 'zamierzasz zamykać', el: 'zamierza zamykać', nosotros: 'zamierzamy zamykać', vosotros: 'zamierzacie zamykać', ellos: 'zamierzają zamykać' },
           acabar_de_infinitivo: { yo: 'właśnie zamknąłem', tu: 'właśnie zamknąłeś', el: 'właśnie zamknął', nosotros: 'właśnie zamknęliśmy', vosotros: 'właśnie zamknęliście', ellos: 'właśnie zamknęli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zamknij', el: 'niech zamyka', nosotros: 'zamknijmy', vosotros: 'zamknijcie', ellos: 'niech zamykają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zamknij', el: 'niech nie zamyka', nosotros: 'nie zamknijmy', vosotros: 'nie zamknijcie', ellos: 'niech nie zamykają' },
         },
       },
       en: {
@@ -2656,6 +3097,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will close', tu: 'you will close', el: 'he/she will close', nosotros: 'we will close', vosotros: 'you (all) will close', ellos: 'they will close' },
           ir_a_infinitivo: { yo: 'I am going to close', tu: 'you are going to close', el: 'he/she is going to close', nosotros: 'we are going to close', vosotros: 'you (all) are going to close', ellos: 'they are going to close' },
           acabar_de_infinitivo: { yo: 'I just closed', tu: 'you just closed', el: 'he/she just closed', nosotros: 'we just closed', vosotros: 'you (all) just closed', ellos: 'they just closed' },
+          imperativo_afirmativo: { yo: '—', tu: 'close!', el: 'close!', nosotros: 'let\'s close!', vosotros: 'close!', ellos: 'close!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t close!', el: 'don\'t close!', nosotros: 'let\'s not close!', vosotros: 'don\'t close!', ellos: 'don\'t close!' },
         },
       },
       de: {
@@ -2666,6 +3109,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde schließen', tu: 'du wirst schließen', el: 'er/sie/es wird schließen', nosotros: 'wir werden schließen', vosotros: 'ihr werdet schließen', ellos: 'sie werden schließen' },
           ir_a_infinitivo: { yo: 'ich werde gleich schließen', tu: 'du wirst gleich schließen', el: 'er/sie/es wird gleich schließen', nosotros: 'wir werden gleich schließen', vosotros: 'ihr werdet gleich schließen', ellos: 'sie werden gleich schließen' },
           acabar_de_infinitivo: { yo: 'ich schloss gerade eben', tu: 'du schlossest gerade eben', el: 'er/sie/es schloss gerade eben', nosotros: 'wir schlossen gerade eben', vosotros: 'ihr schlosst gerade eben', ellos: 'sie schlossen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'schließ!', el: 'Schließen Sie!', nosotros: 'Schließen wir!', vosotros: 'schließt!', ellos: 'Schließen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'schließ nicht!', el: 'Schließen Sie nicht!', nosotros: 'Schließen wir nicht!', vosotros: 'schließt nicht!', ellos: 'Schließen Sie nicht!' },
         },
       },
     },
@@ -2680,6 +3125,7 @@ export const VERBS: Verb[] = [
       { id: 'cerrar-preterite-las-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zamknął je.', en: 'He closed them.', de: 'Er schloss sie.' }, spanish: 'las cerró' },
       { id: 'cerrar-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Zamknęliśmy ich.', en: 'We closed them.', de: 'Wir schlossen sie.' }, spanish: 'los cerramos' },
       { id: 'cerrar-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zamkną je.', en: 'They will close them.', de: 'Sie werden sie schließen.' }, spanish: 'las cerrarán' },
+      { id: 'cerrar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zamknij drzwi', en: 'close the door', de: 'schließ die Tür' }, spanish: 'cierra la puerta' },
     ],
   },
   {
@@ -2687,6 +3133,7 @@ export const VERBS: Verb[] = [
     infinitive: 'tomar',
     regular: true,
     participle: 'tomado',
+    gerund: 'tomando',
     conjugations: conjugateRegular('tomar'),
     translations: {
       pl: {
@@ -2697,6 +3144,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wezmę', tu: 'weźmiesz', el: 'weźmie', nosotros: 'weźmiemy', vosotros: 'weźmiecie', ellos: 'wezmą' },
           ir_a_infinitivo: { yo: 'zamierzam brać', tu: 'zamierzasz brać', el: 'zamierza brać', nosotros: 'zamierzamy brać', vosotros: 'zamierzacie brać', ellos: 'zamierzają brać' },
           acabar_de_infinitivo: { yo: 'właśnie wziąłem', tu: 'właśnie wziąłeś', el: 'właśnie wziął', nosotros: 'właśnie wzięliśmy', vosotros: 'właśnie wzięliście', ellos: 'właśnie wzięli' },
+          imperativo_afirmativo: { yo: '—', tu: 'weź', el: 'niech bierze', nosotros: 'weźmy', vosotros: 'weźcie', ellos: 'niech biorą' },
+          imperativo_negativo: { yo: '—', tu: 'nie weź', el: 'niech nie bierze', nosotros: 'nie weźmy', vosotros: 'nie weźcie', ellos: 'niech nie biorą' },
         },
       },
       en: {
@@ -2707,6 +3156,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will take', tu: 'you will take', el: 'he/she will take', nosotros: 'we will take', vosotros: 'you (all) will take', ellos: 'they will take' },
           ir_a_infinitivo: { yo: 'I am going to take', tu: 'you are going to take', el: 'he/she is going to take', nosotros: 'we are going to take', vosotros: 'you (all) are going to take', ellos: 'they are going to take' },
           acabar_de_infinitivo: { yo: 'I just took', tu: 'you just took', el: 'he/she just took', nosotros: 'we just took', vosotros: 'you (all) just took', ellos: 'they just took' },
+          imperativo_afirmativo: { yo: '—', tu: 'take!', el: 'take!', nosotros: 'let\'s take!', vosotros: 'take!', ellos: 'take!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t take!', el: 'don\'t take!', nosotros: 'let\'s not take!', vosotros: 'don\'t take!', ellos: 'don\'t take!' },
         },
       },
       de: {
@@ -2717,6 +3168,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde nehmen', tu: 'du wirst nehmen', el: 'er/sie/es wird nehmen', nosotros: 'wir werden nehmen', vosotros: 'ihr werdet nehmen', ellos: 'sie werden nehmen' },
           ir_a_infinitivo: { yo: 'ich werde gleich nehmen', tu: 'du wirst gleich nehmen', el: 'er/sie/es wird gleich nehmen', nosotros: 'wir werden gleich nehmen', vosotros: 'ihr werdet gleich nehmen', ellos: 'sie werden gleich nehmen' },
           acabar_de_infinitivo: { yo: 'ich nahm gerade eben', tu: 'du nahmst gerade eben', el: 'er/sie/es nahm gerade eben', nosotros: 'wir nahmen gerade eben', vosotros: 'ihr nahmt gerade eben', ellos: 'sie nahmen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'nimm!', el: 'Nehmen Sie!', nosotros: 'Nehmen wir!', vosotros: 'nehmt!', ellos: 'Nehmen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'nimm nicht!', el: 'Nehmen Sie nicht!', nosotros: 'Nehmen wir nicht!', vosotros: 'nehmt nicht!', ellos: 'Nehmen Sie nicht!' },
         },
       },
     },
@@ -2731,6 +3184,7 @@ export const VERBS: Verb[] = [
       { id: 'tomar-preterite-las-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Wziął je.', en: 'He took them.', de: 'Er nahm sie.' }, spanish: 'las tomó' },
       { id: 'tomar-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Wzięliśmy ich.', en: 'We took them.', de: 'Wir nahmen sie.' }, spanish: 'los tomamos' },
       { id: 'tomar-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Wezmą je.', en: 'They will take them.', de: 'Sie werden sie nehmen.' }, spanish: 'las tomarán' },
+      { id: 'tomar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'weź parasol', en: 'take the umbrella', de: 'nimm den Regenschirm' }, spanish: 'toma el paraguas' },
     ],
   },
   {
@@ -2738,12 +3192,15 @@ export const VERBS: Verb[] = [
     infinitive: 'conseguir',
     regular: false,
     participle: 'conseguido',
+    gerund: 'consiguiendo',
     conjugations: {
       presente: { yo: 'consigo', tu: 'consigues', el: 'consigue', nosotros: 'conseguimos', vosotros: 'conseguís', ellos: 'consiguen' },
       preterite: { yo: 'conseguí', tu: 'conseguiste', el: 'consiguió', nosotros: 'conseguimos', vosotros: 'conseguisteis', ellos: 'consiguieron' },
       futuro: { yo: 'conseguiré', tu: 'conseguirás', el: 'conseguirá', nosotros: 'conseguiremos', vosotros: 'conseguiréis', ellos: 'conseguirán' },
       ir_a_infinitivo: { yo: 'voy a conseguir', tu: 'vas a conseguir', el: 'va a conseguir', nosotros: 'vamos a conseguir', vosotros: 'vais a conseguir', ellos: 'van a conseguir' },
       acabar_de_infinitivo: { yo: 'acabo de conseguir', tu: 'acabas de conseguir', el: 'acaba de conseguir', nosotros: 'acabamos de conseguir', vosotros: 'acabáis de conseguir', ellos: 'acaban de conseguir' },
+      imperativo_afirmativo: { yo: '—', tu: 'consigue', el: 'consiga', nosotros: 'consigamos', vosotros: 'conseguid', ellos: 'consigan' },
+      imperativo_negativo: { yo: '—', tu: 'no consigas', el: 'no consiga', nosotros: 'no consigamos', vosotros: 'no consigáis', ellos: 'no consigan' },
     },
     translations: {
       pl: {
@@ -2754,6 +3211,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zdobędę', tu: 'zdobędziesz', el: 'zdobędzie', nosotros: 'zdobędziemy', vosotros: 'zdobędziecie', ellos: 'zdobędą' },
           ir_a_infinitivo: { yo: 'zamierzam zdobywać', tu: 'zamierzasz zdobywać', el: 'zamierza zdobywać', nosotros: 'zamierzamy zdobywać', vosotros: 'zamierzacie zdobywać', ellos: 'zamierzają zdobywać' },
           acabar_de_infinitivo: { yo: 'właśnie zdobyłem', tu: 'właśnie zdobyłeś', el: 'właśnie zdobył', nosotros: 'właśnie zdobyliśmy', vosotros: 'właśnie zdobyliście', ellos: 'właśnie zdobyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zdobądź', el: 'niech zdobywa', nosotros: 'zdobądźmy', vosotros: 'zdobądźcie', ellos: 'niech zdobywają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zdobądź', el: 'niech nie zdobywa', nosotros: 'nie zdobądźmy', vosotros: 'nie zdobądźcie', ellos: 'niech nie zdobywają' },
         },
       },
       en: {
@@ -2764,6 +3223,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will get', tu: 'you will get', el: 'he/she will get', nosotros: 'we will get', vosotros: 'you (all) will get', ellos: 'they will get' },
           ir_a_infinitivo: { yo: 'I am going to get', tu: 'you are going to get', el: 'he/she is going to get', nosotros: 'we are going to get', vosotros: 'you (all) are going to get', ellos: 'they are going to get' },
           acabar_de_infinitivo: { yo: 'I just got', tu: 'you just got', el: 'he/she just got', nosotros: 'we just got', vosotros: 'you (all) just got', ellos: 'they just got' },
+          imperativo_afirmativo: { yo: '—', tu: 'get!', el: 'get!', nosotros: 'let\'s get!', vosotros: 'get!', ellos: 'get!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t get!', el: 'don\'t get!', nosotros: 'let\'s not get!', vosotros: 'don\'t get!', ellos: 'don\'t get!' },
         },
       },
       de: {
@@ -2774,6 +3235,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde bekommen', tu: 'du wirst bekommen', el: 'er/sie/es wird bekommen', nosotros: 'wir werden bekommen', vosotros: 'ihr werdet bekommen', ellos: 'sie werden bekommen' },
           ir_a_infinitivo: { yo: 'ich werde gleich bekommen', tu: 'du wirst gleich bekommen', el: 'er/sie/es wird gleich bekommen', nosotros: 'wir werden gleich bekommen', vosotros: 'ihr werdet gleich bekommen', ellos: 'sie werden gleich bekommen' },
           acabar_de_infinitivo: { yo: 'ich bekam gerade eben', tu: 'du bekamst gerade eben', el: 'er/sie/es bekam gerade eben', nosotros: 'wir bekamen gerade eben', vosotros: 'ihr bekamt gerade eben', ellos: 'sie bekamen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'bekomm!', el: 'Bekommen Sie!', nosotros: 'Bekommen wir!', vosotros: 'bekommt!', ellos: 'Bekommen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bekomm nicht!', el: 'Bekommen Sie nicht!', nosotros: 'Bekommen wir nicht!', vosotros: 'bekommt nicht!', ellos: 'Bekommen Sie nicht!' },
         },
       },
     },
@@ -2788,6 +3251,7 @@ export const VERBS: Verb[] = [
       { id: 'conseguir-preterite-las-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zdobył je.', en: 'He got them.', de: 'Er bekam sie.' }, spanish: 'las consiguió' },
       { id: 'conseguir-preterite-los-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Zdobyliśmy ich.', en: 'We got them.', de: 'Wir bekamen sie.' }, spanish: 'los conseguimos' },
       { id: 'conseguir-futuro-las-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Zdobędą je.', en: 'They will get them.', de: 'Sie werden sie bekommen.' }, spanish: 'las conseguirán' },
+      { id: 'conseguir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zdobądź tę pracę', en: 'get the job', de: 'bekomm den Job' }, spanish: 'consigue el trabajo' },
     ],
   },
   {
@@ -2795,12 +3259,15 @@ export const VERBS: Verb[] = [
     infinitive: 'seguir',
     regular: false,
     participle: 'seguido',
+    gerund: 'siguiendo',
     conjugations: {
       presente: { yo: 'sigo', tu: 'sigues', el: 'sigue', nosotros: 'seguimos', vosotros: 'seguís', ellos: 'siguen' },
       preterite: { yo: 'seguí', tu: 'seguiste', el: 'siguió', nosotros: 'seguimos', vosotros: 'seguisteis', ellos: 'siguieron' },
       futuro: { yo: 'seguiré', tu: 'seguirás', el: 'seguirá', nosotros: 'seguiremos', vosotros: 'seguiréis', ellos: 'seguirán' },
       ir_a_infinitivo: { yo: 'voy a seguir', tu: 'vas a seguir', el: 'va a seguir', nosotros: 'vamos a seguir', vosotros: 'vais a seguir', ellos: 'van a seguir' },
       acabar_de_infinitivo: { yo: 'acabo de seguir', tu: 'acabas de seguir', el: 'acaba de seguir', nosotros: 'acabamos de seguir', vosotros: 'acabáis de seguir', ellos: 'acaban de seguir' },
+      imperativo_afirmativo: { yo: '—', tu: 'sigue', el: 'siga', nosotros: 'sigamos', vosotros: 'seguid', ellos: 'sigan' },
+      imperativo_negativo: { yo: '—', tu: 'no sigas', el: 'no siga', nosotros: 'no sigamos', vosotros: 'no sigáis', ellos: 'no sigan' },
     },
     translations: {
       pl: {
@@ -2811,6 +3278,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'podążę', tu: 'podążysz', el: 'podąży', nosotros: 'podążymy', vosotros: 'podążycie', ellos: 'podążą' },
           ir_a_infinitivo: { yo: 'zamierzam podążać', tu: 'zamierzasz podążać', el: 'zamierza podążać', nosotros: 'zamierzamy podążać', vosotros: 'zamierzacie podążać', ellos: 'zamierzają podążać' },
           acabar_de_infinitivo: { yo: 'właśnie podążyłem', tu: 'właśnie podążyłeś', el: 'właśnie podążył', nosotros: 'właśnie podążyliśmy', vosotros: 'właśnie podążyliście', ellos: 'właśnie podążyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'kontynuuj', el: 'niech podąża', nosotros: 'kontynuujmy', vosotros: 'kontynuujcie', ellos: 'niech podążają' },
+          imperativo_negativo: { yo: '—', tu: 'nie kontynuuj', el: 'niech nie podąża', nosotros: 'nie kontynuujmy', vosotros: 'nie kontynuujcie', ellos: 'niech nie podążają' },
         },
       },
       en: {
@@ -2821,6 +3290,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will follow', tu: 'you will follow', el: 'he/she will follow', nosotros: 'we will follow', vosotros: 'you (all) will follow', ellos: 'they will follow' },
           ir_a_infinitivo: { yo: 'I am going to follow', tu: 'you are going to follow', el: 'he/she is going to follow', nosotros: 'we are going to follow', vosotros: 'you (all) are going to follow', ellos: 'they are going to follow' },
           acabar_de_infinitivo: { yo: 'I just followed', tu: 'you just followed', el: 'he/she just followed', nosotros: 'we just followed', vosotros: 'you (all) just followed', ellos: 'they just followed' },
+          imperativo_afirmativo: { yo: '—', tu: 'follow!', el: 'follow!', nosotros: 'let\'s follow!', vosotros: 'follow!', ellos: 'follow!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t follow!', el: 'don\'t follow!', nosotros: 'let\'s not follow!', vosotros: 'don\'t follow!', ellos: 'don\'t follow!' },
         },
       },
       de: {
@@ -2831,6 +3302,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde folgen', tu: 'du wirst folgen', el: 'er/sie/es wird folgen', nosotros: 'wir werden folgen', vosotros: 'ihr werdet folgen', ellos: 'sie werden folgen' },
           ir_a_infinitivo: { yo: 'ich werde gleich folgen', tu: 'du wirst gleich folgen', el: 'er/sie/es wird gleich folgen', nosotros: 'wir werden gleich folgen', vosotros: 'ihr werdet gleich folgen', ellos: 'sie werden gleich folgen' },
           acabar_de_infinitivo: { yo: 'ich folgte gerade eben', tu: 'du folgtest gerade eben', el: 'er/sie/es folgte gerade eben', nosotros: 'wir folgten gerade eben', vosotros: 'ihr folgtet gerade eben', ellos: 'sie folgten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'folg!', el: 'Folgen Sie!', nosotros: 'Folgen wir!', vosotros: 'folgt!', ellos: 'Folgen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'folg nicht!', el: 'Folgen Sie nicht!', nosotros: 'Folgen wir nicht!', vosotros: 'folgt nicht!', ellos: 'Folgen Sie nicht!' },
         },
       },
     },
@@ -2845,6 +3318,7 @@ export const VERBS: Verb[] = [
       { id: 'seguir-preterite-los-el', tense: 'preterite', person: 'el', pronounType: 'direct', pronoun: 'los', translations: { pl: 'Podążył za nimi.', en: 'He followed them.', de: 'Er folgte ihnen.' }, spanish: 'los siguió' },
       { id: 'seguir-preterite-las-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'direct', pronoun: 'las', translations: { pl: 'Podążyliśmy za nimi.', en: 'We followed them.', de: 'Wir folgten ihnen.' }, spanish: 'las seguimos' },
       { id: 'seguir-futuro-os-ellos', tense: 'futuro', person: 'ellos', pronounType: 'direct', pronoun: 'os', translations: { pl: 'Będą podążać za wami.', en: 'They will follow you (all).', de: 'Sie werden euch folgen.' }, spanish: 'os seguirán' },
+      { id: 'seguir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'kontynuuj według instrukcji', en: 'follow the instructions', de: 'folg den Anweisungen' }, spanish: 'sigue las instrucciones' },
     ],
   },
   {
@@ -2852,6 +3326,7 @@ export const VERBS: Verb[] = [
     infinitive: 'arreglar',
     regular: true,
     participle: 'arreglado',
+    gerund: 'arreglando',
     conjugations: conjugateRegular('arreglar'),
     translations: {
       pl: {
@@ -2862,6 +3337,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę naprawiał', tu: 'będziesz naprawiał', el: 'będzie naprawiał', nosotros: 'będziemy naprawiali', vosotros: 'będziecie naprawiali', ellos: 'będą naprawiali' },
           ir_a_infinitivo: { yo: 'zamierzam naprawiać', tu: 'zamierzasz naprawiać', el: 'zamierza naprawiać', nosotros: 'zamierzamy naprawiać', vosotros: 'zamierzacie naprawiać', ellos: 'zamierzają naprawiać' },
           acabar_de_infinitivo: { yo: 'właśnie naprawiłem', tu: 'właśnie naprawiłeś', el: 'właśnie naprawił', nosotros: 'właśnie naprawiliśmy', vosotros: 'właśnie naprawiliście', ellos: 'właśnie naprawili' },
+          imperativo_afirmativo: { yo: '—', tu: 'napraw', el: 'niech naprawia', nosotros: 'naprawmy', vosotros: 'naprawcie', ellos: 'niech naprawiają' },
+          imperativo_negativo: { yo: '—', tu: 'nie napraw', el: 'niech nie naprawia', nosotros: 'nie naprawmy', vosotros: 'nie naprawcie', ellos: 'niech nie naprawiają' },
         },
       },
       en: {
@@ -2872,6 +3349,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will fix', tu: 'you will fix', el: 'he/she will fix', nosotros: 'we will fix', vosotros: 'you (all) will fix', ellos: 'they will fix' },
           ir_a_infinitivo: { yo: 'I am going to fix', tu: 'you are going to fix', el: 'he/she is going to fix', nosotros: 'we are going to fix', vosotros: 'you (all) are going to fix', ellos: 'they are going to fix' },
           acabar_de_infinitivo: { yo: 'I just fixed', tu: 'you just fixed', el: 'he/she just fixed', nosotros: 'we just fixed', vosotros: 'you (all) just fixed', ellos: 'they just fixed' },
+          imperativo_afirmativo: { yo: '—', tu: 'fix!', el: 'fix!', nosotros: 'let\'s fix!', vosotros: 'fix!', ellos: 'fix!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t fix!', el: 'don\'t fix!', nosotros: 'let\'s not fix!', vosotros: 'don\'t fix!', ellos: 'don\'t fix!' },
         },
       },
       de: {
@@ -2882,6 +3361,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde reparieren', tu: 'du wirst reparieren', el: 'er/sie/es wird reparieren', nosotros: 'wir werden reparieren', vosotros: 'ihr werdet reparieren', ellos: 'sie werden reparieren' },
           ir_a_infinitivo: { yo: 'ich werde gleich reparieren', tu: 'du wirst gleich reparieren', el: 'er/sie/es wird gleich reparieren', nosotros: 'wir werden gleich reparieren', vosotros: 'ihr werdet gleich reparieren', ellos: 'sie werden gleich reparieren' },
           acabar_de_infinitivo: { yo: 'ich reparierte gerade eben', tu: 'du repariertest gerade eben', el: 'er/sie/es reparierte gerade eben', nosotros: 'wir reparierten gerade eben', vosotros: 'ihr repariertet gerade eben', ellos: 'sie reparierten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'reparier!', el: 'Reparieren Sie!', nosotros: 'Reparieren wir!', vosotros: 'repariert!', ellos: 'Reparieren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'reparier nicht!', el: 'Reparieren Sie nicht!', nosotros: 'Reparieren wir nicht!', vosotros: 'repariert nicht!', ellos: 'Reparieren Sie nicht!' },
         },
       },
     },
@@ -2897,6 +3378,7 @@ export const VERBS: Verb[] = [
       { id: 'arreglar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Naprawiam go.', en: 'I fix it.', de: 'Ich repariere es.' }, spanish: 'lo arreglo' },
       { id: 'arreglar-ir_a_infinitivo-lo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zamierzasz to naprawić.', en: 'You are going to fix it.', de: 'Du wirst es gleich reparieren.' }, spanish: 'lo vas a arreglar', alternativeAnswers: ['vas a arreglarlo'] },
       { id: 'arreglar-acabar_de_infinitivo-lo-tu', tense: 'acabar_de_infinitivo', person: 'tu', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Właśnie to naprawiłeś.', en: 'You just fixed it.', de: 'Du hast es gerade repariert.' }, spanish: 'lo acabas de arreglar', alternativeAnswers: ['acabas de arreglarlo'] },
+      { id: 'arreglar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'napraw rower', en: 'fix the bike', de: 'repariere das Fahrrad' }, spanish: 'arregla la bicicleta' },
     ],
   },
   {
@@ -2904,12 +3386,15 @@ export const VERBS: Verb[] = [
     infinitive: 'servir',
     regular: false,
     participle: 'servido',
+    gerund: 'sirviendo',
     conjugations: {
       presente: { yo: 'sirvo', tu: 'sirves', el: 'sirve', nosotros: 'servimos', vosotros: 'servís', ellos: 'sirven' },
       preterite: { yo: 'serví', tu: 'serviste', el: 'sirvió', nosotros: 'servimos', vosotros: 'servisteis', ellos: 'sirvieron' },
       futuro: { yo: 'serviré', tu: 'servirás', el: 'servirá', nosotros: 'serviremos', vosotros: 'serviréis', ellos: 'servirán' },
       ir_a_infinitivo: { yo: 'voy a servir', tu: 'vas a servir', el: 'va a servir', nosotros: 'vamos a servir', vosotros: 'vais a servir', ellos: 'van a servir' },
       acabar_de_infinitivo: { yo: 'acabo de servir', tu: 'acabas de servir', el: 'acaba de servir', nosotros: 'acabamos de servir', vosotros: 'acabáis de servir', ellos: 'acaban de servir' },
+      imperativo_afirmativo: { yo: '—', tu: 'sirve', el: 'sirva', nosotros: 'sirvamos', vosotros: 'servid', ellos: 'sirvan' },
+      imperativo_negativo: { yo: '—', tu: 'no sirvas', el: 'no sirva', nosotros: 'no sirvamos', vosotros: 'no sirváis', ellos: 'no sirvan' },
     },
     translations: {
       pl: {
@@ -2920,6 +3405,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę podawał', tu: 'będziesz podawał', el: 'będzie podawał', nosotros: 'będziemy podawali', vosotros: 'będziecie podawali', ellos: 'będą podawali' },
           ir_a_infinitivo: { yo: 'zamierzam podawać', tu: 'zamierzasz podawać', el: 'zamierza podawać', nosotros: 'zamierzamy podawać', vosotros: 'zamierzacie podawać', ellos: 'zamierzają podawać' },
           acabar_de_infinitivo: { yo: 'właśnie podawałem', tu: 'właśnie podawałeś', el: 'właśnie podawał', nosotros: 'właśnie podawaliśmy', vosotros: 'właśnie podawaliście', ellos: 'właśnie podawali' },
+          imperativo_afirmativo: { yo: '—', tu: 'podaj', el: 'niech podaje', nosotros: 'podajmy', vosotros: 'podajcie', ellos: 'niech podają' },
+          imperativo_negativo: { yo: '—', tu: 'nie podaj', el: 'niech nie podaje', nosotros: 'nie podajmy', vosotros: 'nie podajcie', ellos: 'niech nie podają' },
         },
       },
       en: {
@@ -2930,6 +3417,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will serve', tu: 'you will serve', el: 'he/she will serve', nosotros: 'we will serve', vosotros: 'you (all) will serve', ellos: 'they will serve' },
           ir_a_infinitivo: { yo: 'I am going to serve', tu: 'you are going to serve', el: 'he/she is going to serve', nosotros: 'we are going to serve', vosotros: 'you (all) are going to serve', ellos: 'they are going to serve' },
           acabar_de_infinitivo: { yo: 'I just served', tu: 'you just served', el: 'he/she just served', nosotros: 'we just served', vosotros: 'you (all) just served', ellos: 'they just served' },
+          imperativo_afirmativo: { yo: '—', tu: 'serve!', el: 'serve!', nosotros: 'let\'s serve!', vosotros: 'serve!', ellos: 'serve!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t serve!', el: 'don\'t serve!', nosotros: 'let\'s not serve!', vosotros: 'don\'t serve!', ellos: 'don\'t serve!' },
         },
       },
       de: {
@@ -2940,6 +3429,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde servieren', tu: 'du wirst servieren', el: 'er/sie/es wird servieren', nosotros: 'wir werden servieren', vosotros: 'ihr werdet servieren', ellos: 'sie werden servieren' },
           ir_a_infinitivo: { yo: 'ich werde gleich servieren', tu: 'du wirst gleich servieren', el: 'er/sie/es wird gleich servieren', nosotros: 'wir werden gleich servieren', vosotros: 'ihr werdet gleich servieren', ellos: 'sie werden gleich servieren' },
           acabar_de_infinitivo: { yo: 'ich servierte gerade eben', tu: 'du serviertest gerade eben', el: 'er/sie/es servierte gerade eben', nosotros: 'wir servierten gerade eben', vosotros: 'ihr serviertet gerade eben', ellos: 'sie servierten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'servier!', el: 'Servieren Sie!', nosotros: 'Servieren wir!', vosotros: 'serviert!', ellos: 'Servieren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'servier nicht!', el: 'Servieren Sie nicht!', nosotros: 'Servieren wir nicht!', vosotros: 'serviert nicht!', ellos: 'Servieren Sie nicht!' },
         },
       },
     },
@@ -2955,6 +3446,7 @@ export const VERBS: Verb[] = [
       { id: 'servir-presente-le', tense: 'presente', person: 'yo', pronounType: 'indirect', pronoun: 'le', translations: { pl: 'Podaję mu kawę.', en: 'I serve him coffee.', de: 'Ich serviere ihm Kaffee.' }, spanish: 'le sirvo el café' },
       { id: 'servir-ir_a_infinitivo-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Zamierzam podać obiad.', en: 'I am going to serve lunch.', de: 'Ich werde gleich das Mittagessen servieren.' }, spanish: 'voy a servir el almuerzo' },
       { id: 'servir-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie podałem obiad.', en: 'I just served lunch.', de: 'Ich habe gerade das Mittagessen serviert.' }, spanish: 'acabo de servir el almuerzo' },
+      { id: 'servir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'podaj kolację', en: 'serve dinner', de: 'servier das Abendessen' }, spanish: 'sirve la cena' },
     ],
   },
   {
@@ -2962,12 +3454,15 @@ export const VERBS: Verb[] = [
     infinitive: 'pedir',
     regular: false,
     participle: 'pedido',
+    gerund: 'pidiendo',
     conjugations: {
       presente: { yo: 'pido', tu: 'pides', el: 'pide', nosotros: 'pedimos', vosotros: 'pedís', ellos: 'piden' },
       preterite: { yo: 'pedí', tu: 'pediste', el: 'pidió', nosotros: 'pedimos', vosotros: 'pedisteis', ellos: 'pidieron' },
       futuro: { yo: 'pediré', tu: 'pedirás', el: 'pedirá', nosotros: 'pediremos', vosotros: 'pediréis', ellos: 'pedirán' },
       ir_a_infinitivo: { yo: 'voy a pedir', tu: 'vas a pedir', el: 'va a pedir', nosotros: 'vamos a pedir', vosotros: 'vais a pedir', ellos: 'van a pedir' },
       acabar_de_infinitivo: { yo: 'acabo de pedir', tu: 'acabas de pedir', el: 'acaba de pedir', nosotros: 'acabamos de pedir', vosotros: 'acabáis de pedir', ellos: 'acaban de pedir' },
+      imperativo_afirmativo: { yo: '—', tu: 'pide', el: 'pida', nosotros: 'pidamos', vosotros: 'pedid', ellos: 'pidan' },
+      imperativo_negativo: { yo: '—', tu: 'no pidas', el: 'no pida', nosotros: 'no pidamos', vosotros: 'no pidáis', ellos: 'no pidan' },
     },
     translations: {
       pl: {
@@ -2978,6 +3473,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'poproszę', tu: 'poprosisz', el: 'poprosi', nosotros: 'poprosimy', vosotros: 'poprosicie', ellos: 'poproszą' },
           ir_a_infinitivo: { yo: 'zamierzam prosić', tu: 'zamierzasz prosić', el: 'zamierza prosić', nosotros: 'zamierzamy prosić', vosotros: 'zamierzacie prosić', ellos: 'zamierzają prosić' },
           acabar_de_infinitivo: { yo: 'właśnie poprosiłem', tu: 'właśnie poprosiłeś', el: 'właśnie poprosił', nosotros: 'właśnie poprosiliśmy', vosotros: 'właśnie poprosiliście', ellos: 'właśnie poprosili' },
+          imperativo_afirmativo: { yo: '—', tu: 'poproś', el: 'niech prosi', nosotros: 'poprośmy', vosotros: 'poproście', ellos: 'niech proszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie poproś', el: 'niech nie prosi', nosotros: 'nie poprośmy', vosotros: 'nie poproście', ellos: 'niech nie proszą' },
         },
       },
       en: {
@@ -2988,6 +3485,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will ask for', tu: 'you will ask for', el: 'he/she will ask for', nosotros: 'we will ask for', vosotros: 'you (all) will ask for', ellos: 'they will ask for' },
           ir_a_infinitivo: { yo: 'I am going to ask for', tu: 'you are going to ask for', el: 'he/she is going to ask for', nosotros: 'we are going to ask for', vosotros: 'you (all) are going to ask for', ellos: 'they are going to ask for' },
           acabar_de_infinitivo: { yo: 'I just asked for', tu: 'you just asked for', el: 'he/she just asked for', nosotros: 'we just asked for', vosotros: 'you (all) just asked for', ellos: 'they just asked for' },
+          imperativo_afirmativo: { yo: '—', tu: 'ask for!', el: 'ask for!', nosotros: 'let\'s ask for!', vosotros: 'ask for!', ellos: 'ask for!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t ask for!', el: 'don\'t ask for!', nosotros: 'let\'s not ask for!', vosotros: 'don\'t ask for!', ellos: 'don\'t ask for!' },
         },
       },
       de: {
@@ -2998,6 +3497,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde bitten', tu: 'du wirst bitten', el: 'er/sie/es wird bitten', nosotros: 'wir werden bitten', vosotros: 'ihr werdet bitten', ellos: 'sie werden bitten' },
           ir_a_infinitivo: { yo: 'ich werde gleich bitten', tu: 'du wirst gleich bitten', el: 'er/sie/es wird gleich bitten', nosotros: 'wir werden gleich bitten', vosotros: 'ihr werdet gleich bitten', ellos: 'sie werden gleich bitten' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gebeten', tu: 'du hast gerade gebeten', el: 'er/sie/es hat gerade gebeten', nosotros: 'wir haben gerade gebeten', vosotros: 'ihr habt gerade gebeten', ellos: 'sie haben gerade gebeten' },
+          imperativo_afirmativo: { yo: '—', tu: 'bitte!', el: 'Bitten Sie!', nosotros: 'Bitten wir!', vosotros: 'bittet!', ellos: 'Bitten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bitte nicht!', el: 'Bitten Sie nicht!', nosotros: 'Bitten wir nicht!', vosotros: 'bittet nicht!', ellos: 'Bitten Sie nicht!' },
         },
       },
     },
@@ -3013,6 +3514,7 @@ export const VERBS: Verb[] = [
       { id: 'pedir-presente-le', tense: 'presente', person: 'yo', pronounType: 'indirect', pronoun: 'le', translations: { pl: 'Proszę go o pomoc.', en: 'I ask him for help.', de: 'Ich bitte ihn um Hilfe.' }, spanish: 'le pido ayuda' },
       { id: 'pedir-ir_a_infinitivo-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Zamierzam poprosić o kawę.', en: 'I am going to ask for a coffee.', de: 'Ich werde gleich um einen Kaffee bitten.' }, spanish: 'voy a pedir un café' },
       { id: 'pedir-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie poprosiłem o kawę.', en: 'I just asked for a coffee.', de: 'Ich habe gerade um einen Kaffee gebeten.' }, spanish: 'acabo de pedir un café' },
+      { id: 'pedir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'poproś o pomoc', en: 'ask for help', de: 'bitte um Hilfe' }, spanish: 'pide ayuda' },
     ],
   },
   {
@@ -3020,12 +3522,15 @@ export const VERBS: Verb[] = [
     infinitive: 'probar',
     regular: false,
     participle: 'probado',
+    gerund: 'probando',
     conjugations: {
       presente: { yo: 'pruebo', tu: 'pruebas', el: 'prueba', nosotros: 'probamos', vosotros: 'probáis', ellos: 'prueban' },
       preterite: { yo: 'probé', tu: 'probaste', el: 'probó', nosotros: 'probamos', vosotros: 'probasteis', ellos: 'probaron' },
       futuro: { yo: 'probaré', tu: 'probarás', el: 'probará', nosotros: 'probaremos', vosotros: 'probaréis', ellos: 'probarán' },
       ir_a_infinitivo: { yo: 'voy a probar', tu: 'vas a probar', el: 'va a probar', nosotros: 'vamos a probar', vosotros: 'vais a probar', ellos: 'van a probar' },
       acabar_de_infinitivo: { yo: 'acabo de probar', tu: 'acabas de probar', el: 'acaba de probar', nosotros: 'acabamos de probar', vosotros: 'acabáis de probar', ellos: 'acaban de probar' },
+      imperativo_afirmativo: { yo: '—', tu: 'prueba', el: 'pruebe', nosotros: 'probemos', vosotros: 'probad', ellos: 'prueben' },
+      imperativo_negativo: { yo: '—', tu: 'no pruebes', el: 'no pruebe', nosotros: 'no probemos', vosotros: 'no probéis', ellos: 'no prueben' },
     },
     translations: {
       pl: {
@@ -3036,6 +3541,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę próbował', tu: 'będziesz próbował', el: 'będzie próbował', nosotros: 'będziemy próbowali', vosotros: 'będziecie próbowali', ellos: 'będą próbowali' },
           ir_a_infinitivo: { yo: 'zamierzam próbować', tu: 'zamierzasz próbować', el: 'zamierza próbować', nosotros: 'zamierzamy próbować', vosotros: 'zamierzacie próbować', ellos: 'zamierzają próbować' },
           acabar_de_infinitivo: { yo: 'właśnie próbowałem', tu: 'właśnie próbowałeś', el: 'właśnie próbował', nosotros: 'właśnie próbowaliśmy', vosotros: 'właśnie próbowaliście', ellos: 'właśnie próbowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'spróbuj', el: 'niech próbuje', nosotros: 'spróbujmy', vosotros: 'spróbujcie', ellos: 'niech próbują' },
+          imperativo_negativo: { yo: '—', tu: 'nie spróbuj', el: 'niech nie próbuje', nosotros: 'nie spróbujmy', vosotros: 'nie spróbujcie', ellos: 'niech nie próbują' },
         },
       },
       en: {
@@ -3046,6 +3553,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will try', tu: 'you will try', el: 'he/she will try', nosotros: 'we will try', vosotros: 'you (all) will try', ellos: 'they will try' },
           ir_a_infinitivo: { yo: 'I am going to try', tu: 'you are going to try', el: 'he/she is going to try', nosotros: 'we are going to try', vosotros: 'you (all) are going to try', ellos: 'they are going to try' },
           acabar_de_infinitivo: { yo: 'I just tried', tu: 'you just tried', el: 'he/she just tried', nosotros: 'we just tried', vosotros: 'you (all) just tried', ellos: 'they just tried' },
+          imperativo_afirmativo: { yo: '—', tu: 'try!', el: 'try!', nosotros: 'let\'s try!', vosotros: 'try!', ellos: 'try!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t try!', el: 'don\'t try!', nosotros: 'let\'s not try!', vosotros: 'don\'t try!', ellos: 'don\'t try!' },
         },
       },
       de: {
@@ -3056,6 +3565,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde probieren', tu: 'du wirst probieren', el: 'er/sie/es wird probieren', nosotros: 'wir werden probieren', vosotros: 'ihr werdet probieren', ellos: 'sie werden probieren' },
           ir_a_infinitivo: { yo: 'ich werde gleich probieren', tu: 'du wirst gleich probieren', el: 'er/sie/es wird gleich probieren', nosotros: 'wir werden gleich probieren', vosotros: 'ihr werdet gleich probieren', ellos: 'sie werden gleich probieren' },
           acabar_de_infinitivo: { yo: 'ich probierte gerade eben', tu: 'du probiertest gerade eben', el: 'er/sie/es probierte gerade eben', nosotros: 'wir probierten gerade eben', vosotros: 'ihr probiertet gerade eben', ellos: 'sie probierten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'probier!', el: 'Probieren Sie!', nosotros: 'Probieren wir!', vosotros: 'probiert!', ellos: 'Probieren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'probier nicht!', el: 'Probieren Sie nicht!', nosotros: 'Probieren wir nicht!', vosotros: 'probiert nicht!', ellos: 'Probieren Sie nicht!' },
         },
       },
     },
@@ -3071,6 +3582,7 @@ export const VERBS: Verb[] = [
       { id: 'probar-presente-la', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'la', translations: { pl: 'Próbuję jej.', en: 'I try it.', de: 'Ich probiere sie.' }, spanish: 'la pruebo' },
       { id: 'probar-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zamierzamy spróbować zupy.', en: 'We are going to try the soup.', de: 'Wir werden gleich die Suppe probieren.' }, spanish: 'vamos a probar la sopa' },
       { id: 'probar-acabar_de_infinitivo-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Właśnie spróbował zupy.', en: 'He just tried the soup.', de: 'Er hat gerade die Suppe probiert.' }, spanish: 'acaba de probar la sopa' },
+      { id: 'probar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'spróbuj zupy', en: 'try the soup', de: 'probier die Suppe' }, spanish: 'prueba la sopa' },
     ],
   },
   {
@@ -3078,6 +3590,7 @@ export const VERBS: Verb[] = [
     infinitive: 'intentar',
     regular: true,
     participle: 'intentado',
+    gerund: 'intentando',
     conjugations: conjugateRegular('intentar'),
     translations: {
       pl: {
@@ -3088,6 +3601,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę usiłował', tu: 'będziesz usiłował', el: 'będzie usiłował', nosotros: 'będziemy usiłowali', vosotros: 'będziecie usiłowali', ellos: 'będą usiłowali' },
           ir_a_infinitivo: { yo: 'zamierzam usiłować', tu: 'zamierzasz usiłować', el: 'zamierza usiłować', nosotros: 'zamierzamy usiłować', vosotros: 'zamierzacie usiłować', ellos: 'zamierzają usiłować' },
           acabar_de_infinitivo: { yo: 'właśnie usiłowałem', tu: 'właśnie usiłowałeś', el: 'właśnie usiłował', nosotros: 'właśnie usiłowaliśmy', vosotros: 'właśnie usiłowaliście', ellos: 'właśnie usiłowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'spróbuj', el: 'niech usiłuje', nosotros: 'spróbujmy', vosotros: 'spróbujcie', ellos: 'niech usiłują' },
+          imperativo_negativo: { yo: '—', tu: 'nie spróbuj', el: 'niech nie usiłuje', nosotros: 'nie spróbujmy', vosotros: 'nie spróbujcie', ellos: 'niech nie usiłują' },
         },
       },
       en: {
@@ -3098,6 +3613,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will try', tu: 'you will try', el: 'he/she will try', nosotros: 'we will try', vosotros: 'you (all) will try', ellos: 'they will try' },
           ir_a_infinitivo: { yo: 'I am going to try', tu: 'you are going to try', el: 'he/she is going to try', nosotros: 'we are going to try', vosotros: 'you (all) are going to try', ellos: 'they are going to try' },
           acabar_de_infinitivo: { yo: 'I just tried', tu: 'you just tried', el: 'he/she just tried', nosotros: 'we just tried', vosotros: 'you (all) just tried', ellos: 'they just tried' },
+          imperativo_afirmativo: { yo: '—', tu: 'try!', el: 'try!', nosotros: 'let\'s try!', vosotros: 'try!', ellos: 'try!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t try!', el: 'don\'t try!', nosotros: 'let\'s not try!', vosotros: 'don\'t try!', ellos: 'don\'t try!' },
         },
       },
       de: {
@@ -3108,6 +3625,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde versuchen', tu: 'du wirst versuchen', el: 'er/sie/es wird versuchen', nosotros: 'wir werden versuchen', vosotros: 'ihr werdet versuchen', ellos: 'sie werden versuchen' },
           ir_a_infinitivo: { yo: 'ich werde gleich versuchen', tu: 'du wirst gleich versuchen', el: 'er/sie/es wird gleich versuchen', nosotros: 'wir werden gleich versuchen', vosotros: 'ihr werdet gleich versuchen', ellos: 'sie werden gleich versuchen' },
           acabar_de_infinitivo: { yo: 'ich versuchte gerade eben', tu: 'du versuchtest gerade eben', el: 'er/sie/es versuchte gerade eben', nosotros: 'wir versuchten gerade eben', vosotros: 'ihr versuchtet gerade eben', ellos: 'sie versuchten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'versuch!', el: 'Versuchen Sie!', nosotros: 'Versuchen wir!', vosotros: 'versucht!', ellos: 'Versuchen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'versuch nicht!', el: 'Versuchen Sie nicht!', nosotros: 'Versuchen wir nicht!', vosotros: 'versucht nicht!', ellos: 'Versuchen Sie nicht!' },
         },
       },
     },
@@ -3122,6 +3641,7 @@ export const VERBS: Verb[] = [
       { id: 'intentar-futuro-tu', tense: 'futuro', person: 'tu', pronounType: 'none', translations: { pl: 'Będziesz próbował otworzyć drzwi.', en: 'You will try to open the door.', de: 'Du wirst versuchen, die Tür zu öffnen.' }, spanish: 'intentarás abrir la puerta' },
       { id: 'intentar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Próbuję tego.', en: 'I try it.', de: 'Ich versuche es.' }, spanish: 'lo intento' },
       { id: 'intentar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamierzasz spróbować otworzyć drzwi.', en: 'You are going to try to open the door.', de: 'Du wirst gleich versuchen, die Tür zu öffnen.' }, spanish: 'vas a intentar abrir la puerta' },
+      { id: 'intentar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'spróbuj jeszcze raz', en: 'try it again', de: 'versuch es noch einmal' }, spanish: 'inténtalo otra vez' },
     ],
   },
   {
@@ -3129,6 +3649,7 @@ export const VERBS: Verb[] = [
     infinitive: 'viajar',
     regular: true,
     participle: 'viajado',
+    gerund: 'viajando',
     conjugations: conjugateRegular('viajar'),
     translations: {
       pl: {
@@ -3139,6 +3660,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę podróżował', tu: 'będziesz podróżował', el: 'będzie podróżował', nosotros: 'będziemy podróżowali', vosotros: 'będziecie podróżowali', ellos: 'będą podróżowali' },
           ir_a_infinitivo: { yo: 'zamierzam podróżować', tu: 'zamierzasz podróżować', el: 'zamierza podróżować', nosotros: 'zamierzamy podróżować', vosotros: 'zamierzacie podróżować', ellos: 'zamierzają podróżować' },
           acabar_de_infinitivo: { yo: 'właśnie podróżowałem', tu: 'właśnie podróżowałeś', el: 'właśnie podróżował', nosotros: 'właśnie podróżowaliśmy', vosotros: 'właśnie podróżowaliście', ellos: 'właśnie podróżowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'podróżuj', el: 'niech podróżuje', nosotros: 'podróżujmy', vosotros: 'podróżujcie', ellos: 'niech podróżują' },
+          imperativo_negativo: { yo: '—', tu: 'nie podróżuj', el: 'niech nie podróżuje', nosotros: 'nie podróżujmy', vosotros: 'nie podróżujcie', ellos: 'niech nie podróżują' },
         },
       },
       en: {
@@ -3149,6 +3672,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will travel', tu: 'you will travel', el: 'he/she will travel', nosotros: 'we will travel', vosotros: 'you (all) will travel', ellos: 'they will travel' },
           ir_a_infinitivo: { yo: 'I am going to travel', tu: 'you are going to travel', el: 'he/she is going to travel', nosotros: 'we are going to travel', vosotros: 'you (all) are going to travel', ellos: 'they are going to travel' },
           acabar_de_infinitivo: { yo: 'I just traveled', tu: 'you just traveled', el: 'he/she just traveled', nosotros: 'we just traveled', vosotros: 'you (all) just traveled', ellos: 'they just traveled' },
+          imperativo_afirmativo: { yo: '—', tu: 'travel!', el: 'travel!', nosotros: 'let\'s travel!', vosotros: 'travel!', ellos: 'travel!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t travel!', el: 'don\'t travel!', nosotros: 'let\'s not travel!', vosotros: 'don\'t travel!', ellos: 'don\'t travel!' },
         },
       },
       de: {
@@ -3159,6 +3684,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde reisen', tu: 'du wirst reisen', el: 'er/sie/es wird reisen', nosotros: 'wir werden reisen', vosotros: 'ihr werdet reisen', ellos: 'sie werden reisen' },
           ir_a_infinitivo: { yo: 'ich werde gleich reisen', tu: 'du wirst gleich reisen', el: 'er/sie/es wird gleich reisen', nosotros: 'wir werden gleich reisen', vosotros: 'ihr werdet gleich reisen', ellos: 'sie werden gleich reisen' },
           acabar_de_infinitivo: { yo: 'ich reiste gerade eben', tu: 'du reistest gerade eben', el: 'er/sie/es reiste gerade eben', nosotros: 'wir reisten gerade eben', vosotros: 'ihr reistet gerade eben', ellos: 'sie reisten gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'reise!', el: 'Reisen Sie!', nosotros: 'Reisen wir!', vosotros: 'reist!', ellos: 'Reisen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'reise nicht!', el: 'Reisen Sie nicht!', nosotros: 'Reisen wir nicht!', vosotros: 'reist nicht!', ellos: 'Reisen Sie nicht!' },
         },
       },
     },
@@ -3174,6 +3701,7 @@ export const VERBS: Verb[] = [
       { id: 'viajar-presente-nosotros', tense: 'presente', person: 'nosotros', pronounType: 'none', translations: { pl: 'Podróżujemy do Hiszpanii.', en: 'We travel to Spain.', de: 'Wir reisen nach Spanien.' }, spanish: 'viajamos a España' },
       { id: 'viajar-ir_a_infinitivo-el', tense: 'ir_a_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Zamierza podróżować do Hiszpanii.', en: 'He is going to travel to Spain.', de: 'Er wird gleich nach Spanien reisen.' }, spanish: 'va a viajar a España' },
       { id: 'viajar-acabar_de_infinitivo-ellos', tense: 'acabar_de_infinitivo', person: 'ellos', pronounType: 'none', translations: { pl: 'Właśnie podróżowali do Hiszpanii.', en: 'They just traveled to Spain.', de: 'Sie sind gerade nach Spanien gereist.' }, spanish: 'acaban de viajar a España' },
+      { id: 'viajar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'podróżuj ostrożnie', en: 'travel safely', de: 'reise vorsichtig' }, spanish: 'viaja con cuidado' },
     ],
   },
   {
@@ -3181,6 +3709,7 @@ export const VERBS: Verb[] = [
     infinitive: 'soportar',
     regular: true,
     participle: 'soportado',
+    gerund: 'soportando',
     conjugations: conjugateRegular('soportar'),
     translations: {
       pl: {
@@ -3191,6 +3720,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę znosił', tu: 'będziesz znosił', el: 'będzie znosił', nosotros: 'będziemy znosili', vosotros: 'będziecie znosili', ellos: 'będą znosili' },
           ir_a_infinitivo: { yo: 'zamierzam znosić', tu: 'zamierzasz znosić', el: 'zamierza znosić', nosotros: 'zamierzamy znosić', vosotros: 'zamierzacie znosić', ellos: 'zamierzają znosić' },
           acabar_de_infinitivo: { yo: 'właśnie znosiłem', tu: 'właśnie znosiłeś', el: 'właśnie znosił', nosotros: 'właśnie znosiliśmy', vosotros: 'właśnie znosiliście', ellos: 'właśnie znosili' },
+          imperativo_afirmativo: { yo: '—', tu: 'wytrzymaj', el: 'niech znosi', nosotros: 'wytrzymajmy', vosotros: 'wytrzymajcie', ellos: 'niech znoszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie wytrzymaj', el: 'niech nie znosi', nosotros: 'nie wytrzymajmy', vosotros: 'nie wytrzymajcie', ellos: 'niech nie znoszą' },
         },
       },
       en: {
@@ -3201,6 +3732,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will bear', tu: 'you will bear', el: 'he/she will bear', nosotros: 'we will bear', vosotros: 'you (all) will bear', ellos: 'they will bear' },
           ir_a_infinitivo: { yo: 'I am going to bear', tu: 'you are going to bear', el: 'he/she is going to bear', nosotros: 'we are going to bear', vosotros: 'you (all) are going to bear', ellos: 'they are going to bear' },
           acabar_de_infinitivo: { yo: 'I just bore', tu: 'you just bore', el: 'he/she just bore', nosotros: 'we just bore', vosotros: 'you (all) just bore', ellos: 'they just bore' },
+          imperativo_afirmativo: { yo: '—', tu: 'bear!', el: 'bear!', nosotros: 'let\'s bear!', vosotros: 'bear!', ellos: 'bear!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t bear!', el: 'don\'t bear!', nosotros: 'let\'s not bear!', vosotros: 'don\'t bear!', ellos: 'don\'t bear!' },
         },
       },
       de: {
@@ -3211,6 +3744,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde ertragen', tu: 'du wirst ertragen', el: 'er/sie/es wird ertragen', nosotros: 'wir werden ertragen', vosotros: 'ihr werdet ertragen', ellos: 'sie werden ertragen' },
           ir_a_infinitivo: { yo: 'ich werde gleich ertragen', tu: 'du wirst gleich ertragen', el: 'er/sie/es wird gleich ertragen', nosotros: 'wir werden gleich ertragen', vosotros: 'ihr werdet gleich ertragen', ellos: 'sie werden gleich ertragen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade ertragen', tu: 'du hast gerade ertragen', el: 'er/sie/es hat gerade ertragen', nosotros: 'wir haben gerade ertragen', vosotros: 'ihr habt gerade ertragen', ellos: 'sie haben gerade ertragen' },
+          imperativo_afirmativo: { yo: '—', tu: 'ertrag!', el: 'Ertragen Sie!', nosotros: 'Ertragen wir!', vosotros: 'ertragt!', ellos: 'Ertragen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'ertrag nicht!', el: 'Ertragen Sie nicht!', nosotros: 'Ertragen wir nicht!', vosotros: 'ertragt nicht!', ellos: 'Ertragen Sie nicht!' },
         },
       },
     },
@@ -3224,6 +3759,7 @@ export const VERBS: Verb[] = [
       { id: 'soportar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Nie znoszę go.', en: 'I can’t stand him.', de: 'Ich ertrage ihn nicht.' }, spanish: 'no lo soporto' },
       { id: 'soportar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Nie zamierzasz tego znosić.', en: 'You are not going to stand this.', de: 'Du wirst das nicht ertragen.' }, spanish: 'no vas a soportar esto' },
       { id: 'soportar-acabar_de_infinitivo-ellos', tense: 'acabar_de_infinitivo', person: 'ellos', pronounType: 'none', translations: { pl: 'Właśnie przetrwali burzę.', en: 'They just endured a storm.', de: 'Sie haben gerade einen Sturm überstanden.' }, spanish: 'acaban de soportar una tormenta' },
+      { id: 'soportar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wytrzymaj ból', en: 'bear the pain', de: 'ertrag den Schmerz' }, spanish: 'soporta el dolor' },
     ],
   },
   {
@@ -3231,12 +3767,15 @@ export const VERBS: Verb[] = [
     infinitive: 'jugar',
     regular: false,
     participle: 'jugado',
+    gerund: 'jugando',
     conjugations: {
       presente: { yo: 'juego', tu: 'juegas', el: 'juega', nosotros: 'jugamos', vosotros: 'jugáis', ellos: 'juegan' },
       preterite: { yo: 'jugué', tu: 'jugaste', el: 'jugó', nosotros: 'jugamos', vosotros: 'jugasteis', ellos: 'jugaron' },
       futuro: { yo: 'jugaré', tu: 'jugarás', el: 'jugará', nosotros: 'jugaremos', vosotros: 'jugaréis', ellos: 'jugarán' },
       ir_a_infinitivo: { yo: 'voy a jugar', tu: 'vas a jugar', el: 'va a jugar', nosotros: 'vamos a jugar', vosotros: 'vais a jugar', ellos: 'van a jugar' },
       acabar_de_infinitivo: { yo: 'acabo de jugar', tu: 'acabas de jugar', el: 'acaba de jugar', nosotros: 'acabamos de jugar', vosotros: 'acabáis de jugar', ellos: 'acaban de jugar' },
+      imperativo_afirmativo: { yo: '—', tu: 'juega', el: 'juegue', nosotros: 'juguemos', vosotros: 'jugad', ellos: 'jueguen' },
+      imperativo_negativo: { yo: '—', tu: 'no juegues', el: 'no juegue', nosotros: 'no juguemos', vosotros: 'no juguéis', ellos: 'no jueguen' },
     },
     translations: {
       pl: {
@@ -3247,6 +3786,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę grał', tu: 'będziesz grał', el: 'będzie grał', nosotros: 'będziemy grali', vosotros: 'będziecie grali', ellos: 'będą grali' },
           ir_a_infinitivo: { yo: 'zamierzam grać', tu: 'zamierzasz grać', el: 'zamierza grać', nosotros: 'zamierzamy grać', vosotros: 'zamierzacie grać', ellos: 'zamierzają grać' },
           acabar_de_infinitivo: { yo: 'właśnie grałem', tu: 'właśnie grałeś', el: 'właśnie grał', nosotros: 'właśnie graliśmy', vosotros: 'właśnie graliście', ellos: 'właśnie grali' },
+          imperativo_afirmativo: { yo: '—', tu: 'graj', el: 'niech gra', nosotros: 'grajmy', vosotros: 'grajcie', ellos: 'niech grają' },
+          imperativo_negativo: { yo: '—', tu: 'nie graj', el: 'niech nie gra', nosotros: 'nie grajmy', vosotros: 'nie grajcie', ellos: 'niech nie grają' },
         },
       },
       en: {
@@ -3257,6 +3798,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will play', tu: 'you will play', el: 'he/she will play', nosotros: 'we will play', vosotros: 'you (all) will play', ellos: 'they will play' },
           ir_a_infinitivo: { yo: 'I am going to play', tu: 'you are going to play', el: 'he/she is going to play', nosotros: 'we are going to play', vosotros: 'you (all) are going to play', ellos: 'they are going to play' },
           acabar_de_infinitivo: { yo: 'I just played', tu: 'you just played', el: 'he/she just played', nosotros: 'we just played', vosotros: 'you (all) just played', ellos: 'they just played' },
+          imperativo_afirmativo: { yo: '—', tu: 'play!', el: 'play!', nosotros: 'let\'s play!', vosotros: 'play!', ellos: 'play!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t play!', el: 'don\'t play!', nosotros: 'let\'s not play!', vosotros: 'don\'t play!', ellos: 'don\'t play!' },
         },
       },
       de: {
@@ -3267,6 +3810,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde spielen', tu: 'du wirst spielen', el: 'er/sie/es wird spielen', nosotros: 'wir werden spielen', vosotros: 'ihr werdet spielen', ellos: 'sie werden spielen' },
           ir_a_infinitivo: { yo: 'ich werde gleich spielen', tu: 'du wirst gleich spielen', el: 'er/sie/es wird gleich spielen', nosotros: 'wir werden gleich spielen', vosotros: 'ihr werdet gleich spielen', ellos: 'sie werden gleich spielen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gespielt', tu: 'du hast gerade gespielt', el: 'er/sie/es hat gerade gespielt', nosotros: 'wir haben gerade gespielt', vosotros: 'ihr habt gerade gespielt', ellos: 'sie haben gerade gespielt' },
+          imperativo_afirmativo: { yo: '—', tu: 'spiel!', el: 'Spielen Sie!', nosotros: 'Spielen wir!', vosotros: 'spielt!', ellos: 'Spielen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'spiel nicht!', el: 'Spielen Sie nicht!', nosotros: 'Spielen wir nicht!', vosotros: 'spielt nicht!', ellos: 'Spielen Sie nicht!' },
         },
       },
     },
@@ -3281,6 +3826,7 @@ export const VERBS: Verb[] = [
       { id: 'jugar-presente-nosotros', tense: 'presente', person: 'nosotros', pronounType: 'none', translations: { pl: 'Gramy razem.', en: 'We play together.', de: 'Wir spielen zusammen.' }, spanish: 'jugamos juntos' },
       { id: 'jugar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamierzasz z nami zagrać.', en: 'You are going to play with us.', de: 'Du wirst gleich mit uns spielen.' }, spanish: 'vas a jugar con nosotros' },
       { id: 'jugar-acabar_de_infinitivo-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Właśnie rozegrał mecz.', en: 'He just played a match.', de: 'Er hat gerade ein Spiel gespielt.' }, spanish: 'acaba de jugar un partido' },
+      { id: 'jugar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'graj z nami', en: 'play with us', de: 'spiel mit uns' }, spanish: 'juega con nosotros' },
     ],
   },
   {
@@ -3288,6 +3834,7 @@ export const VERBS: Verb[] = [
     infinitive: 'comprar',
     regular: true,
     participle: 'comprado',
+    gerund: 'comprando',
     conjugations: conjugateRegular('comprar'),
     translations: {
       pl: {
@@ -3298,6 +3845,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'kupię', tu: 'kupisz', el: 'kupi', nosotros: 'kupimy', vosotros: 'kupicie', ellos: 'kupią' },
           ir_a_infinitivo: { yo: 'zamierzam kupić', tu: 'zamierzasz kupić', el: 'zamierza kupić', nosotros: 'zamierzamy kupić', vosotros: 'zamierzacie kupić', ellos: 'zamierzają kupić' },
           acabar_de_infinitivo: { yo: 'właśnie kupiłem', tu: 'właśnie kupiłeś', el: 'właśnie kupił', nosotros: 'właśnie kupiliśmy', vosotros: 'właśnie kupiliście', ellos: 'właśnie kupili' },
+          imperativo_afirmativo: { yo: '—', tu: 'kup', el: 'niech kupuje', nosotros: 'kupmy', vosotros: 'kupcie', ellos: 'niech kupują' },
+          imperativo_negativo: { yo: '—', tu: 'nie kup', el: 'niech nie kupuje', nosotros: 'nie kupmy', vosotros: 'nie kupcie', ellos: 'niech nie kupują' },
         },
       },
       en: {
@@ -3308,6 +3857,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will buy', tu: 'you will buy', el: 'he/she will buy', nosotros: 'we will buy', vosotros: 'you (all) will buy', ellos: 'they will buy' },
           ir_a_infinitivo: { yo: 'I am going to buy', tu: 'you are going to buy', el: 'he/she is going to buy', nosotros: 'we are going to buy', vosotros: 'you (all) are going to buy', ellos: 'they are going to buy' },
           acabar_de_infinitivo: { yo: 'I just bought', tu: 'you just bought', el: 'he/she just bought', nosotros: 'we just bought', vosotros: 'you (all) just bought', ellos: 'they just bought' },
+          imperativo_afirmativo: { yo: '—', tu: 'buy!', el: 'buy!', nosotros: 'let\'s buy!', vosotros: 'buy!', ellos: 'buy!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t buy!', el: 'don\'t buy!', nosotros: 'let\'s not buy!', vosotros: 'don\'t buy!', ellos: 'don\'t buy!' },
         },
       },
       de: {
@@ -3318,6 +3869,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde kaufen', tu: 'du wirst kaufen', el: 'er/sie/es wird kaufen', nosotros: 'wir werden kaufen', vosotros: 'ihr werdet kaufen', ellos: 'sie werden kaufen' },
           ir_a_infinitivo: { yo: 'ich werde gleich kaufen', tu: 'du wirst gleich kaufen', el: 'er/sie/es wird gleich kaufen', nosotros: 'wir werden gleich kaufen', vosotros: 'ihr werdet gleich kaufen', ellos: 'sie werden gleich kaufen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gekauft', tu: 'du hast gerade gekauft', el: 'er/sie/es hat gerade gekauft', nosotros: 'wir haben gerade gekauft', vosotros: 'ihr habt gerade gekauft', ellos: 'sie haben gerade gekauft' },
+          imperativo_afirmativo: { yo: '—', tu: 'kauf!', el: 'Kaufen Sie!', nosotros: 'Kaufen wir!', vosotros: 'kauft!', ellos: 'Kaufen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'kauf nicht!', el: 'Kaufen Sie nicht!', nosotros: 'Kaufen wir nicht!', vosotros: 'kauft nicht!', ellos: 'Kaufen Sie nicht!' },
         },
       },
     },
@@ -3331,6 +3884,7 @@ export const VERBS: Verb[] = [
       { id: 'comprar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Kupuję to.', en: 'I buy it.', de: 'Ich kaufe es.' }, spanish: 'lo compro' },
       { id: 'comprar-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zamierzamy kupić jedzenie.', en: 'We are going to buy food.', de: 'Wir werden gleich Essen kaufen.' }, spanish: 'vamos a comprar comida' },
       { id: 'comprar-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie kupiłem bilet.', en: 'I just bought the ticket.', de: 'Ich habe gerade das Ticket gekauft.' }, spanish: 'acabo de comprar el billete' },
+      { id: 'comprar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'kup chleb', en: 'buy bread', de: 'kauf Brot' }, spanish: 'compra pan' },
     ],
   },
   {
@@ -3338,12 +3892,15 @@ export const VERBS: Verb[] = [
     infinitive: 'pagar',
     regular: false,
     participle: 'pagado',
+    gerund: 'pagando',
     conjugations: {
       presente: { yo: 'pago', tu: 'pagas', el: 'paga', nosotros: 'pagamos', vosotros: 'pagáis', ellos: 'pagan' },
       preterite: { yo: 'pagué', tu: 'pagaste', el: 'pagó', nosotros: 'pagamos', vosotros: 'pagasteis', ellos: 'pagaron' },
       futuro: { yo: 'pagaré', tu: 'pagarás', el: 'pagará', nosotros: 'pagaremos', vosotros: 'pagaréis', ellos: 'pagarán' },
       ir_a_infinitivo: { yo: 'voy a pagar', tu: 'vas a pagar', el: 'va a pagar', nosotros: 'vamos a pagar', vosotros: 'vais a pagar', ellos: 'van a pagar' },
       acabar_de_infinitivo: { yo: 'acabo de pagar', tu: 'acabas de pagar', el: 'acaba de pagar', nosotros: 'acabamos de pagar', vosotros: 'acabáis de pagar', ellos: 'acaban de pagar' },
+      imperativo_afirmativo: { yo: '—', tu: 'paga', el: 'pague', nosotros: 'paguemos', vosotros: 'pagad', ellos: 'paguen' },
+      imperativo_negativo: { yo: '—', tu: 'no pagues', el: 'no pague', nosotros: 'no paguemos', vosotros: 'no paguéis', ellos: 'no paguen' },
     },
     translations: {
       pl: {
@@ -3354,6 +3911,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zapłacę', tu: 'zapłacisz', el: 'zapłaci', nosotros: 'zapłacimy', vosotros: 'zapłacicie', ellos: 'zapłacą' },
           ir_a_infinitivo: { yo: 'zamierzam zapłacić', tu: 'zamierzasz zapłacić', el: 'zamierza zapłacić', nosotros: 'zamierzamy zapłacić', vosotros: 'zamierzacie zapłacić', ellos: 'zamierzają zapłacić' },
           acabar_de_infinitivo: { yo: 'właśnie zapłaciłem', tu: 'właśnie zapłaciłeś', el: 'właśnie zapłacił', nosotros: 'właśnie zapłaciliśmy', vosotros: 'właśnie zapłaciliście', ellos: 'właśnie zapłacili' },
+          imperativo_afirmativo: { yo: '—', tu: 'zapłać', el: 'niech płaci', nosotros: 'zapłaćmy', vosotros: 'zapłaćcie', ellos: 'niech płacą' },
+          imperativo_negativo: { yo: '—', tu: 'nie zapłać', el: 'niech nie płaci', nosotros: 'nie zapłaćmy', vosotros: 'nie zapłaćcie', ellos: 'niech nie płacą' },
         },
       },
       en: {
@@ -3364,6 +3923,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will pay', tu: 'you will pay', el: 'he/she will pay', nosotros: 'we will pay', vosotros: 'you (all) will pay', ellos: 'they will pay' },
           ir_a_infinitivo: { yo: 'I am going to pay', tu: 'you are going to pay', el: 'he/she is going to pay', nosotros: 'we are going to pay', vosotros: 'you (all) are going to pay', ellos: 'they are going to pay' },
           acabar_de_infinitivo: { yo: 'I just paid', tu: 'you just paid', el: 'he/she just paid', nosotros: 'we just paid', vosotros: 'you (all) just paid', ellos: 'they just paid' },
+          imperativo_afirmativo: { yo: '—', tu: 'pay!', el: 'pay!', nosotros: 'let\'s pay!', vosotros: 'pay!', ellos: 'pay!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t pay!', el: 'don\'t pay!', nosotros: 'let\'s not pay!', vosotros: 'don\'t pay!', ellos: 'don\'t pay!' },
         },
       },
       de: {
@@ -3374,6 +3935,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde bezahlen', tu: 'du wirst bezahlen', el: 'er/sie/es wird bezahlen', nosotros: 'wir werden bezahlen', vosotros: 'ihr werdet bezahlen', ellos: 'sie werden bezahlen' },
           ir_a_infinitivo: { yo: 'ich werde gleich bezahlen', tu: 'du wirst gleich bezahlen', el: 'er/sie/es wird gleich bezahlen', nosotros: 'wir werden gleich bezahlen', vosotros: 'ihr werdet gleich bezahlen', ellos: 'sie werden gleich bezahlen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade bezahlt', tu: 'du hast gerade bezahlt', el: 'er/sie/es hat gerade bezahlt', nosotros: 'wir haben gerade bezahlt', vosotros: 'ihr habt gerade bezahlt', ellos: 'sie haben gerade bezahlt' },
+          imperativo_afirmativo: { yo: '—', tu: 'bezahl!', el: 'Bezahlen Sie!', nosotros: 'Bezahlen wir!', vosotros: 'bezahlt!', ellos: 'Bezahlen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bezahl nicht!', el: 'Bezahlen Sie nicht!', nosotros: 'Bezahlen wir nicht!', vosotros: 'bezahlt nicht!', ellos: 'Bezahlen Sie nicht!' },
         },
       },
     },
@@ -3387,6 +3950,7 @@ export const VERBS: Verb[] = [
       { id: 'pagar-presente-la', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'la', translations: { pl: 'Płacę ją.', en: 'I pay it.', de: 'Ich bezahle sie.' }, spanish: 'la pago' },
       { id: 'pagar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamierzasz zapłacić za kolację.', en: 'You are going to pay for dinner.', de: 'Du wirst gleich das Abendessen bezahlen.' }, spanish: 'vas a pagar la cena' },
       { id: 'pagar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zapłaciliśmy czynsz.', en: 'We just paid the rent.', de: 'Wir haben gerade die Miete bezahlt.' }, spanish: 'acabamos de pagar el alquiler' },
+      { id: 'pagar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zapłać rachunek', en: 'pay the bill', de: 'bezahl die Rechnung' }, spanish: 'paga la cuenta' },
     ],
   },
   {
@@ -3394,6 +3958,7 @@ export const VERBS: Verb[] = [
     infinitive: 'escribir',
     regular: true,
     participle: 'escrito',
+    gerund: 'escribiendo',
     conjugations: conjugateRegular('escribir'),
     translations: {
       pl: {
@@ -3404,6 +3969,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę pisał', tu: 'będziesz pisał', el: 'będzie pisał', nosotros: 'będziemy pisali', vosotros: 'będziecie pisali', ellos: 'będą pisali' },
           ir_a_infinitivo: { yo: 'zamierzam pisać', tu: 'zamierzasz pisać', el: 'zamierza pisać', nosotros: 'zamierzamy pisać', vosotros: 'zamierzacie pisać', ellos: 'zamierzają pisać' },
           acabar_de_infinitivo: { yo: 'właśnie pisałem', tu: 'właśnie pisałeś', el: 'właśnie pisał', nosotros: 'właśnie pisaliśmy', vosotros: 'właśnie pisaliście', ellos: 'właśnie pisali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pisz', el: 'niech pisze', nosotros: 'piszmy', vosotros: 'piszcie', ellos: 'niech piszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie pisz', el: 'niech nie pisze', nosotros: 'nie piszmy', vosotros: 'nie piszcie', ellos: 'niech nie piszą' },
         },
       },
       en: {
@@ -3414,6 +3981,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will write', tu: 'you will write', el: 'he/she will write', nosotros: 'we will write', vosotros: 'you (all) will write', ellos: 'they will write' },
           ir_a_infinitivo: { yo: 'I am going to write', tu: 'you are going to write', el: 'he/she is going to write', nosotros: 'we are going to write', vosotros: 'you (all) are going to write', ellos: 'they are going to write' },
           acabar_de_infinitivo: { yo: 'I just wrote', tu: 'you just wrote', el: 'he/she just wrote', nosotros: 'we just wrote', vosotros: 'you (all) just wrote', ellos: 'they just wrote' },
+          imperativo_afirmativo: { yo: '—', tu: 'write!', el: 'write!', nosotros: 'let\'s write!', vosotros: 'write!', ellos: 'write!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t write!', el: 'don\'t write!', nosotros: 'let\'s not write!', vosotros: 'don\'t write!', ellos: 'don\'t write!' },
         },
       },
       de: {
@@ -3424,6 +3993,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde schreiben', tu: 'du wirst schreiben', el: 'er/sie/es wird schreiben', nosotros: 'wir werden schreiben', vosotros: 'ihr werdet schreiben', ellos: 'sie werden schreiben' },
           ir_a_infinitivo: { yo: 'ich werde gleich schreiben', tu: 'du wirst gleich schreiben', el: 'er/sie/es wird gleich schreiben', nosotros: 'wir werden gleich schreiben', vosotros: 'ihr werdet gleich schreiben', ellos: 'sie werden gleich schreiben' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geschrieben', tu: 'du hast gerade geschrieben', el: 'er/sie/es hat gerade geschrieben', nosotros: 'wir haben gerade geschrieben', vosotros: 'ihr habt gerade geschrieben', ellos: 'sie haben gerade geschrieben' },
+          imperativo_afirmativo: { yo: '—', tu: 'schreib!', el: 'Schreiben Sie!', nosotros: 'Schreiben wir!', vosotros: 'schreibt!', ellos: 'Schreiben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'schreib nicht!', el: 'Schreiben Sie nicht!', nosotros: 'Schreiben wir nicht!', vosotros: 'schreibt nicht!', ellos: 'Schreiben Sie nicht!' },
         },
       },
     },
@@ -3437,6 +4008,7 @@ export const VERBS: Verb[] = [
       { id: 'escribir-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Piszę to teraz.', en: 'I write it now.', de: 'Ich schreibe es jetzt.' }, spanish: 'lo escribo ahora' },
       { id: 'escribir-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zamierzamy napisać raport.', en: 'We are going to write a report.', de: 'Wir werden gleich einen Bericht schreiben.' }, spanish: 'vamos a escribir un informe' },
       { id: 'escribir-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie napisałem e-mail.', en: 'I just wrote the email.', de: 'Ich habe gerade die E-Mail geschrieben.' }, spanish: 'acabo de escribir el correo' },
+      { id: 'escribir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'napisz swoje imię', en: 'write your name', de: 'schreib deinen Namen' }, spanish: 'escribe tu nombre' },
     ],
   },
   {
@@ -3444,12 +4016,15 @@ export const VERBS: Verb[] = [
     infinitive: 'leer',
     regular: false,
     participle: 'leído',
+    gerund: 'leyendo',
     conjugations: {
       presente: { yo: 'leo', tu: 'lees', el: 'lee', nosotros: 'leemos', vosotros: 'leéis', ellos: 'leen' },
       preterite: { yo: 'leí', tu: 'leíste', el: 'leyó', nosotros: 'leímos', vosotros: 'leísteis', ellos: 'leyeron' },
       futuro: { yo: 'leeré', tu: 'leerás', el: 'leerá', nosotros: 'leeremos', vosotros: 'leeréis', ellos: 'leerán' },
       ir_a_infinitivo: { yo: 'voy a leer', tu: 'vas a leer', el: 'va a leer', nosotros: 'vamos a leer', vosotros: 'vais a leer', ellos: 'van a leer' },
       acabar_de_infinitivo: { yo: 'acabo de leer', tu: 'acabas de leer', el: 'acaba de leer', nosotros: 'acabamos de leer', vosotros: 'acabáis de leer', ellos: 'acaban de leer' },
+      imperativo_afirmativo: { yo: '—', tu: 'lee', el: 'lea', nosotros: 'leamos', vosotros: 'leed', ellos: 'lean' },
+      imperativo_negativo: { yo: '—', tu: 'no leas', el: 'no lea', nosotros: 'no leamos', vosotros: 'no leáis', ellos: 'no lean' },
     },
     translations: {
       pl: {
@@ -3460,6 +4035,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę czytał', tu: 'będziesz czytał', el: 'będzie czytał', nosotros: 'będziemy czytali', vosotros: 'będziecie czytali', ellos: 'będą czytali' },
           ir_a_infinitivo: { yo: 'zamierzam czytać', tu: 'zamierzasz czytać', el: 'zamierza czytać', nosotros: 'zamierzamy czytać', vosotros: 'zamierzacie czytać', ellos: 'zamierzają czytać' },
           acabar_de_infinitivo: { yo: 'właśnie czytałem', tu: 'właśnie czytałeś', el: 'właśnie czytał', nosotros: 'właśnie czytaliśmy', vosotros: 'właśnie czytaliście', ellos: 'właśnie czytali' },
+          imperativo_afirmativo: { yo: '—', tu: 'czytaj', el: 'niech czyta', nosotros: 'czytajmy', vosotros: 'czytajcie', ellos: 'niech czytają' },
+          imperativo_negativo: { yo: '—', tu: 'nie czytaj', el: 'niech nie czyta', nosotros: 'nie czytajmy', vosotros: 'nie czytajcie', ellos: 'niech nie czytają' },
         },
       },
       en: {
@@ -3470,6 +4047,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will read', tu: 'you will read', el: 'he/she will read', nosotros: 'we will read', vosotros: 'you (all) will read', ellos: 'they will read' },
           ir_a_infinitivo: { yo: 'I am going to read', tu: 'you are going to read', el: 'he/she is going to read', nosotros: 'we are going to read', vosotros: 'you (all) are going to read', ellos: 'they are going to read' },
           acabar_de_infinitivo: { yo: 'I just read', tu: 'you just read', el: 'he/she just read', nosotros: 'we just read', vosotros: 'you (all) just read', ellos: 'they just read' },
+          imperativo_afirmativo: { yo: '—', tu: 'read!', el: 'read!', nosotros: 'let\'s read!', vosotros: 'read!', ellos: 'read!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t read!', el: 'don\'t read!', nosotros: 'let\'s not read!', vosotros: 'don\'t read!', ellos: 'don\'t read!' },
         },
       },
       de: {
@@ -3480,6 +4059,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde lesen', tu: 'du wirst lesen', el: 'er/sie/es wird lesen', nosotros: 'wir werden lesen', vosotros: 'ihr werdet lesen', ellos: 'sie werden lesen' },
           ir_a_infinitivo: { yo: 'ich werde gleich lesen', tu: 'du wirst gleich lesen', el: 'er/sie/es wird gleich lesen', nosotros: 'wir werden gleich lesen', vosotros: 'ihr werdet gleich lesen', ellos: 'sie werden gleich lesen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gelesen', tu: 'du hast gerade gelesen', el: 'er/sie/es hat gerade gelesen', nosotros: 'wir haben gerade gelesen', vosotros: 'ihr habt gerade gelesen', ellos: 'sie haben gerade gelesen' },
+          imperativo_afirmativo: { yo: '—', tu: 'lies!', el: 'Lesen Sie!', nosotros: 'Lesen wir!', vosotros: 'lest!', ellos: 'Lesen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lies nicht!', el: 'Lesen Sie nicht!', nosotros: 'Lesen wir nicht!', vosotros: 'lest nicht!', ellos: 'Lesen Sie nicht!' },
         },
       },
     },
@@ -3493,6 +4074,7 @@ export const VERBS: Verb[] = [
       { id: 'leer-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Czytam to codziennie.', en: 'I read it every day.', de: 'Ich lese es jeden Tag.' }, spanish: 'lo leo cada día' },
       { id: 'leer-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zamierzamy przeczytać umowę.', en: 'We are going to read the contract.', de: 'Wir werden gleich den Vertrag lesen.' }, spanish: 'vamos a leer el contrato' },
       { id: 'leer-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie przeczytałem twoją wiadomość.', en: 'I just read your message.', de: 'Ich habe gerade deine Nachricht gelesen.' }, spanish: 'acabo de leer tu mensaje' },
+      { id: 'leer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'czytaj książkę', en: 'read the book', de: 'lies das Buch' }, spanish: 'lee el libro' },
     ],
   },
   {
@@ -3500,12 +4082,15 @@ export const VERBS: Verb[] = [
     infinitive: 'dormir',
     regular: false,
     participle: 'dormido',
+    gerund: 'durmiendo',
     conjugations: {
       presente: { yo: 'duermo', tu: 'duermes', el: 'duerme', nosotros: 'dormimos', vosotros: 'dormís', ellos: 'duermen' },
       preterite: { yo: 'dormí', tu: 'dormiste', el: 'durmió', nosotros: 'dormimos', vosotros: 'dormisteis', ellos: 'durmieron' },
       futuro: { yo: 'dormiré', tu: 'dormirás', el: 'dormirá', nosotros: 'dormiremos', vosotros: 'dormiréis', ellos: 'dormirán' },
       ir_a_infinitivo: { yo: 'voy a dormir', tu: 'vas a dormir', el: 'va a dormir', nosotros: 'vamos a dormir', vosotros: 'vais a dormir', ellos: 'van a dormir' },
       acabar_de_infinitivo: { yo: 'acabo de dormir', tu: 'acabas de dormir', el: 'acaba de dormir', nosotros: 'acabamos de dormir', vosotros: 'acabáis de dormir', ellos: 'acaban de dormir' },
+      imperativo_afirmativo: { yo: '—', tu: 'duerme', el: 'duerma', nosotros: 'durmamos', vosotros: 'dormid', ellos: 'duerman' },
+      imperativo_negativo: { yo: '—', tu: 'no duermas', el: 'no duerma', nosotros: 'no durmamos', vosotros: 'no durmáis', ellos: 'no duerman' },
     },
     translations: {
       pl: {
@@ -3516,6 +4101,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę spał', tu: 'będziesz spał', el: 'będzie spał', nosotros: 'będziemy spali', vosotros: 'będziecie spali', ellos: 'będą spali' },
           ir_a_infinitivo: { yo: 'zamierzam spać', tu: 'zamierzasz spać', el: 'zamierza spać', nosotros: 'zamierzamy spać', vosotros: 'zamierzacie spać', ellos: 'zamierzają spać' },
           acabar_de_infinitivo: { yo: 'właśnie spałem', tu: 'właśnie spałeś', el: 'właśnie spał', nosotros: 'właśnie spaliśmy', vosotros: 'właśnie spaliście', ellos: 'właśnie spali' },
+          imperativo_afirmativo: { yo: '—', tu: 'śpij', el: 'niech śpi', nosotros: 'śpijmy', vosotros: 'śpijcie', ellos: 'niech śpią' },
+          imperativo_negativo: { yo: '—', tu: 'nie śpij', el: 'niech nie śpi', nosotros: 'nie śpijmy', vosotros: 'nie śpijcie', ellos: 'niech nie śpią' },
         },
       },
       en: {
@@ -3526,6 +4113,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will sleep', tu: 'you will sleep', el: 'he/she will sleep', nosotros: 'we will sleep', vosotros: 'you (all) will sleep', ellos: 'they will sleep' },
           ir_a_infinitivo: { yo: 'I am going to sleep', tu: 'you are going to sleep', el: 'he/she is going to sleep', nosotros: 'we are going to sleep', vosotros: 'you (all) are going to sleep', ellos: 'they are going to sleep' },
           acabar_de_infinitivo: { yo: 'I just slept', tu: 'you just slept', el: 'he/she just slept', nosotros: 'we just slept', vosotros: 'you (all) just slept', ellos: 'they just slept' },
+          imperativo_afirmativo: { yo: '—', tu: 'sleep!', el: 'sleep!', nosotros: 'let\'s sleep!', vosotros: 'sleep!', ellos: 'sleep!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t sleep!', el: 'don\'t sleep!', nosotros: 'let\'s not sleep!', vosotros: 'don\'t sleep!', ellos: 'don\'t sleep!' },
         },
       },
       de: {
@@ -3536,6 +4125,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde schlafen', tu: 'du wirst schlafen', el: 'er/sie/es wird schlafen', nosotros: 'wir werden schlafen', vosotros: 'ihr werdet schlafen', ellos: 'sie werden schlafen' },
           ir_a_infinitivo: { yo: 'ich werde gleich schlafen', tu: 'du wirst gleich schlafen', el: 'er/sie/es wird gleich schlafen', nosotros: 'wir werden gleich schlafen', vosotros: 'ihr werdet gleich schlafen', ellos: 'sie werden gleich schlafen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geschlafen', tu: 'du hast gerade geschlafen', el: 'er/sie/es hat gerade geschlafen', nosotros: 'wir haben gerade geschlafen', vosotros: 'ihr habt gerade geschlafen', ellos: 'sie haben gerade geschlafen' },
+          imperativo_afirmativo: { yo: '—', tu: 'schlaf!', el: 'Schlafen Sie!', nosotros: 'Schlafen wir!', vosotros: 'schlaft!', ellos: 'Schlafen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'schlaf nicht!', el: 'Schlafen Sie nicht!', nosotros: 'Schlafen wir nicht!', vosotros: 'schlaft nicht!', ellos: 'Schlafen Sie nicht!' },
         },
       },
     },
@@ -3550,6 +4141,7 @@ export const VERBS: Verb[] = [
       { id: 'dormir-presente-nosotros', tense: 'presente', person: 'nosotros', pronounType: 'none', translations: { pl: 'Śpimy razem.', en: 'We sleep together.', de: 'Wir schlafen zusammen.' }, spanish: 'dormimos juntos' },
       { id: 'dormir-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamierzasz tu spać.', en: 'You are going to sleep here.', de: 'Du wirst gleich hier schlafen.' }, spanish: 'vas a dormir aquí' },
       { id: 'dormir-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie przespaliśmy sjestę.', en: 'We just took a nap.', de: 'Wir haben gerade ein Nickerchen gemacht.' }, spanish: 'acabamos de dormir la siesta' },
+      { id: 'dormir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'śpij dobrze', en: 'sleep well', de: 'schlaf gut' }, spanish: 'duerme bien' },
     ],
   },
   {
@@ -3557,6 +4149,7 @@ export const VERBS: Verb[] = [
     infinitive: 'llamar',
     regular: true,
     participle: 'llamado',
+    gerund: 'llamando',
     conjugations: conjugateRegular('llamar'),
     translations: {
       pl: {
@@ -3567,6 +4160,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zadzwonię', tu: 'zadzwonisz', el: 'zadzwoni', nosotros: 'zadzwonimy', vosotros: 'zadzwonicie', ellos: 'zadzwonią' },
           ir_a_infinitivo: { yo: 'zamierzam zadzwonić', tu: 'zamierzasz zadzwonić', el: 'zamierza zadzwonić', nosotros: 'zamierzamy zadzwonić', vosotros: 'zamierzacie zadzwonić', ellos: 'zamierzają zadzwonić' },
           acabar_de_infinitivo: { yo: 'właśnie zadzwoniłem', tu: 'właśnie zadzwoniłeś', el: 'właśnie zadzwonił', nosotros: 'właśnie zadzwoniliśmy', vosotros: 'właśnie zadzwoniliście', ellos: 'właśnie zadzwonili' },
+          imperativo_afirmativo: { yo: '—', tu: 'zadzwoń', el: 'niech dzwoni', nosotros: 'zadzwońmy', vosotros: 'zadzwońcie', ellos: 'niech dzwonią' },
+          imperativo_negativo: { yo: '—', tu: 'nie zadzwoń', el: 'niech nie dzwoni', nosotros: 'nie zadzwońmy', vosotros: 'nie zadzwońcie', ellos: 'niech nie dzwonią' },
         },
       },
       en: {
@@ -3577,6 +4172,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will call', tu: 'you will call', el: 'he/she will call', nosotros: 'we will call', vosotros: 'you (all) will call', ellos: 'they will call' },
           ir_a_infinitivo: { yo: 'I am going to call', tu: 'you are going to call', el: 'he/she is going to call', nosotros: 'we are going to call', vosotros: 'you (all) are going to call', ellos: 'they are going to call' },
           acabar_de_infinitivo: { yo: 'I just called', tu: 'you just called', el: 'he/she just called', nosotros: 'we just called', vosotros: 'you (all) just called', ellos: 'they just called' },
+          imperativo_afirmativo: { yo: '—', tu: 'call!', el: 'call!', nosotros: 'let\'s call!', vosotros: 'call!', ellos: 'call!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t call!', el: 'don\'t call!', nosotros: 'let\'s not call!', vosotros: 'don\'t call!', ellos: 'don\'t call!' },
         },
       },
       de: {
@@ -3587,6 +4184,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde anrufen', tu: 'du wirst anrufen', el: 'er/sie/es wird anrufen', nosotros: 'wir werden anrufen', vosotros: 'ihr werdet anrufen', ellos: 'sie werden anrufen' },
           ir_a_infinitivo: { yo: 'ich werde gleich anrufen', tu: 'du wirst gleich anrufen', el: 'er/sie/es wird gleich anrufen', nosotros: 'wir werden gleich anrufen', vosotros: 'ihr werdet gleich anrufen', ellos: 'sie werden gleich anrufen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade angerufen', tu: 'du hast gerade angerufen', el: 'er/sie/es hat gerade angerufen', nosotros: 'wir haben gerade angerufen', vosotros: 'ihr habt gerade angerufen', ellos: 'sie haben gerade angerufen' },
+          imperativo_afirmativo: { yo: '—', tu: 'ruf an!', el: 'Rufen Sie an!', nosotros: 'Rufen wir an!', vosotros: 'ruft an!', ellos: 'Rufen Sie an!' },
+          imperativo_negativo: { yo: '—', tu: 'ruf an nicht!', el: 'Rufen Sie an nicht!', nosotros: 'Rufen wir an nicht!', vosotros: 'ruft an nicht!', ellos: 'Rufen Sie an nicht!' },
         },
       },
     },
@@ -3600,6 +4199,7 @@ export const VERBS: Verb[] = [
       { id: 'llamar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Dzwonię do niego teraz.', en: 'I am calling him right now.', de: 'Ich rufe ihn jetzt an.' }, spanish: 'lo llamo ahora mismo' },
       { id: 'llamar-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zamierzamy zadzwonić do lekarza.', en: 'We are going to call the doctor.', de: 'Wir werden gleich den Arzt anrufen.' }, spanish: 'vamos a llamar al médico' },
       { id: 'llamar-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie zadzwoniłem do brata.', en: 'I just called my brother.', de: 'Ich habe gerade meinen Bruder angerufen.' }, spanish: 'acabo de llamar a mi hermano' },
+      { id: 'llamar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zadzwoń do mamy', en: 'call your mother', de: 'ruf deine Mutter an' }, spanish: 'llama a tu madre' },
     ],
   },
   {
@@ -3607,12 +4207,15 @@ export const VERBS: Verb[] = [
     infinitive: 'recordar',
     regular: false,
     participle: 'recordado',
+    gerund: 'recordando',
     conjugations: {
       presente: { yo: 'recuerdo', tu: 'recuerdas', el: 'recuerda', nosotros: 'recordamos', vosotros: 'recordáis', ellos: 'recuerdan' },
       preterite: { yo: 'recordé', tu: 'recordaste', el: 'recordó', nosotros: 'recordamos', vosotros: 'recordasteis', ellos: 'recordaron' },
       futuro: { yo: 'recordaré', tu: 'recordarás', el: 'recordará', nosotros: 'recordaremos', vosotros: 'recordaréis', ellos: 'recordarán' },
       ir_a_infinitivo: { yo: 'voy a recordar', tu: 'vas a recordar', el: 'va a recordar', nosotros: 'vamos a recordar', vosotros: 'vais a recordar', ellos: 'van a recordar' },
       acabar_de_infinitivo: { yo: 'acabo de recordar', tu: 'acabas de recordar', el: 'acaba de recordar', nosotros: 'acabamos de recordar', vosotros: 'acabáis de recordar', ellos: 'acaban de recordar' },
+      imperativo_afirmativo: { yo: '—', tu: 'recuerda', el: 'recuerde', nosotros: 'recordemos', vosotros: 'recordad', ellos: 'recuerden' },
+      imperativo_negativo: { yo: '—', tu: 'no recuerdes', el: 'no recuerde', nosotros: 'no recordemos', vosotros: 'no recordéis', ellos: 'no recuerden' },
     },
     translations: {
       pl: {
@@ -3623,6 +4226,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przypomnę sobie', tu: 'przypomnisz sobie', el: 'przypomni sobie', nosotros: 'przypomnimy sobie', vosotros: 'przypomnicie sobie', ellos: 'przypomną sobie' },
           ir_a_infinitivo: { yo: 'zamierzam sobie przypomnieć', tu: 'zamierzasz sobie przypomnieć', el: 'zamierza sobie przypomnieć', nosotros: 'zamierzamy sobie przypomnieć', vosotros: 'zamierzacie sobie przypomnieć', ellos: 'zamierzają sobie przypomnieć' },
           acabar_de_infinitivo: { yo: 'właśnie sobie przypomniałem', tu: 'właśnie sobie przypomniałeś', el: 'właśnie sobie przypomniał', nosotros: 'właśnie sobie przypomnieliśmy', vosotros: 'właśnie sobie przypomnieliście', ellos: 'właśnie sobie przypomnieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'pamiętaj', el: 'niech pamięta', nosotros: 'pamiętajmy', vosotros: 'pamiętajcie', ellos: 'niech pamiętają' },
+          imperativo_negativo: { yo: '—', tu: 'nie pamiętaj', el: 'niech nie pamięta', nosotros: 'nie pamiętajmy', vosotros: 'nie pamiętajcie', ellos: 'niech nie pamiętają' },
         },
       },
       en: {
@@ -3633,6 +4238,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will remember', tu: 'you will remember', el: 'he/she will remember', nosotros: 'we will remember', vosotros: 'you (all) will remember', ellos: 'they will remember' },
           ir_a_infinitivo: { yo: 'I am going to remember', tu: 'you are going to remember', el: 'he/she is going to remember', nosotros: 'we are going to remember', vosotros: 'you (all) are going to remember', ellos: 'they are going to remember' },
           acabar_de_infinitivo: { yo: 'I just remembered', tu: 'you just remembered', el: 'he/she just remembered', nosotros: 'we just remembered', vosotros: 'you (all) just remembered', ellos: 'they just remembered' },
+          imperativo_afirmativo: { yo: '—', tu: 'remember!', el: 'remember!', nosotros: 'let\'s remember!', vosotros: 'remember!', ellos: 'remember!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t remember!', el: 'don\'t remember!', nosotros: 'let\'s not remember!', vosotros: 'don\'t remember!', ellos: 'don\'t remember!' },
         },
       },
       de: {
@@ -3643,6 +4250,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde mich erinnern', tu: 'du wirst dich erinnern', el: 'er/sie/es wird sich erinnern', nosotros: 'wir werden uns erinnern', vosotros: 'ihr werdet euch erinnern', ellos: 'sie werden sich erinnern' },
           ir_a_infinitivo: { yo: 'ich werde mich gleich erinnern', tu: 'du wirst dich gleich erinnern', el: 'er/sie/es wird sich gleich erinnern', nosotros: 'wir werden uns gleich erinnern', vosotros: 'ihr werdet euch gleich erinnern', ellos: 'sie werden sich gleich erinnern' },
           acabar_de_infinitivo: { yo: 'ich habe mich gerade erinnert', tu: 'du hast dich gerade erinnert', el: 'er/sie/es hat sich gerade erinnert', nosotros: 'wir haben uns gerade erinnert', vosotros: 'ihr habt euch gerade erinnert', ellos: 'sie haben sich gerade erinnert' },
+          imperativo_afirmativo: { yo: '—', tu: 'erinner dich!', el: 'Erinnern Sie sich!', nosotros: 'Erinnern wir uns!', vosotros: 'erinnert euch!', ellos: 'Erinnern Sie sich!' },
+          imperativo_negativo: { yo: '—', tu: 'erinner dich nicht!', el: 'Erinnern Sie sich nicht!', nosotros: 'Erinnern wir uns nicht!', vosotros: 'erinnert euch nicht!', ellos: 'Erinnern Sie sich nicht!' },
         },
       },
     },
@@ -3656,6 +4265,7 @@ export const VERBS: Verb[] = [
       { id: 'recordar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Nie pamiętam tego.', en: 'I don’t remember it.', de: 'Ich erinnere mich nicht daran.' }, spanish: 'no lo recuerdo' },
       { id: 'recordar-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Będziemy pamiętać tę podróż.', en: 'We are going to remember this trip.', de: 'Wir werden uns gleich an diese Reise erinnern.' }, spanish: 'vamos a recordar este viaje' },
       { id: 'recordar-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie przypomniałem sobie coś ważnego.', en: 'I just remembered something important.', de: 'Ich habe mich gerade an etwas Wichtiges erinnert.' }, spanish: 'acabo de recordar algo importante' },
+      { id: 'recordar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pamiętaj o dacie', en: 'remember the date', de: 'erinner dich an das Datum' }, spanish: 'recuerda la fecha' },
     ],
   },
   {
@@ -3663,6 +4273,7 @@ export const VERBS: Verb[] = [
     infinitive: 'olvidar',
     regular: true,
     participle: 'olvidado',
+    gerund: 'olvidando',
     conjugations: conjugateRegular('olvidar'),
     translations: {
       pl: {
@@ -3673,6 +4284,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zapomnę', tu: 'zapomnisz', el: 'zapomni', nosotros: 'zapomnimy', vosotros: 'zapomnicie', ellos: 'zapomną' },
           ir_a_infinitivo: { yo: 'zamierzam zapomnieć', tu: 'zamierzasz zapomnieć', el: 'zamierza zapomnieć', nosotros: 'zamierzamy zapomnieć', vosotros: 'zamierzacie zapomnieć', ellos: 'zamierzają zapomnieć' },
           acabar_de_infinitivo: { yo: 'właśnie zapomniałem', tu: 'właśnie zapomniałeś', el: 'właśnie zapomniał', nosotros: 'właśnie zapomnieliśmy', vosotros: 'właśnie zapomnieliście', ellos: 'właśnie zapomnieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zapomnij', el: 'niech zapomina', nosotros: 'zapomnijmy', vosotros: 'zapomnijcie', ellos: 'niech zapominają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zapomnij', el: 'niech nie zapomina', nosotros: 'nie zapomnijmy', vosotros: 'nie zapomnijcie', ellos: 'niech nie zapominają' },
         },
       },
       en: {
@@ -3683,6 +4296,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will forget', tu: 'you will forget', el: 'he/she will forget', nosotros: 'we will forget', vosotros: 'you (all) will forget', ellos: 'they will forget' },
           ir_a_infinitivo: { yo: 'I am going to forget', tu: 'you are going to forget', el: 'he/she is going to forget', nosotros: 'we are going to forget', vosotros: 'you (all) are going to forget', ellos: 'they are going to forget' },
           acabar_de_infinitivo: { yo: 'I just forgot', tu: 'you just forgot', el: 'he/she just forgot', nosotros: 'we just forgot', vosotros: 'you (all) just forgot', ellos: 'they just forgot' },
+          imperativo_afirmativo: { yo: '—', tu: 'forget!', el: 'forget!', nosotros: 'let\'s forget!', vosotros: 'forget!', ellos: 'forget!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t forget!', el: 'don\'t forget!', nosotros: 'let\'s not forget!', vosotros: 'don\'t forget!', ellos: 'don\'t forget!' },
         },
       },
       de: {
@@ -3693,6 +4308,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde vergessen', tu: 'du wirst vergessen', el: 'er/sie/es wird vergessen', nosotros: 'wir werden vergessen', vosotros: 'ihr werdet vergessen', ellos: 'sie werden vergessen' },
           ir_a_infinitivo: { yo: 'ich werde gleich vergessen', tu: 'du wirst gleich vergessen', el: 'er/sie/es wird gleich vergessen', nosotros: 'wir werden gleich vergessen', vosotros: 'ihr werdet gleich vergessen', ellos: 'sie werden gleich vergessen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade vergessen', tu: 'du hast gerade vergessen', el: 'er/sie/es hat gerade vergessen', nosotros: 'wir haben gerade vergessen', vosotros: 'ihr habt gerade vergessen', ellos: 'sie haben gerade vergessen' },
+          imperativo_afirmativo: { yo: '—', tu: 'vergiss!', el: 'Vergessen Sie!', nosotros: 'Vergessen wir!', vosotros: 'vergesst!', ellos: 'Vergessen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'vergiss nicht!', el: 'Vergessen Sie nicht!', nosotros: 'Vergessen wir nicht!', vosotros: 'vergesst nicht!', ellos: 'Vergessen Sie nicht!' },
         },
       },
     },
@@ -3706,6 +4323,7 @@ export const VERBS: Verb[] = [
       { id: 'olvidar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zawsze to zapominam.', en: 'I always forget it.', de: 'Ich vergesse es immer.' }, spanish: 'lo olvido siempre' },
       { id: 'olvidar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Nie zapomnisz mojego imienia.', en: 'You are not going to forget my name.', de: 'Du wirst meinen Namen nicht vergessen.' }, spanish: 'no vas a olvidar mi nombre' },
       { id: 'olvidar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zapomnieliśmy hasła.', en: 'We just forgot the password.', de: 'Wir haben gerade das Passwort vergessen.' }, spanish: 'acabamos de olvidar la contraseña' },
+      { id: 'olvidar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zapomnij o przeszłości', en: 'forget the past', de: 'vergiss die Vergangenheit' }, spanish: 'olvida el pasado' },
     ],
   },
   {
@@ -3713,6 +4331,7 @@ export const VERBS: Verb[] = [
     infinitive: 'sufrir',
     regular: true,
     participle: 'sufrido',
+    gerund: 'sufriendo',
     conjugations: conjugateRegular('sufrir'),
     translations: {
       pl: {
@@ -3723,6 +4342,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę cierpiał', tu: 'będziesz cierpiał', el: 'będzie cierpiał', nosotros: 'będziemy cierpieli', vosotros: 'będziecie cierpieli', ellos: 'będą cierpieli' },
           ir_a_infinitivo: { yo: 'zamierzam cierpieć', tu: 'zamierzasz cierpieć', el: 'zamierza cierpieć', nosotros: 'zamierzamy cierpieć', vosotros: 'zamierzacie cierpieć', ellos: 'zamierzają cierpieć' },
           acabar_de_infinitivo: { yo: 'właśnie cierpiałem', tu: 'właśnie cierpiałeś', el: 'właśnie cierpiał', nosotros: 'właśnie cierpieliśmy', vosotros: 'właśnie cierpieliście', ellos: 'właśnie cierpieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'znoś to', el: 'niech cierpi', nosotros: 'znoś tomy', vosotros: 'znoś tocie', ellos: 'niech cierpią' },
+          imperativo_negativo: { yo: '—', tu: 'nie znoś to', el: 'niech nie cierpi', nosotros: 'nie znoś tomy', vosotros: 'nie znoś tocie', ellos: 'niech nie cierpią' },
         },
       },
       en: {
@@ -3733,6 +4354,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will suffer', tu: 'you will suffer', el: 'he/she will suffer', nosotros: 'we will suffer', vosotros: 'you (all) will suffer', ellos: 'they will suffer' },
           ir_a_infinitivo: { yo: 'I am going to suffer', tu: 'you are going to suffer', el: 'he/she is going to suffer', nosotros: 'we are going to suffer', vosotros: 'you (all) are going to suffer', ellos: 'they are going to suffer' },
           acabar_de_infinitivo: { yo: 'I just suffered', tu: 'you just suffered', el: 'he/she just suffered', nosotros: 'we just suffered', vosotros: 'you (all) just suffered', ellos: 'they just suffered' },
+          imperativo_afirmativo: { yo: '—', tu: 'suffer!', el: 'suffer!', nosotros: 'let\'s suffer!', vosotros: 'suffer!', ellos: 'suffer!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t suffer!', el: 'don\'t suffer!', nosotros: 'let\'s not suffer!', vosotros: 'don\'t suffer!', ellos: 'don\'t suffer!' },
         },
       },
       de: {
@@ -3743,6 +4366,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde leiden', tu: 'du wirst leiden', el: 'er/sie/es wird leiden', nosotros: 'wir werden leiden', vosotros: 'ihr werdet leiden', ellos: 'sie werden leiden' },
           ir_a_infinitivo: { yo: 'ich werde gleich leiden', tu: 'du wirst gleich leiden', el: 'er/sie/es wird gleich leiden', nosotros: 'wir werden gleich leiden', vosotros: 'ihr werdet gleich leiden', ellos: 'sie werden gleich leiden' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gelitten', tu: 'du hast gerade gelitten', el: 'er/sie/es hat gerade gelitten', nosotros: 'wir haben gerade gelitten', vosotros: 'ihr habt gerade gelitten', ellos: 'sie haben gerade gelitten' },
+          imperativo_afirmativo: { yo: '—', tu: 'leide!', el: 'Leiden Sie!', nosotros: 'Leiden wir!', vosotros: 'leidet!', ellos: 'Leiden Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'leide nicht!', el: 'Leiden Sie nicht!', nosotros: 'Leiden wir nicht!', vosotros: 'leidet nicht!', ellos: 'Leiden Sie nicht!' },
         },
       },
     },
@@ -3756,6 +4381,7 @@ export const VERBS: Verb[] = [
       { id: 'sufrir-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Cierpię to w milczeniu.', en: 'I suffer it in silence.', de: 'Ich leide still darunter.' }, spanish: 'lo sufro en silencio' },
       { id: 'sufrir-ir_a_infinitivo-nosotros', tense: 'ir_a_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Będziemy bardzo cierpieć podczas tej podróży.', en: 'We are going to suffer a lot on this trip.', de: 'Wir werden bei dieser Reise sehr leiden.' }, spanish: 'vamos a sufrir mucho en este viaje' },
       { id: 'sufrir-acabar_de_infinitivo-yo', tense: 'acabar_de_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Właśnie cierpiałem przez straszny ból głowy.', en: 'I just suffered a terrible headache.', de: 'Ich habe gerade unter schrecklichen Kopfschmerzen gelitten.' }, spanish: 'acabo de sufrir un dolor de cabeza terrible' },
+      { id: 'sufrir-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie znoś tego tak bardzo', en: 'don\'t suffer so much', de: 'leide nicht so sehr' }, spanish: 'no sufras tanto' },
     ],
   },
   {
@@ -3763,6 +4389,7 @@ export const VERBS: Verb[] = [
     infinitive: 'correr',
     regular: true,
     participle: 'corrido',
+    gerund: 'corriendo',
     conjugations: conjugateRegular('correr'),
     translations: {
       pl: {
@@ -3773,6 +4400,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę biegał', tu: 'będziesz biegał', el: 'będzie biegał', nosotros: 'będziemy biegali', vosotros: 'będziecie biegali', ellos: 'będą biegali' },
           ir_a_infinitivo: { yo: 'zamierzam biegać', tu: 'zamierzasz biegać', el: 'zamierza biegać', nosotros: 'zamierzamy biegać', vosotros: 'zamierzacie biegać', ellos: 'zamierzają biegać' },
           acabar_de_infinitivo: { yo: 'właśnie biegałem', tu: 'właśnie biegałeś', el: 'właśnie biegał', nosotros: 'właśnie biegaliśmy', vosotros: 'właśnie biegaliście', ellos: 'właśnie biegali' },
+          imperativo_afirmativo: { yo: '—', tu: 'biegnij', el: 'niech biega', nosotros: 'biegnijmy', vosotros: 'biegnijcie', ellos: 'niech biegają' },
+          imperativo_negativo: { yo: '—', tu: 'nie biegnij', el: 'niech nie biega', nosotros: 'nie biegnijmy', vosotros: 'nie biegnijcie', ellos: 'niech nie biegają' },
         },
       },
       en: {
@@ -3783,6 +4412,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will run', tu: 'you will run', el: 'he/she will run', nosotros: 'we will run', vosotros: 'you (all) will run', ellos: 'they will run' },
           ir_a_infinitivo: { yo: 'I am going to run', tu: 'you are going to run', el: 'he/she is going to run', nosotros: 'we are going to run', vosotros: 'you (all) are going to run', ellos: 'they are going to run' },
           acabar_de_infinitivo: { yo: 'I just ran', tu: 'you just ran', el: 'he/she just ran', nosotros: 'we just ran', vosotros: 'you (all) just ran', ellos: 'they just ran' },
+          imperativo_afirmativo: { yo: '—', tu: 'run!', el: 'run!', nosotros: 'let\'s run!', vosotros: 'run!', ellos: 'run!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t run!', el: 'don\'t run!', nosotros: 'let\'s not run!', vosotros: 'don\'t run!', ellos: 'don\'t run!' },
         },
       },
       de: {
@@ -3793,6 +4424,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde laufen', tu: 'du wirst laufen', el: 'er/sie/es wird laufen', nosotros: 'wir werden laufen', vosotros: 'ihr werdet laufen', ellos: 'sie werden laufen' },
           ir_a_infinitivo: { yo: 'ich werde gleich laufen', tu: 'du wirst gleich laufen', el: 'er/sie/es wird gleich laufen', nosotros: 'wir werden gleich laufen', vosotros: 'ihr werdet gleich laufen', ellos: 'sie werden gleich laufen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gelaufen', tu: 'du bist gerade gelaufen', el: 'er/sie/es ist gerade gelaufen', nosotros: 'wir sind gerade gelaufen', vosotros: 'ihr seid gerade gelaufen', ellos: 'sie sind gerade gelaufen' },
+          imperativo_afirmativo: { yo: '—', tu: 'lauf!', el: 'Laufen Sie!', nosotros: 'Laufen wir!', vosotros: 'lauft!', ellos: 'Laufen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lauf nicht!', el: 'Laufen Sie nicht!', nosotros: 'Laufen wir nicht!', vosotros: 'lauft nicht!', ellos: 'Laufen Sie nicht!' },
         },
       },
     },
@@ -3806,6 +4439,7 @@ export const VERBS: Verb[] = [
       { id: 'correr-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Biegli, żeby nie spóźnić się na autobus.', en: 'They ran to not miss the bus.', de: 'Sie liefen, um den Bus nicht zu verpassen.' }, spanish: 'corrieron para no perder el autobús' },
       { id: 'correr-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Pobiegniesz ze mną jutro.', en: 'You are going to run with me tomorrow.', de: 'Du wirst morgen mit mir laufen.' }, spanish: 'vas a correr conmigo mañana' },
       { id: 'correr-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie przebiegliśmy dziesięć kilometrów.', en: 'We just ran ten kilometers.', de: 'Wir sind gerade zehn Kilometer gelaufen.' }, spanish: 'acabamos de correr diez kilómetros' },
+      { id: 'correr-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'biegnij szybko', en: 'run fast', de: 'lauf schnell' }, spanish: 'corre rápido' },
     ],
   },
   {
@@ -3813,6 +4447,7 @@ export const VERBS: Verb[] = [
     infinitive: 'cambiar',
     regular: true,
     participle: 'cambiado',
+    gerund: 'cambiando',
     conjugations: conjugateRegular('cambiar'),
     translations: {
       pl: {
@@ -3823,6 +4458,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zmienię', tu: 'zmienisz', el: 'zmieni', nosotros: 'zmienimy', vosotros: 'zmienicie', ellos: 'zmienią' },
           ir_a_infinitivo: { yo: 'zamierzam zmienić', tu: 'zamierzasz zmienić', el: 'zamierza zmienić', nosotros: 'zamierzamy zmienić', vosotros: 'zamierzacie zmienić', ellos: 'zamierzają zmienić' },
           acabar_de_infinitivo: { yo: 'właśnie zmieniłem', tu: 'właśnie zmieniłeś', el: 'właśnie zmienił', nosotros: 'właśnie zmieniliśmy', vosotros: 'właśnie zmieniliście', ellos: 'właśnie zmienili' },
+          imperativo_afirmativo: { yo: '—', tu: 'zmień', el: 'niech zmienia', nosotros: 'zmieńmy', vosotros: 'zmieńcie', ellos: 'niech zmieniają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zmień', el: 'niech nie zmienia', nosotros: 'nie zmieńmy', vosotros: 'nie zmieńcie', ellos: 'niech nie zmieniają' },
         },
       },
       en: {
@@ -3833,6 +4470,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will change', tu: 'you will change', el: 'he/she will change', nosotros: 'we will change', vosotros: 'you (all) will change', ellos: 'they will change' },
           ir_a_infinitivo: { yo: 'I am going to change', tu: 'you are going to change', el: 'he/she is going to change', nosotros: 'we are going to change', vosotros: 'you (all) are going to change', ellos: 'they are going to change' },
           acabar_de_infinitivo: { yo: 'I just changed', tu: 'you just changed', el: 'he/she just changed', nosotros: 'we just changed', vosotros: 'you (all) just changed', ellos: 'they just changed' },
+          imperativo_afirmativo: { yo: '—', tu: 'change!', el: 'change!', nosotros: 'let\'s change!', vosotros: 'change!', ellos: 'change!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t change!', el: 'don\'t change!', nosotros: 'let\'s not change!', vosotros: 'don\'t change!', ellos: 'don\'t change!' },
         },
       },
       de: {
@@ -3843,6 +4482,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde ändern', tu: 'du wirst ändern', el: 'er/sie/es wird ändern', nosotros: 'wir werden ändern', vosotros: 'ihr werdet ändern', ellos: 'sie werden ändern' },
           ir_a_infinitivo: { yo: 'ich werde gleich ändern', tu: 'du wirst gleich ändern', el: 'er/sie/es wird gleich ändern', nosotros: 'wir werden gleich ändern', vosotros: 'ihr werdet gleich ändern', ellos: 'sie werden gleich ändern' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geändert', tu: 'du hast gerade geändert', el: 'er/sie/es hat gerade geändert', nosotros: 'wir haben gerade geändert', vosotros: 'ihr habt gerade geändert', ellos: 'sie haben gerade geändert' },
+          imperativo_afirmativo: { yo: '—', tu: 'änder!', el: 'Ändern Sie!', nosotros: 'Ändern wir!', vosotros: 'ändert!', ellos: 'Ändern Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'änder nicht!', el: 'Ändern Sie nicht!', nosotros: 'Ändern wir nicht!', vosotros: 'ändert nicht!', ellos: 'Ändern Sie nicht!' },
         },
       },
     },
@@ -3857,6 +4498,7 @@ export const VERBS: Verb[] = [
       { id: 'cambiar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zmieniam to co tydzień.', en: 'I change it every week.', de: 'Ich ändere es jede Woche.' }, spanish: 'lo cambio cada semana' },
       { id: 'cambiar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zmienisz zdanie.', en: 'You are going to change your mind.', de: 'Du wirst deine Meinung ändern.' }, spanish: 'vas a cambiar de idea' },
       { id: 'cambiar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zmieniliśmy mieszkanie.', en: 'We just changed apartments.', de: 'Wir haben gerade die Wohnung gewechselt.' }, spanish: 'acabamos de cambiar de piso' },
+      { id: 'cambiar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zmień zdanie', en: 'change your mind', de: 'änder deine Meinung' }, spanish: 'cambia de opinión' },
     ],
   },
   {
@@ -3864,6 +4506,7 @@ export const VERBS: Verb[] = [
     infinitive: 'revisar',
     regular: true,
     participle: 'revisado',
+    gerund: 'revisando',
     conjugations: conjugateRegular('revisar'),
     translations: {
       pl: {
@@ -3874,6 +4517,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'sprawdzę', tu: 'sprawdzisz', el: 'sprawdzi', nosotros: 'sprawdzimy', vosotros: 'sprawdzicie', ellos: 'sprawdzą' },
           ir_a_infinitivo: { yo: 'zamierzam sprawdzić', tu: 'zamierzasz sprawdzić', el: 'zamierza sprawdzić', nosotros: 'zamierzamy sprawdzić', vosotros: 'zamierzacie sprawdzić', ellos: 'zamierzają sprawdzić' },
           acabar_de_infinitivo: { yo: 'właśnie sprawdziłem', tu: 'właśnie sprawdziłeś', el: 'właśnie sprawdził', nosotros: 'właśnie sprawdziliśmy', vosotros: 'właśnie sprawdziliście', ellos: 'właśnie sprawdzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'sprawdź', el: 'niech sprawdza', nosotros: 'sprawdźmy', vosotros: 'sprawdźcie', ellos: 'niech sprawdzają' },
+          imperativo_negativo: { yo: '—', tu: 'nie sprawdź', el: 'niech nie sprawdza', nosotros: 'nie sprawdźmy', vosotros: 'nie sprawdźcie', ellos: 'niech nie sprawdzają' },
         },
       },
       en: {
@@ -3884,6 +4529,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will check', tu: 'you will check', el: 'he/she will check', nosotros: 'we will check', vosotros: 'you (all) will check', ellos: 'they will check' },
           ir_a_infinitivo: { yo: 'I am going to check', tu: 'you are going to check', el: 'he/she is going to check', nosotros: 'we are going to check', vosotros: 'you (all) are going to check', ellos: 'they are going to check' },
           acabar_de_infinitivo: { yo: 'I just checked', tu: 'you just checked', el: 'he/she just checked', nosotros: 'we just checked', vosotros: 'you (all) just checked', ellos: 'they just checked' },
+          imperativo_afirmativo: { yo: '—', tu: 'check!', el: 'check!', nosotros: 'let\'s check!', vosotros: 'check!', ellos: 'check!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t check!', el: 'don\'t check!', nosotros: 'let\'s not check!', vosotros: 'don\'t check!', ellos: 'don\'t check!' },
         },
       },
       de: {
@@ -3894,6 +4541,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde überprüfen', tu: 'du wirst überprüfen', el: 'er/sie/es wird überprüfen', nosotros: 'wir werden überprüfen', vosotros: 'ihr werdet überprüfen', ellos: 'sie werden überprüfen' },
           ir_a_infinitivo: { yo: 'ich werde gleich überprüfen', tu: 'du wirst gleich überprüfen', el: 'er/sie/es wird gleich überprüfen', nosotros: 'wir werden gleich überprüfen', vosotros: 'ihr werdet gleich überprüfen', ellos: 'sie werden gleich überprüfen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade überprüft', tu: 'du hast gerade überprüft', el: 'er/sie/es hat gerade überprüft', nosotros: 'wir haben gerade überprüft', vosotros: 'ihr habt gerade überprüft', ellos: 'sie haben gerade überprüft' },
+          imperativo_afirmativo: { yo: '—', tu: 'überprüf!', el: 'Überprüfen Sie!', nosotros: 'Überprüfen wir!', vosotros: 'überprüft!', ellos: 'Überprüfen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'überprüf nicht!', el: 'Überprüfen Sie nicht!', nosotros: 'Überprüfen wir nicht!', vosotros: 'überprüft nicht!', ellos: 'Überprüfen Sie nicht!' },
         },
       },
     },
@@ -3908,6 +4557,7 @@ export const VERBS: Verb[] = [
       { id: 'revisar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Sprawdzam to codziennie.', en: 'I check it every day.', de: 'Ich überprüfe es jeden Tag.' }, spanish: 'lo reviso todos los días' },
       { id: 'revisar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Sprawdzisz raport.', en: 'You are going to check the report.', de: 'Du wirst den Bericht überprüfen.' }, spanish: 'vas a revisar el informe' },
       { id: 'revisar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie sprawdziliśmy budżet.', en: 'We just checked the budget.', de: 'Wir haben gerade das Budget überprüft.' }, spanish: 'acabamos de revisar el presupuesto' },
+      { id: 'revisar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'sprawdź pocztę', en: 'check the mail', de: 'überprüf die Post' }, spanish: 'revisa el correo' },
     ],
   },
   {
@@ -3915,12 +4565,15 @@ export const VERBS: Verb[] = [
     infinitive: 'comprobar',
     regular: false,
     participle: 'comprobado',
+    gerund: 'comprobando',
     conjugations: {
       presente: { yo: 'compruebo', tu: 'compruebas', el: 'comprueba', nosotros: 'comprobamos', vosotros: 'comprobáis', ellos: 'comprueban' },
       preterite: { yo: 'comprobé', tu: 'comprobaste', el: 'comprobó', nosotros: 'comprobamos', vosotros: 'comprobasteis', ellos: 'comprobaron' },
       futuro: { yo: 'comprobaré', tu: 'comprobarás', el: 'comprobará', nosotros: 'comprobaremos', vosotros: 'comprobaréis', ellos: 'comprobarán' },
       ir_a_infinitivo: { yo: 'voy a comprobar', tu: 'vas a comprobar', el: 'va a comprobar', nosotros: 'vamos a comprobar', vosotros: 'vais a comprobar', ellos: 'van a comprobar' },
       acabar_de_infinitivo: { yo: 'acabo de comprobar', tu: 'acabas de comprobar', el: 'acaba de comprobar', nosotros: 'acabamos de comprobar', vosotros: 'acabáis de comprobar', ellos: 'acaban de comprobar' },
+      imperativo_afirmativo: { yo: '—', tu: 'comprueba', el: 'compruebe', nosotros: 'comprobemos', vosotros: 'comprobad', ellos: 'comprueben' },
+      imperativo_negativo: { yo: '—', tu: 'no compruebes', el: 'no compruebe', nosotros: 'no comprobemos', vosotros: 'no comprobéis', ellos: 'no comprueben' },
     },
     translations: {
       pl: {
@@ -3931,6 +4584,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'sprawdzę', tu: 'sprawdzisz', el: 'sprawdzi', nosotros: 'sprawdzimy', vosotros: 'sprawdzicie', ellos: 'sprawdzą' },
           ir_a_infinitivo: { yo: 'zamierzam sprawdzić', tu: 'zamierzasz sprawdzić', el: 'zamierza sprawdzić', nosotros: 'zamierzamy sprawdzić', vosotros: 'zamierzacie sprawdzić', ellos: 'zamierzają sprawdzić' },
           acabar_de_infinitivo: { yo: 'właśnie sprawdziłem', tu: 'właśnie sprawdziłeś', el: 'właśnie sprawdził', nosotros: 'właśnie sprawdziliśmy', vosotros: 'właśnie sprawdziliście', ellos: 'właśnie sprawdzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'sprawdź', el: 'niech sprawdza', nosotros: 'sprawdźmy', vosotros: 'sprawdźcie', ellos: 'niech sprawdzają' },
+          imperativo_negativo: { yo: '—', tu: 'nie sprawdź', el: 'niech nie sprawdza', nosotros: 'nie sprawdźmy', vosotros: 'nie sprawdźcie', ellos: 'niech nie sprawdzają' },
         },
       },
       en: {
@@ -3941,6 +4596,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will verify', tu: 'you will verify', el: 'he/she will verify', nosotros: 'we will verify', vosotros: 'you (all) will verify', ellos: 'they will verify' },
           ir_a_infinitivo: { yo: 'I am going to verify', tu: 'you are going to verify', el: 'he/she is going to verify', nosotros: 'we are going to verify', vosotros: 'you (all) are going to verify', ellos: 'they are going to verify' },
           acabar_de_infinitivo: { yo: 'I just verified', tu: 'you just verified', el: 'he/she just verified', nosotros: 'we just verified', vosotros: 'you (all) just verified', ellos: 'they just verified' },
+          imperativo_afirmativo: { yo: '—', tu: 'check!', el: 'check!', nosotros: 'let\'s check!', vosotros: 'check!', ellos: 'check!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t check!', el: 'don\'t check!', nosotros: 'let\'s not check!', vosotros: 'don\'t check!', ellos: 'don\'t check!' },
         },
       },
       de: {
@@ -3951,6 +4608,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde prüfen', tu: 'du wirst prüfen', el: 'er/sie/es wird prüfen', nosotros: 'wir werden prüfen', vosotros: 'ihr werdet prüfen', ellos: 'sie werden prüfen' },
           ir_a_infinitivo: { yo: 'ich werde gleich prüfen', tu: 'du wirst gleich prüfen', el: 'er/sie/es wird gleich prüfen', nosotros: 'wir werden gleich prüfen', vosotros: 'ihr werdet gleich prüfen', ellos: 'sie werden gleich prüfen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geprüft', tu: 'du hast gerade geprüft', el: 'er/sie/es hat gerade geprüft', nosotros: 'wir haben gerade geprüft', vosotros: 'ihr habt gerade geprüft', ellos: 'sie haben gerade geprüft' },
+          imperativo_afirmativo: { yo: '—', tu: 'überprüf!', el: 'Überprüfen Sie!', nosotros: 'Überprüfen wir!', vosotros: 'prüft!', ellos: 'Überprüfen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'überprüf nicht!', el: 'Überprüfen Sie nicht!', nosotros: 'Überprüfen wir nicht!', vosotros: 'prüft nicht!', ellos: 'Überprüfen Sie nicht!' },
         },
       },
     },
@@ -3965,6 +4624,7 @@ export const VERBS: Verb[] = [
       { id: 'comprobar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Sprawdzam to, zanim to wyślę.', en: 'I check it before sending it.', de: 'Ich prüfe es, bevor ich es sende.' }, spanish: 'lo compruebo antes de enviarlo' },
       { id: 'comprobar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Sprawdzisz stan konta.', en: 'You are going to check the account balance.', de: 'Du wirst den Kontostand überprüfen.' }, spanish: 'vas a comprobar el saldo de la cuenta' },
       { id: 'comprobar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie sprawdziliśmy instalację.', en: 'We just checked the installation.', de: 'Wir haben gerade die Installation überprüft.' }, spanish: 'acabamos de comprobar la instalación' },
+      { id: 'comprobar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'sprawdź dane', en: 'check the data', de: 'überprüf die Daten' }, spanish: 'comprueba los datos' },
     ],
   },
   {
@@ -3972,12 +4632,15 @@ export const VERBS: Verb[] = [
     infinitive: 'perder',
     regular: false,
     participle: 'perdido',
+    gerund: 'perdiendo',
     conjugations: {
       presente: { yo: 'pierdo', tu: 'pierdes', el: 'pierde', nosotros: 'perdemos', vosotros: 'perdéis', ellos: 'pierden' },
       preterite: { yo: 'perdí', tu: 'perdiste', el: 'perdió', nosotros: 'perdimos', vosotros: 'perdisteis', ellos: 'perdieron' },
       futuro: { yo: 'perderé', tu: 'perderás', el: 'perderá', nosotros: 'perderemos', vosotros: 'perderéis', ellos: 'perderán' },
       ir_a_infinitivo: { yo: 'voy a perder', tu: 'vas a perder', el: 'va a perder', nosotros: 'vamos a perder', vosotros: 'vais a perder', ellos: 'van a perder' },
       acabar_de_infinitivo: { yo: 'acabo de perder', tu: 'acabas de perder', el: 'acaba de perder', nosotros: 'acabamos de perder', vosotros: 'acabáis de perder', ellos: 'acaban de perder' },
+      imperativo_afirmativo: { yo: '—', tu: 'pierde', el: 'pierda', nosotros: 'perdamos', vosotros: 'perded', ellos: 'pierdan' },
+      imperativo_negativo: { yo: '—', tu: 'no pierdas', el: 'no pierda', nosotros: 'no perdamos', vosotros: 'no perdáis', ellos: 'no pierdan' },
     },
     translations: {
       pl: {
@@ -3988,6 +4651,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'stracę', tu: 'stracisz', el: 'straci', nosotros: 'stracimy', vosotros: 'stracicie', ellos: 'stracą' },
           ir_a_infinitivo: { yo: 'zamierzam stracić', tu: 'zamierzasz stracić', el: 'zamierza stracić', nosotros: 'zamierzamy stracić', vosotros: 'zamierzacie stracić', ellos: 'zamierzają stracić' },
           acabar_de_infinitivo: { yo: 'właśnie straciłem', tu: 'właśnie straciłeś', el: 'właśnie stracił', nosotros: 'właśnie straciliśmy', vosotros: 'właśnie straciliście', ellos: 'właśnie stracili' },
+          imperativo_afirmativo: { yo: '—', tu: 'trać', el: 'niech traci', nosotros: 'traćmy', vosotros: 'traćcie', ellos: 'niech tracą' },
+          imperativo_negativo: { yo: '—', tu: 'nie trać', el: 'niech nie traci', nosotros: 'nie traćmy', vosotros: 'nie traćcie', ellos: 'niech nie tracą' },
         },
       },
       en: {
@@ -3998,6 +4663,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will lose', tu: 'you will lose', el: 'he/she will lose', nosotros: 'we will lose', vosotros: 'you (all) will lose', ellos: 'they will lose' },
           ir_a_infinitivo: { yo: 'I am going to lose', tu: 'you are going to lose', el: 'he/she is going to lose', nosotros: 'we are going to lose', vosotros: 'you (all) are going to lose', ellos: 'they are going to lose' },
           acabar_de_infinitivo: { yo: 'I just lost', tu: 'you just lost', el: 'he/she just lost', nosotros: 'we just lost', vosotros: 'you (all) just lost', ellos: 'they just lost' },
+          imperativo_afirmativo: { yo: '—', tu: 'lose!', el: 'lose!', nosotros: 'let\'s lose!', vosotros: 'lose!', ellos: 'lose!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t lose!', el: 'don\'t lose!', nosotros: 'let\'s not lose!', vosotros: 'don\'t lose!', ellos: 'don\'t lose!' },
         },
       },
       de: {
@@ -4008,6 +4675,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde verlieren', tu: 'du wirst verlieren', el: 'er/sie/es wird verlieren', nosotros: 'wir werden verlieren', vosotros: 'ihr werdet verlieren', ellos: 'sie werden verlieren' },
           ir_a_infinitivo: { yo: 'ich werde gleich verlieren', tu: 'du wirst gleich verlieren', el: 'er/sie/es wird gleich verlieren', nosotros: 'wir werden gleich verlieren', vosotros: 'ihr werdet gleich verlieren', ellos: 'sie werden gleich verlieren' },
           acabar_de_infinitivo: { yo: 'ich habe gerade verloren', tu: 'du hast gerade verloren', el: 'er/sie/es hat gerade verloren', nosotros: 'wir haben gerade verloren', vosotros: 'ihr habt gerade verloren', ellos: 'sie haben gerade verloren' },
+          imperativo_afirmativo: { yo: '—', tu: 'verlier!', el: 'Verlieren Sie!', nosotros: 'Verlieren wir!', vosotros: 'verliert!', ellos: 'Verlieren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'verlier nicht!', el: 'Verlieren Sie nicht!', nosotros: 'Verlieren wir nicht!', vosotros: 'verliert nicht!', ellos: 'Verlieren Sie nicht!' },
         },
       },
     },
@@ -4022,6 +4691,7 @@ export const VERBS: Verb[] = [
       { id: 'perder-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zawsze wszystko gubię.', en: 'I always lose everything.', de: 'Ich verliere immer alles.' }, spanish: 'siempre lo pierdo todo' },
       { id: 'perder-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Stracisz do mnie cierpliwość.', en: 'You are going to lose your patience with me.', de: 'Du wirst mit mir die Geduld verlieren.' }, spanish: 'vas a perder la paciencia conmigo' },
       { id: 'perder-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie spóźniliśmy się na pociąg.', en: 'We just missed the train.', de: 'Wir haben gerade den Zug verpasst.' }, spanish: 'acabamos de perder el tren' },
+      { id: 'perder-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie trać czasu', en: 'don\'t waste time', de: 'verlier keine Zeit' }, spanish: 'no pierdas el tiempo' },
     ],
   },
   {
@@ -4029,12 +4699,15 @@ export const VERBS: Verb[] = [
     infinitive: 'satisfacer',
     regular: false,
     participle: 'satisfecho',
+    gerund: 'satisfaciendo',
     conjugations: {
       presente: { yo: 'satisfago', tu: 'satisfaces', el: 'satisface', nosotros: 'satisfacemos', vosotros: 'satisfacéis', ellos: 'satisfacen' },
       preterite: { yo: 'satisfice', tu: 'satisficiste', el: 'satisfizo', nosotros: 'satisficimos', vosotros: 'satisficisteis', ellos: 'satisficieron' },
       futuro: { yo: 'satisfaré', tu: 'satisfarás', el: 'satisfará', nosotros: 'satisfaremos', vosotros: 'satisfaréis', ellos: 'satisfarán' },
       ir_a_infinitivo: { yo: 'voy a satisfacer', tu: 'vas a satisfacer', el: 'va a satisfacer', nosotros: 'vamos a satisfacer', vosotros: 'vais a satisfacer', ellos: 'van a satisfacer' },
       acabar_de_infinitivo: { yo: 'acabo de satisfacer', tu: 'acabas de satisfacer', el: 'acaba de satisfacer', nosotros: 'acabamos de satisfacer', vosotros: 'acabáis de satisfacer', ellos: 'acaban de satisfacer' },
+      imperativo_afirmativo: { yo: '—', tu: 'satisface', el: 'satisfaga', nosotros: 'satisfagamos', vosotros: 'satisfaced', ellos: 'satisfagan' },
+      imperativo_negativo: { yo: '—', tu: 'no satisfagas', el: 'no satisfaga', nosotros: 'no satisfagamos', vosotros: 'no satisfagáis', ellos: 'no satisfagan' },
     },
     translations: {
       pl: {
@@ -4045,6 +4718,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zaspokoję', tu: 'zaspokoisz', el: 'zaspokoi', nosotros: 'zaspokoimy', vosotros: 'zaspokoicie', ellos: 'zaspokoją' },
           ir_a_infinitivo: { yo: 'zamierzam zaspokoić', tu: 'zamierzasz zaspokoić', el: 'zamierza zaspokoić', nosotros: 'zamierzamy zaspokoić', vosotros: 'zamierzacie zaspokoić', ellos: 'zamierzają zaspokoić' },
           acabar_de_infinitivo: { yo: 'właśnie zaspokoiłem', tu: 'właśnie zaspokoiłeś', el: 'właśnie zaspokoił', nosotros: 'właśnie zaspokoiliśmy', vosotros: 'właśnie zaspokoiliście', ellos: 'właśnie zaspokoili' },
+          imperativo_afirmativo: { yo: '—', tu: 'zaspokój', el: 'niech zaspokaja', nosotros: 'zaspokójmy', vosotros: 'zaspokójcie', ellos: 'niech zaspokajają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zaspokój', el: 'niech nie zaspokaja', nosotros: 'nie zaspokójmy', vosotros: 'nie zaspokójcie', ellos: 'niech nie zaspokajają' },
         },
       },
       en: {
@@ -4055,6 +4730,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will satisfy', tu: 'you will satisfy', el: 'he/she will satisfy', nosotros: 'we will satisfy', vosotros: 'you (all) will satisfy', ellos: 'they will satisfy' },
           ir_a_infinitivo: { yo: 'I am going to satisfy', tu: 'you are going to satisfy', el: 'he/she is going to satisfy', nosotros: 'we are going to satisfy', vosotros: 'you (all) are going to satisfy', ellos: 'they are going to satisfy' },
           acabar_de_infinitivo: { yo: 'I just satisfied', tu: 'you just satisfied', el: 'he/she just satisfied', nosotros: 'we just satisfied', vosotros: 'you (all) just satisfied', ellos: 'they just satisfied' },
+          imperativo_afirmativo: { yo: '—', tu: 'satisfy!', el: 'satisfy!', nosotros: 'let\'s satisfy!', vosotros: 'satisfy!', ellos: 'satisfy!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t satisfy!', el: 'don\'t satisfy!', nosotros: 'let\'s not satisfy!', vosotros: 'don\'t satisfy!', ellos: 'don\'t satisfy!' },
         },
       },
       de: {
@@ -4065,6 +4742,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde befriedigen', tu: 'du wirst befriedigen', el: 'er/sie/es wird befriedigen', nosotros: 'wir werden befriedigen', vosotros: 'ihr werdet befriedigen', ellos: 'sie werden befriedigen' },
           ir_a_infinitivo: { yo: 'ich werde gleich befriedigen', tu: 'du wirst gleich befriedigen', el: 'er/sie/es wird gleich befriedigen', nosotros: 'wir werden gleich befriedigen', vosotros: 'ihr werdet gleich befriedigen', ellos: 'sie werden gleich befriedigen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade befriedigt', tu: 'du hast gerade befriedigt', el: 'er/sie/es hat gerade befriedigt', nosotros: 'wir haben gerade befriedigt', vosotros: 'ihr habt gerade befriedigt', ellos: 'sie haben gerade befriedigt' },
+          imperativo_afirmativo: { yo: '—', tu: 'befriedige!', el: 'Befriedigen Sie!', nosotros: 'Befriedigen wir!', vosotros: 'befriedigt!', ellos: 'Befriedigen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'befriedige nicht!', el: 'Befriedigen Sie nicht!', nosotros: 'Befriedigen wir nicht!', vosotros: 'befriedigt nicht!', ellos: 'Befriedigen Sie nicht!' },
         },
       },
     },
@@ -4079,6 +4758,7 @@ export const VERBS: Verb[] = [
       { id: 'satisfacer-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Nigdy go do końca nie zaspokajam.', en: 'I never fully satisfy him.', de: 'Ich befriedige ihn nie ganz.' }, spanish: 'nunca lo satisfago del todo' },
       { id: 'satisfacer-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaspokoisz wszystkich.', en: 'You are going to satisfy everyone.', de: 'Du wirst alle zufriedenstellen.' }, spanish: 'vas a satisfacer a todo el mundo' },
       { id: 'satisfacer-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie spełniliśmy wszystkie wymagania.', en: 'We just satisfied all the requirements.', de: 'Wir haben gerade alle Anforderungen erfüllt.' }, spanish: 'acabamos de satisfacer todos los requisitos' },
+      { id: 'satisfacer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zaspokój klienta', en: 'satisfy the customer', de: 'befriedige den Kunden' }, spanish: 'satisface al cliente' },
     ],
   },
   {
@@ -4086,12 +4766,15 @@ export const VERBS: Verb[] = [
     infinitive: 'doler',
     regular: false,
     participle: 'dolido',
+    gerund: 'doliendo',
     conjugations: {
       presente: { yo: 'duelo', tu: 'dueles', el: 'duele', nosotros: 'dolemos', vosotros: 'doléis', ellos: 'duelen' },
       preterite: { yo: 'dolí', tu: 'doliste', el: 'dolió', nosotros: 'dolimos', vosotros: 'dolisteis', ellos: 'dolieron' },
       futuro: { yo: 'doleré', tu: 'dolerás', el: 'dolerá', nosotros: 'doleremos', vosotros: 'doleréis', ellos: 'dolerán' },
       ir_a_infinitivo: { yo: 'voy a doler', tu: 'vas a doler', el: 'va a doler', nosotros: 'vamos a doler', vosotros: 'vais a doler', ellos: 'van a doler' },
       acabar_de_infinitivo: { yo: 'acabo de doler', tu: 'acabas de doler', el: 'acaba de doler', nosotros: 'acabamos de doler', vosotros: 'acabáis de doler', ellos: 'acaban de doler' },
+      imperativo_afirmativo: { yo: '—', tu: 'duele', el: 'duela', nosotros: 'dolamos', vosotros: 'doled', ellos: 'duelan' },
+      imperativo_negativo: { yo: '—', tu: 'no duelas', el: 'no duela', nosotros: 'no dolamos', vosotros: 'no doláis', ellos: 'no duelan' },
     },
     translations: {
       pl: {
@@ -4102,6 +4785,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę bolał', tu: 'będziesz bolał', el: 'będzie bolał', nosotros: 'będziemy boleli', vosotros: 'będziecie boleli', ellos: 'będą boleli' },
           ir_a_infinitivo: { yo: 'zamierzam boleć', tu: 'zamierzasz boleć', el: 'zamierza boleć', nosotros: 'zamierzamy boleć', vosotros: 'zamierzacie boleć', ellos: 'zamierzają boleć' },
           acabar_de_infinitivo: { yo: 'właśnie bolałem', tu: 'właśnie bolałeś', el: 'właśnie bolał', nosotros: 'właśnie boleliśmy', vosotros: 'właśnie boleliście', ellos: 'właśnie boleli' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie boj się bólu', el: 'niech boleje', nosotros: 'nie boj się bólumy', vosotros: 'nie boj się bólucie', ellos: 'niech boleją' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie boj się bólu', el: 'niech nie boleje', nosotros: 'nie nie boj się bólumy', vosotros: 'nie nie boj się bólucie', ellos: 'niech nie boleją' },
         },
       },
       en: {
@@ -4112,6 +4797,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will hurt', tu: 'you will hurt', el: 'he/she/it will hurt', nosotros: 'we will hurt', vosotros: 'you (all) will hurt', ellos: 'they will hurt' },
           ir_a_infinitivo: { yo: 'I am going to hurt', tu: 'you are going to hurt', el: 'he/she/it is going to hurt', nosotros: 'we are going to hurt', vosotros: 'you (all) are going to hurt', ellos: 'they are going to hurt' },
           acabar_de_infinitivo: { yo: 'I just hurt', tu: 'you just hurt', el: 'he/she/it just hurt', nosotros: 'we just hurt', vosotros: 'you (all) just hurt', ellos: 'they just hurt' },
+          imperativo_afirmativo: { yo: '—', tu: 'hurt!', el: 'hurt!', nosotros: 'let\'s hurt!', vosotros: 'hurt!', ellos: 'hurt!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t hurt!', el: 'don\'t hurt!', nosotros: 'let\'s not hurt!', vosotros: 'don\'t hurt!', ellos: 'don\'t hurt!' },
         },
       },
       de: {
@@ -4122,6 +4809,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde weh tun', tu: 'du wirst weh tun', el: 'er/sie/es wird weh tun', nosotros: 'wir werden weh tun', vosotros: 'ihr werdet weh tun', ellos: 'sie werden weh tun' },
           ir_a_infinitivo: { yo: 'ich werde gleich weh tun', tu: 'du wirst gleich weh tun', el: 'er/sie/es wird gleich weh tun', nosotros: 'wir werden gleich weh tun', vosotros: 'ihr werdet gleich weh tun', ellos: 'sie werden gleich weh tun' },
           acabar_de_infinitivo: { yo: 'ich habe gerade weh getan', tu: 'du hast gerade weh getan', el: 'er/sie/es hat gerade weh getan', nosotros: 'wir haben gerade weh getan', vosotros: 'ihr habt gerade weh getan', ellos: 'sie haben gerade weh getan' },
+          imperativo_afirmativo: { yo: '—', tu: 'tu weh!', el: 'Tun Sie weh!', nosotros: 'Tun wir weh!', vosotros: 'tut weh!', ellos: 'Tun Sie weh!' },
+          imperativo_negativo: { yo: '—', tu: 'tu weh nicht!', el: 'Tun Sie weh nicht!', nosotros: 'Tun wir weh nicht!', vosotros: 'tut weh nicht!', ellos: 'Tun Sie weh nicht!' },
         },
       },
     },
@@ -4136,6 +4825,7 @@ export const VERBS: Verb[] = [
       { id: 'doler-futuro-te', tense: 'futuro', person: 'el', pronounType: 'indirect', pronoun: 'te', translations: { pl: 'Jutro będzie cię bolało ramię.', en: 'Your arm will hurt tomorrow.', de: 'Dir wird morgen der Arm weh tun.' }, spanish: 'te dolerá el brazo mañana' },
       { id: 'doler-ir_a_infinitivo-me', tense: 'ir_a_infinitivo', person: 'el', pronounType: 'indirect', pronoun: 'me', translations: { pl: 'Będzie mnie bolała głowa, jeśli nie odpocznę.', en: "My head is going to hurt if I don't rest.", de: 'Mir wird der Kopf weh tun, wenn ich mich nicht ausruhe.' }, spanish: 'me va a doler la cabeza si no descanso' },
       { id: 'doler-acabar_de_infinitivo-le', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'indirect', pronoun: 'le', translations: { pl: 'Właśnie zabolała go klatka piersiowa.', en: 'His chest just hurt.', de: 'Ihm hat gerade die Brust weh getan.' }, spanish: 'le acaba de doler el pecho' },
+      { id: 'doler-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie bol mnie już bardziej', en: 'don\'t hurt me any more', de: 'tu mir nicht mehr weh' }, spanish: 'no me duelas más' },
     ],
   },
   {
@@ -4143,6 +4833,7 @@ export const VERBS: Verb[] = [
     infinitive: 'enfermar',
     regular: true,
     participle: 'enfermado',
+    gerund: 'enfermando',
     conjugations: conjugateRegular('enfermar'),
     translations: {
       pl: {
@@ -4153,6 +4844,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zachoruję', tu: 'zachorujesz', el: 'zachoruje', nosotros: 'zachorujemy', vosotros: 'zachorujecie', ellos: 'zachorują' },
           ir_a_infinitivo: { yo: 'zamierzam zachorować', tu: 'zamierzasz zachorować', el: 'zamierza zachorować', nosotros: 'zamierzamy zachorować', vosotros: 'zamierzacie zachorować', ellos: 'zamierzają zachorować' },
           acabar_de_infinitivo: { yo: 'właśnie zachorowałem', tu: 'właśnie zachorowałeś', el: 'właśnie zachorował', nosotros: 'właśnie zachorowaliśmy', vosotros: 'właśnie zachorowaliście', ellos: 'właśnie zachorowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie chorujesz', el: 'niech choruje', nosotros: 'nie chorujeszmy', vosotros: 'nie chorujeszcie', ellos: 'niech chorują' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie chorujesz', el: 'niech nie choruje', nosotros: 'nie nie chorujeszmy', vosotros: 'nie nie chorujeszcie', ellos: 'niech nie chorują' },
         },
       },
       en: {
@@ -4163,6 +4856,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will get sick', tu: 'you will get sick', el: 'he/she will get sick', nosotros: 'we will get sick', vosotros: 'you (all) will get sick', ellos: 'they will get sick' },
           ir_a_infinitivo: { yo: 'I am going to get sick', tu: 'you are going to get sick', el: 'he/she is going to get sick', nosotros: 'we are going to get sick', vosotros: 'you (all) are going to get sick', ellos: 'they are going to get sick' },
           acabar_de_infinitivo: { yo: 'I just got sick', tu: 'you just got sick', el: 'he/she just got sick', nosotros: 'we just got sick', vosotros: 'you (all) just got sick', ellos: 'they just got sick' },
+          imperativo_afirmativo: { yo: '—', tu: 'get sick!', el: 'get sick!', nosotros: 'let\'s get sick!', vosotros: 'get sick!', ellos: 'get sick!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t get sick!', el: 'don\'t get sick!', nosotros: 'let\'s not get sick!', vosotros: 'don\'t get sick!', ellos: 'don\'t get sick!' },
         },
       },
       de: {
@@ -4173,6 +4868,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde krank werden', tu: 'du wirst krank werden', el: 'er/sie/es wird krank werden', nosotros: 'wir werden krank werden', vosotros: 'ihr werdet krank werden', ellos: 'sie werden krank werden' },
           ir_a_infinitivo: { yo: 'ich werde gleich krank werden', tu: 'du wirst gleich krank werden', el: 'er/sie/es wird gleich krank werden', nosotros: 'wir werden gleich krank werden', vosotros: 'ihr werdet gleich krank werden', ellos: 'sie werden gleich krank werden' },
           acabar_de_infinitivo: { yo: 'ich bin gerade krank geworden', tu: 'du bist gerade krank geworden', el: 'er/sie/es ist gerade krank geworden', nosotros: 'wir sind gerade krank geworden', vosotros: 'ihr seid gerade krank geworden', ellos: 'sie sind gerade krank geworden' },
+          imperativo_afirmativo: { yo: '—', tu: 'werde krank!', el: 'Werden Sie krank!', nosotros: 'Werden wir krank!', vosotros: 'werdet krank!', ellos: 'Werden Sie krank!' },
+          imperativo_negativo: { yo: '—', tu: 'werde krank nicht!', el: 'Werden Sie krank nicht!', nosotros: 'Werden wir krank nicht!', vosotros: 'werdet krank nicht!', ellos: 'Werden Sie krank nicht!' },
         },
       },
     },
@@ -4186,6 +4883,7 @@ export const VERBS: Verb[] = [
       { id: 'enfermar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zachorowali po podróży.', en: 'They got sick after the trip.', de: 'Sie wurden nach der Reise krank.' }, spanish: 'enfermaron después del viaje' },
       { id: 'enfermar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zachorujesz, jeśli tak dalej pójdzie.', en: 'You are going to get sick if you keep this up.', de: 'Du wirst krank werden, wenn du so weitermachst.' }, spanish: 'vas a enfermar si sigues así' },
       { id: 'enfermar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie oboje zachorowaliśmy.', en: 'We just both got sick.', de: 'Wir sind gerade beide krank geworden.' }, spanish: 'acabamos de enfermar los dos' },
+      { id: 'enfermar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie choruj', en: 'don\'t get sick', de: 'werde nicht krank' }, spanish: 'no te enfermes' },
     ],
   },
   {
@@ -4193,6 +4891,7 @@ export const VERBS: Verb[] = [
     infinitive: 'toser',
     regular: true,
     participle: 'tosido',
+    gerund: 'tosiendo',
     conjugations: conjugateRegular('toser'),
     translations: {
       pl: {
@@ -4203,6 +4902,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę kaszlał', tu: 'będziesz kaszlał', el: 'będzie kaszlał', nosotros: 'będziemy kaszlali', vosotros: 'będziecie kaszlali', ellos: 'będą kaszlali' },
           ir_a_infinitivo: { yo: 'zamierzam kaszleć', tu: 'zamierzasz kaszleć', el: 'zamierza kaszleć', nosotros: 'zamierzamy kaszleć', vosotros: 'zamierzacie kaszleć', ellos: 'zamierzają kaszleć' },
           acabar_de_infinitivo: { yo: 'właśnie kaszlałem', tu: 'właśnie kaszlałeś', el: 'właśnie kaszlał', nosotros: 'właśnie kaszlaliśmy', vosotros: 'właśnie kaszlaliście', ellos: 'właśnie kaszlali' },
+          imperativo_afirmativo: { yo: '—', tu: 'kaszlnij', el: 'niech kaszle', nosotros: 'kaszlnijmy', vosotros: 'kaszlnijcie', ellos: 'niech kaszlą' },
+          imperativo_negativo: { yo: '—', tu: 'nie kaszlnij', el: 'niech nie kaszle', nosotros: 'nie kaszlnijmy', vosotros: 'nie kaszlnijcie', ellos: 'niech nie kaszlą' },
         },
       },
       en: {
@@ -4213,6 +4914,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will cough', tu: 'you will cough', el: 'he/she will cough', nosotros: 'we will cough', vosotros: 'you (all) will cough', ellos: 'they will cough' },
           ir_a_infinitivo: { yo: 'I am going to cough', tu: 'you are going to cough', el: 'he/she is going to cough', nosotros: 'we are going to cough', vosotros: 'you (all) are going to cough', ellos: 'they are going to cough' },
           acabar_de_infinitivo: { yo: 'I just coughed', tu: 'you just coughed', el: 'he/she just coughed', nosotros: 'we just coughed', vosotros: 'you (all) just coughed', ellos: 'they just coughed' },
+          imperativo_afirmativo: { yo: '—', tu: 'cough!', el: 'cough!', nosotros: 'let\'s cough!', vosotros: 'cough!', ellos: 'cough!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t cough!', el: 'don\'t cough!', nosotros: 'let\'s not cough!', vosotros: 'don\'t cough!', ellos: 'don\'t cough!' },
         },
       },
       de: {
@@ -4223,6 +4926,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde husten', tu: 'du wirst husten', el: 'er/sie/es wird husten', nosotros: 'wir werden husten', vosotros: 'ihr werdet husten', ellos: 'sie werden husten' },
           ir_a_infinitivo: { yo: 'ich werde gleich husten', tu: 'du wirst gleich husten', el: 'er/sie/es wird gleich husten', nosotros: 'wir werden gleich husten', vosotros: 'ihr werdet gleich husten', ellos: 'sie werden gleich husten' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gehustet', tu: 'du hast gerade gehustet', el: 'er/sie/es hat gerade gehustet', nosotros: 'wir haben gerade gehustet', vosotros: 'ihr habt gerade gehustet', ellos: 'sie haben gerade gehustet' },
+          imperativo_afirmativo: { yo: '—', tu: 'huste!', el: 'Husten Sie!', nosotros: 'Husten wir!', vosotros: 'hustet!', ellos: 'Husten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'huste nicht!', el: 'Husten Sie nicht!', nosotros: 'Husten wir nicht!', vosotros: 'hustet nicht!', ellos: 'Husten Sie nicht!' },
         },
       },
     },
@@ -4236,6 +4941,7 @@ export const VERBS: Verb[] = [
       { id: 'toser-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Kaszlali z powodu kurzu.', en: 'They coughed because of the dust.', de: 'Sie husteten wegen des Staubs.' }, spanish: 'tosieron por el polvo' },
       { id: 'toser-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Będziesz kaszleć, jeśli będziesz dalej palić.', en: 'You are going to cough if you keep smoking.', de: 'Du wirst husten, wenn du weiter rauchst.' }, spanish: 'vas a toser si sigues fumando' },
       { id: 'toser-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie oboje zakaszleliśmy.', en: 'We just both coughed.', de: 'Wir haben gerade beide gehustet.' }, spanish: 'acabamos de toser los dos' },
+      { id: 'toser-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'kaszlnij w łokieć', en: 'cough into your elbow', de: 'huste in deinen Ellbogen' }, spanish: 'tose en el codo' },
     ],
   },
   {
@@ -4243,6 +4949,7 @@ export const VERBS: Verb[] = [
     infinitive: 'vomitar',
     regular: true,
     participle: 'vomitado',
+    gerund: 'vomitando',
     conjugations: conjugateRegular('vomitar'),
     translations: {
       pl: {
@@ -4253,6 +4960,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zwymiotuję', tu: 'zwymiotujesz', el: 'zwymiotuje', nosotros: 'zwymiotujemy', vosotros: 'zwymiotujecie', ellos: 'zwymiotują' },
           ir_a_infinitivo: { yo: 'zamierzam zwymiotować', tu: 'zamierzasz zwymiotować', el: 'zamierza zwymiotować', nosotros: 'zamierzamy zwymiotować', vosotros: 'zamierzacie zwymiotować', ellos: 'zamierzają zwymiotować' },
           acabar_de_infinitivo: { yo: 'właśnie zwymiotowałem', tu: 'właśnie zwymiotowałeś', el: 'właśnie zwymiotował', nosotros: 'właśnie zwymiotowaliśmy', vosotros: 'właśnie zwymiotowaliście', ellos: 'właśnie zwymiotowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zwymiotuj', el: 'niech wymiotuje', nosotros: 'zwymiotujmy', vosotros: 'zwymiotujcie', ellos: 'niech wymiotują' },
+          imperativo_negativo: { yo: '—', tu: 'nie zwymiotuj', el: 'niech nie wymiotuje', nosotros: 'nie zwymiotujmy', vosotros: 'nie zwymiotujcie', ellos: 'niech nie wymiotują' },
         },
       },
       en: {
@@ -4263,6 +4972,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will vomit', tu: 'you will vomit', el: 'he/she will vomit', nosotros: 'we will vomit', vosotros: 'you (all) will vomit', ellos: 'they will vomit' },
           ir_a_infinitivo: { yo: 'I am going to vomit', tu: 'you are going to vomit', el: 'he/she is going to vomit', nosotros: 'we are going to vomit', vosotros: 'you (all) are going to vomit', ellos: 'they are going to vomit' },
           acabar_de_infinitivo: { yo: 'I just vomited', tu: 'you just vomited', el: 'he/she just vomited', nosotros: 'we just vomited', vosotros: 'you (all) just vomited', ellos: 'they just vomited' },
+          imperativo_afirmativo: { yo: '—', tu: 'vomit!', el: 'vomit!', nosotros: 'let\'s vomit!', vosotros: 'vomit!', ellos: 'vomit!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t vomit!', el: 'don\'t vomit!', nosotros: 'let\'s not vomit!', vosotros: 'don\'t vomit!', ellos: 'don\'t vomit!' },
         },
       },
       de: {
@@ -4273,6 +4984,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde mich übergeben', tu: 'du wirst dich übergeben', el: 'er/sie/es wird sich übergeben', nosotros: 'wir werden uns übergeben', vosotros: 'ihr werdet euch übergeben', ellos: 'sie werden sich übergeben' },
           ir_a_infinitivo: { yo: 'ich werde mich gleich übergeben', tu: 'du wirst dich gleich übergeben', el: 'er/sie/es wird sich gleich übergeben', nosotros: 'wir werden uns gleich übergeben', vosotros: 'ihr werdet euch gleich übergeben', ellos: 'sie werden sich gleich übergeben' },
           acabar_de_infinitivo: { yo: 'ich habe mich gerade übergeben', tu: 'du hast dich gerade übergeben', el: 'er/sie/es hat sich gerade übergeben', nosotros: 'wir haben uns gerade übergeben', vosotros: 'ihr habt euch gerade übergeben', ellos: 'sie haben sich gerade übergeben' },
+          imperativo_afirmativo: { yo: '—', tu: 'übergib dich!', el: 'Übergeben Sie sich!', nosotros: 'Übergeben wir uns!', vosotros: 'übergebt euch!', ellos: 'Übergeben Sie sich!' },
+          imperativo_negativo: { yo: '—', tu: 'übergib dich nicht!', el: 'Übergeben Sie sich nicht!', nosotros: 'Übergeben wir uns nicht!', vosotros: 'übergebt euch nicht!', ellos: 'Übergeben Sie sich nicht!' },
         },
       },
     },
@@ -4286,6 +4999,7 @@ export const VERBS: Verb[] = [
       { id: 'vomitar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zwymiotowali z powodu zepsutego jedzenia.', en: 'They threw up because of the spoiled food.', de: 'Sie übergaben sich wegen des verdorbenen Essens.' }, spanish: 'vomitaron por la comida en mal estado' },
       { id: 'vomitar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zwymiotujesz, jeśli będziesz się dalej kręcić.', en: 'You are going to throw up if you keep spinning.', de: 'Du wirst dich übergeben, wenn du dich weiter drehst.' }, spanish: 'vas a vomitar si sigues dando vueltas' },
       { id: 'vomitar-acabar_de_infinitivo-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Dziecko właśnie zwymiotowało.', en: 'The child just threw up.', de: 'Das Kind hat sich gerade übergeben.' }, spanish: 'el niño acaba de vomitar' },
+      { id: 'vomitar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie wymiotuj tutaj', en: 'don\'t vomit here', de: 'übergib dich nicht hier' }, spanish: 'no vomites aquí' },
     ],
   },
   {
@@ -4293,6 +5007,7 @@ export const VERBS: Verb[] = [
     infinitive: 'respirar',
     regular: true,
     participle: 'respirado',
+    gerund: 'respirando',
     conjugations: conjugateRegular('respirar'),
     translations: {
       pl: {
@@ -4303,6 +5018,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę oddychał', tu: 'będziesz oddychał', el: 'będzie oddychał', nosotros: 'będziemy oddychali', vosotros: 'będziecie oddychali', ellos: 'będą oddychali' },
           ir_a_infinitivo: { yo: 'zamierzam oddychać', tu: 'zamierzasz oddychać', el: 'zamierza oddychać', nosotros: 'zamierzamy oddychać', vosotros: 'zamierzacie oddychać', ellos: 'zamierzają oddychać' },
           acabar_de_infinitivo: { yo: 'właśnie oddychałem', tu: 'właśnie oddychałeś', el: 'właśnie oddychał', nosotros: 'właśnie oddychaliśmy', vosotros: 'właśnie oddychaliście', ellos: 'właśnie oddychali' },
+          imperativo_afirmativo: { yo: '—', tu: 'oddychaj', el: 'niech oddycha', nosotros: 'oddychajmy', vosotros: 'oddychajcie', ellos: 'niech oddychają' },
+          imperativo_negativo: { yo: '—', tu: 'nie oddychaj', el: 'niech nie oddycha', nosotros: 'nie oddychajmy', vosotros: 'nie oddychajcie', ellos: 'niech nie oddychają' },
         },
       },
       en: {
@@ -4313,6 +5030,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will breathe', tu: 'you will breathe', el: 'he/she will breathe', nosotros: 'we will breathe', vosotros: 'you (all) will breathe', ellos: 'they will breathe' },
           ir_a_infinitivo: { yo: 'I am going to breathe', tu: 'you are going to breathe', el: 'he/she is going to breathe', nosotros: 'we are going to breathe', vosotros: 'you (all) are going to breathe', ellos: 'they are going to breathe' },
           acabar_de_infinitivo: { yo: 'I just breathed', tu: 'you just breathed', el: 'he/she just breathed', nosotros: 'we just breathed', vosotros: 'you (all) just breathed', ellos: 'they just breathed' },
+          imperativo_afirmativo: { yo: '—', tu: 'breathe!', el: 'breathe!', nosotros: 'let\'s breathe!', vosotros: 'breathe!', ellos: 'breathe!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t breathe!', el: 'don\'t breathe!', nosotros: 'let\'s not breathe!', vosotros: 'don\'t breathe!', ellos: 'don\'t breathe!' },
         },
       },
       de: {
@@ -4323,6 +5042,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde atmen', tu: 'du wirst atmen', el: 'er/sie/es wird atmen', nosotros: 'wir werden atmen', vosotros: 'ihr werdet atmen', ellos: 'sie werden atmen' },
           ir_a_infinitivo: { yo: 'ich werde gleich atmen', tu: 'du wirst gleich atmen', el: 'er/sie/es wird gleich atmen', nosotros: 'wir werden gleich atmen', vosotros: 'ihr werdet gleich atmen', ellos: 'sie werden gleich atmen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geatmet', tu: 'du hast gerade geatmet', el: 'er/sie/es hat gerade geatmet', nosotros: 'wir haben gerade geatmet', vosotros: 'ihr habt gerade geatmet', ellos: 'sie haben gerade geatmet' },
+          imperativo_afirmativo: { yo: '—', tu: 'atme!', el: 'Atmen Sie!', nosotros: 'Atmen wir!', vosotros: 'atmet!', ellos: 'Atmen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'atme nicht!', el: 'Atmen Sie nicht!', nosotros: 'Atmen wir nicht!', vosotros: 'atmet nicht!', ellos: 'Atmen Sie nicht!' },
         },
       },
     },
@@ -4335,6 +5056,7 @@ export const VERBS: Verb[] = [
       { id: 'respirar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Oddychaliśmy czystym powietrzem w górach.', en: 'We breathed fresh air in the mountains.', de: 'Wir atmeten frische Luft in den Bergen.' }, spanish: 'respiramos aire puro en la montaña' },
       { id: 'respirar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Odetchnęli z ulgą.', en: 'They breathed with relief.', de: 'Sie atmeten erleichtert auf.' }, spanish: 'respiraron con alivio' },
       { id: 'respirar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Będziesz lepiej oddychać po rzuceniu palenia.', en: 'You are going to breathe better after quitting smoking.', de: 'Du wirst besser atmen, nachdem du mit dem Rauchen aufgehört hast.' }, spanish: 'vas a respirar mejor después de dejar de fumar' },
+      { id: 'respirar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'oddychaj głęboko', en: 'breathe deeply', de: 'atme tief' }, spanish: 'respira hondo' },
     ],
   },
   {
@@ -4342,6 +5064,7 @@ export const VERBS: Verb[] = [
     infinitive: 'curar',
     regular: true,
     participle: 'curado',
+    gerund: 'curando',
     conjugations: conjugateRegular('curar'),
     translations: {
       pl: {
@@ -4352,6 +5075,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wyleczę', tu: 'wyleczysz', el: 'wyleczy', nosotros: 'wyleczymy', vosotros: 'wyleczycie', ellos: 'wyleczą' },
           ir_a_infinitivo: { yo: 'zamierzam wyleczyć', tu: 'zamierzasz wyleczyć', el: 'zamierza wyleczyć', nosotros: 'zamierzamy wyleczyć', vosotros: 'zamierzacie wyleczyć', ellos: 'zamierzają wyleczyć' },
           acabar_de_infinitivo: { yo: 'właśnie wyleczyłem', tu: 'właśnie wyleczyłeś', el: 'właśnie wyleczył', nosotros: 'właśnie wyleczyliśmy', vosotros: 'właśnie wyleczyliście', ellos: 'właśnie wyleczyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'wylecz', el: 'niech leczy', nosotros: 'wyleczmy', vosotros: 'wyleczcie', ellos: 'niech leczą' },
+          imperativo_negativo: { yo: '—', tu: 'nie wylecz', el: 'niech nie leczy', nosotros: 'nie wyleczmy', vosotros: 'nie wyleczcie', ellos: 'niech nie leczą' },
         },
       },
       en: {
@@ -4362,6 +5087,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will cure', tu: 'you will cure', el: 'he/she will cure', nosotros: 'we will cure', vosotros: 'you (all) will cure', ellos: 'they will cure' },
           ir_a_infinitivo: { yo: 'I am going to cure', tu: 'you are going to cure', el: 'he/she is going to cure', nosotros: 'we are going to cure', vosotros: 'you (all) are going to cure', ellos: 'they are going to cure' },
           acabar_de_infinitivo: { yo: 'I just cured', tu: 'you just cured', el: 'he/she just cured', nosotros: 'we just cured', vosotros: 'you (all) just cured', ellos: 'they just cured' },
+          imperativo_afirmativo: { yo: '—', tu: 'heal!', el: 'heal!', nosotros: 'let\'s heal!', vosotros: 'heal!', ellos: 'heal!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t heal!', el: 'don\'t heal!', nosotros: 'let\'s not heal!', vosotros: 'don\'t heal!', ellos: 'don\'t heal!' },
         },
       },
       de: {
@@ -4372,6 +5099,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde heilen', tu: 'du wirst heilen', el: 'er/sie/es wird heilen', nosotros: 'wir werden heilen', vosotros: 'ihr werdet heilen', ellos: 'sie werden heilen' },
           ir_a_infinitivo: { yo: 'ich werde gleich heilen', tu: 'du wirst gleich heilen', el: 'er/sie/es wird gleich heilen', nosotros: 'wir werden gleich heilen', vosotros: 'ihr werdet gleich heilen', ellos: 'sie werden gleich heilen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geheilt', tu: 'du hast gerade geheilt', el: 'er/sie/es hat gerade geheilt', nosotros: 'wir haben gerade geheilt', vosotros: 'ihr habt gerade geheilt', ellos: 'sie haben gerade geheilt' },
+          imperativo_afirmativo: { yo: '—', tu: 'heil!', el: 'Heilen Sie!', nosotros: 'Heilen wir!', vosotros: 'heilt!', ellos: 'Heilen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'heil nicht!', el: 'Heilen Sie nicht!', nosotros: 'Heilen wir nicht!', vosotros: 'heilt nicht!', ellos: 'Heilen Sie nicht!' },
         },
       },
     },
@@ -4384,6 +5113,7 @@ export const VERBS: Verb[] = [
       { id: 'curar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Wyleczyliśmy rannego psa.', en: 'We cured the injured dog.', de: 'Wir heilten den verletzten Hund.' }, spanish: 'curamos al perro herido' },
       { id: 'curar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Leczę to bardzo uważnie.', en: 'I cure it very carefully.', de: 'Ich heile es sehr sorgfältig.' }, spanish: 'lo curo con mucho cuidado' },
       { id: 'curar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wyleczysz tę ranę wkrótce.', en: 'You are going to cure that wound soon.', de: 'Du wirst diese Wunde bald heilen.' }, spanish: 'vas a curar esa herida pronto' },
+      { id: 'curar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wylecz ranę', en: 'heal the wound', de: 'heile die Wunde' }, spanish: 'cura la herida' },
     ],
   },
   {
@@ -4391,6 +5121,7 @@ export const VERBS: Verb[] = [
     infinitive: 'lastimar',
     regular: true,
     participle: 'lastimado',
+    gerund: 'lastimando',
     conjugations: conjugateRegular('lastimar'),
     translations: {
       pl: {
@@ -4401,6 +5132,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zranię', tu: 'zranisz', el: 'zrani', nosotros: 'zranimy', vosotros: 'zranicie', ellos: 'zranią' },
           ir_a_infinitivo: { yo: 'zamierzam zranić', tu: 'zamierzasz zranić', el: 'zamierza zranić', nosotros: 'zamierzamy zranić', vosotros: 'zamierzacie zranić', ellos: 'zamierzają zranić' },
           acabar_de_infinitivo: { yo: 'właśnie zraniłem', tu: 'właśnie zraniłeś', el: 'właśnie zranił', nosotros: 'właśnie zraniliśmy', vosotros: 'właśnie zraniliście', ellos: 'właśnie zranili' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie ranisz', el: 'niech rani', nosotros: 'nie raniszmy', vosotros: 'nie raniszcie', ellos: 'niech ranią' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie ranisz', el: 'niech nie rani', nosotros: 'nie nie raniszmy', vosotros: 'nie nie raniszcie', ellos: 'niech nie ranią' },
         },
       },
       en: {
@@ -4411,6 +5144,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will hurt', tu: 'you will hurt', el: 'he/she will hurt', nosotros: 'we will hurt', vosotros: 'you (all) will hurt', ellos: 'they will hurt' },
           ir_a_infinitivo: { yo: 'I am going to hurt', tu: 'you are going to hurt', el: 'he/she is going to hurt', nosotros: 'we are going to hurt', vosotros: 'you (all) are going to hurt', ellos: 'they are going to hurt' },
           acabar_de_infinitivo: { yo: 'I just hurt', tu: 'you just hurt', el: 'he/she just hurt', nosotros: 'we just hurt', vosotros: 'you (all) just hurt', ellos: 'they just hurt' },
+          imperativo_afirmativo: { yo: '—', tu: 'hurt!', el: 'hurt!', nosotros: 'let\'s hurt!', vosotros: 'hurt!', ellos: 'hurt!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t hurt!', el: 'don\'t hurt!', nosotros: 'let\'s not hurt!', vosotros: 'don\'t hurt!', ellos: 'don\'t hurt!' },
         },
       },
       de: {
@@ -4421,6 +5156,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde verletzen', tu: 'du wirst verletzen', el: 'er/sie/es wird verletzen', nosotros: 'wir werden verletzen', vosotros: 'ihr werdet verletzen', ellos: 'sie werden verletzen' },
           ir_a_infinitivo: { yo: 'ich werde gleich verletzen', tu: 'du wirst gleich verletzen', el: 'er/sie/es wird gleich verletzen', nosotros: 'wir werden gleich verletzen', vosotros: 'ihr werdet gleich verletzen', ellos: 'sie werden gleich verletzen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade verletzt', tu: 'du hast gerade verletzt', el: 'er/sie/es hat gerade verletzt', nosotros: 'wir haben gerade verletzt', vosotros: 'ihr habt gerade verletzt', ellos: 'sie haben gerade verletzt' },
+          imperativo_afirmativo: { yo: '—', tu: 'verletz!', el: 'Verletzen Sie!', nosotros: 'Verletzen wir!', vosotros: 'verletzt!', ellos: 'Verletzen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'verletz nicht!', el: 'Verletzen Sie nicht!', nosotros: 'Verletzen wir nicht!', vosotros: 'verletzt nicht!', ellos: 'Verletzen Sie nicht!' },
         },
       },
     },
@@ -4433,6 +5170,7 @@ export const VERBS: Verb[] = [
       { id: 'lastimar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Niechcący zraniliśmy zwierzę.', en: 'We accidentally hurt the animal.', de: 'Wir verletzten versehentlich das Tier.' }, spanish: 'lastimamos al animal sin querer' },
       { id: 'lastimar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Ranię go za każdym razem, gdy go dotykam.', en: 'I hurt it every time I touch it.', de: 'Ich verletze es jedes Mal, wenn ich es berühre.' }, spanish: 'lo lastimo cada vez que lo toco' },
       { id: 'lastimar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zranisz kogoś, jeśli nie będziesz uważać.', en: 'You are going to hurt someone if you are not careful.', de: 'Du wirst jemanden verletzen, wenn du nicht aufpasst.' }, spanish: 'vas a lastimar a alguien si no tienes cuidado' },
+      { id: 'lastimar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie zrań się', en: 'don\'t hurt yourself', de: 'verletz dich nicht' }, spanish: 'no te lastimes' },
     ],
   },
   {
@@ -4440,6 +5178,7 @@ export const VERBS: Verb[] = [
     infinitive: 'estornudar',
     regular: true,
     participle: 'estornudado',
+    gerund: 'estornudando',
     conjugations: conjugateRegular('estornudar'),
     translations: {
       pl: {
@@ -4450,6 +5189,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'kichnę', tu: 'kichniesz', el: 'kichnie', nosotros: 'kichniemy', vosotros: 'kichniecie', ellos: 'kichną' },
           ir_a_infinitivo: { yo: 'zamierzam kichnąć', tu: 'zamierzasz kichnąć', el: 'zamierza kichnąć', nosotros: 'zamierzamy kichnąć', vosotros: 'zamierzacie kichnąć', ellos: 'zamierzają kichnąć' },
           acabar_de_infinitivo: { yo: 'właśnie kichnąłem', tu: 'właśnie kichnąłeś', el: 'właśnie kichnął', nosotros: 'właśnie kichnęliśmy', vosotros: 'właśnie kichnęliście', ellos: 'właśnie kichnęli' },
+          imperativo_afirmativo: { yo: '—', tu: 'kichnij', el: 'niech kicha', nosotros: 'kichnijmy', vosotros: 'kichnijcie', ellos: 'niech kichają' },
+          imperativo_negativo: { yo: '—', tu: 'nie kichnij', el: 'niech nie kicha', nosotros: 'nie kichnijmy', vosotros: 'nie kichnijcie', ellos: 'niech nie kichają' },
         },
       },
       en: {
@@ -4460,6 +5201,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will sneeze', tu: 'you will sneeze', el: 'he/she will sneeze', nosotros: 'we will sneeze', vosotros: 'you (all) will sneeze', ellos: 'they will sneeze' },
           ir_a_infinitivo: { yo: 'I am going to sneeze', tu: 'you are going to sneeze', el: 'he/she is going to sneeze', nosotros: 'we are going to sneeze', vosotros: 'you (all) are going to sneeze', ellos: 'they are going to sneeze' },
           acabar_de_infinitivo: { yo: 'I just sneezed', tu: 'you just sneezed', el: 'he/she just sneezed', nosotros: 'we just sneezed', vosotros: 'you (all) just sneezed', ellos: 'they just sneezed' },
+          imperativo_afirmativo: { yo: '—', tu: 'sneeze!', el: 'sneeze!', nosotros: 'let\'s sneeze!', vosotros: 'sneeze!', ellos: 'sneeze!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t sneeze!', el: 'don\'t sneeze!', nosotros: 'let\'s not sneeze!', vosotros: 'don\'t sneeze!', ellos: 'don\'t sneeze!' },
         },
       },
       de: {
@@ -4470,6 +5213,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde niesen', tu: 'du wirst niesen', el: 'er/sie/es wird niesen', nosotros: 'wir werden niesen', vosotros: 'ihr werdet niesen', ellos: 'sie werden niesen' },
           ir_a_infinitivo: { yo: 'ich werde gleich niesen', tu: 'du wirst gleich niesen', el: 'er/sie/es wird gleich niesen', nosotros: 'wir werden gleich niesen', vosotros: 'ihr werdet gleich niesen', ellos: 'sie werden gleich niesen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geniest', tu: 'du hast gerade geniest', el: 'er/sie/es hat gerade geniest', nosotros: 'wir haben gerade geniest', vosotros: 'ihr habt gerade geniest', ellos: 'sie haben gerade geniest' },
+          imperativo_afirmativo: { yo: '—', tu: 'nies!', el: 'Niesen Sie!', nosotros: 'Niesen wir!', vosotros: 'niest!', ellos: 'Niesen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'nies nicht!', el: 'Niesen Sie nicht!', nosotros: 'Niesen wir nicht!', vosotros: 'niest nicht!', ellos: 'Niesen Sie nicht!' },
         },
       },
     },
@@ -4482,6 +5227,7 @@ export const VERBS: Verb[] = [
       { id: 'estornudar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Kichnęliśmy w tym samym momencie.', en: 'We sneezed at the same time.', de: 'Wir niesten gleichzeitig.' }, spanish: 'estornudamos al mismo tiempo' },
       { id: 'estornudar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Kichnęli z powodu pyłków.', en: 'They sneezed because of the pollen.', de: 'Sie niesten wegen der Pollen.' }, spanish: 'estornudaron por el polen' },
       { id: 'estornudar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Kichniesz, jeśli będziesz dalej to wąchać.', en: 'You are going to sneeze if you keep smelling that.', de: 'Du wirst niesen, wenn du weiter daran riechst.' }, spanish: 'vas a estornudar si sigues oliendo eso' },
+      { id: 'estornudar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'kichnij w chusteczkę', en: 'sneeze into a tissue', de: 'nies in ein Taschentuch' }, spanish: 'estornuda en el pañuelo' },
     ],
   },
   {
@@ -4489,12 +5235,15 @@ export const VERBS: Verb[] = [
     infinitive: 'romper',
     regular: false,
     participle: 'roto',
+    gerund: 'rompiendo',
     conjugations: {
       presente: { yo: 'rompo', tu: 'rompes', el: 'rompe', nosotros: 'rompemos', vosotros: 'rompéis', ellos: 'rompen' },
       preterite: { yo: 'rompí', tu: 'rompiste', el: 'rompió', nosotros: 'rompimos', vosotros: 'rompisteis', ellos: 'rompieron' },
       futuro: { yo: 'romperé', tu: 'romperás', el: 'romperá', nosotros: 'romperemos', vosotros: 'romperéis', ellos: 'romperán' },
       ir_a_infinitivo: { yo: 'voy a romper', tu: 'vas a romper', el: 'va a romper', nosotros: 'vamos a romper', vosotros: 'vais a romper', ellos: 'van a romper' },
       acabar_de_infinitivo: { yo: 'acabo de romper', tu: 'acabas de romper', el: 'acaba de romper', nosotros: 'acabamos de romper', vosotros: 'acabáis de romper', ellos: 'acaban de romper' },
+      imperativo_afirmativo: { yo: '—', tu: 'rompe', el: 'rompa', nosotros: 'rompamos', vosotros: 'romped', ellos: 'rompan' },
+      imperativo_negativo: { yo: '—', tu: 'no rompas', el: 'no rompa', nosotros: 'no rompamos', vosotros: 'no rompáis', ellos: 'no rompan' },
     },
     translations: {
       pl: {
@@ -4505,6 +5254,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'złamię', tu: 'złamiesz', el: 'złamie', nosotros: 'złamiemy', vosotros: 'złamiecie', ellos: 'złamią' },
           ir_a_infinitivo: { yo: 'zamierzam złamać', tu: 'zamierzasz złamać', el: 'zamierza złamać', nosotros: 'zamierzamy złamać', vosotros: 'zamierzacie złamać', ellos: 'zamierzają złamać' },
           acabar_de_infinitivo: { yo: 'właśnie złamałem', tu: 'właśnie złamałeś', el: 'właśnie złamał', nosotros: 'właśnie złamaliśmy', vosotros: 'właśnie złamaliście', ellos: 'właśnie złamali' },
+          imperativo_afirmativo: { yo: '—', tu: 'złam', el: 'niech łamie', nosotros: 'złammy', vosotros: 'złamcie', ellos: 'niech łamią' },
+          imperativo_negativo: { yo: '—', tu: 'nie złam', el: 'niech nie łamie', nosotros: 'nie złammy', vosotros: 'nie złamcie', ellos: 'niech nie łamią' },
         },
       },
       en: {
@@ -4515,6 +5266,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will break', tu: 'you will break', el: 'he/she will break', nosotros: 'we will break', vosotros: 'you (all) will break', ellos: 'they will break' },
           ir_a_infinitivo: { yo: 'I am going to break', tu: 'you are going to break', el: 'he/she is going to break', nosotros: 'we are going to break', vosotros: 'you (all) are going to break', ellos: 'they are going to break' },
           acabar_de_infinitivo: { yo: 'I just broke', tu: 'you just broke', el: 'he/she just broke', nosotros: 'we just broke', vosotros: 'you (all) just broke', ellos: 'they just broke' },
+          imperativo_afirmativo: { yo: '—', tu: 'break!', el: 'break!', nosotros: 'let\'s break!', vosotros: 'break!', ellos: 'break!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t break!', el: 'don\'t break!', nosotros: 'let\'s not break!', vosotros: 'don\'t break!', ellos: 'don\'t break!' },
         },
       },
       de: {
@@ -4525,6 +5278,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde brechen', tu: 'du wirst brechen', el: 'er/sie/es wird brechen', nosotros: 'wir werden brechen', vosotros: 'ihr werdet brechen', ellos: 'sie werden brechen' },
           ir_a_infinitivo: { yo: 'ich werde gleich brechen', tu: 'du wirst gleich brechen', el: 'er/sie/es wird gleich brechen', nosotros: 'wir werden gleich brechen', vosotros: 'ihr werdet gleich brechen', ellos: 'sie werden gleich brechen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade kaputt gemacht', tu: 'du hast gerade kaputt gemacht', el: 'er/sie/es hat gerade kaputt gemacht', nosotros: 'wir haben gerade kaputt gemacht', vosotros: 'ihr habt gerade kaputt gemacht', ellos: 'sie haben gerade kaputt gemacht' },
+          imperativo_afirmativo: { yo: '—', tu: 'brich!', el: 'Brechen Sie!', nosotros: 'Brechen wir!', vosotros: 'brecht!', ellos: 'Brechen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'brich nicht!', el: 'Brechen Sie nicht!', nosotros: 'Brechen wir nicht!', vosotros: 'brecht nicht!', ellos: 'Brechen Sie nicht!' },
         },
       },
     },
@@ -4538,6 +5293,7 @@ export const VERBS: Verb[] = [
       { id: 'romper-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zerwali umowę.', en: 'They broke the contract.', de: 'Sie brachen den Vertrag.' }, spanish: 'rompieron el contrato' },
       { id: 'romper-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zawsze wszystko łamię.', en: 'I always break everything.', de: 'Ich mache immer alles kaputt.' }, spanish: 'siempre lo rompo todo' },
       { id: 'romper-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Coś złamiesz, jeśli tak dalej będziesz.', en: 'You are going to break something if you keep this up.', de: 'Du wirst etwas kaputt machen, wenn du so weitermachst.' }, spanish: 'vas a romper algo si sigues así' },
+      { id: 'romper-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie stłucz szklanki', en: 'don\'t break the glass', de: 'brich das Glas nicht' }, spanish: 'no rompas el vaso' },
     ],
   },
   {
@@ -4545,6 +5301,7 @@ export const VERBS: Verb[] = [
     infinitive: 'cocinar',
     regular: true,
     participle: 'cocinado',
+    gerund: 'cocinando',
     conjugations: conjugateRegular('cocinar'),
     translations: {
       pl: {
@@ -4555,6 +5312,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ugotuję', tu: 'ugotujesz', el: 'ugotuje', nosotros: 'ugotujemy', vosotros: 'ugotujecie', ellos: 'ugotują' },
           ir_a_infinitivo: { yo: 'zamierzam ugotować', tu: 'zamierzasz ugotować', el: 'zamierza ugotować', nosotros: 'zamierzamy ugotować', vosotros: 'zamierzacie ugotować', ellos: 'zamierzają ugotować' },
           acabar_de_infinitivo: { yo: 'właśnie ugotowałem', tu: 'właśnie ugotowałeś', el: 'właśnie ugotował', nosotros: 'właśnie ugotowaliśmy', vosotros: 'właśnie ugotowaliście', ellos: 'właśnie ugotowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'ugotuj', el: 'niech gotuje', nosotros: 'ugotujmy', vosotros: 'ugotujcie', ellos: 'niech gotują' },
+          imperativo_negativo: { yo: '—', tu: 'nie ugotuj', el: 'niech nie gotuje', nosotros: 'nie ugotujmy', vosotros: 'nie ugotujcie', ellos: 'niech nie gotują' },
         },
       },
       en: {
@@ -4565,6 +5324,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will cook', tu: 'you will cook', el: 'he/she will cook', nosotros: 'we will cook', vosotros: 'you (all) will cook', ellos: 'they will cook' },
           ir_a_infinitivo: { yo: 'I am going to cook', tu: 'you are going to cook', el: 'he/she is going to cook', nosotros: 'we are going to cook', vosotros: 'you (all) are going to cook', ellos: 'they are going to cook' },
           acabar_de_infinitivo: { yo: 'I just cooked', tu: 'you just cooked', el: 'he/she just cooked', nosotros: 'we just cooked', vosotros: 'you (all) just cooked', ellos: 'they just cooked' },
+          imperativo_afirmativo: { yo: '—', tu: 'cook!', el: 'cook!', nosotros: 'let\'s cook!', vosotros: 'cook!', ellos: 'cook!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t cook!', el: 'don\'t cook!', nosotros: 'let\'s not cook!', vosotros: 'don\'t cook!', ellos: 'don\'t cook!' },
         },
       },
       de: {
@@ -4575,6 +5336,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde kochen', tu: 'du wirst kochen', el: 'er/sie/es wird kochen', nosotros: 'wir werden kochen', vosotros: 'ihr werdet kochen', ellos: 'sie werden kochen' },
           ir_a_infinitivo: { yo: 'ich werde gleich kochen', tu: 'du wirst gleich kochen', el: 'er/sie/es wird gleich kochen', nosotros: 'wir werden gleich kochen', vosotros: 'ihr werdet gleich kochen', ellos: 'sie werden gleich kochen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gekocht', tu: 'du hast gerade gekocht', el: 'er/sie/es hat gerade gekocht', nosotros: 'wir haben gerade gekocht', vosotros: 'ihr habt gerade gekocht', ellos: 'sie haben gerade gekocht' },
+          imperativo_afirmativo: { yo: '—', tu: 'koch!', el: 'Kochen Sie!', nosotros: 'Kochen wir!', vosotros: 'kocht!', ellos: 'Kochen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'koch nicht!', el: 'Kochen Sie nicht!', nosotros: 'Kochen wir nicht!', vosotros: 'kocht nicht!', ellos: 'Kochen Sie nicht!' },
         },
       },
     },
@@ -4588,6 +5351,7 @@ export const VERBS: Verb[] = [
       { id: 'cocinar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Ugotowali pyszną zupę.', en: 'They cooked a delicious soup.', de: 'Sie kochten eine köstliche Suppe.' }, spanish: 'cocinaron una sopa deliciosa' },
       { id: 'cocinar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Gotuję to na wolnym ogniu.', en: 'I cook it on low heat.', de: 'Ich koche es bei niedriger Hitze.' }, spanish: 'lo cocino a fuego lento' },
       { id: 'cocinar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Ugotujesz dzisiaj kolację.', en: 'You are going to cook dinner today.', de: 'Du wirst heute das Abendessen kochen.' }, spanish: 'vas a cocinar la cena hoy' },
+      { id: 'cocinar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'ugotuj kolację', en: 'cook dinner', de: 'koch das Abendessen' }, spanish: 'cocina la cena' },
     ],
   },
   {
@@ -4595,6 +5359,7 @@ export const VERBS: Verb[] = [
     infinitive: 'desayunar',
     regular: true,
     participle: 'desayunado',
+    gerund: 'desayunando',
     conjugations: conjugateRegular('desayunar'),
     translations: {
       pl: {
@@ -4605,6 +5370,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zjem śniadanie', tu: 'zjesz śniadanie', el: 'zje śniadanie', nosotros: 'zjemy śniadanie', vosotros: 'zjecie śniadanie', ellos: 'zjedzą śniadanie' },
           ir_a_infinitivo: { yo: 'zamierzam zjeść śniadanie', tu: 'zamierzasz zjeść śniadanie', el: 'zamierza zjeść śniadanie', nosotros: 'zamierzamy zjeść śniadanie', vosotros: 'zamierzacie zjeść śniadanie', ellos: 'zamierzają zjeść śniadanie' },
           acabar_de_infinitivo: { yo: 'właśnie zjadłem śniadanie', tu: 'właśnie zjadłeś śniadanie', el: 'właśnie zjadł śniadanie', nosotros: 'właśnie zjedliśmy śniadanie', vosotros: 'właśnie zjedliście śniadanie', ellos: 'właśnie zjedli śniadanie' },
+          imperativo_afirmativo: { yo: '—', tu: 'zjedz śniadanie', el: 'niech je śniadanie', nosotros: 'zjedz śniadaniemy', vosotros: 'zjedz śniadaniecie', ellos: 'niech jedzą śniadanie' },
+          imperativo_negativo: { yo: '—', tu: 'nie zjedz śniadanie', el: 'niech nie je śniadanie', nosotros: 'nie zjedz śniadaniemy', vosotros: 'nie zjedz śniadaniecie', ellos: 'niech nie jedzą śniadanie' },
         },
       },
       en: {
@@ -4615,6 +5382,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will have breakfast', tu: 'you will have breakfast', el: 'he/she will have breakfast', nosotros: 'we will have breakfast', vosotros: 'you (all) will have breakfast', ellos: 'they will have breakfast' },
           ir_a_infinitivo: { yo: 'I am going to have breakfast', tu: 'you are going to have breakfast', el: 'he/she is going to have breakfast', nosotros: 'we are going to have breakfast', vosotros: 'you (all) are going to have breakfast', ellos: 'they are going to have breakfast' },
           acabar_de_infinitivo: { yo: 'I just had breakfast', tu: 'you just had breakfast', el: 'he/she just had breakfast', nosotros: 'we just had breakfast', vosotros: 'you (all) just had breakfast', ellos: 'they just had breakfast' },
+          imperativo_afirmativo: { yo: '—', tu: 'have breakfast!', el: 'have breakfast!', nosotros: 'let\'s have breakfast!', vosotros: 'have breakfast!', ellos: 'have breakfast!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t have breakfast!', el: 'don\'t have breakfast!', nosotros: 'let\'s not have breakfast!', vosotros: 'don\'t have breakfast!', ellos: 'don\'t have breakfast!' },
         },
       },
       de: {
@@ -4625,6 +5394,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde frühstücken', tu: 'du wirst frühstücken', el: 'er/sie/es wird frühstücken', nosotros: 'wir werden frühstücken', vosotros: 'ihr werdet frühstücken', ellos: 'sie werden frühstücken' },
           ir_a_infinitivo: { yo: 'ich werde gleich frühstücken', tu: 'du wirst gleich frühstücken', el: 'er/sie/es wird gleich frühstücken', nosotros: 'wir werden gleich frühstücken', vosotros: 'ihr werdet gleich frühstücken', ellos: 'sie werden gleich frühstücken' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gefrühstückt', tu: 'du hast gerade gefrühstückt', el: 'er/sie/es hat gerade gefrühstückt', nosotros: 'wir haben gerade gefrühstückt', vosotros: 'ihr habt gerade gefrühstückt', ellos: 'sie haben gerade gefrühstückt' },
+          imperativo_afirmativo: { yo: '—', tu: 'frühstück!', el: 'Frühstücken Sie!', nosotros: 'Frühstücken wir!', vosotros: 'frühstückt!', ellos: 'Frühstücken Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'frühstück nicht!', el: 'Frühstücken Sie nicht!', nosotros: 'Frühstücken wir nicht!', vosotros: 'frühstückt nicht!', ellos: 'Frühstücken Sie nicht!' },
         },
       },
     },
@@ -4637,6 +5408,7 @@ export const VERBS: Verb[] = [
       { id: 'desayunar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zjedliśmy razem śniadanie w hotelu.', en: 'We had breakfast together at the hotel.', de: 'Wir frühstückten zusammen im Hotel.' }, spanish: 'desayunamos juntos en el hotel' },
       { id: 'desayunar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zjedli późne śniadanie w niedzielę.', en: 'They had a late breakfast on Sunday.', de: 'Sie frühstückten spät am Sonntag.' }, spanish: 'desayunaron tarde el domingo' },
       { id: 'desayunar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zjesz śniadanie przed wyjściem.', en: 'You are going to have breakfast before leaving.', de: 'Du wirst frühstücken, bevor du gehst.' }, spanish: 'vas a desayunar antes de salir' },
+      { id: 'desayunar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zjedz coś na śniadanie', en: 'have some breakfast', de: 'frühstück etwas' }, spanish: 'desayuna algo' },
     ],
   },
   {
@@ -4644,12 +5416,15 @@ export const VERBS: Verb[] = [
     infinitive: 'almorzar',
     regular: false,
     participle: 'almorzado',
+    gerund: 'almorzando',
     conjugations: {
       presente: { yo: 'almuerzo', tu: 'almuerzas', el: 'almuerza', nosotros: 'almorzamos', vosotros: 'almorzáis', ellos: 'almuerzan' },
       preterite: { yo: 'almorcé', tu: 'almorzaste', el: 'almorzó', nosotros: 'almorzamos', vosotros: 'almorzasteis', ellos: 'almorzaron' },
       futuro: { yo: 'almorzaré', tu: 'almorzarás', el: 'almorzará', nosotros: 'almorzaremos', vosotros: 'almorzaréis', ellos: 'almorzarán' },
       ir_a_infinitivo: { yo: 'voy a almorzar', tu: 'vas a almorzar', el: 'va a almorzar', nosotros: 'vamos a almorzar', vosotros: 'vais a almorzar', ellos: 'van a almorzar' },
       acabar_de_infinitivo: { yo: 'acabo de almorzar', tu: 'acabas de almorzar', el: 'acaba de almorzar', nosotros: 'acabamos de almorzar', vosotros: 'acabáis de almorzar', ellos: 'acaban de almorzar' },
+      imperativo_afirmativo: { yo: '—', tu: 'almuerza', el: 'almuerce', nosotros: 'almorcemos', vosotros: 'almorzad', ellos: 'almuercen' },
+      imperativo_negativo: { yo: '—', tu: 'no almuerces', el: 'no almuerce', nosotros: 'no almorcemos', vosotros: 'no almorcéis', ellos: 'no almuercen' },
     },
     translations: {
       pl: {
@@ -4660,6 +5435,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zjem obiad', tu: 'zjesz obiad', el: 'zje obiad', nosotros: 'zjemy obiad', vosotros: 'zjecie obiad', ellos: 'zjedzą obiad' },
           ir_a_infinitivo: { yo: 'zamierzam zjeść obiad', tu: 'zamierzasz zjeść obiad', el: 'zamierza zjeść obiad', nosotros: 'zamierzamy zjeść obiad', vosotros: 'zamierzacie zjeść obiad', ellos: 'zamierzają zjeść obiad' },
           acabar_de_infinitivo: { yo: 'właśnie zjadłem obiad', tu: 'właśnie zjadłeś obiad', el: 'właśnie zjadł obiad', nosotros: 'właśnie zjedliśmy obiad', vosotros: 'właśnie zjedliście obiad', ellos: 'właśnie zjedli obiad' },
+          imperativo_afirmativo: { yo: '—', tu: 'zjedz obiad', el: 'niech je obiad', nosotros: 'zjedz obiadmy', vosotros: 'zjedz obiadcie', ellos: 'niech jedzą obiad' },
+          imperativo_negativo: { yo: '—', tu: 'nie zjedz obiad', el: 'niech nie je obiad', nosotros: 'nie zjedz obiadmy', vosotros: 'nie zjedz obiadcie', ellos: 'niech nie jedzą obiad' },
         },
       },
       en: {
@@ -4670,6 +5447,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will have lunch', tu: 'you will have lunch', el: 'he/she will have lunch', nosotros: 'we will have lunch', vosotros: 'you (all) will have lunch', ellos: 'they will have lunch' },
           ir_a_infinitivo: { yo: 'I am going to have lunch', tu: 'you are going to have lunch', el: 'he/she is going to have lunch', nosotros: 'we are going to have lunch', vosotros: 'you (all) are going to have lunch', ellos: 'they are going to have lunch' },
           acabar_de_infinitivo: { yo: 'I just had lunch', tu: 'you just had lunch', el: 'he/she just had lunch', nosotros: 'we just had lunch', vosotros: 'you (all) just had lunch', ellos: 'they just had lunch' },
+          imperativo_afirmativo: { yo: '—', tu: 'have lunch!', el: 'have lunch!', nosotros: 'let\'s have lunch!', vosotros: 'have lunch!', ellos: 'have lunch!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t have lunch!', el: 'don\'t have lunch!', nosotros: 'let\'s not have lunch!', vosotros: 'don\'t have lunch!', ellos: 'don\'t have lunch!' },
         },
       },
       de: {
@@ -4680,6 +5459,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde zu Mittag essen', tu: 'du wirst zu Mittag essen', el: 'er/sie/es wird zu Mittag essen', nosotros: 'wir werden zu Mittag essen', vosotros: 'ihr werdet zu Mittag essen', ellos: 'sie werden zu Mittag essen' },
           ir_a_infinitivo: { yo: 'ich werde gleich zu Mittag essen', tu: 'du wirst gleich zu Mittag essen', el: 'er/sie/es wird gleich zu Mittag essen', nosotros: 'wir werden gleich zu Mittag essen', vosotros: 'ihr werdet gleich zu Mittag essen', ellos: 'sie werden gleich zu Mittag essen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade zu Mittag gegessen', tu: 'du hast gerade zu Mittag gegessen', el: 'er/sie/es hat gerade zu Mittag gegessen', nosotros: 'wir haben gerade zu Mittag gegessen', vosotros: 'ihr habt gerade zu Mittag gegessen', ellos: 'sie haben gerade zu Mittag gegessen' },
+          imperativo_afirmativo: { yo: '—', tu: 'iss zu Mittag!', el: 'Essen Sie zu Mittag!', nosotros: 'Essen wir zu Mittag!', vosotros: 'esst zu Mittag!', ellos: 'Essen Sie zu Mittag!' },
+          imperativo_negativo: { yo: '—', tu: 'iss zu Mittag nicht!', el: 'Essen Sie zu Mittag nicht!', nosotros: 'Essen wir zu Mittag nicht!', vosotros: 'esst zu Mittag nicht!', ellos: 'Essen Sie zu Mittag nicht!' },
         },
       },
     },
@@ -4692,6 +5473,7 @@ export const VERBS: Verb[] = [
       { id: 'almorzar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zjedliśmy razem obiad w parku.', en: 'We had lunch together in the park.', de: 'Wir aßen zusammen im Park zu Mittag.' }, spanish: 'almorzamos juntos en el parque' },
       { id: 'almorzar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Tego dnia wcześnie zjedli obiad.', en: 'They had lunch early that day.', de: 'Sie aßen an diesem Tag früh zu Mittag.' }, spanish: 'almorzaron temprano ese día' },
       { id: 'almorzar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zjesz dziś z nami obiad.', en: 'You are going to have lunch with us today.', de: 'Du wirst heute mit uns zu Mittag essen.' }, spanish: 'vas a almorzar con nosotros hoy' },
+      { id: 'almorzar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zjedz z nami obiad', en: 'have lunch with us', de: 'iss mit uns zu Mittag' }, spanish: 'almuerza con nosotros' },
     ],
   },
   {
@@ -4699,6 +5481,7 @@ export const VERBS: Verb[] = [
     infinitive: 'cenar',
     regular: true,
     participle: 'cenado',
+    gerund: 'cenando',
     conjugations: conjugateRegular('cenar'),
     translations: {
       pl: {
@@ -4709,6 +5492,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zjem kolację', tu: 'zjesz kolację', el: 'zje kolację', nosotros: 'zjemy kolację', vosotros: 'zjecie kolację', ellos: 'zjedzą kolację' },
           ir_a_infinitivo: { yo: 'zamierzam zjeść kolację', tu: 'zamierzasz zjeść kolację', el: 'zamierza zjeść kolację', nosotros: 'zamierzamy zjeść kolację', vosotros: 'zamierzacie zjeść kolację', ellos: 'zamierzają zjeść kolację' },
           acabar_de_infinitivo: { yo: 'właśnie zjadłem kolację', tu: 'właśnie zjadłeś kolację', el: 'właśnie zjadł kolację', nosotros: 'właśnie zjedliśmy kolację', vosotros: 'właśnie zjedliście kolację', ellos: 'właśnie zjedli kolację' },
+          imperativo_afirmativo: { yo: '—', tu: 'zjedz kolację', el: 'niech je kolację', nosotros: 'zjedz kolacjęmy', vosotros: 'zjedz kolacjęcie', ellos: 'niech jedzą kolację' },
+          imperativo_negativo: { yo: '—', tu: 'nie zjedz kolację', el: 'niech nie je kolację', nosotros: 'nie zjedz kolacjęmy', vosotros: 'nie zjedz kolacjęcie', ellos: 'niech nie jedzą kolację' },
         },
       },
       en: {
@@ -4719,6 +5504,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will have dinner', tu: 'you will have dinner', el: 'he/she will have dinner', nosotros: 'we will have dinner', vosotros: 'you (all) will have dinner', ellos: 'they will have dinner' },
           ir_a_infinitivo: { yo: 'I am going to have dinner', tu: 'you are going to have dinner', el: 'he/she is going to have dinner', nosotros: 'we are going to have dinner', vosotros: 'you (all) are going to have dinner', ellos: 'they are going to have dinner' },
           acabar_de_infinitivo: { yo: 'I just had dinner', tu: 'you just had dinner', el: 'he/she just had dinner', nosotros: 'we just had dinner', vosotros: 'you (all) just had dinner', ellos: 'they just had dinner' },
+          imperativo_afirmativo: { yo: '—', tu: 'have dinner!', el: 'have dinner!', nosotros: 'let\'s have dinner!', vosotros: 'have dinner!', ellos: 'have dinner!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t have dinner!', el: 'don\'t have dinner!', nosotros: 'let\'s not have dinner!', vosotros: 'don\'t have dinner!', ellos: 'don\'t have dinner!' },
         },
       },
       de: {
@@ -4729,6 +5516,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde zu Abend essen', tu: 'du wirst zu Abend essen', el: 'er/sie/es wird zu Abend essen', nosotros: 'wir werden zu Abend essen', vosotros: 'ihr werdet zu Abend essen', ellos: 'sie werden zu Abend essen' },
           ir_a_infinitivo: { yo: 'ich werde gleich zu Abend essen', tu: 'du wirst gleich zu Abend essen', el: 'er/sie/es wird gleich zu Abend essen', nosotros: 'wir werden gleich zu Abend essen', vosotros: 'ihr werdet gleich zu Abend essen', ellos: 'sie werden gleich zu Abend essen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade zu Abend gegessen', tu: 'du hast gerade zu Abend gegessen', el: 'er/sie/es hat gerade zu Abend gegessen', nosotros: 'wir haben gerade zu Abend gegessen', vosotros: 'ihr habt gerade zu Abend gegessen', ellos: 'sie haben gerade zu Abend gegessen' },
+          imperativo_afirmativo: { yo: '—', tu: 'iss zu Abend!', el: 'Essen Sie zu Abend!', nosotros: 'Essen wir zu Abend!', vosotros: 'esst zu Abend!', ellos: 'Essen Sie zu Abend!' },
+          imperativo_negativo: { yo: '—', tu: 'iss zu Abend nicht!', el: 'Essen Sie zu Abend nicht!', nosotros: 'Essen wir zu Abend nicht!', vosotros: 'esst zu Abend nicht!', ellos: 'Essen Sie zu Abend nicht!' },
         },
       },
     },
@@ -4741,6 +5530,7 @@ export const VERBS: Verb[] = [
       { id: 'cenar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zjedliśmy kolację w eleganckiej restauracji.', en: 'We had dinner at an elegant restaurant.', de: 'Wir aßen in einem eleganten Restaurant zu Abend.' }, spanish: 'cenamos en un restaurante elegante' },
       { id: 'cenar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'W piątek zjedli na kolację pizzę.', en: 'They had pizza for dinner on Friday.', de: 'Sie aßen am Freitag Pizza zum Abendessen.' }, spanish: 'cenaron pizza el viernes' },
       { id: 'cenar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zjesz dziś z nami kolację.', en: 'You are going to have dinner with us tonight.', de: 'Du wirst heute Abend mit uns zu Abend essen.' }, spanish: 'vas a cenar con nosotros esta noche' },
+      { id: 'cenar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zjedz z nami kolację', en: 'have dinner with us', de: 'iss mit uns zu Abend' }, spanish: 'cena con nosotros' },
     ],
   },
   {
@@ -4748,6 +5538,7 @@ export const VERBS: Verb[] = [
     infinitive: 'cortar',
     regular: true,
     participle: 'cortado',
+    gerund: 'cortando',
     conjugations: conjugateRegular('cortar'),
     translations: {
       pl: {
@@ -4758,6 +5549,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'pokroję', tu: 'pokroisz', el: 'pokroi', nosotros: 'pokroimy', vosotros: 'pokroicie', ellos: 'pokroją' },
           ir_a_infinitivo: { yo: 'zamierzam pokroić', tu: 'zamierzasz pokroić', el: 'zamierza pokroić', nosotros: 'zamierzamy pokroić', vosotros: 'zamierzacie pokroić', ellos: 'zamierzają pokroić' },
           acabar_de_infinitivo: { yo: 'właśnie pokroiłem', tu: 'właśnie pokroiłeś', el: 'właśnie pokroił', nosotros: 'właśnie pokroiliśmy', vosotros: 'właśnie pokroiliście', ellos: 'właśnie pokroili' },
+          imperativo_afirmativo: { yo: '—', tu: 'pokrój', el: 'niech kroi', nosotros: 'pokrójmy', vosotros: 'pokrójcie', ellos: 'niech kroją' },
+          imperativo_negativo: { yo: '—', tu: 'nie pokrój', el: 'niech nie kroi', nosotros: 'nie pokrójmy', vosotros: 'nie pokrójcie', ellos: 'niech nie kroją' },
         },
       },
       en: {
@@ -4768,6 +5561,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will cut', tu: 'you will cut', el: 'he/she will cut', nosotros: 'we will cut', vosotros: 'you (all) will cut', ellos: 'they will cut' },
           ir_a_infinitivo: { yo: 'I am going to cut', tu: 'you are going to cut', el: 'he/she is going to cut', nosotros: 'we are going to cut', vosotros: 'you (all) are going to cut', ellos: 'they are going to cut' },
           acabar_de_infinitivo: { yo: 'I just cut', tu: 'you just cut', el: 'he/she just cut', nosotros: 'we just cut', vosotros: 'you (all) just cut', ellos: 'they just cut' },
+          imperativo_afirmativo: { yo: '—', tu: 'cut!', el: 'cut!', nosotros: 'let\'s cut!', vosotros: 'cut!', ellos: 'cut!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t cut!', el: 'don\'t cut!', nosotros: 'let\'s not cut!', vosotros: 'don\'t cut!', ellos: 'don\'t cut!' },
         },
       },
       de: {
@@ -4778,6 +5573,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde schneiden', tu: 'du wirst schneiden', el: 'er/sie/es wird schneiden', nosotros: 'wir werden schneiden', vosotros: 'ihr werdet schneiden', ellos: 'sie werden schneiden' },
           ir_a_infinitivo: { yo: 'ich werde gleich schneiden', tu: 'du wirst gleich schneiden', el: 'er/sie/es wird gleich schneiden', nosotros: 'wir werden gleich schneiden', vosotros: 'ihr werdet gleich schneiden', ellos: 'sie werden gleich schneiden' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geschnitten', tu: 'du hast gerade geschnitten', el: 'er/sie/es hat gerade geschnitten', nosotros: 'wir haben gerade geschnitten', vosotros: 'ihr habt gerade geschnitten', ellos: 'sie haben gerade geschnitten' },
+          imperativo_afirmativo: { yo: '—', tu: 'schneide!', el: 'Schneiden Sie!', nosotros: 'Schneiden wir!', vosotros: 'schneidet!', ellos: 'Schneiden Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'schneide nicht!', el: 'Schneiden Sie nicht!', nosotros: 'Schneiden wir nicht!', vosotros: 'schneidet nicht!', ellos: 'Schneiden Sie nicht!' },
         },
       },
     },
@@ -4792,6 +5589,7 @@ export const VERBS: Verb[] = [
       { id: 'cortar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Kroję to na małe kawałki.', en: 'I cut it into small pieces.', de: 'Ich schneide es in kleine Stücke.' }, spanish: 'lo corto en trozos pequeños' },
       { id: 'cortar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Pokroisz mięso na obiad.', en: 'You are going to cut the meat for lunch.', de: 'Du wirst das Fleisch fürs Mittagessen schneiden.' }, spanish: 'vas a cortar la carne para el almuerzo' },
       { id: 'cortar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie pokroiliśmy owoce na deser.', en: 'We just cut the fruit for dessert.', de: 'Wir haben gerade das Obst für den Nachtisch geschnitten.' }, spanish: 'acabamos de cortar la fruta para el postre' },
+      { id: 'cortar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pokrój chleb', en: 'cut the bread', de: 'schneide das Brot' }, spanish: 'corta el pan' },
     ],
   },
   {
@@ -4799,12 +5597,15 @@ export const VERBS: Verb[] = [
     infinitive: 'freír',
     regular: false,
     participle: 'frito',
+    gerund: 'friendo',
     conjugations: {
       presente: { yo: 'frío', tu: 'fríes', el: 'fríe', nosotros: 'freímos', vosotros: 'freís', ellos: 'fríen' },
       preterite: { yo: 'freí', tu: 'freíste', el: 'frió', nosotros: 'freímos', vosotros: 'freísteis', ellos: 'frieron' },
       futuro: { yo: 'freiré', tu: 'freirás', el: 'freirá', nosotros: 'freiremos', vosotros: 'freiréis', ellos: 'freirán' },
       ir_a_infinitivo: { yo: 'voy a freír', tu: 'vas a freír', el: 'va a freír', nosotros: 'vamos a freír', vosotros: 'vais a freír', ellos: 'van a freír' },
       acabar_de_infinitivo: { yo: 'acabo de freír', tu: 'acabas de freír', el: 'acaba de freír', nosotros: 'acabamos de freír', vosotros: 'acabáis de freír', ellos: 'acaban de freír' },
+      imperativo_afirmativo: { yo: '—', tu: 'fríe', el: 'fría', nosotros: 'friamos', vosotros: 'freíd', ellos: 'frían' },
+      imperativo_negativo: { yo: '—', tu: 'no frías', el: 'no fría', nosotros: 'no friamos', vosotros: 'no friáis', ellos: 'no frían' },
     },
     translations: {
       pl: {
@@ -4815,6 +5616,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'usmażę', tu: 'usmażysz', el: 'usmaży', nosotros: 'usmażymy', vosotros: 'usmażycie', ellos: 'usmażą' },
           ir_a_infinitivo: { yo: 'zamierzam usmażyć', tu: 'zamierzasz usmażyć', el: 'zamierza usmażyć', nosotros: 'zamierzamy usmażyć', vosotros: 'zamierzacie usmażyć', ellos: 'zamierzają usmażyć' },
           acabar_de_infinitivo: { yo: 'właśnie usmażyłem', tu: 'właśnie usmażyłeś', el: 'właśnie usmażył', nosotros: 'właśnie usmażyliśmy', vosotros: 'właśnie usmażyliście', ellos: 'właśnie usmażyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'usmaż', el: 'niech smaży', nosotros: 'usmażmy', vosotros: 'usmażcie', ellos: 'niech smażą' },
+          imperativo_negativo: { yo: '—', tu: 'nie usmaż', el: 'niech nie smaży', nosotros: 'nie usmażmy', vosotros: 'nie usmażcie', ellos: 'niech nie smażą' },
         },
       },
       en: {
@@ -4825,6 +5628,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will fry', tu: 'you will fry', el: 'he/she will fry', nosotros: 'we will fry', vosotros: 'you (all) will fry', ellos: 'they will fry' },
           ir_a_infinitivo: { yo: 'I am going to fry', tu: 'you are going to fry', el: 'he/she is going to fry', nosotros: 'we are going to fry', vosotros: 'you (all) are going to fry', ellos: 'they are going to fry' },
           acabar_de_infinitivo: { yo: 'I just fried', tu: 'you just fried', el: 'he/she just fried', nosotros: 'we just fried', vosotros: 'you (all) just fried', ellos: 'they just fried' },
+          imperativo_afirmativo: { yo: '—', tu: 'fry!', el: 'fry!', nosotros: 'let\'s fry!', vosotros: 'fry!', ellos: 'fry!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t fry!', el: 'don\'t fry!', nosotros: 'let\'s not fry!', vosotros: 'don\'t fry!', ellos: 'don\'t fry!' },
         },
       },
       de: {
@@ -4835,6 +5640,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde braten', tu: 'du wirst braten', el: 'er/sie/es wird braten', nosotros: 'wir werden braten', vosotros: 'ihr werdet braten', ellos: 'sie werden braten' },
           ir_a_infinitivo: { yo: 'ich werde gleich braten', tu: 'du wirst gleich braten', el: 'er/sie/es wird gleich braten', nosotros: 'wir werden gleich braten', vosotros: 'ihr werdet gleich braten', ellos: 'sie werden gleich braten' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gebraten', tu: 'du hast gerade gebraten', el: 'er/sie/es hat gerade gebraten', nosotros: 'wir haben gerade gebraten', vosotros: 'ihr habt gerade gebraten', ellos: 'sie haben gerade gebraten' },
+          imperativo_afirmativo: { yo: '—', tu: 'brat!', el: 'Braten Sie!', nosotros: 'Braten wir!', vosotros: 'bratet!', ellos: 'Braten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'brat nicht!', el: 'Braten Sie nicht!', nosotros: 'Braten wir nicht!', vosotros: 'bratet nicht!', ellos: 'Braten Sie nicht!' },
         },
       },
     },
@@ -4849,6 +5656,7 @@ export const VERBS: Verb[] = [
       { id: 'freír-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Smażę to na maśle.', en: 'I fry it in butter.', de: 'Ich brate es in Butter.' }, spanish: 'lo frío en mantequilla' },
       { id: 'freír-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Usmażysz kurczaka na obiad.', en: 'You are going to fry the chicken for lunch.', de: 'Du wirst das Hähnchen zum Mittagessen braten.' }, spanish: 'vas a freír el pollo para el almuerzo' },
       { id: 'freír-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie usmażyliśmy naleśniki.', en: 'We just fried the pancakes.', de: 'Wir haben gerade die Pfannkuchen gebraten.' }, spanish: 'acabamos de freír los panqueques' },
+      { id: 'freír-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'usmaż rybę', en: 'fry the fish', de: 'brat den Fisch' }, spanish: 'fríe el pescado' },
     ],
   },
   {
@@ -4856,12 +5664,15 @@ export const VERBS: Verb[] = [
     infinitive: 'hervir',
     regular: false,
     participle: 'hervido',
+    gerund: 'hirviendo',
     conjugations: {
       presente: { yo: 'hiervo', tu: 'hierves', el: 'hierve', nosotros: 'hervimos', vosotros: 'hervís', ellos: 'hierven' },
       preterite: { yo: 'herví', tu: 'herviste', el: 'hirvió', nosotros: 'hervimos', vosotros: 'hervisteis', ellos: 'hirvieron' },
       futuro: { yo: 'herviré', tu: 'hervirás', el: 'hervirá', nosotros: 'herviremos', vosotros: 'herviréis', ellos: 'hervirán' },
       ir_a_infinitivo: { yo: 'voy a hervir', tu: 'vas a hervir', el: 'va a hervir', nosotros: 'vamos a hervir', vosotros: 'vais a hervir', ellos: 'van a hervir' },
       acabar_de_infinitivo: { yo: 'acabo de hervir', tu: 'acabas de hervir', el: 'acaba de hervir', nosotros: 'acabamos de hervir', vosotros: 'acabáis de hervir', ellos: 'acaban de hervir' },
+      imperativo_afirmativo: { yo: '—', tu: 'hierve', el: 'hierva', nosotros: 'hirvamos', vosotros: 'hervid', ellos: 'hiervan' },
+      imperativo_negativo: { yo: '—', tu: 'no hiervas', el: 'no hierva', nosotros: 'no hirvamos', vosotros: 'no hirváis', ellos: 'no hiervan' },
     },
     translations: {
       pl: {
@@ -4872,6 +5683,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zagotuję', tu: 'zagotujesz', el: 'zagotuje', nosotros: 'zagotujemy', vosotros: 'zagotujecie', ellos: 'zagotują' },
           ir_a_infinitivo: { yo: 'zamierzam zagotować', tu: 'zamierzasz zagotować', el: 'zamierza zagotować', nosotros: 'zamierzamy zagotować', vosotros: 'zamierzacie zagotować', ellos: 'zamierzają zagotować' },
           acabar_de_infinitivo: { yo: 'właśnie zagotowałem', tu: 'właśnie zagotowałeś', el: 'właśnie zagotował', nosotros: 'właśnie zagotowaliśmy', vosotros: 'właśnie zagotowaliście', ellos: 'właśnie zagotowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zagotuj', el: 'niech gotuje', nosotros: 'zagotujmy', vosotros: 'zagotujcie', ellos: 'niech gotują' },
+          imperativo_negativo: { yo: '—', tu: 'nie zagotuj', el: 'niech nie gotuje', nosotros: 'nie zagotujmy', vosotros: 'nie zagotujcie', ellos: 'niech nie gotują' },
         },
       },
       en: {
@@ -4882,6 +5695,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will boil', tu: 'you will boil', el: 'he/she will boil', nosotros: 'we will boil', vosotros: 'you (all) will boil', ellos: 'they will boil' },
           ir_a_infinitivo: { yo: 'I am going to boil', tu: 'you are going to boil', el: 'he/she is going to boil', nosotros: 'we are going to boil', vosotros: 'you (all) are going to boil', ellos: 'they are going to boil' },
           acabar_de_infinitivo: { yo: 'I just boiled', tu: 'you just boiled', el: 'he/she just boiled', nosotros: 'we just boiled', vosotros: 'you (all) just boiled', ellos: 'they just boiled' },
+          imperativo_afirmativo: { yo: '—', tu: 'boil!', el: 'boil!', nosotros: 'let\'s boil!', vosotros: 'boil!', ellos: 'boil!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t boil!', el: 'don\'t boil!', nosotros: 'let\'s not boil!', vosotros: 'don\'t boil!', ellos: 'don\'t boil!' },
         },
       },
       de: {
@@ -4892,6 +5707,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde kochen', tu: 'du wirst kochen', el: 'er/sie/es wird kochen', nosotros: 'wir werden kochen', vosotros: 'ihr werdet kochen', ellos: 'sie werden kochen' },
           ir_a_infinitivo: { yo: 'ich werde gleich kochen', tu: 'du wirst gleich kochen', el: 'er/sie/es wird gleich kochen', nosotros: 'wir werden gleich kochen', vosotros: 'ihr werdet gleich kochen', ellos: 'sie werden gleich kochen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gekocht', tu: 'du hast gerade gekocht', el: 'er/sie/es hat gerade gekocht', nosotros: 'wir haben gerade gekocht', vosotros: 'ihr habt gerade gekocht', ellos: 'sie haben gerade gekocht' },
+          imperativo_afirmativo: { yo: '—', tu: 'koch!', el: 'Kochen Sie!', nosotros: 'Kochen wir!', vosotros: 'kocht!', ellos: 'Kochen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'koch nicht!', el: 'Kochen Sie nicht!', nosotros: 'Kochen wir nicht!', vosotros: 'kocht nicht!', ellos: 'Kochen Sie nicht!' },
         },
       },
     },
@@ -4905,6 +5722,7 @@ export const VERBS: Verb[] = [
       { id: 'hervir-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zagotowali zupę na kolację.', en: 'They boiled soup for dinner.', de: 'Sie kochten Suppe zum Abendessen.' }, spanish: 'hirvieron la sopa para la cena' },
       { id: 'hervir-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zagotujesz ryż na obiad.', en: 'You are going to boil the rice for lunch.', de: 'Du wirst den Reis zum Mittagessen kochen.' }, spanish: 'vas a hervir el arroz para el almuerzo' },
       { id: 'hervir-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zagotowaliśmy wodę do makaronu.', en: 'We just boiled water for the pasta.', de: 'Wir haben gerade Wasser für die Nudeln gekocht.' }, spanish: 'acabamos de hervir el agua para la pasta' },
+      { id: 'hervir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zagotuj wodę', en: 'boil the water', de: 'koch das Wasser' }, spanish: 'hierve el agua' },
     ],
   },
   {
@@ -4912,6 +5730,7 @@ export const VERBS: Verb[] = [
     infinitive: 'limpiar',
     regular: true,
     participle: 'limpiado',
+    gerund: 'limpiando',
     conjugations: conjugateRegular('limpiar'),
     translations: {
       pl: {
@@ -4922,6 +5741,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'posprzątam', tu: 'posprzątasz', el: 'posprząta', nosotros: 'posprzątamy', vosotros: 'posprzątacie', ellos: 'posprzątają' },
           ir_a_infinitivo: { yo: 'zamierzam posprzątać', tu: 'zamierzasz posprzątać', el: 'zamierza posprzątać', nosotros: 'zamierzamy posprzątać', vosotros: 'zamierzacie posprzątać', ellos: 'zamierzają posprzątać' },
           acabar_de_infinitivo: { yo: 'właśnie posprzątałem', tu: 'właśnie posprzątałeś', el: 'właśnie posprzątał', nosotros: 'właśnie posprzątaliśmy', vosotros: 'właśnie posprzątaliście', ellos: 'właśnie posprzątali' },
+          imperativo_afirmativo: { yo: '—', tu: 'posprzątaj', el: 'niech sprząta', nosotros: 'posprzątajmy', vosotros: 'posprzątajcie', ellos: 'niech sprzątają' },
+          imperativo_negativo: { yo: '—', tu: 'nie posprzątaj', el: 'niech nie sprząta', nosotros: 'nie posprzątajmy', vosotros: 'nie posprzątajcie', ellos: 'niech nie sprzątają' },
         },
       },
       en: {
@@ -4932,6 +5753,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will clean', tu: 'you will clean', el: 'he/she will clean', nosotros: 'we will clean', vosotros: 'you (all) will clean', ellos: 'they will clean' },
           ir_a_infinitivo: { yo: 'I am going to clean', tu: 'you are going to clean', el: 'he/she is going to clean', nosotros: 'we are going to clean', vosotros: 'you (all) are going to clean', ellos: 'they are going to clean' },
           acabar_de_infinitivo: { yo: 'I just cleaned', tu: 'you just cleaned', el: 'he/she just cleaned', nosotros: 'we just cleaned', vosotros: 'you (all) just cleaned', ellos: 'they just cleaned' },
+          imperativo_afirmativo: { yo: '—', tu: 'clean!', el: 'clean!', nosotros: 'let\'s clean!', vosotros: 'clean!', ellos: 'clean!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t clean!', el: 'don\'t clean!', nosotros: 'let\'s not clean!', vosotros: 'don\'t clean!', ellos: 'don\'t clean!' },
         },
       },
       de: {
@@ -4942,6 +5765,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde putzen', tu: 'du wirst putzen', el: 'er/sie/es wird putzen', nosotros: 'wir werden putzen', vosotros: 'ihr werdet putzen', ellos: 'sie werden putzen' },
           ir_a_infinitivo: { yo: 'ich werde gleich putzen', tu: 'du wirst gleich putzen', el: 'er/sie/es wird gleich putzen', nosotros: 'wir werden gleich putzen', vosotros: 'ihr werdet gleich putzen', ellos: 'sie werden gleich putzen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geputzt', tu: 'du hast gerade geputzt', el: 'er/sie/es hat gerade geputzt', nosotros: 'wir haben gerade geputzt', vosotros: 'ihr habt gerade geputzt', ellos: 'sie haben gerade geputzt' },
+          imperativo_afirmativo: { yo: '—', tu: 'putz!', el: 'Putzen Sie!', nosotros: 'Putzen wir!', vosotros: 'putzt!', ellos: 'Putzen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'putz nicht!', el: 'Putzen Sie nicht!', nosotros: 'Putzen wir nicht!', vosotros: 'putzt nicht!', ellos: 'Putzen Sie nicht!' },
         },
       },
     },
@@ -4956,6 +5781,7 @@ export const VERBS: Verb[] = [
       { id: 'limpiar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Sprzątam to co tydzień.', en: 'I clean it every week.', de: 'Ich putze es jede Woche.' }, spanish: 'lo limpio cada semana' },
       { id: 'limpiar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Posprzątasz samochód w weekend.', en: 'You are going to clean the car on the weekend.', de: 'Du wirst am Wochenende das Auto putzen.' }, spanish: 'vas a limpiar el coche el fin de semana' },
       { id: 'limpiar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie posprzątaliśmy salon.', en: 'We just cleaned the living room.', de: 'Wir haben gerade das Wohnzimmer geputzt.' }, spanish: 'acabamos de limpiar el salón' },
+      { id: 'limpiar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'posprzątaj swój pokój', en: 'clean your room', de: 'putz dein Zimmer' }, spanish: 'limpia tu cuarto' },
     ],
   },
   {
@@ -4963,6 +5789,7 @@ export const VERBS: Verb[] = [
     infinitive: 'lavar',
     regular: true,
     participle: 'lavado',
+    gerund: 'lavando',
     conjugations: conjugateRegular('lavar'),
     translations: {
       pl: {
@@ -4973,6 +5800,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wypiorę', tu: 'wypierzesz', el: 'wypierze', nosotros: 'wypierzemy', vosotros: 'wypierzecie', ellos: 'wypiorą' },
           ir_a_infinitivo: { yo: 'zamierzam wyprać', tu: 'zamierzasz wyprać', el: 'zamierza wyprać', nosotros: 'zamierzamy wyprać', vosotros: 'zamierzacie wyprać', ellos: 'zamierzają wyprać' },
           acabar_de_infinitivo: { yo: 'właśnie wyprałem', tu: 'właśnie wyprałeś', el: 'właśnie wyprał', nosotros: 'właśnie wypraliśmy', vosotros: 'właśnie wypraliście', ellos: 'właśnie wyprali' },
+          imperativo_afirmativo: { yo: '—', tu: 'umyj', el: 'niech pierze', nosotros: 'umyjmy', vosotros: 'umyjcie', ellos: 'niech piorą' },
+          imperativo_negativo: { yo: '—', tu: 'nie umyj', el: 'niech nie pierze', nosotros: 'nie umyjmy', vosotros: 'nie umyjcie', ellos: 'niech nie piorą' },
         },
       },
       en: {
@@ -4983,6 +5812,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will wash', tu: 'you will wash', el: 'he/she will wash', nosotros: 'we will wash', vosotros: 'you (all) will wash', ellos: 'they will wash' },
           ir_a_infinitivo: { yo: 'I am going to wash', tu: 'you are going to wash', el: 'he/she is going to wash', nosotros: 'we are going to wash', vosotros: 'you (all) are going to wash', ellos: 'they are going to wash' },
           acabar_de_infinitivo: { yo: 'I just washed', tu: 'you just washed', el: 'he/she just washed', nosotros: 'we just washed', vosotros: 'you (all) just washed', ellos: 'they just washed' },
+          imperativo_afirmativo: { yo: '—', tu: 'wash!', el: 'wash!', nosotros: 'let\'s wash!', vosotros: 'wash!', ellos: 'wash!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t wash!', el: 'don\'t wash!', nosotros: 'let\'s not wash!', vosotros: 'don\'t wash!', ellos: 'don\'t wash!' },
         },
       },
       de: {
@@ -4993,6 +5824,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde waschen', tu: 'du wirst waschen', el: 'er/sie/es wird waschen', nosotros: 'wir werden waschen', vosotros: 'ihr werdet waschen', ellos: 'sie werden waschen' },
           ir_a_infinitivo: { yo: 'ich werde gleich waschen', tu: 'du wirst gleich waschen', el: 'er/sie/es wird gleich waschen', nosotros: 'wir werden gleich waschen', vosotros: 'ihr werdet gleich waschen', ellos: 'sie werden gleich waschen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gewaschen', tu: 'du hast gerade gewaschen', el: 'er/sie/es hat gerade gewaschen', nosotros: 'wir haben gerade gewaschen', vosotros: 'ihr habt gerade gewaschen', ellos: 'sie haben gerade gewaschen' },
+          imperativo_afirmativo: { yo: '—', tu: 'wasch!', el: 'Waschen Sie!', nosotros: 'Waschen wir!', vosotros: 'wascht!', ellos: 'Waschen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'wasch nicht!', el: 'Waschen Sie nicht!', nosotros: 'Waschen wir nicht!', vosotros: 'wascht nicht!', ellos: 'Waschen Sie nicht!' },
         },
       },
     },
@@ -5007,6 +5840,7 @@ export const VERBS: Verb[] = [
       { id: 'lavar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Piorę to ręcznie.', en: 'I wash it by hand.', de: 'Ich wasche es von Hand.' }, spanish: 'lo lavo a mano' },
       { id: 'lavar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Umyjesz naczynia po obiedzie.', en: 'You are going to wash the dishes after lunch.', de: 'Du wirst nach dem Mittagessen das Geschirr waschen.' }, spanish: 'vas a lavar los platos después del almuerzo' },
       { id: 'lavar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie umyliśmy podłogę.', en: 'We just washed the floor.', de: 'Wir haben gerade den Boden gewaschen.' }, spanish: 'acabamos de lavar el suelo' },
+      { id: 'lavar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'umyj naczynia', en: 'wash the dishes', de: 'wasch das Geschirr' }, spanish: 'lava los platos' },
     ],
   },
   {
@@ -5014,6 +5848,7 @@ export const VERBS: Verb[] = [
     infinitive: 'planchar',
     regular: true,
     participle: 'planchado',
+    gerund: 'planchando',
     conjugations: conjugateRegular('planchar'),
     translations: {
       pl: {
@@ -5024,6 +5859,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wyprasuję', tu: 'wyprasujesz', el: 'wyprasuje', nosotros: 'wyprasujemy', vosotros: 'wyprasujecie', ellos: 'wyprasują' },
           ir_a_infinitivo: { yo: 'zamierzam wyprasować', tu: 'zamierzasz wyprasować', el: 'zamierza wyprasować', nosotros: 'zamierzamy wyprasować', vosotros: 'zamierzacie wyprasować', ellos: 'zamierzają wyprasować' },
           acabar_de_infinitivo: { yo: 'właśnie wyprasowałem', tu: 'właśnie wyprasowałeś', el: 'właśnie wyprasował', nosotros: 'właśnie wyprasowaliśmy', vosotros: 'właśnie wyprasowaliście', ellos: 'właśnie wyprasowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'wyprasuj', el: 'niech prasuje', nosotros: 'wyprasujmy', vosotros: 'wyprasujcie', ellos: 'niech prasują' },
+          imperativo_negativo: { yo: '—', tu: 'nie wyprasuj', el: 'niech nie prasuje', nosotros: 'nie wyprasujmy', vosotros: 'nie wyprasujcie', ellos: 'niech nie prasują' },
         },
       },
       en: {
@@ -5034,6 +5871,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will iron', tu: 'you will iron', el: 'he/she will iron', nosotros: 'we will iron', vosotros: 'you (all) will iron', ellos: 'they will iron' },
           ir_a_infinitivo: { yo: 'I am going to iron', tu: 'you are going to iron', el: 'he/she is going to iron', nosotros: 'we are going to iron', vosotros: 'you (all) are going to iron', ellos: 'they are going to iron' },
           acabar_de_infinitivo: { yo: 'I just ironed', tu: 'you just ironed', el: 'he/she just ironed', nosotros: 'we just ironed', vosotros: 'you (all) just ironed', ellos: 'they just ironed' },
+          imperativo_afirmativo: { yo: '—', tu: 'iron!', el: 'iron!', nosotros: 'let\'s iron!', vosotros: 'iron!', ellos: 'iron!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t iron!', el: 'don\'t iron!', nosotros: 'let\'s not iron!', vosotros: 'don\'t iron!', ellos: 'don\'t iron!' },
         },
       },
       de: {
@@ -5044,6 +5883,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde bügeln', tu: 'du wirst bügeln', el: 'er/sie/es wird bügeln', nosotros: 'wir werden bügeln', vosotros: 'ihr werdet bügeln', ellos: 'sie werden bügeln' },
           ir_a_infinitivo: { yo: 'ich werde gleich bügeln', tu: 'du wirst gleich bügeln', el: 'er/sie/es wird gleich bügeln', nosotros: 'wir werden gleich bügeln', vosotros: 'ihr werdet gleich bügeln', ellos: 'sie werden gleich bügeln' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gebügelt', tu: 'du hast gerade gebügelt', el: 'er/sie/es hat gerade gebügelt', nosotros: 'wir haben gerade gebügelt', vosotros: 'ihr habt gerade gebügelt', ellos: 'sie haben gerade gebügelt' },
+          imperativo_afirmativo: { yo: '—', tu: 'bügel!', el: 'Bügeln Sie!', nosotros: 'Bügeln wir!', vosotros: 'bügelt!', ellos: 'Bügeln Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bügel nicht!', el: 'Bügeln Sie nicht!', nosotros: 'Bügeln wir nicht!', vosotros: 'bügelt nicht!', ellos: 'Bügeln Sie nicht!' },
         },
       },
     },
@@ -5058,6 +5899,7 @@ export const VERBS: Verb[] = [
       { id: 'planchar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Prasuję to bardzo delikatnie.', en: 'I iron it very gently.', de: 'Ich bügle es sehr vorsichtig.' }, spanish: 'lo plancho con mucho cuidado' },
       { id: 'planchar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wyprasujesz koszulę na jutro.', en: 'You are going to iron the shirt for tomorrow.', de: 'Du wirst das Hemd für morgen bügeln.' }, spanish: 'vas a planchar la camisa para mañana' },
       { id: 'planchar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wyprasowaliśmy pościel.', en: 'We just ironed the bedsheets.', de: 'Wir haben gerade die Bettwäsche gebügelt.' }, spanish: 'acabamos de planchar las sábanas' },
+      { id: 'planchar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wyprasuj koszulę', en: 'iron the shirt', de: 'bügel das Hemd' }, spanish: 'plancha la camisa' },
     ],
   },
   {
@@ -5065,6 +5907,7 @@ export const VERBS: Verb[] = [
     infinitive: 'barrer',
     regular: true,
     participle: 'barrido',
+    gerund: 'barriendo',
     conjugations: conjugateRegular('barrer'),
     translations: {
       pl: {
@@ -5075,6 +5918,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zamiotę', tu: 'zamieciesz', el: 'zamiecie', nosotros: 'zamieciemy', vosotros: 'zamieciecie', ellos: 'zamiotą' },
           ir_a_infinitivo: { yo: 'zamierzam zamieść', tu: 'zamierzasz zamieść', el: 'zamierza zamieść', nosotros: 'zamierzamy zamieść', vosotros: 'zamierzacie zamieść', ellos: 'zamierzają zamieść' },
           acabar_de_infinitivo: { yo: 'właśnie zamiotłem', tu: 'właśnie zamiotłeś', el: 'właśnie zamiótł', nosotros: 'właśnie zamietliśmy', vosotros: 'właśnie zamietliście', ellos: 'właśnie zamietli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zamiataj', el: 'niech zamiata', nosotros: 'zamiatajmy', vosotros: 'zamiatajcie', ellos: 'niech zamiatają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zamiataj', el: 'niech nie zamiata', nosotros: 'nie zamiatajmy', vosotros: 'nie zamiatajcie', ellos: 'niech nie zamiatają' },
         },
       },
       en: {
@@ -5085,6 +5930,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will sweep', tu: 'you will sweep', el: 'he/she will sweep', nosotros: 'we will sweep', vosotros: 'you (all) will sweep', ellos: 'they will sweep' },
           ir_a_infinitivo: { yo: 'I am going to sweep', tu: 'you are going to sweep', el: 'he/she is going to sweep', nosotros: 'we are going to sweep', vosotros: 'you (all) are going to sweep', ellos: 'they are going to sweep' },
           acabar_de_infinitivo: { yo: 'I just swept', tu: 'you just swept', el: 'he/she just swept', nosotros: 'we just swept', vosotros: 'you (all) just swept', ellos: 'they just swept' },
+          imperativo_afirmativo: { yo: '—', tu: 'sweep!', el: 'sweep!', nosotros: 'let\'s sweep!', vosotros: 'sweep!', ellos: 'sweep!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t sweep!', el: 'don\'t sweep!', nosotros: 'let\'s not sweep!', vosotros: 'don\'t sweep!', ellos: 'don\'t sweep!' },
         },
       },
       de: {
@@ -5095,6 +5942,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde fegen', tu: 'du wirst fegen', el: 'er/sie/es wird fegen', nosotros: 'wir werden fegen', vosotros: 'ihr werdet fegen', ellos: 'sie werden fegen' },
           ir_a_infinitivo: { yo: 'ich werde gleich fegen', tu: 'du wirst gleich fegen', el: 'er/sie/es wird gleich fegen', nosotros: 'wir werden gleich fegen', vosotros: 'ihr werdet gleich fegen', ellos: 'sie werden gleich fegen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gefegt', tu: 'du hast gerade gefegt', el: 'er/sie/es hat gerade gefegt', nosotros: 'wir haben gerade gefegt', vosotros: 'ihr habt gerade gefegt', ellos: 'sie haben gerade gefegt' },
+          imperativo_afirmativo: { yo: '—', tu: 'feg!', el: 'Fegen Sie!', nosotros: 'Fegen wir!', vosotros: 'fegt!', ellos: 'Fegen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'feg nicht!', el: 'Fegen Sie nicht!', nosotros: 'Fegen wir nicht!', vosotros: 'fegt nicht!', ellos: 'Fegen Sie nicht!' },
         },
       },
     },
@@ -5108,6 +5957,7 @@ export const VERBS: Verb[] = [
       { id: 'barrer-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zamietli klasę po lekcjach plastyki.', en: 'They swept the classroom after art class.', de: 'Sie fegten das Klassenzimmer nach dem Kunstunterricht.' }, spanish: 'barrieron el aula después de la clase de arte' },
       { id: 'barrer-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zamieciesz balkon jutro.', en: 'You are going to sweep the balcony tomorrow.', de: 'Du wirst morgen den Balkon fegen.' }, spanish: 'vas a barrer el balcón mañana' },
       { id: 'barrer-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zamietliśmy taras.', en: 'We just swept the terrace.', de: 'Wir haben gerade die Terrasse gefegt.' }, spanish: 'acabamos de barrer la terraza' },
+      { id: 'barrer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zamiataj kuchnię', en: 'sweep the kitchen', de: 'feg die Küche' }, spanish: 'barre la cocina' },
     ],
   },
   {
@@ -5115,12 +5965,15 @@ export const VERBS: Verb[] = [
     infinitive: 'volar',
     regular: false,
     participle: 'volado',
+    gerund: 'volando',
     conjugations: {
       presente: { yo: 'vuelo', tu: 'vuelas', el: 'vuela', nosotros: 'volamos', vosotros: 'voláis', ellos: 'vuelan' },
       preterite: { yo: 'volé', tu: 'volaste', el: 'voló', nosotros: 'volamos', vosotros: 'volasteis', ellos: 'volaron' },
       futuro: { yo: 'volaré', tu: 'volarás', el: 'volará', nosotros: 'volaremos', vosotros: 'volaréis', ellos: 'volarán' },
       ir_a_infinitivo: { yo: 'voy a volar', tu: 'vas a volar', el: 'va a volar', nosotros: 'vamos a volar', vosotros: 'vais a volar', ellos: 'van a volar' },
       acabar_de_infinitivo: { yo: 'acabo de volar', tu: 'acabas de volar', el: 'acaba de volar', nosotros: 'acabamos de volar', vosotros: 'acabáis de volar', ellos: 'acaban de volar' },
+      imperativo_afirmativo: { yo: '—', tu: 'vuela', el: 'vuele', nosotros: 'volemos', vosotros: 'volad', ellos: 'vuelen' },
+      imperativo_negativo: { yo: '—', tu: 'no vueles', el: 'no vuele', nosotros: 'no volemos', vosotros: 'no voléis', ellos: 'no vuelen' },
     },
     translations: {
       pl: {
@@ -5131,6 +5984,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'polecę', tu: 'polecisz', el: 'poleci', nosotros: 'polecimy', vosotros: 'polecicie', ellos: 'polecą' },
           ir_a_infinitivo: { yo: 'zamierzam polecieć', tu: 'zamierzasz polecieć', el: 'zamierza polecieć', nosotros: 'zamierzamy polecieć', vosotros: 'zamierzacie polecieć', ellos: 'zamierzają polecieć' },
           acabar_de_infinitivo: { yo: 'właśnie leciałem', tu: 'właśnie leciałeś', el: 'właśnie leciał', nosotros: 'właśnie lecieliśmy', vosotros: 'właśnie lecieliście', ellos: 'właśnie lecieli' },
+          imperativo_afirmativo: { yo: '—', tu: 'leć', el: 'niech leci', nosotros: 'lećmy', vosotros: 'lećcie', ellos: 'niech lecą' },
+          imperativo_negativo: { yo: '—', tu: 'nie leć', el: 'niech nie leci', nosotros: 'nie lećmy', vosotros: 'nie lećcie', ellos: 'niech nie lecą' },
         },
       },
       en: {
@@ -5141,6 +5996,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will fly', tu: 'you will fly', el: 'he/she will fly', nosotros: 'we will fly', vosotros: 'you (all) will fly', ellos: 'they will fly' },
           ir_a_infinitivo: { yo: 'I am going to fly', tu: 'you are going to fly', el: 'he/she is going to fly', nosotros: 'we are going to fly', vosotros: 'you (all) are going to fly', ellos: 'they are going to fly' },
           acabar_de_infinitivo: { yo: 'I just flew', tu: 'you just flew', el: 'he/she just flew', nosotros: 'we just flew', vosotros: 'you (all) just flew', ellos: 'they just flew' },
+          imperativo_afirmativo: { yo: '—', tu: 'fly!', el: 'fly!', nosotros: 'let\'s fly!', vosotros: 'fly!', ellos: 'fly!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t fly!', el: 'don\'t fly!', nosotros: 'let\'s not fly!', vosotros: 'don\'t fly!', ellos: 'don\'t fly!' },
         },
       },
       de: {
@@ -5151,6 +6008,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde fliegen', tu: 'du wirst fliegen', el: 'er/sie/es wird fliegen', nosotros: 'wir werden fliegen', vosotros: 'ihr werdet fliegen', ellos: 'sie werden fliegen' },
           ir_a_infinitivo: { yo: 'ich werde gleich fliegen', tu: 'du wirst gleich fliegen', el: 'er/sie/es wird gleich fliegen', nosotros: 'wir werden gleich fliegen', vosotros: 'ihr werdet gleich fliegen', ellos: 'sie werden gleich fliegen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade geflogen', tu: 'du bist gerade geflogen', el: 'er/sie/es ist gerade geflogen', nosotros: 'wir sind gerade geflogen', vosotros: 'ihr seid gerade geflogen', ellos: 'sie sind gerade geflogen' },
+          imperativo_afirmativo: { yo: '—', tu: 'flieg!', el: 'Fliegen Sie!', nosotros: 'Fliegen wir!', vosotros: 'fliegt!', ellos: 'Fliegen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'flieg nicht!', el: 'Fliegen Sie nicht!', nosotros: 'Fliegen wir nicht!', vosotros: 'fliegt nicht!', ellos: 'Fliegen Sie nicht!' },
         },
       },
     },
@@ -5164,6 +6023,7 @@ export const VERBS: Verb[] = [
       { id: 'volar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Polecieli nad Atlantykiem w nocy.', en: 'They flew over the Atlantic at night.', de: 'Sie flogen nachts über den Atlantik.' }, spanish: 'volaron sobre el Atlántico de noche' },
       { id: 'volar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Polecisz do Rzymu w czerwcu.', en: 'You are going to fly to Rome in June.', de: 'Du wirst im Juni nach Rom fliegen.' }, spanish: 'vas a volar a Roma en junio' },
       { id: 'volar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie polecieliśmy nad górami.', en: 'We just flew over the mountains.', de: 'Wir sind gerade über die Berge geflogen.' }, spanish: 'acabamos de volar sobre las montañas' },
+      { id: 'volar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'leć ostrożnie', en: 'fly carefully', de: 'flieg vorsichtig' }, spanish: 'vuela con cuidado' },
     ],
   },
   {
@@ -5171,12 +6031,15 @@ export const VERBS: Verb[] = [
     infinitive: 'conducir',
     regular: false,
     participle: 'conducido',
+    gerund: 'conduciendo',
     conjugations: {
       presente: { yo: 'conduzco', tu: 'conduces', el: 'conduce', nosotros: 'conducimos', vosotros: 'conducís', ellos: 'conducen' },
       preterite: { yo: 'conduje', tu: 'condujiste', el: 'condujo', nosotros: 'condujimos', vosotros: 'condujisteis', ellos: 'condujeron' },
       futuro: { yo: 'conduciré', tu: 'conducirás', el: 'conducirá', nosotros: 'conduciremos', vosotros: 'conduciréis', ellos: 'conducirán' },
       ir_a_infinitivo: { yo: 'voy a conducir', tu: 'vas a conducir', el: 'va a conducir', nosotros: 'vamos a conducir', vosotros: 'vais a conducir', ellos: 'van a conducir' },
       acabar_de_infinitivo: { yo: 'acabo de conducir', tu: 'acabas de conducir', el: 'acaba de conducir', nosotros: 'acabamos de conducir', vosotros: 'acabáis de conducir', ellos: 'acaban de conducir' },
+      imperativo_afirmativo: { yo: '—', tu: 'conduce', el: 'conduzca', nosotros: 'conduzcamos', vosotros: 'conducid', ellos: 'conduzcan' },
+      imperativo_negativo: { yo: '—', tu: 'no conduzcas', el: 'no conduzca', nosotros: 'no conduzcamos', vosotros: 'no conduzcáis', ellos: 'no conduzcan' },
     },
     translations: {
       pl: {
@@ -5187,6 +6050,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'poprowadzę', tu: 'poprowadzisz', el: 'poprowadzi', nosotros: 'poprowadzimy', vosotros: 'poprowadzicie', ellos: 'poprowadzą' },
           ir_a_infinitivo: { yo: 'zamierzam prowadzić', tu: 'zamierzasz prowadzić', el: 'zamierza prowadzić', nosotros: 'zamierzamy prowadzić', vosotros: 'zamierzacie prowadzić', ellos: 'zamierzają prowadzić' },
           acabar_de_infinitivo: { yo: 'właśnie prowadziłem', tu: 'właśnie prowadziłeś', el: 'właśnie prowadził', nosotros: 'właśnie prowadziliśmy', vosotros: 'właśnie prowadziliście', ellos: 'właśnie prowadzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'prowadź', el: 'niech prowadzi', nosotros: 'prowadźmy', vosotros: 'prowadźcie', ellos: 'niech prowadzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie prowadź', el: 'niech nie prowadzi', nosotros: 'nie prowadźmy', vosotros: 'nie prowadźcie', ellos: 'niech nie prowadzą' },
         },
       },
       en: {
@@ -5197,6 +6062,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will drive', tu: 'you will drive', el: 'he/she will drive', nosotros: 'we will drive', vosotros: 'you (all) will drive', ellos: 'they will drive' },
           ir_a_infinitivo: { yo: 'I am going to drive', tu: 'you are going to drive', el: 'he/she is going to drive', nosotros: 'we are going to drive', vosotros: 'you (all) are going to drive', ellos: 'they are going to drive' },
           acabar_de_infinitivo: { yo: 'I just drove', tu: 'you just drove', el: 'he/she just drove', nosotros: 'we just drove', vosotros: 'you (all) just drove', ellos: 'they just drove' },
+          imperativo_afirmativo: { yo: '—', tu: 'drive!', el: 'drive!', nosotros: 'let\'s drive!', vosotros: 'drive!', ellos: 'drive!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t drive!', el: 'don\'t drive!', nosotros: 'let\'s not drive!', vosotros: 'don\'t drive!', ellos: 'don\'t drive!' },
         },
       },
       de: {
@@ -5207,6 +6074,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde fahren', tu: 'du wirst fahren', el: 'er/sie/es wird fahren', nosotros: 'wir werden fahren', vosotros: 'ihr werdet fahren', ellos: 'sie werden fahren' },
           ir_a_infinitivo: { yo: 'ich werde gleich fahren', tu: 'du wirst gleich fahren', el: 'er/sie/es wird gleich fahren', nosotros: 'wir werden gleich fahren', vosotros: 'ihr werdet gleich fahren', ellos: 'sie werden gleich fahren' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gefahren', tu: 'du bist gerade gefahren', el: 'er/sie/es ist gerade gefahren', nosotros: 'wir sind gerade gefahren', vosotros: 'ihr seid gerade gefahren', ellos: 'sie sind gerade gefahren' },
+          imperativo_afirmativo: { yo: '—', tu: 'fahr!', el: 'Fahren Sie!', nosotros: 'Fahren wir!', vosotros: 'fahrt!', ellos: 'Fahren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'fahr nicht!', el: 'Fahren Sie nicht!', nosotros: 'Fahren wir nicht!', vosotros: 'fahrt nicht!', ellos: 'Fahren Sie nicht!' },
         },
       },
     },
@@ -5221,6 +6090,7 @@ export const VERBS: Verb[] = [
       { id: 'conducir-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Prowadzę go bardzo ostrożnie.', en: 'I drive it very carefully.', de: 'Ich fahre es sehr vorsichtig.' }, spanish: 'lo conduzco con mucho cuidado' },
       { id: 'conducir-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Poprowadzisz auto na wycieczkę.', en: 'You are going to drive on the trip.', de: 'Du wirst auf der Reise fahren.' }, spanish: 'vas a conducir en el viaje' },
       { id: 'conducir-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie prowadziliśmy przez pustynię.', en: 'We just drove through the desert.', de: 'Wir sind gerade durch die Wüste gefahren.' }, spanish: 'acabamos de conducir por el desierto' },
+      { id: 'conducir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'prowadź powoli', en: 'drive slowly', de: 'fahr langsam' }, spanish: 'conduce despacio' },
     ],
   },
   {
@@ -5228,6 +6098,7 @@ export const VERBS: Verb[] = [
     infinitive: 'reservar',
     regular: true,
     participle: 'reservado',
+    gerund: 'reservando',
     conjugations: conjugateRegular('reservar'),
     translations: {
       pl: {
@@ -5238,6 +6109,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zarezerwuję', tu: 'zarezerwujesz', el: 'zarezerwuje', nosotros: 'zarezerwujemy', vosotros: 'zarezerwujecie', ellos: 'zarezerwują' },
           ir_a_infinitivo: { yo: 'zamierzam zarezerwować', tu: 'zamierzasz zarezerwować', el: 'zamierza zarezerwować', nosotros: 'zamierzamy zarezerwować', vosotros: 'zamierzacie zarezerwować', ellos: 'zamierzają zarezerwować' },
           acabar_de_infinitivo: { yo: 'właśnie zarezerwowałem', tu: 'właśnie zarezerwowałeś', el: 'właśnie zarezerwował', nosotros: 'właśnie zarezerwowaliśmy', vosotros: 'właśnie zarezerwowaliście', ellos: 'właśnie zarezerwowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zarezerwuj', el: 'niech rezerwuje', nosotros: 'zarezerwujmy', vosotros: 'zarezerwujcie', ellos: 'niech rezerwują' },
+          imperativo_negativo: { yo: '—', tu: 'nie zarezerwuj', el: 'niech nie rezerwuje', nosotros: 'nie zarezerwujmy', vosotros: 'nie zarezerwujcie', ellos: 'niech nie rezerwują' },
         },
       },
       en: {
@@ -5248,6 +6121,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will reserve', tu: 'you will reserve', el: 'he/she will reserve', nosotros: 'we will reserve', vosotros: 'you (all) will reserve', ellos: 'they will reserve' },
           ir_a_infinitivo: { yo: 'I am going to reserve', tu: 'you are going to reserve', el: 'he/she is going to reserve', nosotros: 'we are going to reserve', vosotros: 'you (all) are going to reserve', ellos: 'they are going to reserve' },
           acabar_de_infinitivo: { yo: 'I just reserved', tu: 'you just reserved', el: 'he/she just reserved', nosotros: 'we just reserved', vosotros: 'you (all) just reserved', ellos: 'they just reserved' },
+          imperativo_afirmativo: { yo: '—', tu: 'reserve!', el: 'reserve!', nosotros: 'let\'s reserve!', vosotros: 'reserve!', ellos: 'reserve!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t reserve!', el: 'don\'t reserve!', nosotros: 'let\'s not reserve!', vosotros: 'don\'t reserve!', ellos: 'don\'t reserve!' },
         },
       },
       de: {
@@ -5258,6 +6133,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde reservieren', tu: 'du wirst reservieren', el: 'er/sie/es wird reservieren', nosotros: 'wir werden reservieren', vosotros: 'ihr werdet reservieren', ellos: 'sie werden reservieren' },
           ir_a_infinitivo: { yo: 'ich werde gleich reservieren', tu: 'du wirst gleich reservieren', el: 'er/sie/es wird gleich reservieren', nosotros: 'wir werden gleich reservieren', vosotros: 'ihr werdet gleich reservieren', ellos: 'sie werden gleich reservieren' },
           acabar_de_infinitivo: { yo: 'ich habe gerade reserviert', tu: 'du hast gerade reserviert', el: 'er/sie/es hat gerade reserviert', nosotros: 'wir haben gerade reserviert', vosotros: 'ihr habt gerade reserviert', ellos: 'sie haben gerade reserviert' },
+          imperativo_afirmativo: { yo: '—', tu: 'reservier!', el: 'Reservieren Sie!', nosotros: 'Reservieren wir!', vosotros: 'reserviert!', ellos: 'Reservieren Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'reservier nicht!', el: 'Reservieren Sie nicht!', nosotros: 'Reservieren wir nicht!', vosotros: 'reserviert nicht!', ellos: 'Reservieren Sie nicht!' },
         },
       },
     },
@@ -5271,6 +6148,7 @@ export const VERBS: Verb[] = [
       { id: 'reservar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zarezerwowali salę na konferencję.', en: 'They booked the room for the conference.', de: 'Sie reservierten den Saal für die Konferenz.' }, spanish: 'reservaron la sala para la conferencia' },
       { id: 'reservar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zarezerwujesz stolik na jutro wieczorem.', en: 'You are going to book a table for tomorrow evening.', de: 'Du wirst für morgen Abend einen Tisch reservieren.' }, spanish: 'vas a reservar una mesa para mañana por la noche' },
       { id: 'reservar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zarezerwowaliśmy wycieczkę.', en: 'We just booked the tour.', de: 'Wir haben gerade die Tour reserviert.' }, spanish: 'acabamos de reservar la excursión' },
+      { id: 'reservar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zarezerwuj stolik', en: 'reserve the table', de: 'reservier den Tisch' }, spanish: 'reserva la mesa' },
     ],
   },
   {
@@ -5278,12 +6156,15 @@ export const VERBS: Verb[] = [
     infinitive: 'aterrizar',
     regular: false,
     participle: 'aterrizado',
+    gerund: 'aterrizando',
     conjugations: {
       presente: { yo: 'aterrizo', tu: 'aterrizas', el: 'aterriza', nosotros: 'aterrizamos', vosotros: 'aterrizáis', ellos: 'aterrizan' },
       preterite: { yo: 'aterricé', tu: 'aterrizaste', el: 'aterrizó', nosotros: 'aterrizamos', vosotros: 'aterrizasteis', ellos: 'aterrizaron' },
       futuro: { yo: 'aterrizaré', tu: 'aterrizarás', el: 'aterrizará', nosotros: 'aterrizaremos', vosotros: 'aterrizaréis', ellos: 'aterrizarán' },
       ir_a_infinitivo: { yo: 'voy a aterrizar', tu: 'vas a aterrizar', el: 'va a aterrizar', nosotros: 'vamos a aterrizar', vosotros: 'vais a aterrizar', ellos: 'van a aterrizar' },
       acabar_de_infinitivo: { yo: 'acabo de aterrizar', tu: 'acabas de aterrizar', el: 'acaba de aterrizar', nosotros: 'acabamos de aterrizar', vosotros: 'acabáis de aterrizar', ellos: 'acaban de aterrizar' },
+      imperativo_afirmativo: { yo: '—', tu: 'aterriza', el: 'aterrice', nosotros: 'aterricemos', vosotros: 'aterrizad', ellos: 'aterricen' },
+      imperativo_negativo: { yo: '—', tu: 'no aterrices', el: 'no aterrice', nosotros: 'no aterricemos', vosotros: 'no aterricéis', ellos: 'no aterricen' },
     },
     translations: {
       pl: {
@@ -5294,6 +6175,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wyląduję', tu: 'wylądujesz', el: 'wyląduje', nosotros: 'wylądujemy', vosotros: 'wylądujecie', ellos: 'wylądują' },
           ir_a_infinitivo: { yo: 'zamierzam wylądować', tu: 'zamierzasz wylądować', el: 'zamierza wylądować', nosotros: 'zamierzamy wylądować', vosotros: 'zamierzacie wylądować', ellos: 'zamierzają wylądować' },
           acabar_de_infinitivo: { yo: 'właśnie wylądowałem', tu: 'właśnie wylądowałeś', el: 'właśnie wylądował', nosotros: 'właśnie wylądowaliśmy', vosotros: 'właśnie wylądowaliście', ellos: 'właśnie wylądowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'wyląduj', el: 'niech ląduje', nosotros: 'wylądujmy', vosotros: 'wylądujcie', ellos: 'niech lądują' },
+          imperativo_negativo: { yo: '—', tu: 'nie wyląduj', el: 'niech nie ląduje', nosotros: 'nie wylądujmy', vosotros: 'nie wylądujcie', ellos: 'niech nie lądują' },
         },
       },
       en: {
@@ -5304,6 +6187,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will land', tu: 'you will land', el: 'he/she will land', nosotros: 'we will land', vosotros: 'you (all) will land', ellos: 'they will land' },
           ir_a_infinitivo: { yo: 'I am going to land', tu: 'you are going to land', el: 'he/she is going to land', nosotros: 'we are going to land', vosotros: 'you (all) are going to land', ellos: 'they are going to land' },
           acabar_de_infinitivo: { yo: 'I just landed', tu: 'you just landed', el: 'he/she just landed', nosotros: 'we just landed', vosotros: 'you (all) just landed', ellos: 'they just landed' },
+          imperativo_afirmativo: { yo: '—', tu: 'land!', el: 'land!', nosotros: 'let\'s land!', vosotros: 'land!', ellos: 'land!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t land!', el: 'don\'t land!', nosotros: 'let\'s not land!', vosotros: 'don\'t land!', ellos: 'don\'t land!' },
         },
       },
       de: {
@@ -5314,6 +6199,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde landen', tu: 'du wirst landen', el: 'er/sie/es wird landen', nosotros: 'wir werden landen', vosotros: 'ihr werdet landen', ellos: 'sie werden landen' },
           ir_a_infinitivo: { yo: 'ich werde gleich landen', tu: 'du wirst gleich landen', el: 'er/sie/es wird gleich landen', nosotros: 'wir werden gleich landen', vosotros: 'ihr werdet gleich landen', ellos: 'sie werden gleich landen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gelandet', tu: 'du bist gerade gelandet', el: 'er/sie/es ist gerade gelandet', nosotros: 'wir sind gerade gelandet', vosotros: 'ihr seid gerade gelandet', ellos: 'sie sind gerade gelandet' },
+          imperativo_afirmativo: { yo: '—', tu: 'lande!', el: 'Landen Sie!', nosotros: 'Landen wir!', vosotros: 'landet!', ellos: 'Landen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lande nicht!', el: 'Landen Sie nicht!', nosotros: 'Landen wir nicht!', vosotros: 'landet nicht!', ellos: 'Landen Sie nicht!' },
         },
       },
     },
@@ -5327,6 +6214,7 @@ export const VERBS: Verb[] = [
       { id: 'aterrizar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Wylądowali na małym lotnisku.', en: 'They landed at a small airport.', de: 'Sie landeten auf einem kleinen Flughafen.' }, spanish: 'aterrizaron en un aeropuerto pequeño' },
       { id: 'aterrizar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wylądujesz za dwadzieścia minut.', en: 'You are going to land in twenty minutes.', de: 'Du wirst in zwanzig Minuten landen.' }, spanish: 'vas a aterrizar en veinte minutos' },
       { id: 'aterrizar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wylądowaliśmy na lotnisku.', en: 'We just landed at the airport.', de: 'Wir sind gerade am Flughafen gelandet.' }, spanish: 'acabamos de aterrizar en el aeropuerto' },
+      { id: 'aterrizar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wyląduj ostrożnie', en: 'land carefully', de: 'lande vorsichtig' }, spanish: 'aterriza con cuidado' },
     ],
   },
   {
@@ -5334,6 +6222,7 @@ export const VERBS: Verb[] = [
     infinitive: 'caminar',
     regular: true,
     participle: 'caminado',
+    gerund: 'caminando',
     conjugations: conjugateRegular('caminar'),
     translations: {
       pl: {
@@ -5344,6 +6233,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę szedł', tu: 'będziesz szedł', el: 'będzie szedł', nosotros: 'będziemy szli', vosotros: 'będziecie szli', ellos: 'będą szli' },
           ir_a_infinitivo: { yo: 'zamierzam iść pieszo', tu: 'zamierzasz iść pieszo', el: 'zamierza iść pieszo', nosotros: 'zamierzamy iść pieszo', vosotros: 'zamierzacie iść pieszo', ellos: 'zamierzają iść pieszo' },
           acabar_de_infinitivo: { yo: 'właśnie szedłem', tu: 'właśnie szedłeś', el: 'właśnie szedł', nosotros: 'właśnie szliśmy', vosotros: 'właśnie szliście', ellos: 'właśnie szli' },
+          imperativo_afirmativo: { yo: '—', tu: 'chodź', el: 'niech chodzi', nosotros: 'chodźmy', vosotros: 'chodźcie', ellos: 'niech chodzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie chodź', el: 'niech nie chodzi', nosotros: 'nie chodźmy', vosotros: 'nie chodźcie', ellos: 'niech nie chodzą' },
         },
       },
       en: {
@@ -5354,6 +6245,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will walk', tu: 'you will walk', el: 'he/she will walk', nosotros: 'we will walk', vosotros: 'you (all) will walk', ellos: 'they will walk' },
           ir_a_infinitivo: { yo: 'I am going to walk', tu: 'you are going to walk', el: 'he/she is going to walk', nosotros: 'we are going to walk', vosotros: 'you (all) are going to walk', ellos: 'they are going to walk' },
           acabar_de_infinitivo: { yo: 'I just walked', tu: 'you just walked', el: 'he/she just walked', nosotros: 'we just walked', vosotros: 'you (all) just walked', ellos: 'they just walked' },
+          imperativo_afirmativo: { yo: '—', tu: 'walk!', el: 'walk!', nosotros: 'let\'s walk!', vosotros: 'walk!', ellos: 'walk!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t walk!', el: 'don\'t walk!', nosotros: 'let\'s not walk!', vosotros: 'don\'t walk!', ellos: 'don\'t walk!' },
         },
       },
       de: {
@@ -5364,6 +6257,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde gehen', tu: 'du wirst gehen', el: 'er/sie/es wird gehen', nosotros: 'wir werden gehen', vosotros: 'ihr werdet gehen', ellos: 'sie werden gehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich gehen', tu: 'du wirst gleich gehen', el: 'er/sie/es wird gleich gehen', nosotros: 'wir werden gleich gehen', vosotros: 'ihr werdet gleich gehen', ellos: 'sie werden gleich gehen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gegangen', tu: 'du bist gerade gegangen', el: 'er/sie/es ist gerade gegangen', nosotros: 'wir sind gerade gegangen', vosotros: 'ihr seid gerade gegangen', ellos: 'sie sind gerade gegangen' },
+          imperativo_afirmativo: { yo: '—', tu: 'geh!', el: 'Gehen Sie!', nosotros: 'Gehen wir!', vosotros: 'geht!', ellos: 'Gehen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'geh nicht!', el: 'Gehen Sie nicht!', nosotros: 'Gehen wir nicht!', vosotros: 'geht nicht!', ellos: 'Gehen Sie nicht!' },
         },
       },
     },
@@ -5377,6 +6272,7 @@ export const VERBS: Verb[] = [
       { id: 'caminar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Szli wzdłuż rzeki cały dzień.', en: 'They walked along the river all day.', de: 'Sie gingen den ganzen Tag am Fluss entlang.' }, spanish: 'caminaron por el río todo el día' },
       { id: 'caminar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Pójdziesz pieszo na dworzec.', en: 'You are going to walk to the station.', de: 'Du wirst zum Bahnhof gehen.' }, spanish: 'vas a caminar hasta la estación' },
       { id: 'caminar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie przeszliśmy pięć kilometrów.', en: 'We just walked five kilometers.', de: 'Wir sind gerade fünf Kilometer gegangen.' }, spanish: 'acabamos de caminar cinco kilómetros' },
+      { id: 'caminar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'chodź powoli', en: 'walk slowly', de: 'geh langsam' }, spanish: 'camina despacio' },
     ],
   },
   {
@@ -5384,6 +6280,7 @@ export const VERBS: Verb[] = [
     infinitive: 'nadar',
     regular: true,
     participle: 'nadado',
+    gerund: 'nadando',
     conjugations: conjugateRegular('nadar'),
     translations: {
       pl: {
@@ -5394,6 +6291,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę pływał', tu: 'będziesz pływał', el: 'będzie pływał', nosotros: 'będziemy pływali', vosotros: 'będziecie pływali', ellos: 'będą pływali' },
           ir_a_infinitivo: { yo: 'zamierzam pływać', tu: 'zamierzasz pływać', el: 'zamierza pływać', nosotros: 'zamierzamy pływać', vosotros: 'zamierzacie pływać', ellos: 'zamierzają pływać' },
           acabar_de_infinitivo: { yo: 'właśnie pływałem', tu: 'właśnie pływałeś', el: 'właśnie pływał', nosotros: 'właśnie pływaliśmy', vosotros: 'właśnie pływaliście', ellos: 'właśnie pływali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pływaj', el: 'niech pływa', nosotros: 'pływajmy', vosotros: 'pływajcie', ellos: 'niech pływają' },
+          imperativo_negativo: { yo: '—', tu: 'nie pływaj', el: 'niech nie pływa', nosotros: 'nie pływajmy', vosotros: 'nie pływajcie', ellos: 'niech nie pływają' },
         },
       },
       en: {
@@ -5404,6 +6303,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will swim', tu: 'you will swim', el: 'he/she will swim', nosotros: 'we will swim', vosotros: 'you (all) will swim', ellos: 'they will swim' },
           ir_a_infinitivo: { yo: 'I am going to swim', tu: 'you are going to swim', el: 'he/she is going to swim', nosotros: 'we are going to swim', vosotros: 'you (all) are going to swim', ellos: 'they are going to swim' },
           acabar_de_infinitivo: { yo: 'I just swam', tu: 'you just swam', el: 'he/she just swam', nosotros: 'we just swam', vosotros: 'you (all) just swam', ellos: 'they just swam' },
+          imperativo_afirmativo: { yo: '—', tu: 'swim!', el: 'swim!', nosotros: 'let\'s swim!', vosotros: 'swim!', ellos: 'swim!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t swim!', el: 'don\'t swim!', nosotros: 'let\'s not swim!', vosotros: 'don\'t swim!', ellos: 'don\'t swim!' },
         },
       },
       de: {
@@ -5414,6 +6315,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde schwimmen', tu: 'du wirst schwimmen', el: 'er/sie/es wird schwimmen', nosotros: 'wir werden schwimmen', vosotros: 'ihr werdet schwimmen', ellos: 'sie werden schwimmen' },
           ir_a_infinitivo: { yo: 'ich werde gleich schwimmen', tu: 'du wirst gleich schwimmen', el: 'er/sie/es wird gleich schwimmen', nosotros: 'wir werden gleich schwimmen', vosotros: 'ihr werdet gleich schwimmen', ellos: 'sie werden gleich schwimmen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade geschwommen', tu: 'du bist gerade geschwommen', el: 'er/sie/es ist gerade geschwommen', nosotros: 'wir sind gerade geschwommen', vosotros: 'ihr seid gerade geschwommen', ellos: 'sie sind gerade geschwommen' },
+          imperativo_afirmativo: { yo: '—', tu: 'schwimm!', el: 'Schwimmen Sie!', nosotros: 'Schwimmen wir!', vosotros: 'schwimmt!', ellos: 'Schwimmen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'schwimm nicht!', el: 'Schwimmen Sie nicht!', nosotros: 'Schwimmen wir nicht!', vosotros: 'schwimmt nicht!', ellos: 'Schwimmen Sie nicht!' },
         },
       },
     },
@@ -5427,6 +6330,7 @@ export const VERBS: Verb[] = [
       { id: 'nadar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Pływali w rzece latem.', en: 'They swam in the river in summer.', de: 'Sie schwammen im Sommer im Fluss.' }, spanish: 'nadaron en el río en verano' },
       { id: 'nadar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Popływasz w basenie hotelowym.', en: 'You are going to swim in the hotel pool.', de: 'Du wirst im Hotelpool schwimmen.' }, spanish: 'vas a nadar en la piscina del hotel' },
       { id: 'nadar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie popływaliśmy w oceanie.', en: 'We just swam in the ocean.', de: 'Wir sind gerade im Ozean geschwommen.' }, spanish: 'acabamos de nadar en el océano' },
+      { id: 'nadar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'płyń do brzegu', en: 'swim to the shore', de: 'schwimm zum Ufer' }, spanish: 'nada hacia la orilla' },
     ],
   },
   {
@@ -5434,6 +6338,7 @@ export const VERBS: Verb[] = [
     infinitive: 'subir',
     regular: true,
     participle: 'subido',
+    gerund: 'subiendo',
     conjugations: conjugateRegular('subir'),
     translations: {
       pl: {
@@ -5444,6 +6349,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wejdę', tu: 'wejdziesz', el: 'wejdzie', nosotros: 'wejdziemy', vosotros: 'wejdziecie', ellos: 'wejdą' },
           ir_a_infinitivo: { yo: 'zamierzam wejść', tu: 'zamierzasz wejść', el: 'zamierza wejść', nosotros: 'zamierzamy wejść', vosotros: 'zamierzacie wejść', ellos: 'zamierzają wejść' },
           acabar_de_infinitivo: { yo: 'właśnie wszedłem', tu: 'właśnie wszedłeś', el: 'właśnie wszedł', nosotros: 'właśnie weszliśmy', vosotros: 'właśnie weszliście', ellos: 'właśnie weszli' },
+          imperativo_afirmativo: { yo: '—', tu: 'wejdź', el: 'niech wchodzi', nosotros: 'wejdźmy', vosotros: 'wejdźcie', ellos: 'niech wchodzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie wejdź', el: 'niech nie wchodzi', nosotros: 'nie wejdźmy', vosotros: 'nie wejdźcie', ellos: 'niech nie wchodzą' },
         },
       },
       en: {
@@ -5454,6 +6361,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will go up', tu: 'you will go up', el: 'he/she will go up', nosotros: 'we will go up', vosotros: 'you (all) will go up', ellos: 'they will go up' },
           ir_a_infinitivo: { yo: 'I am going to go up', tu: 'you are going to go up', el: 'he/she is going to go up', nosotros: 'we are going to go up', vosotros: 'you (all) are going to go up', ellos: 'they are going to go up' },
           acabar_de_infinitivo: { yo: 'I just went up', tu: 'you just went up', el: 'he/she just went up', nosotros: 'we just went up', vosotros: 'you (all) just went up', ellos: 'they just went up' },
+          imperativo_afirmativo: { yo: '—', tu: 'go up!', el: 'go up!', nosotros: 'let\'s go up!', vosotros: 'go up!', ellos: 'go up!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t go up!', el: 'don\'t go up!', nosotros: 'let\'s not go up!', vosotros: 'don\'t go up!', ellos: 'don\'t go up!' },
         },
       },
       de: {
@@ -5464,6 +6373,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde hochgehen', tu: 'du wirst hochgehen', el: 'er/sie/es wird hochgehen', nosotros: 'wir werden hochgehen', vosotros: 'ihr werdet hochgehen', ellos: 'sie werden hochgehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich hochgehen', tu: 'du wirst gleich hochgehen', el: 'er/sie/es wird gleich hochgehen', nosotros: 'wir werden gleich hochgehen', vosotros: 'ihr werdet gleich hochgehen', ellos: 'sie werden gleich hochgehen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade hochgegangen', tu: 'du bist gerade hochgegangen', el: 'er/sie/es ist gerade hochgegangen', nosotros: 'wir sind gerade hochgegangen', vosotros: 'ihr seid gerade hochgegangen', ellos: 'sie sind gerade hochgegangen' },
+          imperativo_afirmativo: { yo: '—', tu: 'geh hoch!', el: 'Gehen Sie hoch!', nosotros: 'Gehen wir hoch!', vosotros: 'geht hoch!', ellos: 'Gehen Sie hoch!' },
+          imperativo_negativo: { yo: '—', tu: 'geh hoch nicht!', el: 'Gehen Sie hoch nicht!', nosotros: 'Gehen wir hoch nicht!', vosotros: 'geht hoch nicht!', ellos: 'Gehen Sie hoch nicht!' },
         },
       },
     },
@@ -5478,6 +6389,7 @@ export const VERBS: Verb[] = [
       { id: 'subir-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zawsze wnoszę to ostrożnie.', en: 'I always carry it up carefully.', de: 'Ich trage es immer vorsichtig hoch.' }, spanish: 'siempre lo subo con cuidado' },
       { id: 'subir-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wkrótce wejdziesz na wyższy poziom.', en: 'You are going to go up a level soon.', de: 'Du wirst bald ein Level aufsteigen.' }, spanish: 'vas a subir de nivel pronto' },
       { id: 'subir-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie podnieśliśmy głośność.', en: 'We just turned up the volume.', de: 'Wir haben gerade die Lautstärke erhöht.' }, spanish: 'acabamos de subir el volumen' },
+      { id: 'subir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wejdź po schodach', en: 'go up the stairs', de: 'geh die Treppe hoch' }, spanish: 'sube las escaleras' },
     ],
   },
   {
@@ -5485,6 +6397,7 @@ export const VERBS: Verb[] = [
     infinitive: 'bajar',
     regular: true,
     participle: 'bajado',
+    gerund: 'bajando',
     conjugations: conjugateRegular('bajar'),
     translations: {
       pl: {
@@ -5495,6 +6408,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zejdę', tu: 'zejdziesz', el: 'zejdzie', nosotros: 'zejdziemy', vosotros: 'zejdziecie', ellos: 'zejdą' },
           ir_a_infinitivo: { yo: 'zamierzam zejść', tu: 'zamierzasz zejść', el: 'zamierza zejść', nosotros: 'zamierzamy zejść', vosotros: 'zamierzacie zejść', ellos: 'zamierzają zejść' },
           acabar_de_infinitivo: { yo: 'właśnie zszedłem', tu: 'właśnie zszedłeś', el: 'właśnie zszedł', nosotros: 'właśnie zeszliśmy', vosotros: 'właśnie zeszliście', ellos: 'właśnie zeszli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zejdź', el: 'niech schodzi', nosotros: 'zejdźmy', vosotros: 'zejdźcie', ellos: 'niech schodzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie zejdź', el: 'niech nie schodzi', nosotros: 'nie zejdźmy', vosotros: 'nie zejdźcie', ellos: 'niech nie schodzą' },
         },
       },
       en: {
@@ -5505,6 +6420,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will go down', tu: 'you will go down', el: 'he/she will go down', nosotros: 'we will go down', vosotros: 'you (all) will go down', ellos: 'they will go down' },
           ir_a_infinitivo: { yo: 'I am going to go down', tu: 'you are going to go down', el: 'he/she is going to go down', nosotros: 'we are going to go down', vosotros: 'you (all) are going to go down', ellos: 'they are going to go down' },
           acabar_de_infinitivo: { yo: 'I just went down', tu: 'you just went down', el: 'he/she just went down', nosotros: 'we just went down', vosotros: 'you (all) just went down', ellos: 'they just went down' },
+          imperativo_afirmativo: { yo: '—', tu: 'go down!', el: 'go down!', nosotros: 'let\'s go down!', vosotros: 'go down!', ellos: 'go down!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t go down!', el: 'don\'t go down!', nosotros: 'let\'s not go down!', vosotros: 'don\'t go down!', ellos: 'don\'t go down!' },
         },
       },
       de: {
@@ -5515,6 +6432,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde runtergehen', tu: 'du wirst runtergehen', el: 'er/sie/es wird runtergehen', nosotros: 'wir werden runtergehen', vosotros: 'ihr werdet runtergehen', ellos: 'sie werden runtergehen' },
           ir_a_infinitivo: { yo: 'ich werde gleich runtergehen', tu: 'du wirst gleich runtergehen', el: 'er/sie/es wird gleich runtergehen', nosotros: 'wir werden gleich runtergehen', vosotros: 'ihr werdet gleich runtergehen', ellos: 'sie werden gleich runtergehen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade runtergegangen', tu: 'du bist gerade runtergegangen', el: 'er/sie/es ist gerade runtergegangen', nosotros: 'wir sind gerade runtergegangen', vosotros: 'ihr seid gerade runtergegangen', ellos: 'sie sind gerade runtergegangen' },
+          imperativo_afirmativo: { yo: '—', tu: 'geh runter!', el: 'Gehen Sie runter!', nosotros: 'Gehen wir runter!', vosotros: 'geht runter!', ellos: 'Gehen Sie runter!' },
+          imperativo_negativo: { yo: '—', tu: 'geh runter nicht!', el: 'Gehen Sie runter nicht!', nosotros: 'Gehen wir runter nicht!', vosotros: 'geht runter nicht!', ellos: 'Gehen Sie runter nicht!' },
         },
       },
     },
@@ -5529,6 +6448,7 @@ export const VERBS: Verb[] = [
       { id: 'bajar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Ściągam to z internetu co tydzień.', en: 'I download it from the internet every week.', de: 'Ich lade es jede Woche aus dem Internet herunter.' }, spanish: 'lo bajo de internet cada semana' },
       { id: 'bajar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wkrótce wysiądziesz z samolotu.', en: 'You are going to get off the plane soon.', de: 'Du wirst bald aus dem Flugzeug aussteigen.' }, spanish: 'vas a bajar del avión pronto' },
       { id: 'bajar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie ściągnęliśmy aplikację.', en: 'We just downloaded the app.', de: 'Wir haben gerade die App heruntergeladen.' }, spanish: 'acabamos de bajar la aplicación' },
+      { id: 'bajar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zejdź po schodach', en: 'go down the stairs', de: 'geh die Treppe runter' }, spanish: 'baja las escaleras' },
     ],
   },
   {
@@ -5536,6 +6456,7 @@ export const VERBS: Verb[] = [
     infinitive: 'enseñar',
     regular: true,
     participle: 'enseñado',
+    gerund: 'enseñando',
     conjugations: conjugateRegular('enseñar'),
     translations: {
       pl: {
@@ -5546,6 +6467,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'nauczę', tu: 'nauczysz', el: 'nauczy', nosotros: 'nauczymy', vosotros: 'nauczycie', ellos: 'nauczą' },
           ir_a_infinitivo: { yo: 'zamierzam nauczyć', tu: 'zamierzasz nauczyć', el: 'zamierza nauczyć', nosotros: 'zamierzamy nauczyć', vosotros: 'zamierzacie nauczyć', ellos: 'zamierzają nauczyć' },
           acabar_de_infinitivo: { yo: 'właśnie nauczyłem', tu: 'właśnie nauczyłeś', el: 'właśnie nauczył', nosotros: 'właśnie nauczyliśmy', vosotros: 'właśnie nauczyliście', ellos: 'właśnie nauczyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'naucz', el: 'niech uczy', nosotros: 'nauczmy', vosotros: 'nauczcie', ellos: 'niech uczą' },
+          imperativo_negativo: { yo: '—', tu: 'nie naucz', el: 'niech nie uczy', nosotros: 'nie nauczmy', vosotros: 'nie nauczcie', ellos: 'niech nie uczą' },
         },
       },
       en: {
@@ -5556,6 +6479,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will teach', tu: 'you will teach', el: 'he/she will teach', nosotros: 'we will teach', vosotros: 'you (all) will teach', ellos: 'they will teach' },
           ir_a_infinitivo: { yo: 'I am going to teach', tu: 'you are going to teach', el: 'he/she is going to teach', nosotros: 'we are going to teach', vosotros: 'you (all) are going to teach', ellos: 'they are going to teach' },
           acabar_de_infinitivo: { yo: 'I just taught', tu: 'you just taught', el: 'he/she just taught', nosotros: 'we just taught', vosotros: 'you (all) just taught', ellos: 'they just taught' },
+          imperativo_afirmativo: { yo: '—', tu: 'teach!', el: 'teach!', nosotros: 'let\'s teach!', vosotros: 'teach!', ellos: 'teach!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t teach!', el: 'don\'t teach!', nosotros: 'let\'s not teach!', vosotros: 'don\'t teach!', ellos: 'don\'t teach!' },
         },
       },
       de: {
@@ -5566,6 +6491,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde unterrichten', tu: 'du wirst unterrichten', el: 'er/sie/es wird unterrichten', nosotros: 'wir werden unterrichten', vosotros: 'ihr werdet unterrichten', ellos: 'sie werden unterrichten' },
           ir_a_infinitivo: { yo: 'ich werde gleich unterrichten', tu: 'du wirst gleich unterrichten', el: 'er/sie/es wird gleich unterrichten', nosotros: 'wir werden gleich unterrichten', vosotros: 'ihr werdet gleich unterrichten', ellos: 'sie werden gleich unterrichten' },
           acabar_de_infinitivo: { yo: 'ich habe gerade unterrichtet', tu: 'du hast gerade unterrichtet', el: 'er/sie/es hat gerade unterrichtet', nosotros: 'wir haben gerade unterrichtet', vosotros: 'ihr habt gerade unterrichtet', ellos: 'sie haben gerade unterrichtet' },
+          imperativo_afirmativo: { yo: '—', tu: 'unterrichte!', el: 'Unterrichten Sie!', nosotros: 'Unterrichten wir!', vosotros: 'unterrichtet!', ellos: 'Unterrichten Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'unterrichte nicht!', el: 'Unterrichten Sie nicht!', nosotros: 'Unterrichten wir nicht!', vosotros: 'unterrichtet nicht!', ellos: 'Unterrichten Sie nicht!' },
         },
       },
     },
@@ -5580,6 +6507,7 @@ export const VERBS: Verb[] = [
       { id: 'enseñar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Uczę tego z dużą cierpliwością.', en: 'I teach it with a lot of patience.', de: 'Ich unterrichte es mit viel Geduld.' }, spanish: 'lo enseño con mucha paciencia' },
       { id: 'enseñar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Nauczysz nowej lekcji.', en: 'You are going to teach the new lesson.', de: 'Du wirst die neue Lektion unterrichten.' }, spanish: 'vas a enseñar la lección nueva' },
       { id: 'enseñar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie skończyliśmy uczyć pierwszą lekcję.', en: 'We just taught the first class.', de: 'Wir haben gerade die erste Stunde unterrichtet.' }, spanish: 'acabamos de enseñar la primera clase' },
+      { id: 'enseñar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'ucz powoli', en: 'teach slowly', de: 'unterrichte langsam' }, spanish: 'enseña despacio' },
     ],
   },
   {
@@ -5587,12 +6515,15 @@ export const VERBS: Verb[] = [
     infinitive: 'explicar',
     regular: false,
     participle: 'explicado',
+    gerund: 'explicando',
     conjugations: {
       presente: { yo: 'explico', tu: 'explicas', el: 'explica', nosotros: 'explicamos', vosotros: 'explicáis', ellos: 'explican' },
       preterite: { yo: 'expliqué', tu: 'explicaste', el: 'explicó', nosotros: 'explicamos', vosotros: 'explicasteis', ellos: 'explicaron' },
       futuro: { yo: 'explicaré', tu: 'explicarás', el: 'explicará', nosotros: 'explicaremos', vosotros: 'explicaréis', ellos: 'explicarán' },
       ir_a_infinitivo: { yo: 'voy a explicar', tu: 'vas a explicar', el: 'va a explicar', nosotros: 'vamos a explicar', vosotros: 'vais a explicar', ellos: 'van a explicar' },
       acabar_de_infinitivo: { yo: 'acabo de explicar', tu: 'acabas de explicar', el: 'acaba de explicar', nosotros: 'acabamos de explicar', vosotros: 'acabáis de explicar', ellos: 'acaban de explicar' },
+      imperativo_afirmativo: { yo: '—', tu: 'explica', el: 'explique', nosotros: 'expliquemos', vosotros: 'explicad', ellos: 'expliquen' },
+      imperativo_negativo: { yo: '—', tu: 'no expliques', el: 'no explique', nosotros: 'no expliquemos', vosotros: 'no expliquéis', ellos: 'no expliquen' },
     },
     translations: {
       pl: {
@@ -5603,6 +6534,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wyjaśnię', tu: 'wyjaśnisz', el: 'wyjaśni', nosotros: 'wyjaśnimy', vosotros: 'wyjaśnicie', ellos: 'wyjaśnią' },
           ir_a_infinitivo: { yo: 'zamierzam wyjaśnić', tu: 'zamierzasz wyjaśnić', el: 'zamierza wyjaśnić', nosotros: 'zamierzamy wyjaśnić', vosotros: 'zamierzacie wyjaśnić', ellos: 'zamierzają wyjaśnić' },
           acabar_de_infinitivo: { yo: 'właśnie wyjaśniłem', tu: 'właśnie wyjaśniłeś', el: 'właśnie wyjaśnił', nosotros: 'właśnie wyjaśniliśmy', vosotros: 'właśnie wyjaśniliście', ellos: 'właśnie wyjaśnili' },
+          imperativo_afirmativo: { yo: '—', tu: 'wyjaśnij', el: 'niech wyjaśnia', nosotros: 'wyjaśnijmy', vosotros: 'wyjaśnijcie', ellos: 'niech wyjaśniają' },
+          imperativo_negativo: { yo: '—', tu: 'nie wyjaśnij', el: 'niech nie wyjaśnia', nosotros: 'nie wyjaśnijmy', vosotros: 'nie wyjaśnijcie', ellos: 'niech nie wyjaśniają' },
         },
       },
       en: {
@@ -5613,6 +6546,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will explain', tu: 'you will explain', el: 'he/she will explain', nosotros: 'we will explain', vosotros: 'you (all) will explain', ellos: 'they will explain' },
           ir_a_infinitivo: { yo: 'I am going to explain', tu: 'you are going to explain', el: 'he/she is going to explain', nosotros: 'we are going to explain', vosotros: 'you (all) are going to explain', ellos: 'they are going to explain' },
           acabar_de_infinitivo: { yo: 'I just explained', tu: 'you just explained', el: 'he/she just explained', nosotros: 'we just explained', vosotros: 'you (all) just explained', ellos: 'they just explained' },
+          imperativo_afirmativo: { yo: '—', tu: 'explain!', el: 'explain!', nosotros: 'let\'s explain!', vosotros: 'explain!', ellos: 'explain!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t explain!', el: 'don\'t explain!', nosotros: 'let\'s not explain!', vosotros: 'don\'t explain!', ellos: 'don\'t explain!' },
         },
       },
       de: {
@@ -5623,6 +6558,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde erklären', tu: 'du wirst erklären', el: 'er/sie/es wird erklären', nosotros: 'wir werden erklären', vosotros: 'ihr werdet erklären', ellos: 'sie werden erklären' },
           ir_a_infinitivo: { yo: 'ich werde gleich erklären', tu: 'du wirst gleich erklären', el: 'er/sie/es wird gleich erklären', nosotros: 'wir werden gleich erklären', vosotros: 'ihr werdet gleich erklären', ellos: 'sie werden gleich erklären' },
           acabar_de_infinitivo: { yo: 'ich habe gerade erklärt', tu: 'du hast gerade erklärt', el: 'er/sie/es hat gerade erklärt', nosotros: 'wir haben gerade erklärt', vosotros: 'ihr habt gerade erklärt', ellos: 'sie haben gerade erklärt' },
+          imperativo_afirmativo: { yo: '—', tu: 'erklär!', el: 'Erklären Sie!', nosotros: 'Erklären wir!', vosotros: 'erklärt!', ellos: 'Erklären Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'erklär nicht!', el: 'Erklären Sie nicht!', nosotros: 'Erklären wir nicht!', vosotros: 'erklärt nicht!', ellos: 'Erklären Sie nicht!' },
         },
       },
     },
@@ -5637,6 +6574,7 @@ export const VERBS: Verb[] = [
       { id: 'explicar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Wyjaśniam to krok po kroku.', en: 'I explain it step by step.', de: 'Ich erkläre es Schritt für Schritt.' }, spanish: 'lo explico paso a paso' },
       { id: 'explicar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wyjaśnisz swój punkt widzenia.', en: 'You are going to explain your point of view.', de: 'Du wirst deinen Standpunkt erklären.' }, spanish: 'vas a explicar tu punto de vista' },
       { id: 'explicar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wyjaśniliśmy sytuację.', en: 'We just explained the situation.', de: 'Wir haben gerade die Situation erklärt.' }, spanish: 'acabamos de explicar la situación' },
+      { id: 'explicar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wyjaśnij zasadę', en: 'explain the rule', de: 'erklär die Regel' }, spanish: 'explica la regla' },
     ],
   },
   {
@@ -5644,12 +6582,15 @@ export const VERBS: Verb[] = [
     infinitive: 'enviar',
     regular: false,
     participle: 'enviado',
+    gerund: 'enviando',
     conjugations: {
       presente: { yo: 'envío', tu: 'envías', el: 'envía', nosotros: 'enviamos', vosotros: 'enviáis', ellos: 'envían' },
       preterite: { yo: 'envié', tu: 'enviaste', el: 'envió', nosotros: 'enviamos', vosotros: 'enviasteis', ellos: 'enviaron' },
       futuro: { yo: 'enviaré', tu: 'enviarás', el: 'enviará', nosotros: 'enviaremos', vosotros: 'enviaréis', ellos: 'enviarán' },
       ir_a_infinitivo: { yo: 'voy a enviar', tu: 'vas a enviar', el: 'va a enviar', nosotros: 'vamos a enviar', vosotros: 'vais a enviar', ellos: 'van a enviar' },
       acabar_de_infinitivo: { yo: 'acabo de enviar', tu: 'acabas de enviar', el: 'acaba de enviar', nosotros: 'acabamos de enviar', vosotros: 'acabáis de enviar', ellos: 'acaban de enviar' },
+      imperativo_afirmativo: { yo: '—', tu: 'envía', el: 'envíe', nosotros: 'enviemos', vosotros: 'enviad', ellos: 'envíen' },
+      imperativo_negativo: { yo: '—', tu: 'no envíes', el: 'no envíe', nosotros: 'no enviemos', vosotros: 'no enviéis', ellos: 'no envíen' },
     },
     translations: {
       pl: {
@@ -5660,6 +6601,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wyślę', tu: 'wyślesz', el: 'wyśle', nosotros: 'wyślemy', vosotros: 'wyślecie', ellos: 'wyślą' },
           ir_a_infinitivo: { yo: 'zamierzam wysłać', tu: 'zamierzasz wysłać', el: 'zamierza wysłać', nosotros: 'zamierzamy wysłać', vosotros: 'zamierzacie wysłać', ellos: 'zamierzają wysłać' },
           acabar_de_infinitivo: { yo: 'właśnie wysłałem', tu: 'właśnie wysłałeś', el: 'właśnie wysłał', nosotros: 'właśnie wysłaliśmy', vosotros: 'właśnie wysłaliście', ellos: 'właśnie wysłali' },
+          imperativo_afirmativo: { yo: '—', tu: 'wyślij', el: 'niech wysyła', nosotros: 'wyślijmy', vosotros: 'wyślijcie', ellos: 'niech wysyłają' },
+          imperativo_negativo: { yo: '—', tu: 'nie wyślij', el: 'niech nie wysyła', nosotros: 'nie wyślijmy', vosotros: 'nie wyślijcie', ellos: 'niech nie wysyłają' },
         },
       },
       en: {
@@ -5670,6 +6613,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will send', tu: 'you will send', el: 'he/she will send', nosotros: 'we will send', vosotros: 'you (all) will send', ellos: 'they will send' },
           ir_a_infinitivo: { yo: 'I am going to send', tu: 'you are going to send', el: 'he/she is going to send', nosotros: 'we are going to send', vosotros: 'you (all) are going to send', ellos: 'they are going to send' },
           acabar_de_infinitivo: { yo: 'I just sent', tu: 'you just sent', el: 'he/she just sent', nosotros: 'we just sent', vosotros: 'you (all) just sent', ellos: 'they just sent' },
+          imperativo_afirmativo: { yo: '—', tu: 'send!', el: 'send!', nosotros: 'let\'s send!', vosotros: 'send!', ellos: 'send!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t send!', el: 'don\'t send!', nosotros: 'let\'s not send!', vosotros: 'don\'t send!', ellos: 'don\'t send!' },
         },
       },
       de: {
@@ -5680,6 +6625,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde senden', tu: 'du wirst senden', el: 'er/sie/es wird senden', nosotros: 'wir werden senden', vosotros: 'ihr werdet senden', ellos: 'sie werden senden' },
           ir_a_infinitivo: { yo: 'ich werde gleich senden', tu: 'du wirst gleich senden', el: 'er/sie/es wird gleich senden', nosotros: 'wir werden gleich senden', vosotros: 'ihr werdet gleich senden', ellos: 'sie werden gleich senden' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gesendet', tu: 'du hast gerade gesendet', el: 'er/sie/es hat gerade gesendet', nosotros: 'wir haben gerade gesendet', vosotros: 'ihr habt gerade gesendet', ellos: 'sie haben gerade gesendet' },
+          imperativo_afirmativo: { yo: '—', tu: 'send!', el: 'Senden Sie!', nosotros: 'Senden wir!', vosotros: 'sendet!', ellos: 'Senden Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'send nicht!', el: 'Senden Sie nicht!', nosotros: 'Senden wir nicht!', vosotros: 'sendet nicht!', ellos: 'Senden Sie nicht!' },
         },
       },
     },
@@ -5694,6 +6641,7 @@ export const VERBS: Verb[] = [
       { id: 'enviar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Wysyłam to w tej chwili.', en: "I'm sending it right now.", de: 'Ich schicke es gerade jetzt.' }, spanish: 'lo envío ahora mismo' },
       { id: 'enviar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wyślesz raport dzisiaj.', en: 'You are going to send the report today.', de: 'Du wirst heute den Bericht schicken.' }, spanish: 'vas a enviar el informe hoy' },
       { id: 'enviar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wysłaliśmy zaproszenie.', en: 'We just sent the invitation.', de: 'Wir haben gerade die Einladung verschickt.' }, spanish: 'acabamos de enviar la invitación' },
+      { id: 'enviar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'wyślij e-mail', en: 'send the email', de: 'send die E-Mail' }, spanish: 'envía el correo' },
     ],
   },
   {
@@ -5701,12 +6649,15 @@ export const VERBS: Verb[] = [
     infinitive: 'reír',
     regular: false,
     participle: 'reído',
+    gerund: 'riendo',
     conjugations: {
       presente: { yo: 'río', tu: 'ríes', el: 'ríe', nosotros: 'reímos', vosotros: 'reís', ellos: 'ríen' },
       preterite: { yo: 'reí', tu: 'reíste', el: 'rio', nosotros: 'reímos', vosotros: 'reísteis', ellos: 'rieron' },
       futuro: { yo: 'reiré', tu: 'reirás', el: 'reirá', nosotros: 'reiremos', vosotros: 'reiréis', ellos: 'reirán' },
       ir_a_infinitivo: { yo: 'voy a reír', tu: 'vas a reír', el: 'va a reír', nosotros: 'vamos a reír', vosotros: 'vais a reír', ellos: 'van a reír' },
       acabar_de_infinitivo: { yo: 'acabo de reír', tu: 'acabas de reír', el: 'acaba de reír', nosotros: 'acabamos de reír', vosotros: 'acabáis de reír', ellos: 'acaban de reír' },
+      imperativo_afirmativo: { yo: '—', tu: 'ríe', el: 'ría', nosotros: 'riamos', vosotros: 'reíd', ellos: 'rían' },
+      imperativo_negativo: { yo: '—', tu: 'no rías', el: 'no ría', nosotros: 'no riamos', vosotros: 'no riáis', ellos: 'no rían' },
     },
     translations: {
       pl: {
@@ -5717,6 +6668,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę się śmiał', tu: 'będziesz się śmiał', el: 'będzie się śmiał', nosotros: 'będziemy się śmiali', vosotros: 'będziecie się śmiali', ellos: 'będą się śmiali' },
           ir_a_infinitivo: { yo: 'zamierzam się śmiać', tu: 'zamierzasz się śmiać', el: 'zamierza się śmiać', nosotros: 'zamierzamy się śmiać', vosotros: 'zamierzacie się śmiać', ellos: 'zamierzają się śmiać' },
           acabar_de_infinitivo: { yo: 'właśnie się śmiałem', tu: 'właśnie się śmiałeś', el: 'właśnie się śmiał', nosotros: 'właśnie się śmialiśmy', vosotros: 'właśnie się śmialiście', ellos: 'właśnie się śmiali' },
+          imperativo_afirmativo: { yo: '—', tu: 'śmiej się', el: 'niech śmieje się', nosotros: 'śmiej sięmy', vosotros: 'śmiej sięcie', ellos: 'niech śmieją się' },
+          imperativo_negativo: { yo: '—', tu: 'nie śmiej się', el: 'niech nie śmieje się', nosotros: 'nie śmiej sięmy', vosotros: 'nie śmiej sięcie', ellos: 'niech nie śmieją się' },
         },
       },
       en: {
@@ -5727,6 +6680,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will laugh', tu: 'you will laugh', el: 'he/she will laugh', nosotros: 'we will laugh', vosotros: 'you (all) will laugh', ellos: 'they will laugh' },
           ir_a_infinitivo: { yo: 'I am going to laugh', tu: 'you are going to laugh', el: 'he/she is going to laugh', nosotros: 'we are going to laugh', vosotros: 'you (all) are going to laugh', ellos: 'they are going to laugh' },
           acabar_de_infinitivo: { yo: 'I just laughed', tu: 'you just laughed', el: 'he/she just laughed', nosotros: 'we just laughed', vosotros: 'you (all) just laughed', ellos: 'they just laughed' },
+          imperativo_afirmativo: { yo: '—', tu: 'laugh!', el: 'laugh!', nosotros: 'let\'s laugh!', vosotros: 'laugh!', ellos: 'laugh!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t laugh!', el: 'don\'t laugh!', nosotros: 'let\'s not laugh!', vosotros: 'don\'t laugh!', ellos: 'don\'t laugh!' },
         },
       },
       de: {
@@ -5737,6 +6692,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde lachen', tu: 'du wirst lachen', el: 'er/sie/es wird lachen', nosotros: 'wir werden lachen', vosotros: 'ihr werdet lachen', ellos: 'sie werden lachen' },
           ir_a_infinitivo: { yo: 'ich werde gleich lachen', tu: 'du wirst gleich lachen', el: 'er/sie/es wird gleich lachen', nosotros: 'wir werden gleich lachen', vosotros: 'ihr werdet gleich lachen', ellos: 'sie werden gleich lachen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gelacht', tu: 'du hast gerade gelacht', el: 'er/sie/es hat gerade gelacht', nosotros: 'wir haben gerade gelacht', vosotros: 'ihr habt gerade gelacht', ellos: 'sie haben gerade gelacht' },
+          imperativo_afirmativo: { yo: '—', tu: 'lach!', el: 'Lachen Sie!', nosotros: 'Lachen wir!', vosotros: 'lacht!', ellos: 'Lachen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lach nicht!', el: 'Lachen Sie nicht!', nosotros: 'Lachen wir nicht!', vosotros: 'lacht nicht!', ellos: 'Lachen Sie nicht!' },
         },
       },
     },
@@ -5750,6 +6707,7 @@ export const VERBS: Verb[] = [
       { id: 'reír-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Śmiali się nerwowo podczas spotkania.', en: 'They laughed nervously during the meeting.', de: 'Sie lachten während des Treffens nervös.' }, spanish: 'rieron nerviosos durante la reunión' },
       { id: 'reír-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Będziesz się dużo śmiać z tego filmu.', en: 'You are going to laugh a lot at this movie.', de: 'Du wirst bei diesem Film viel lachen.' }, spanish: 'vas a reír mucho con esta película' },
       { id: 'reír-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie się uśmialiśmy z jego historii.', en: 'We just laughed at his story.', de: 'Wir haben gerade über seine Geschichte gelacht.' }, spanish: 'acabamos de reír con su historia' },
+      { id: 'reír-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'śmiej się częściej', en: 'laugh more often', de: 'lach öfter' }, spanish: 'ríe más a menudo' },
     ],
   },
   {
@@ -5757,12 +6715,15 @@ export const VERBS: Verb[] = [
     infinitive: 'sonreír',
     regular: false,
     participle: 'sonreído',
+    gerund: 'sonriendo',
     conjugations: {
       presente: { yo: 'sonrío', tu: 'sonríes', el: 'sonríe', nosotros: 'sonreímos', vosotros: 'sonreís', ellos: 'sonríen' },
       preterite: { yo: 'sonreí', tu: 'sonreíste', el: 'sonrió', nosotros: 'sonreímos', vosotros: 'sonreísteis', ellos: 'sonrieron' },
       futuro: { yo: 'sonreiré', tu: 'sonreirás', el: 'sonreirá', nosotros: 'sonreiremos', vosotros: 'sonreiréis', ellos: 'sonreirán' },
       ir_a_infinitivo: { yo: 'voy a sonreír', tu: 'vas a sonreír', el: 'va a sonreír', nosotros: 'vamos a sonreír', vosotros: 'vais a sonreír', ellos: 'van a sonreír' },
       acabar_de_infinitivo: { yo: 'acabo de sonreír', tu: 'acabas de sonreír', el: 'acaba de sonreír', nosotros: 'acabamos de sonreír', vosotros: 'acabáis de sonreír', ellos: 'acaban de sonreír' },
+      imperativo_afirmativo: { yo: '—', tu: 'sonríe', el: 'sonría', nosotros: 'sonriamos', vosotros: 'sonreíd', ellos: 'sonrían' },
+      imperativo_negativo: { yo: '—', tu: 'no sonrías', el: 'no sonría', nosotros: 'no sonriamos', vosotros: 'no sonriáis', ellos: 'no sonrían' },
     },
     translations: {
       pl: {
@@ -5773,6 +6734,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'uśmiechnę się', tu: 'uśmiechniesz się', el: 'uśmiechnie się', nosotros: 'uśmiechniemy się', vosotros: 'uśmiechniecie się', ellos: 'uśmiechną się' },
           ir_a_infinitivo: { yo: 'zamierzam się uśmiechnąć', tu: 'zamierzasz się uśmiechnąć', el: 'zamierza się uśmiechnąć', nosotros: 'zamierzamy się uśmiechnąć', vosotros: 'zamierzacie się uśmiechnąć', ellos: 'zamierzają się uśmiechnąć' },
           acabar_de_infinitivo: { yo: 'właśnie się uśmiechnąłem', tu: 'właśnie się uśmiechnąłeś', el: 'właśnie się uśmiechnął', nosotros: 'właśnie się uśmiechnęliśmy', vosotros: 'właśnie się uśmiechnęliście', ellos: 'właśnie się uśmiechnęli' },
+          imperativo_afirmativo: { yo: '—', tu: 'uśmiechnij się', el: 'niech uśmiecha się', nosotros: 'uśmiechnij sięmy', vosotros: 'uśmiechnij sięcie', ellos: 'niech uśmiechają się' },
+          imperativo_negativo: { yo: '—', tu: 'nie uśmiechnij się', el: 'niech nie uśmiecha się', nosotros: 'nie uśmiechnij sięmy', vosotros: 'nie uśmiechnij sięcie', ellos: 'niech nie uśmiechają się' },
         },
       },
       en: {
@@ -5783,6 +6746,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will smile', tu: 'you will smile', el: 'he/she will smile', nosotros: 'we will smile', vosotros: 'you (all) will smile', ellos: 'they will smile' },
           ir_a_infinitivo: { yo: 'I am going to smile', tu: 'you are going to smile', el: 'he/she is going to smile', nosotros: 'we are going to smile', vosotros: 'you (all) are going to smile', ellos: 'they are going to smile' },
           acabar_de_infinitivo: { yo: 'I just smiled', tu: 'you just smiled', el: 'he/she just smiled', nosotros: 'we just smiled', vosotros: 'you (all) just smiled', ellos: 'they just smiled' },
+          imperativo_afirmativo: { yo: '—', tu: 'smile!', el: 'smile!', nosotros: 'let\'s smile!', vosotros: 'smile!', ellos: 'smile!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t smile!', el: 'don\'t smile!', nosotros: 'let\'s not smile!', vosotros: 'don\'t smile!', ellos: 'don\'t smile!' },
         },
       },
       de: {
@@ -5793,6 +6758,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde lächeln', tu: 'du wirst lächeln', el: 'er/sie/es wird lächeln', nosotros: 'wir werden lächeln', vosotros: 'ihr werdet lächeln', ellos: 'sie werden lächeln' },
           ir_a_infinitivo: { yo: 'ich werde gleich lächeln', tu: 'du wirst gleich lächeln', el: 'er/sie/es wird gleich lächeln', nosotros: 'wir werden gleich lächeln', vosotros: 'ihr werdet gleich lächeln', ellos: 'sie werden gleich lächeln' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gelächelt', tu: 'du hast gerade gelächelt', el: 'er/sie/es hat gerade gelächelt', nosotros: 'wir haben gerade gelächelt', vosotros: 'ihr habt gerade gelächelt', ellos: 'sie haben gerade gelächelt' },
+          imperativo_afirmativo: { yo: '—', tu: 'lächle!', el: 'Lächeln Sie!', nosotros: 'Lächeln wir!', vosotros: 'lächelt!', ellos: 'Lächeln Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'lächle nicht!', el: 'Lächeln Sie nicht!', nosotros: 'Lächeln wir nicht!', vosotros: 'lächelt nicht!', ellos: 'Lächeln Sie nicht!' },
         },
       },
     },
@@ -5806,6 +6773,7 @@ export const VERBS: Verb[] = [
       { id: 'sonreír-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Uśmiechnęli się po wygraniu meczu.', en: 'They smiled after winning the match.', de: 'Sie lächelten, nachdem sie das Spiel gewonnen hatten.' }, spanish: 'sonrieron al ganar el partido' },
       { id: 'sonreír-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Uśmiechniesz się, gdy to zobaczysz.', en: 'You are going to smile when you see it.', de: 'Du wirst lächeln, wenn du es siehst.' }, spanish: 'vas a sonreír cuando lo veas' },
       { id: 'sonreír-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie uśmiechnęliśmy się do zdjęcia grupowego.', en: 'We just smiled for the group photo.', de: 'Wir haben gerade für das Gruppenfoto gelächelt.' }, spanish: 'acabamos de sonreír para la foto de grupo' },
+      { id: 'sonreír-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'uśmiechnij się do zdjęcia', en: 'smile for the photo', de: 'lächle für das Foto' }, spanish: 'sonríe para la foto' },
     ],
   },
   {
@@ -5813,6 +6781,7 @@ export const VERBS: Verb[] = [
     infinitive: 'llorar',
     regular: true,
     participle: 'llorado',
+    gerund: 'llorando',
     conjugations: conjugateRegular('llorar'),
     translations: {
       pl: {
@@ -5823,6 +6792,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę płakał', tu: 'będziesz płakał', el: 'będzie płakał', nosotros: 'będziemy płakali', vosotros: 'będziecie płakali', ellos: 'będą płakali' },
           ir_a_infinitivo: { yo: 'zamierzam płakać', tu: 'zamierzasz płakać', el: 'zamierza płakać', nosotros: 'zamierzamy płakać', vosotros: 'zamierzacie płakać', ellos: 'zamierzają płakać' },
           acabar_de_infinitivo: { yo: 'właśnie płakałem', tu: 'właśnie płakałeś', el: 'właśnie płakał', nosotros: 'właśnie płakaliśmy', vosotros: 'właśnie płakaliście', ellos: 'właśnie płakali' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie płacz', el: 'niech płacze', nosotros: 'nie płaczmy', vosotros: 'nie płaczcie', ellos: 'niech płaczą' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie płacz', el: 'niech nie płacze', nosotros: 'nie nie płaczmy', vosotros: 'nie nie płaczcie', ellos: 'niech nie płaczą' },
         },
       },
       en: {
@@ -5833,6 +6804,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will cry', tu: 'you will cry', el: 'he/she will cry', nosotros: 'we will cry', vosotros: 'you (all) will cry', ellos: 'they will cry' },
           ir_a_infinitivo: { yo: 'I am going to cry', tu: 'you are going to cry', el: 'he/she is going to cry', nosotros: 'we are going to cry', vosotros: 'you (all) are going to cry', ellos: 'they are going to cry' },
           acabar_de_infinitivo: { yo: 'I just cried', tu: 'you just cried', el: 'he/she just cried', nosotros: 'we just cried', vosotros: 'you (all) just cried', ellos: 'they just cried' },
+          imperativo_afirmativo: { yo: '—', tu: 'cry!', el: 'cry!', nosotros: 'let\'s cry!', vosotros: 'cry!', ellos: 'cry!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t cry!', el: 'don\'t cry!', nosotros: 'let\'s not cry!', vosotros: 'don\'t cry!', ellos: 'don\'t cry!' },
         },
       },
       de: {
@@ -5843,6 +6816,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde weinen', tu: 'du wirst weinen', el: 'er/sie/es wird weinen', nosotros: 'wir werden weinen', vosotros: 'ihr werdet weinen', ellos: 'sie werden weinen' },
           ir_a_infinitivo: { yo: 'ich werde gleich weinen', tu: 'du wirst gleich weinen', el: 'er/sie/es wird gleich weinen', nosotros: 'wir werden gleich weinen', vosotros: 'ihr werdet gleich weinen', ellos: 'sie werden gleich weinen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geweint', tu: 'du hast gerade geweint', el: 'er/sie/es hat gerade geweint', nosotros: 'wir haben gerade geweint', vosotros: 'ihr habt gerade geweint', ellos: 'sie haben gerade geweint' },
+          imperativo_afirmativo: { yo: '—', tu: 'wein nicht!', el: 'Weinen Sie nicht!', nosotros: 'Weinen wir nicht!', vosotros: 'weint!', ellos: 'Weinen Sie nicht!' },
+          imperativo_negativo: { yo: '—', tu: 'wein nicht nicht!', el: 'Weinen Sie nicht nicht!', nosotros: 'Weinen wir nicht nicht!', vosotros: 'weint nicht!', ellos: 'Weinen Sie nicht nicht!' },
         },
       },
     },
@@ -5856,6 +6831,7 @@ export const VERBS: Verb[] = [
       { id: 'llorar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Płakali, żegnając się.', en: 'They cried when saying goodbye.', de: 'Sie weinten beim Abschied.' }, spanish: 'lloraron al despedirse' },
       { id: 'llorar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zapłaczesz przy tej piosence.', en: 'You are going to cry with this song.', de: 'Du wirst bei diesem Lied weinen.' }, spanish: 'vas a llorar con esta canción' },
       { id: 'llorar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie płakaliśmy, oglądając zakończenie.', en: 'We just cried watching the ending.', de: 'Wir haben gerade beim Ansehen des Endes geweint.' }, spanish: 'acabamos de llorar viendo el final' },
+      { id: 'llorar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie płacz już', en: 'don\'t cry anymore', de: 'wein nicht mehr' }, spanish: 'no llores más' },
     ],
   },
   {
@@ -5863,6 +6839,7 @@ export const VERBS: Verb[] = [
     infinitive: 'enojar',
     regular: true,
     participle: 'enojado',
+    gerund: 'enojando',
     conjugations: conjugateRegular('enojar'),
     translations: {
       pl: {
@@ -5873,6 +6850,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'rozzłoszczę', tu: 'rozzłościsz', el: 'rozzłości', nosotros: 'rozzłościmy', vosotros: 'rozzłościcie', ellos: 'rozzłoszczą' },
           ir_a_infinitivo: { yo: 'zamierzam rozzłościć', tu: 'zamierzasz rozzłościć', el: 'zamierza rozzłościć', nosotros: 'zamierzamy rozzłościć', vosotros: 'zamierzacie rozzłościć', ellos: 'zamierzają rozzłościć' },
           acabar_de_infinitivo: { yo: 'właśnie rozzłościłem', tu: 'właśnie rozzłościłeś', el: 'właśnie rozzłościł', nosotros: 'właśnie rozzłościliśmy', vosotros: 'właśnie rozzłościliście', ellos: 'właśnie rozzłościli' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie denerwuj go', el: 'niech złości', nosotros: 'nie denerwuj gomy', vosotros: 'nie denerwuj gocie', ellos: 'niech złoszczą' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie denerwuj go', el: 'niech nie złości', nosotros: 'nie nie denerwuj gomy', vosotros: 'nie nie denerwuj gocie', ellos: 'niech nie złoszczą' },
         },
       },
       en: {
@@ -5883,6 +6862,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will anger', tu: 'you will anger', el: 'he/she will anger', nosotros: 'we will anger', vosotros: 'you (all) will anger', ellos: 'they will anger' },
           ir_a_infinitivo: { yo: 'I am going to anger', tu: 'you are going to anger', el: 'he/she is going to anger', nosotros: 'we are going to anger', vosotros: 'you (all) are going to anger', ellos: 'they are going to anger' },
           acabar_de_infinitivo: { yo: 'I just angered', tu: 'you just angered', el: 'he/she just angered', nosotros: 'we just angered', vosotros: 'you (all) just angered', ellos: 'they just angered' },
+          imperativo_afirmativo: { yo: '—', tu: 'annoy!', el: 'annoy!', nosotros: 'let\'s annoy!', vosotros: 'annoy!', ellos: 'annoy!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t annoy!', el: 'don\'t annoy!', nosotros: 'let\'s not annoy!', vosotros: 'don\'t annoy!', ellos: 'don\'t annoy!' },
         },
       },
       de: {
@@ -5893,6 +6874,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde verärgern', tu: 'du wirst verärgern', el: 'er/sie/es wird verärgern', nosotros: 'wir werden verärgern', vosotros: 'ihr werdet verärgern', ellos: 'sie werden verärgern' },
           ir_a_infinitivo: { yo: 'ich werde gleich verärgern', tu: 'du wirst gleich verärgern', el: 'er/sie/es wird gleich verärgern', nosotros: 'wir werden gleich verärgern', vosotros: 'ihr werdet gleich verärgern', ellos: 'sie werden gleich verärgern' },
           acabar_de_infinitivo: { yo: 'ich habe gerade verärgert', tu: 'du hast gerade verärgert', el: 'er/sie/es hat gerade verärgert', nosotros: 'wir haben gerade verärgert', vosotros: 'ihr habt gerade verärgert', ellos: 'sie haben gerade verärgert' },
+          imperativo_afirmativo: { yo: '—', tu: 'verärger ihn nicht!', el: 'Verärgern Sie ihn nicht!', nosotros: 'Verärgern wir ihn nicht!', vosotros: 'verärgert!', ellos: 'Verärgern Sie ihn nicht!' },
+          imperativo_negativo: { yo: '—', tu: 'verärger ihn nicht nicht!', el: 'Verärgern Sie ihn nicht nicht!', nosotros: 'Verärgern wir ihn nicht nicht!', vosotros: 'verärgert nicht!', ellos: 'Verärgern Sie ihn nicht nicht!' },
         },
       },
     },
@@ -5906,6 +6889,7 @@ export const VERBS: Verb[] = [
       { id: 'enojar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Ich komentarze rozzłościły wszystkich.', en: 'Their comments angered everyone.', de: 'Ihre Kommentare haben alle verärgert.' }, spanish: 'sus comentarios enojaron a todos' },
       { id: 'enojar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Rozzłościsz swojego szefa taką postawą.', en: 'You are going to anger your boss with that attitude.', de: 'Du wirst deinen Chef mit dieser Einstellung verärgern.' }, spanish: 'vas a enojar a tu jefe con esa actitud' },
       { id: 'enojar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie rozzłościliśmy klienta.', en: 'We just angered the client.', de: 'Wir haben gerade den Kunden verärgert.' }, spanish: 'acabamos de enojar al cliente' },
+      { id: 'enojar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie denerwuj go', en: 'don\'t annoy him', de: 'verärger ihn nicht' }, spanish: 'no lo enojes' },
     ],
   },
   {
@@ -5913,6 +6897,7 @@ export const VERBS: Verb[] = [
     infinitive: 'alegrar',
     regular: true,
     participle: 'alegrado',
+    gerund: 'alegrando',
     conjugations: conjugateRegular('alegrar'),
     translations: {
       pl: {
@@ -5923,6 +6908,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ucieszę', tu: 'ucieszysz', el: 'ucieszy', nosotros: 'ucieszymy', vosotros: 'ucieszycie', ellos: 'ucieszą' },
           ir_a_infinitivo: { yo: 'zamierzam ucieszyć', tu: 'zamierzasz ucieszyć', el: 'zamierza ucieszyć', nosotros: 'zamierzamy ucieszyć', vosotros: 'zamierzacie ucieszyć', ellos: 'zamierzają ucieszyć' },
           acabar_de_infinitivo: { yo: 'właśnie ucieszyłem', tu: 'właśnie ucieszyłeś', el: 'właśnie ucieszył', nosotros: 'właśnie ucieszyliśmy', vosotros: 'właśnie ucieszyliście', ellos: 'właśnie ucieszyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'ucieszyj ją', el: 'niech cieszy', nosotros: 'ucieszyj jąmy', vosotros: 'ucieszyj jącie', ellos: 'niech cieszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie ucieszyj ją', el: 'niech nie cieszy', nosotros: 'nie ucieszyj jąmy', vosotros: 'nie ucieszyj jącie', ellos: 'niech nie cieszą' },
         },
       },
       en: {
@@ -5933,6 +6920,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will make happy', tu: 'you will make happy', el: 'he/she will make happy', nosotros: 'we will make happy', vosotros: 'you (all) will make happy', ellos: 'they will make happy' },
           ir_a_infinitivo: { yo: 'I am going to make happy', tu: 'you are going to make happy', el: 'he/she is going to make happy', nosotros: 'we are going to make happy', vosotros: 'you (all) are going to make happy', ellos: 'they are going to make happy' },
           acabar_de_infinitivo: { yo: 'I just made happy', tu: 'you just made happy', el: 'he/she just made happy', nosotros: 'we just made happy', vosotros: 'you (all) just made happy', ellos: 'they just made happy' },
+          imperativo_afirmativo: { yo: '—', tu: 'gladden!', el: 'gladden!', nosotros: 'let\'s gladden!', vosotros: 'gladden!', ellos: 'gladden!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t gladden!', el: 'don\'t gladden!', nosotros: 'let\'s not gladden!', vosotros: 'don\'t gladden!', ellos: 'don\'t gladden!' },
         },
       },
       de: {
@@ -5943,6 +6932,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde erfreuen', tu: 'du wirst erfreuen', el: 'er/sie/es wird erfreuen', nosotros: 'wir werden erfreuen', vosotros: 'ihr werdet erfreuen', ellos: 'sie werden erfreuen' },
           ir_a_infinitivo: { yo: 'ich werde gleich erfreuen', tu: 'du wirst gleich erfreuen', el: 'er/sie/es wird gleich erfreuen', nosotros: 'wir werden gleich erfreuen', vosotros: 'ihr werdet gleich erfreuen', ellos: 'sie werden gleich erfreuen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade erfreut', tu: 'du hast gerade erfreut', el: 'er/sie/es hat gerade erfreut', nosotros: 'wir haben gerade erfreut', vosotros: 'ihr habt gerade erfreut', ellos: 'sie haben gerade erfreut' },
+          imperativo_afirmativo: { yo: '—', tu: 'erfreu sie!', el: 'Erfreuen Sie sie!', nosotros: 'Erfreuen wir sie!', vosotros: 'erfreut!', ellos: 'Erfreuen Sie sie!' },
+          imperativo_negativo: { yo: '—', tu: 'erfreu sie nicht!', el: 'Erfreuen Sie sie nicht!', nosotros: 'Erfreuen wir sie nicht!', vosotros: 'erfreut nicht!', ellos: 'Erfreuen Sie sie nicht!' },
         },
       },
     },
@@ -5956,6 +6947,7 @@ export const VERBS: Verb[] = [
       { id: 'alegrar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Ich słowa uszczęśliwiły wszystkich.', en: 'Their words made everyone happy.', de: 'Ihre Worte haben alle erfreut.' }, spanish: 'sus palabras alegraron a todos' },
       { id: 'alegrar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Uszczęśliwisz swoją mamę tą wiadomością.', en: 'You are going to make your mother happy with that news.', de: 'Du wirst deine Mutter mit dieser Nachricht erfreuen.' }, spanish: 'vas a alegrar a tu madre con esa noticia' },
       { id: 'alegrar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie uszczęśliwiliśmy dzieci prezentem.', en: 'We just made the children happy with the gift.', de: 'Wir haben gerade die Kinder mit dem Geschenk erfreut.' }, spanish: 'acabamos de alegrar a los niños con el regalo' },
+      { id: 'alegrar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'ucieszyj ją tym', en: 'gladden her with this', de: 'erfreu sie damit' }, spanish: 'alégrala con esto' },
     ],
   },
   {
@@ -5963,6 +6955,7 @@ export const VERBS: Verb[] = [
     infinitive: 'preocupar',
     regular: true,
     participle: 'preocupado',
+    gerund: 'preocupando',
     conjugations: conjugateRegular('preocupar'),
     translations: {
       pl: {
@@ -5973,6 +6966,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zmartwię', tu: 'zmartwisz', el: 'zmartwi', nosotros: 'zmartwimy', vosotros: 'zmartwicie', ellos: 'zmartwią' },
           ir_a_infinitivo: { yo: 'zamierzam zmartwić', tu: 'zamierzasz zmartwić', el: 'zamierza zmartwić', nosotros: 'zamierzamy zmartwić', vosotros: 'zamierzacie zmartwić', ellos: 'zamierzają zmartwić' },
           acabar_de_infinitivo: { yo: 'właśnie zmartwiłem', tu: 'właśnie zmartwiłeś', el: 'właśnie zmartwił', nosotros: 'właśnie zmartwiliśmy', vosotros: 'właśnie zmartwiliście', ellos: 'właśnie zmartwili' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie martw go', el: 'niech martwi', nosotros: 'nie martw gomy', vosotros: 'nie martw gocie', ellos: 'niech martwią' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie martw go', el: 'niech nie martwi', nosotros: 'nie nie martw gomy', vosotros: 'nie nie martw gocie', ellos: 'niech nie martwią' },
         },
       },
       en: {
@@ -5983,6 +6978,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will worry', tu: 'you will worry', el: 'he/she will worry', nosotros: 'we will worry', vosotros: 'you (all) will worry', ellos: 'they will worry' },
           ir_a_infinitivo: { yo: 'I am going to worry', tu: 'you are going to worry', el: 'he/she is going to worry', nosotros: 'we are going to worry', vosotros: 'you (all) are going to worry', ellos: 'they are going to worry' },
           acabar_de_infinitivo: { yo: 'I just worried', tu: 'you just worried', el: 'he/she just worried', nosotros: 'we just worried', vosotros: 'you (all) just worried', ellos: 'they just worried' },
+          imperativo_afirmativo: { yo: '—', tu: 'worry!', el: 'worry!', nosotros: 'let\'s worry!', vosotros: 'worry!', ellos: 'worry!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t worry!', el: 'don\'t worry!', nosotros: 'let\'s not worry!', vosotros: 'don\'t worry!', ellos: 'don\'t worry!' },
         },
       },
       de: {
@@ -5993,6 +6990,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde beunruhigen', tu: 'du wirst beunruhigen', el: 'er/sie/es wird beunruhigen', nosotros: 'wir werden beunruhigen', vosotros: 'ihr werdet beunruhigen', ellos: 'sie werden beunruhigen' },
           ir_a_infinitivo: { yo: 'ich werde gleich beunruhigen', tu: 'du wirst gleich beunruhigen', el: 'er/sie/es wird gleich beunruhigen', nosotros: 'wir werden gleich beunruhigen', vosotros: 'ihr werdet gleich beunruhigen', ellos: 'sie werden gleich beunruhigen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade beunruhigt', tu: 'du hast gerade beunruhigt', el: 'er/sie/es hat gerade beunruhigt', nosotros: 'wir haben gerade beunruhigt', vosotros: 'ihr habt gerade beunruhigt', ellos: 'sie haben gerade beunruhigt' },
+          imperativo_afirmativo: { yo: '—', tu: 'beunruhig ihn nicht!', el: 'Beunruhigen Sie ihn nicht!', nosotros: 'Beunruhigen wir ihn nicht!', vosotros: 'beunruhigt!', ellos: 'Beunruhigen Sie ihn nicht!' },
+          imperativo_negativo: { yo: '—', tu: 'beunruhig ihn nicht nicht!', el: 'Beunruhigen Sie ihn nicht nicht!', nosotros: 'Beunruhigen wir ihn nicht nicht!', vosotros: 'beunruhigt nicht!', ellos: 'Beunruhigen Sie ihn nicht nicht!' },
         },
       },
     },
@@ -6006,6 +7005,7 @@ export const VERBS: Verb[] = [
       { id: 'preocupar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Ich wyniki zmartwiły lekarzy.', en: 'Their results worried the doctors.', de: 'Ihre Ergebnisse haben die Ärzte beunruhigt.' }, spanish: 'sus resultados preocuparon a los médicos' },
       { id: 'preocupar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zmartwisz swoją rodzinę, jeśli nie zadzwonisz.', en: "You are going to worry your family if you don't call.", de: 'Du wirst deine Familie beunruhigen, wenn du nicht anrufst.' }, spanish: 'vas a preocupar a tu familia si no llamas' },
       { id: 'preocupar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zmartwiliśmy zespół tą wiadomością.', en: 'We just worried the team with the news.', de: 'Wir haben gerade das Team mit der Nachricht beunruhigt.' }, spanish: 'acabamos de preocupar al equipo con la noticia' },
+      { id: 'preocupar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie martw go', en: 'don\'t worry him', de: 'beunruhig ihn nicht' }, spanish: 'no lo preocupes' },
     ],
   },
   {
@@ -6013,6 +7013,7 @@ export const VERBS: Verb[] = [
     infinitive: 'sorprender',
     regular: true,
     participle: 'sorprendido',
+    gerund: 'sorprendiendo',
     conjugations: conjugateRegular('sorprender'),
     translations: {
       pl: {
@@ -6023,6 +7024,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zaskoczę', tu: 'zaskoczysz', el: 'zaskoczy', nosotros: 'zaskoczymy', vosotros: 'zaskoczycie', ellos: 'zaskoczą' },
           ir_a_infinitivo: { yo: 'zamierzam zaskoczyć', tu: 'zamierzasz zaskoczyć', el: 'zamierza zaskoczyć', nosotros: 'zamierzamy zaskoczyć', vosotros: 'zamierzacie zaskoczyć', ellos: 'zamierzają zaskoczyć' },
           acabar_de_infinitivo: { yo: 'właśnie zaskoczyłem', tu: 'właśnie zaskoczyłeś', el: 'właśnie zaskoczył', nosotros: 'właśnie zaskoczyliśmy', vosotros: 'właśnie zaskoczyliście', ellos: 'właśnie zaskoczyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zaskocz ją', el: 'niech zaskakuje', nosotros: 'zaskocz jąmy', vosotros: 'zaskocz jącie', ellos: 'niech zaskakują' },
+          imperativo_negativo: { yo: '—', tu: 'nie zaskocz ją', el: 'niech nie zaskakuje', nosotros: 'nie zaskocz jąmy', vosotros: 'nie zaskocz jącie', ellos: 'niech nie zaskakują' },
         },
       },
       en: {
@@ -6033,6 +7036,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will surprise', tu: 'you will surprise', el: 'he/she will surprise', nosotros: 'we will surprise', vosotros: 'you (all) will surprise', ellos: 'they will surprise' },
           ir_a_infinitivo: { yo: 'I am going to surprise', tu: 'you are going to surprise', el: 'he/she is going to surprise', nosotros: 'we are going to surprise', vosotros: 'you (all) are going to surprise', ellos: 'they are going to surprise' },
           acabar_de_infinitivo: { yo: 'I just surprised', tu: 'you just surprised', el: 'he/she just surprised', nosotros: 'we just surprised', vosotros: 'you (all) just surprised', ellos: 'they just surprised' },
+          imperativo_afirmativo: { yo: '—', tu: 'surprise!', el: 'surprise!', nosotros: 'let\'s surprise!', vosotros: 'surprise!', ellos: 'surprise!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t surprise!', el: 'don\'t surprise!', nosotros: 'let\'s not surprise!', vosotros: 'don\'t surprise!', ellos: 'don\'t surprise!' },
         },
       },
       de: {
@@ -6043,6 +7048,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde überraschen', tu: 'du wirst überraschen', el: 'er/sie/es wird überraschen', nosotros: 'wir werden überraschen', vosotros: 'ihr werdet überraschen', ellos: 'sie werden überraschen' },
           ir_a_infinitivo: { yo: 'ich werde gleich überraschen', tu: 'du wirst gleich überraschen', el: 'er/sie/es wird gleich überraschen', nosotros: 'wir werden gleich überraschen', vosotros: 'ihr werdet gleich überraschen', ellos: 'sie werden gleich überraschen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade überrascht', tu: 'du hast gerade überrascht', el: 'er/sie/es hat gerade überrascht', nosotros: 'wir haben gerade überrascht', vosotros: 'ihr habt gerade überrascht', ellos: 'sie haben gerade überrascht' },
+          imperativo_afirmativo: { yo: '—', tu: 'überrasch sie!', el: 'Überraschen Sie sie!', nosotros: 'Überraschen wir sie!', vosotros: 'überrascht!', ellos: 'Überraschen Sie sie!' },
+          imperativo_negativo: { yo: '—', tu: 'überrasch sie nicht!', el: 'Überraschen Sie sie nicht!', nosotros: 'Überraschen wir sie nicht!', vosotros: 'überrascht nicht!', ellos: 'Überraschen Sie sie nicht!' },
         },
       },
     },
@@ -6056,6 +7063,7 @@ export const VERBS: Verb[] = [
       { id: 'sorprender-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Ich plany zaskoczyły wszystkich.', en: 'Their plans surprised everyone.', de: 'Ihre Pläne haben alle überrascht.' }, spanish: 'sus planes sorprendieron a todos' },
       { id: 'sorprender-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaskoczysz swojego szefa tym pomysłem.', en: 'You are going to surprise your boss with this idea.', de: 'Du wirst deinen Chef mit dieser Idee überraschen.' }, spanish: 'vas a sorprender a tu jefe con esta idea' },
       { id: 'sorprender-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zaskoczyliśmy publiczność zakończeniem.', en: 'We just surprised the audience with the ending.', de: 'Wir haben gerade das Publikum mit dem Ende überrascht.' }, spanish: 'acabamos de sorprender al público con el final' },
+      { id: 'sorprender-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zaskocz ją jutro', en: 'surprise her tomorrow', de: 'überrasch sie morgen' }, spanish: 'sorpréndela mañana' },
     ],
   },
   {
@@ -6063,12 +7071,15 @@ export const VERBS: Verb[] = [
     infinitive: 'oír',
     regular: false,
     participle: 'oído',
+    gerund: 'oyendo',
     conjugations: {
       presente: { yo: 'oigo', tu: 'oyes', el: 'oye', nosotros: 'oímos', vosotros: 'oís', ellos: 'oyen' },
       preterite: { yo: 'oí', tu: 'oíste', el: 'oyó', nosotros: 'oímos', vosotros: 'oísteis', ellos: 'oyeron' },
       futuro: { yo: 'oiré', tu: 'oirás', el: 'oirá', nosotros: 'oiremos', vosotros: 'oiréis', ellos: 'oirán' },
       ir_a_infinitivo: { yo: 'voy a oír', tu: 'vas a oír', el: 'va a oír', nosotros: 'vamos a oír', vosotros: 'vais a oír', ellos: 'van a oír' },
       acabar_de_infinitivo: { yo: 'acabo de oír', tu: 'acabas de oír', el: 'acaba de oír', nosotros: 'acabamos de oír', vosotros: 'acabáis de oír', ellos: 'acaban de oír' },
+      imperativo_afirmativo: { yo: '—', tu: 'oye', el: 'oiga', nosotros: 'oigamos', vosotros: 'oíd', ellos: 'oigan' },
+      imperativo_negativo: { yo: '—', tu: 'no oigas', el: 'no oiga', nosotros: 'no oigamos', vosotros: 'no oigáis', ellos: 'no oigan' },
     },
     translations: {
       pl: {
@@ -6079,6 +7090,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'usłyszę', tu: 'usłyszysz', el: 'usłyszy', nosotros: 'usłyszymy', vosotros: 'usłyszycie', ellos: 'usłyszą' },
           ir_a_infinitivo: { yo: 'zamierzam usłyszeć', tu: 'zamierzasz usłyszeć', el: 'zamierza usłyszeć', nosotros: 'zamierzamy usłyszeć', vosotros: 'zamierzacie usłyszeć', ellos: 'zamierzają usłyszeć' },
           acabar_de_infinitivo: { yo: 'właśnie usłyszałem', tu: 'właśnie usłyszałeś', el: 'właśnie usłyszał', nosotros: 'właśnie usłyszeliśmy', vosotros: 'właśnie usłyszeliście', ellos: 'właśnie usłyszeli' },
+          imperativo_afirmativo: { yo: '—', tu: 'usłysz', el: 'niech słyszy', nosotros: 'usłyszmy', vosotros: 'usłyszcie', ellos: 'niech słyszą' },
+          imperativo_negativo: { yo: '—', tu: 'nie usłysz', el: 'niech nie słyszy', nosotros: 'nie usłyszmy', vosotros: 'nie usłyszcie', ellos: 'niech nie słyszą' },
         },
       },
       en: {
@@ -6089,6 +7102,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will hear', tu: 'you will hear', el: 'he/she will hear', nosotros: 'we will hear', vosotros: 'you (all) will hear', ellos: 'they will hear' },
           ir_a_infinitivo: { yo: 'I am going to hear', tu: 'you are going to hear', el: 'he/she is going to hear', nosotros: 'we are going to hear', vosotros: 'you (all) are going to hear', ellos: 'they are going to hear' },
           acabar_de_infinitivo: { yo: 'I just heard', tu: 'you just heard', el: 'he/she just heard', nosotros: 'we just heard', vosotros: 'you (all) just heard', ellos: 'they just heard' },
+          imperativo_afirmativo: { yo: '—', tu: 'listen!', el: 'listen!', nosotros: 'let\'s listen!', vosotros: 'listen!', ellos: 'listen!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t listen!', el: 'don\'t listen!', nosotros: 'let\'s not listen!', vosotros: 'don\'t listen!', ellos: 'don\'t listen!' },
         },
       },
       de: {
@@ -6099,6 +7114,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde hören', tu: 'du wirst hören', el: 'er/sie/es wird hören', nosotros: 'wir werden hören', vosotros: 'ihr werdet hören', ellos: 'sie werden hören' },
           ir_a_infinitivo: { yo: 'ich werde gleich hören', tu: 'du wirst gleich hören', el: 'er/sie/es wird gleich hören', nosotros: 'wir werden gleich hören', vosotros: 'ihr werdet gleich hören', ellos: 'sie werden gleich hören' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gehört', tu: 'du hast gerade gehört', el: 'er/sie/es hat gerade gehört', nosotros: 'wir haben gerade gehört', vosotros: 'ihr habt gerade gehört', ellos: 'sie haben gerade gehört' },
+          imperativo_afirmativo: { yo: '—', tu: 'hör!', el: 'Hören Sie!', nosotros: 'Hören wir!', vosotros: 'hört!', ellos: 'Hören Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'hör nicht!', el: 'Hören Sie nicht!', nosotros: 'Hören wir nicht!', vosotros: 'hört nicht!', ellos: 'Hören Sie nicht!' },
         },
       },
     },
@@ -6113,6 +7130,7 @@ export const VERBS: Verb[] = [
       { id: 'oír-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Słyszę go doskonale.', en: 'I hear him perfectly.', de: 'Ich höre ihn perfekt.' }, spanish: 'lo oigo perfectamente' },
       { id: 'oír-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Usłyszysz dobrą wiadomość.', en: 'You are going to hear good news.', de: 'Du wirst gute Nachrichten hören.' }, spanish: 'vas a oír una buena noticia' },
       { id: 'oír-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie usłyszeliśmy grzmot.', en: 'We just heard thunder.', de: 'Wir haben gerade einen Donner gehört.' }, spanish: 'acabamos de oír un trueno' },
+      { id: 'oír-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'usłysz to', en: 'listen to this', de: 'hör dir das an' }, spanish: 'oye esto' },
     ],
   },
   {
@@ -6120,12 +7138,15 @@ export const VERBS: Verb[] = [
     infinitive: 'caer',
     regular: false,
     participle: 'caído',
+    gerund: 'cayendo',
     conjugations: {
       presente: { yo: 'caigo', tu: 'caes', el: 'cae', nosotros: 'caemos', vosotros: 'caéis', ellos: 'caen' },
       preterite: { yo: 'caí', tu: 'caíste', el: 'cayó', nosotros: 'caímos', vosotros: 'caísteis', ellos: 'cayeron' },
       futuro: { yo: 'caeré', tu: 'caerás', el: 'caerá', nosotros: 'caeremos', vosotros: 'caeréis', ellos: 'caerán' },
       ir_a_infinitivo: { yo: 'voy a caer', tu: 'vas a caer', el: 'va a caer', nosotros: 'vamos a caer', vosotros: 'vais a caer', ellos: 'van a caer' },
       acabar_de_infinitivo: { yo: 'acabo de caer', tu: 'acabas de caer', el: 'acaba de caer', nosotros: 'acabamos de caer', vosotros: 'acabáis de caer', ellos: 'acaban de caer' },
+      imperativo_afirmativo: { yo: '—', tu: 'cae', el: 'caiga', nosotros: 'caigamos', vosotros: 'caed', ellos: 'caigan' },
+      imperativo_negativo: { yo: '—', tu: 'no caigas', el: 'no caiga', nosotros: 'no caigamos', vosotros: 'no caigáis', ellos: 'no caigan' },
     },
     translations: {
       pl: {
@@ -6136,6 +7157,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'upadnę', tu: 'upadniesz', el: 'upadnie', nosotros: 'upadniemy', vosotros: 'upadniecie', ellos: 'upadną' },
           ir_a_infinitivo: { yo: 'zamierzam upaść', tu: 'zamierzasz upaść', el: 'zamierza upaść', nosotros: 'zamierzamy upaść', vosotros: 'zamierzacie upaść', ellos: 'zamierzają upaść' },
           acabar_de_infinitivo: { yo: 'właśnie upadłem', tu: 'właśnie upadłeś', el: 'właśnie upadł', nosotros: 'właśnie upadliśmy', vosotros: 'właśnie upadliście', ellos: 'właśnie upadli' },
+          imperativo_afirmativo: { yo: '—', tu: 'uważaj, żeby nie upaść', el: 'niech upada', nosotros: 'uważaj, żeby nie upaśćmy', vosotros: 'uważaj, żeby nie upaśćcie', ellos: 'niech upadają' },
+          imperativo_negativo: { yo: '—', tu: 'nie uważaj, żeby nie upaść', el: 'niech nie upada', nosotros: 'nie uważaj, żeby nie upaśćmy', vosotros: 'nie uważaj, żeby nie upaśćcie', ellos: 'niech nie upadają' },
         },
       },
       en: {
@@ -6146,6 +7169,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will fall', tu: 'you will fall', el: 'he/she will fall', nosotros: 'we will fall', vosotros: 'you (all) will fall', ellos: 'they will fall' },
           ir_a_infinitivo: { yo: 'I am going to fall', tu: 'you are going to fall', el: 'he/she is going to fall', nosotros: 'we are going to fall', vosotros: 'you (all) are going to fall', ellos: 'they are going to fall' },
           acabar_de_infinitivo: { yo: 'I just fell', tu: 'you just fell', el: 'he/she just fell', nosotros: 'we just fell', vosotros: 'you (all) just fell', ellos: 'they just fell' },
+          imperativo_afirmativo: { yo: '—', tu: 'fall!', el: 'fall!', nosotros: 'let\'s fall!', vosotros: 'fall!', ellos: 'fall!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t fall!', el: 'don\'t fall!', nosotros: 'let\'s not fall!', vosotros: 'don\'t fall!', ellos: 'don\'t fall!' },
         },
       },
       de: {
@@ -6156,6 +7181,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde fallen', tu: 'du wirst fallen', el: 'er/sie/es wird fallen', nosotros: 'wir werden fallen', vosotros: 'ihr werdet fallen', ellos: 'sie werden fallen' },
           ir_a_infinitivo: { yo: 'ich werde gleich fallen', tu: 'du wirst gleich fallen', el: 'er/sie/es wird gleich fallen', nosotros: 'wir werden gleich fallen', vosotros: 'ihr werdet gleich fallen', ellos: 'sie werden gleich fallen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gefallen', tu: 'du bist gerade gefallen', el: 'er/sie/es ist gerade gefallen', nosotros: 'wir sind gerade gefallen', vosotros: 'ihr seid gerade gefallen', ellos: 'sie sind gerade gefallen' },
+          imperativo_afirmativo: { yo: '—', tu: 'fall nicht!', el: 'Fallen Sie nicht!', nosotros: 'Fallen wir nicht!', vosotros: 'fallt!', ellos: 'Fallen Sie nicht!' },
+          imperativo_negativo: { yo: '—', tu: 'fall nicht nicht!', el: 'Fallen Sie nicht nicht!', nosotros: 'Fallen wir nicht nicht!', vosotros: 'fallt nicht!', ellos: 'Fallen Sie nicht nicht!' },
         },
       },
     },
@@ -6170,6 +7197,7 @@ export const VERBS: Verb[] = [
       { id: 'caer-presente-el-nieve', tense: 'presente', person: 'el', pronounType: 'none', translations: { pl: 'Śnieg pada powoli.', en: 'The snow falls slowly.', de: 'Der Schnee fällt langsam.' }, spanish: 'la nieve cae despacio' },
       { id: 'caer-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaraz spadniesz, uważaj!', en: "You are going to fall, watch out!", de: 'Du wirst gleich fallen, pass auf!' }, spanish: 'te vas a caer, ¡cuidado!' },
       { id: 'caer-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie spadliśmy z roweru.', en: 'We just fell off the bike.', de: 'Wir sind gerade vom Fahrrad gefallen.' }, spanish: 'acabamos de caernos de la bicicleta' },
+      { id: 'caer-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie upadnij', en: 'don\'t fall', de: 'fall nicht' }, spanish: 'no te caigas' },
     ],
   },
   {
@@ -6177,12 +7205,15 @@ export const VERBS: Verb[] = [
     infinitive: 'construir',
     regular: false,
     participle: 'construido',
+    gerund: 'construyendo',
     conjugations: {
       presente: { yo: 'construyo', tu: 'construyes', el: 'construye', nosotros: 'construimos', vosotros: 'construís', ellos: 'construyen' },
       preterite: { yo: 'construí', tu: 'construiste', el: 'construyó', nosotros: 'construimos', vosotros: 'construisteis', ellos: 'construyeron' },
       futuro: { yo: 'construiré', tu: 'construirás', el: 'construirá', nosotros: 'construiremos', vosotros: 'construiréis', ellos: 'construirán' },
       ir_a_infinitivo: { yo: 'voy a construir', tu: 'vas a construir', el: 'va a construir', nosotros: 'vamos a construir', vosotros: 'vais a construir', ellos: 'van a construir' },
       acabar_de_infinitivo: { yo: 'acabo de construir', tu: 'acabas de construir', el: 'acaba de construir', nosotros: 'acabamos de construir', vosotros: 'acabáis de construir', ellos: 'acaban de construir' },
+      imperativo_afirmativo: { yo: '—', tu: 'construye', el: 'construya', nosotros: 'construyamos', vosotros: 'construid', ellos: 'construyan' },
+      imperativo_negativo: { yo: '—', tu: 'no construyas', el: 'no construya', nosotros: 'no construyamos', vosotros: 'no construyáis', ellos: 'no construyan' },
     },
     translations: {
       pl: {
@@ -6193,6 +7224,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zbuduję', tu: 'zbudujesz', el: 'zbuduje', nosotros: 'zbudujemy', vosotros: 'zbudujecie', ellos: 'zbudują' },
           ir_a_infinitivo: { yo: 'zamierzam zbudować', tu: 'zamierzasz zbudować', el: 'zamierza zbudować', nosotros: 'zamierzamy zbudować', vosotros: 'zamierzacie zbudować', ellos: 'zamierzają zbudować' },
           acabar_de_infinitivo: { yo: 'właśnie zbudowałem', tu: 'właśnie zbudowałeś', el: 'właśnie zbudował', nosotros: 'właśnie zbudowaliśmy', vosotros: 'właśnie zbudowaliście', ellos: 'właśnie zbudowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zbuduj', el: 'niech buduje', nosotros: 'zbudujmy', vosotros: 'zbudujcie', ellos: 'niech budują' },
+          imperativo_negativo: { yo: '—', tu: 'nie zbuduj', el: 'niech nie buduje', nosotros: 'nie zbudujmy', vosotros: 'nie zbudujcie', ellos: 'niech nie budują' },
         },
       },
       en: {
@@ -6203,6 +7236,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will build', tu: 'you will build', el: 'he/she will build', nosotros: 'we will build', vosotros: 'you (all) will build', ellos: 'they will build' },
           ir_a_infinitivo: { yo: 'I am going to build', tu: 'you are going to build', el: 'he/she is going to build', nosotros: 'we are going to build', vosotros: 'you (all) are going to build', ellos: 'they are going to build' },
           acabar_de_infinitivo: { yo: 'I just built', tu: 'you just built', el: 'he/she just built', nosotros: 'we just built', vosotros: 'you (all) just built', ellos: 'they just built' },
+          imperativo_afirmativo: { yo: '—', tu: 'build!', el: 'build!', nosotros: 'let\'s build!', vosotros: 'build!', ellos: 'build!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t build!', el: 'don\'t build!', nosotros: 'let\'s not build!', vosotros: 'don\'t build!', ellos: 'don\'t build!' },
         },
       },
       de: {
@@ -6213,6 +7248,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde bauen', tu: 'du wirst bauen', el: 'er/sie/es wird bauen', nosotros: 'wir werden bauen', vosotros: 'ihr werdet bauen', ellos: 'sie werden bauen' },
           ir_a_infinitivo: { yo: 'ich werde gleich bauen', tu: 'du wirst gleich bauen', el: 'er/sie/es wird gleich bauen', nosotros: 'wir werden gleich bauen', vosotros: 'ihr werdet gleich bauen', ellos: 'sie werden gleich bauen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gebaut', tu: 'du hast gerade gebaut', el: 'er/sie/es hat gerade gebaut', nosotros: 'wir haben gerade gebaut', vosotros: 'ihr habt gerade gebaut', ellos: 'sie haben gerade gebaut' },
+          imperativo_afirmativo: { yo: '—', tu: 'bau!', el: 'Bauen Sie!', nosotros: 'Bauen wir!', vosotros: 'baut!', ellos: 'Bauen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'bau nicht!', el: 'Bauen Sie nicht!', nosotros: 'Bauen wir nicht!', vosotros: 'baut nicht!', ellos: 'Bauen Sie nicht!' },
         },
       },
     },
@@ -6227,6 +7264,7 @@ export const VERBS: Verb[] = [
       { id: 'construir-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Buduję to powoli, ale solidnie.', en: 'I am building it slowly but solidly.', de: 'Ich baue es langsam, aber solide.' }, spanish: 'lo construyo despacio pero sólido' },
       { id: 'construir-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zbudujesz taras na tyłach domu.', en: 'You are going to build a terrace behind the house.', de: 'Du wirst eine Terrasse hinter dem Haus bauen.' }, spanish: 'vas a construir una terraza detrás de la casa' },
       { id: 'construir-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zbudowaliśmy nowy płot.', en: 'We just built a new fence.', de: 'Wir haben gerade einen neuen Zaun gebaut.' }, spanish: 'acabamos de construir una valla nueva' },
+      { id: 'construir-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zbuduj dom', en: 'build a house', de: 'bau ein Haus' }, spanish: 'construye una casa' },
     ],
   },
   {
@@ -6234,12 +7272,15 @@ export const VERBS: Verb[] = [
     infinitive: 'morir',
     regular: false,
     participle: 'muerto',
+    gerund: 'muriendo',
     conjugations: {
       presente: { yo: 'muero', tu: 'mueres', el: 'muere', nosotros: 'morimos', vosotros: 'morís', ellos: 'mueren' },
       preterite: { yo: 'morí', tu: 'moriste', el: 'murió', nosotros: 'morimos', vosotros: 'moristeis', ellos: 'murieron' },
       futuro: { yo: 'moriré', tu: 'morirás', el: 'morirá', nosotros: 'moriremos', vosotros: 'moriréis', ellos: 'morirán' },
       ir_a_infinitivo: { yo: 'voy a morir', tu: 'vas a morir', el: 'va a morir', nosotros: 'vamos a morir', vosotros: 'vais a morir', ellos: 'van a morir' },
       acabar_de_infinitivo: { yo: 'acabo de morir', tu: 'acabas de morir', el: 'acaba de morir', nosotros: 'acabamos de morir', vosotros: 'acabáis de morir', ellos: 'acaban de morir' },
+      imperativo_afirmativo: { yo: '—', tu: 'muere', el: 'muera', nosotros: 'muramos', vosotros: 'morid', ellos: 'mueran' },
+      imperativo_negativo: { yo: '—', tu: 'no mueras', el: 'no muera', nosotros: 'no muramos', vosotros: 'no muráis', ellos: 'no mueran' },
     },
     translations: {
       pl: {
@@ -6250,6 +7291,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'umrę', tu: 'umrzesz', el: 'umrze', nosotros: 'umrzemy', vosotros: 'umrzecie', ellos: 'umrą' },
           ir_a_infinitivo: { yo: 'zamierzam umrzeć', tu: 'zamierzasz umrzeć', el: 'zamierza umrzeć', nosotros: 'zamierzamy umrzeć', vosotros: 'zamierzacie umrzeć', ellos: 'zamierzają umrzeć' },
           acabar_de_infinitivo: { yo: 'właśnie umarłem', tu: 'właśnie umarłeś', el: 'właśnie umarł', nosotros: 'właśnie umarliśmy', vosotros: 'właśnie umarliście', ellos: 'właśnie umarli' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie umieraj', el: 'niech umiera', nosotros: 'nie umierajmy', vosotros: 'nie umierajcie', ellos: 'niech umierają' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie umieraj', el: 'niech nie umiera', nosotros: 'nie nie umierajmy', vosotros: 'nie nie umierajcie', ellos: 'niech nie umierają' },
         },
       },
       en: {
@@ -6260,6 +7303,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will die', tu: 'you will die', el: 'he/she will die', nosotros: 'we will die', vosotros: 'you (all) will die', ellos: 'they will die' },
           ir_a_infinitivo: { yo: 'I am going to die', tu: 'you are going to die', el: 'he/she is going to die', nosotros: 'we are going to die', vosotros: 'you (all) are going to die', ellos: 'they are going to die' },
           acabar_de_infinitivo: { yo: 'I just died', tu: 'you just died', el: 'he/she just died', nosotros: 'we just died', vosotros: 'you (all) just died', ellos: 'they just died' },
+          imperativo_afirmativo: { yo: '—', tu: 'die!', el: 'die!', nosotros: 'let\'s die!', vosotros: 'die!', ellos: 'die!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t die!', el: 'don\'t die!', nosotros: 'let\'s not die!', vosotros: 'don\'t die!', ellos: 'don\'t die!' },
         },
       },
       de: {
@@ -6270,6 +7315,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sterben', tu: 'du wirst sterben', el: 'er/sie/es wird sterben', nosotros: 'wir werden sterben', vosotros: 'ihr werdet sterben', ellos: 'sie werden sterben' },
           ir_a_infinitivo: { yo: 'ich werde gleich sterben', tu: 'du wirst gleich sterben', el: 'er/sie/es wird gleich sterben', nosotros: 'wir werden gleich sterben', vosotros: 'ihr werdet gleich sterben', ellos: 'sie werden gleich sterben' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gestorben', tu: 'du bist gerade gestorben', el: 'er/sie/es ist gerade gestorben', nosotros: 'wir sind gerade gestorben', vosotros: 'ihr seid gerade gestorben', ellos: 'sie sind gerade gestorben' },
+          imperativo_afirmativo: { yo: '—', tu: 'stirb nicht!', el: 'Sterben Sie nicht!', nosotros: 'Sterben wir nicht!', vosotros: 'sterbt!', ellos: 'Sterben Sie nicht!' },
+          imperativo_negativo: { yo: '—', tu: 'stirb nicht nicht!', el: 'Sterben Sie nicht nicht!', nosotros: 'Sterben wir nicht nicht!', vosotros: 'sterbt nicht!', ellos: 'Sterben Sie nicht nicht!' },
         },
       },
     },
@@ -6284,6 +7331,7 @@ export const VERBS: Verb[] = [
       { id: 'morir-preterite-yo-susto', tense: 'preterite', person: 'yo', pronounType: 'none', translations: { pl: 'Prawie umarłem ze strachu.', en: 'I almost died of fright.', de: 'Ich bin fast vor Angst gestorben.' }, spanish: 'casi me muero del susto' },
       { id: 'morir-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Umrzesz z nudów na tym spotkaniu.', en: 'You are going to die of boredom at this meeting.', de: 'Du wirst dich bei diesem Treffen zu Tode langweilen.' }, spanish: 'te vas a morir de aburrimiento en esta reunión' },
       { id: 'morir-acabar_de_infinitivo-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Kwiat właśnie umarł z braku wody.', en: 'The flower just died from lack of water.', de: 'Die Blume ist gerade aus Wassermangel gestorben.' }, spanish: 'la flor acaba de morir por falta de agua' },
+      { id: 'morir-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie umieraj', en: 'don\'t die', de: 'stirb nicht' }, spanish: 'no te mueras' },
     ],
   },
   {
@@ -6291,12 +7339,15 @@ export const VERBS: Verb[] = [
     infinitive: 'nacer',
     regular: false,
     participle: 'nacido',
+    gerund: 'naciendo',
     conjugations: {
       presente: { yo: 'nazco', tu: 'naces', el: 'nace', nosotros: 'nacemos', vosotros: 'nacéis', ellos: 'nacen' },
       preterite: { yo: 'nací', tu: 'naciste', el: 'nació', nosotros: 'nacimos', vosotros: 'nacisteis', ellos: 'nacieron' },
       futuro: { yo: 'naceré', tu: 'nacerás', el: 'nacerá', nosotros: 'naceremos', vosotros: 'naceréis', ellos: 'nacerán' },
       ir_a_infinitivo: { yo: 'voy a nacer', tu: 'vas a nacer', el: 'va a nacer', nosotros: 'vamos a nacer', vosotros: 'vais a nacer', ellos: 'van a nacer' },
       acabar_de_infinitivo: { yo: 'acabo de nacer', tu: 'acabas de nacer', el: 'acaba de nacer', nosotros: 'acabamos de nacer', vosotros: 'acabáis de nacer', ellos: 'acaban de nacer' },
+      imperativo_afirmativo: { yo: '—', tu: 'nace', el: 'nazca', nosotros: 'nazcamos', vosotros: 'naced', ellos: 'nazcan' },
+      imperativo_negativo: { yo: '—', tu: 'no nazcas', el: 'no nazca', nosotros: 'no nazcamos', vosotros: 'no nazcáis', ellos: 'no nazcan' },
     },
     translations: {
       pl: {
@@ -6307,6 +7358,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'urodzę się', tu: 'urodzisz się', el: 'urodzi się', nosotros: 'urodzimy się', vosotros: 'urodzicie się', ellos: 'urodzą się' },
           ir_a_infinitivo: { yo: 'zamierzam się urodzić', tu: 'zamierzasz się urodzić', el: 'zamierza się urodzić', nosotros: 'zamierzamy się urodzić', vosotros: 'zamierzacie się urodzić', ellos: 'zamierzają się urodzić' },
           acabar_de_infinitivo: { yo: 'właśnie się urodziłem', tu: 'właśnie się urodziłeś', el: 'właśnie się urodził', nosotros: 'właśnie się urodziliśmy', vosotros: 'właśnie się urodziliście', ellos: 'właśnie się urodzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'narodź się', el: 'niech rodzi się', nosotros: 'narodź sięmy', vosotros: 'narodź sięcie', ellos: 'niech rodzą się' },
+          imperativo_negativo: { yo: '—', tu: 'nie narodź się', el: 'niech nie rodzi się', nosotros: 'nie narodź sięmy', vosotros: 'nie narodź sięcie', ellos: 'niech nie rodzą się' },
         },
       },
       en: {
@@ -6317,6 +7370,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will be born', tu: 'you will be born', el: 'he/she will be born', nosotros: 'we will be born', vosotros: 'you (all) will be born', ellos: 'they will be born' },
           ir_a_infinitivo: { yo: 'I am going to be born', tu: 'you are going to be born', el: 'he/she is going to be born', nosotros: 'we are going to be born', vosotros: 'you (all) are going to be born', ellos: 'they are going to be born' },
           acabar_de_infinitivo: { yo: 'I was just born', tu: 'you were just born', el: 'he/she was just born', nosotros: 'we were just born', vosotros: 'you (all) were just born', ellos: 'they were just born' },
+          imperativo_afirmativo: { yo: '—', tu: 'be born!', el: 'be born!', nosotros: 'let\'s be born!', vosotros: 'be born!', ellos: 'be born!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t be born!', el: 'don\'t be born!', nosotros: 'let\'s not be born!', vosotros: 'don\'t be born!', ellos: 'don\'t be born!' },
         },
       },
       de: {
@@ -6327,6 +7382,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde geboren werden', tu: 'du wirst geboren werden', el: 'er/sie/es wird geboren werden', nosotros: 'wir werden geboren werden', vosotros: 'ihr werdet geboren werden', ellos: 'sie werden geboren werden' },
           ir_a_infinitivo: { yo: 'ich werde gleich geboren', tu: 'du wirst gleich geboren', el: 'er/sie/es wird gleich geboren', nosotros: 'wir werden gleich geboren', vosotros: 'ihr werdet gleich geboren', ellos: 'sie werden gleich geboren' },
           acabar_de_infinitivo: { yo: 'ich bin gerade geboren', tu: 'du bist gerade geboren', el: 'er/sie/es ist gerade geboren', nosotros: 'wir sind gerade geboren', vosotros: 'ihr seid gerade geboren', ellos: 'sie sind gerade geboren' },
+          imperativo_afirmativo: { yo: '—', tu: 'werde geboren!', el: 'Werden Sie geboren!', nosotros: 'Werden wir geboren!', vosotros: 'werdet geboren!', ellos: 'Werden Sie geboren!' },
+          imperativo_negativo: { yo: '—', tu: 'werde geboren nicht!', el: 'Werden Sie geboren nicht!', nosotros: 'Werden wir geboren nicht!', vosotros: 'werdet geboren nicht!', ellos: 'Werden Sie geboren nicht!' },
         },
       },
     },
@@ -6341,6 +7398,7 @@ export const VERBS: Verb[] = [
       { id: 'nacer-presente-yo-idea', tense: 'presente', person: 'yo', pronounType: 'none', translations: { pl: 'Rodzę się na nowo po tej podróży.', en: 'I am born anew after this trip.', de: 'Ich werde nach dieser Reise neu geboren.' }, spanish: 'nazco de nuevo después de este viaje' },
       { id: 'nacer-ir_a_infinitivo-el', tense: 'ir_a_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Dziecko zaraz się urodzi.', en: 'The baby is about to be born.', de: 'Das Baby wird gleich geboren.' }, spanish: 'el bebé va a nacer' },
       { id: 'nacer-acabar_de_infinitivo-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Cielę właśnie się urodziło.', en: 'The calf was just born.', de: 'Das Kalb ist gerade geboren.' }, spanish: 'el ternero acaba de nacer' },
+      { id: 'nacer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'narodź się silny', en: 'be born strong', de: 'werde stark geboren' }, spanish: 'nace con fuerza' },
     ],
   },
   {
@@ -6348,12 +7406,15 @@ export const VERBS: Verb[] = [
     infinitive: 'crecer',
     regular: false,
     participle: 'crecido',
+    gerund: 'creciendo',
     conjugations: {
       presente: { yo: 'crezco', tu: 'creces', el: 'crece', nosotros: 'crecemos', vosotros: 'crecéis', ellos: 'crecen' },
       preterite: { yo: 'crecí', tu: 'creciste', el: 'creció', nosotros: 'crecimos', vosotros: 'crecisteis', ellos: 'crecieron' },
       futuro: { yo: 'creceré', tu: 'crecerás', el: 'crecerá', nosotros: 'creceremos', vosotros: 'creceréis', ellos: 'crecerán' },
       ir_a_infinitivo: { yo: 'voy a crecer', tu: 'vas a crecer', el: 'va a crecer', nosotros: 'vamos a crecer', vosotros: 'vais a crecer', ellos: 'van a crecer' },
       acabar_de_infinitivo: { yo: 'acabo de crecer', tu: 'acabas de crecer', el: 'acaba de crecer', nosotros: 'acabamos de crecer', vosotros: 'acabáis de crecer', ellos: 'acaban de crecer' },
+      imperativo_afirmativo: { yo: '—', tu: 'crece', el: 'crezca', nosotros: 'crezcamos', vosotros: 'creced', ellos: 'crezcan' },
+      imperativo_negativo: { yo: '—', tu: 'no crezcas', el: 'no crezca', nosotros: 'no crezcamos', vosotros: 'no crezcáis', ellos: 'no crezcan' },
     },
     translations: {
       pl: {
@@ -6364,6 +7425,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'urosnę', tu: 'urośniesz', el: 'urośnie', nosotros: 'urośniemy', vosotros: 'urośniecie', ellos: 'urosną' },
           ir_a_infinitivo: { yo: 'zamierzam urosnąć', tu: 'zamierzasz urosnąć', el: 'zamierza urosnąć', nosotros: 'zamierzamy urosnąć', vosotros: 'zamierzacie urosnąć', ellos: 'zamierzają urosnąć' },
           acabar_de_infinitivo: { yo: 'właśnie urosłem', tu: 'właśnie urosłeś', el: 'właśnie urósł', nosotros: 'właśnie urośliśmy', vosotros: 'właśnie urośliście', ellos: 'właśnie urośli' },
+          imperativo_afirmativo: { yo: '—', tu: 'rośnij', el: 'niech rośnie', nosotros: 'rośnijmy', vosotros: 'rośnijcie', ellos: 'niech rosną' },
+          imperativo_negativo: { yo: '—', tu: 'nie rośnij', el: 'niech nie rośnie', nosotros: 'nie rośnijmy', vosotros: 'nie rośnijcie', ellos: 'niech nie rosną' },
         },
       },
       en: {
@@ -6374,6 +7437,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will grow', tu: 'you will grow', el: 'he/she will grow', nosotros: 'we will grow', vosotros: 'you (all) will grow', ellos: 'they will grow' },
           ir_a_infinitivo: { yo: 'I am going to grow', tu: 'you are going to grow', el: 'he/she is going to grow', nosotros: 'we are going to grow', vosotros: 'you (all) are going to grow', ellos: 'they are going to grow' },
           acabar_de_infinitivo: { yo: 'I just grew', tu: 'you just grew', el: 'he/she just grew', nosotros: 'we just grew', vosotros: 'you (all) just grew', ellos: 'they just grew' },
+          imperativo_afirmativo: { yo: '—', tu: 'grow!', el: 'grow!', nosotros: 'let\'s grow!', vosotros: 'grow!', ellos: 'grow!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t grow!', el: 'don\'t grow!', nosotros: 'let\'s not grow!', vosotros: 'don\'t grow!', ellos: 'don\'t grow!' },
         },
       },
       de: {
@@ -6384,6 +7449,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde wachsen', tu: 'du wirst wachsen', el: 'er/sie/es wird wachsen', nosotros: 'wir werden wachsen', vosotros: 'ihr werdet wachsen', ellos: 'sie werden wachsen' },
           ir_a_infinitivo: { yo: 'ich werde gleich wachsen', tu: 'du wirst gleich wachsen', el: 'er/sie/es wird gleich wachsen', nosotros: 'wir werden gleich wachsen', vosotros: 'ihr werdet gleich wachsen', ellos: 'sie werden gleich wachsen' },
           acabar_de_infinitivo: { yo: 'ich bin gerade gewachsen', tu: 'du bist gerade gewachsen', el: 'er/sie/es ist gerade gewachsen', nosotros: 'wir sind gerade gewachsen', vosotros: 'ihr seid gerade gewachsen', ellos: 'sie sind gerade gewachsen' },
+          imperativo_afirmativo: { yo: '—', tu: 'wachs!', el: 'Wachsen Sie!', nosotros: 'Wachsen wir!', vosotros: 'wachst!', ellos: 'Wachsen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'wachs nicht!', el: 'Wachsen Sie nicht!', nosotros: 'Wachsen wir nicht!', vosotros: 'wachst nicht!', ellos: 'Wachsen Sie nicht!' },
         },
       },
     },
@@ -6398,6 +7465,7 @@ export const VERBS: Verb[] = [
       { id: 'crecer-presente-el-economia', tense: 'presente', person: 'el', pronounType: 'none', translations: { pl: 'Gospodarka rośnie powoli.', en: 'The economy is growing slowly.', de: 'Die Wirtschaft wächst langsam.' }, spanish: 'la economía crece lentamente' },
       { id: 'crecer-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Urośniesz jeszcze, jesteś młody.', en: 'You are going to grow more, you are young.', de: 'Du wirst noch wachsen, du bist jung.' }, spanish: 'vas a crecer más, eres joven' },
       { id: 'crecer-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wyrośliśmy z tych ubrań.', en: 'We just grew out of these clothes.', de: 'Wir sind gerade aus dieser Kleidung herausgewachsen.' }, spanish: 'acabamos de crecer y ya no nos queda esta ropa' },
+      { id: 'crecer-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'rośnij silny i zdrowy', en: 'grow strong and healthy', de: 'wachs stark und gesund' }, spanish: 'crece fuerte y sano' },
     ],
   },
   {
@@ -6405,6 +7473,7 @@ export const VERBS: Verb[] = [
     infinitive: 'gastar',
     regular: true,
     participle: 'gastado',
+    gerund: 'gastando',
     conjugations: conjugateRegular('gastar'),
     translations: {
       pl: {
@@ -6415,6 +7484,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'wydam', tu: 'wydasz', el: 'wyda', nosotros: 'wydamy', vosotros: 'wydacie', ellos: 'wydadzą' },
           ir_a_infinitivo: { yo: 'zamierzam wydać', tu: 'zamierzasz wydać', el: 'zamierza wydać', nosotros: 'zamierzamy wydać', vosotros: 'zamierzacie wydać', ellos: 'zamierzają wydać' },
           acabar_de_infinitivo: { yo: 'właśnie wydałem', tu: 'właśnie wydałeś', el: 'właśnie wydał', nosotros: 'właśnie wydaliśmy', vosotros: 'właśnie wydaliście', ellos: 'właśnie wydali' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie wydawaj tyle', el: 'niech wydaje', nosotros: 'nie wydawaj tylemy', vosotros: 'nie wydawaj tylecie', ellos: 'niech wydają' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie wydawaj tyle', el: 'niech nie wydaje', nosotros: 'nie nie wydawaj tylemy', vosotros: 'nie nie wydawaj tylecie', ellos: 'niech nie wydają' },
         },
       },
       en: {
@@ -6425,6 +7496,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will spend', tu: 'you will spend', el: 'he/she will spend', nosotros: 'we will spend', vosotros: 'you (all) will spend', ellos: 'they will spend' },
           ir_a_infinitivo: { yo: 'I am going to spend', tu: 'you are going to spend', el: 'he/she is going to spend', nosotros: 'we are going to spend', vosotros: 'you (all) are going to spend', ellos: 'they are going to spend' },
           acabar_de_infinitivo: { yo: 'I just spent', tu: 'you just spent', el: 'he/she just spent', nosotros: 'we just spent', vosotros: 'you (all) just spent', ellos: 'they just spent' },
+          imperativo_afirmativo: { yo: '—', tu: 'spend!', el: 'spend!', nosotros: 'let\'s spend!', vosotros: 'spend!', ellos: 'spend!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t spend!', el: 'don\'t spend!', nosotros: 'let\'s not spend!', vosotros: 'don\'t spend!', ellos: 'don\'t spend!' },
         },
       },
       de: {
@@ -6435,6 +7508,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde ausgeben', tu: 'du wirst ausgeben', el: 'er/sie/es wird ausgeben', nosotros: 'wir werden ausgeben', vosotros: 'ihr werdet ausgeben', ellos: 'sie werden ausgeben' },
           ir_a_infinitivo: { yo: 'ich werde gleich ausgeben', tu: 'du wirst gleich ausgeben', el: 'er/sie/es wird gleich ausgeben', nosotros: 'wir werden gleich ausgeben', vosotros: 'ihr werdet gleich ausgeben', ellos: 'sie werden gleich ausgeben' },
           acabar_de_infinitivo: { yo: 'ich habe gerade ausgegeben', tu: 'du hast gerade ausgegeben', el: 'er/sie/es hat gerade ausgegeben', nosotros: 'wir haben gerade ausgegeben', vosotros: 'ihr habt gerade ausgegeben', ellos: 'sie haben gerade ausgegeben' },
+          imperativo_afirmativo: { yo: '—', tu: 'gib nicht so viel aus!', el: 'Geben Sie nicht so viel aus!', nosotros: 'Geben wir nicht so viel aus!', vosotros: 'gebt aus!', ellos: 'Geben Sie nicht so viel aus!' },
+          imperativo_negativo: { yo: '—', tu: 'gib nicht so viel aus nicht!', el: 'Geben Sie nicht so viel aus nicht!', nosotros: 'Geben wir nicht so viel aus nicht!', vosotros: 'gebt aus nicht!', ellos: 'Geben Sie nicht so viel aus nicht!' },
         },
       },
     },
@@ -6449,6 +7524,7 @@ export const VERBS: Verb[] = [
       { id: 'gastar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Wydaję to od razu.', en: 'I spend it right away.', de: 'Ich gebe es sofort aus.' }, spanish: 'lo gasto enseguida' },
       { id: 'gastar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wydasz wszystko na prezenty.', en: 'You are going to spend it all on gifts.', de: 'Du wirst alles für Geschenke ausgeben.' }, spanish: 'vas a gastar todo en regalos' },
       { id: 'gastar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wydaliśmy ostatnie pieniądze.', en: 'We just spent our last money.', de: 'Wir haben gerade unser letztes Geld ausgegeben.' }, spanish: 'acabamos de gastar el último dinero' },
+      { id: 'gastar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie wydawaj tyle', en: 'don\'t spend so much', de: 'gib nicht so viel aus' }, spanish: 'no gastes tanto' },
     ],
   },
   {
@@ -6456,6 +7532,7 @@ export const VERBS: Verb[] = [
     infinitive: 'ahorrar',
     regular: true,
     participle: 'ahorrado',
+    gerund: 'ahorrando',
     conjugations: conjugateRegular('ahorrar'),
     translations: {
       pl: {
@@ -6466,6 +7543,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zaoszczędzę', tu: 'zaoszczędzisz', el: 'zaoszczędzi', nosotros: 'zaoszczędzimy', vosotros: 'zaoszczędzicie', ellos: 'zaoszczędzą' },
           ir_a_infinitivo: { yo: 'zamierzam zaoszczędzić', tu: 'zamierzasz zaoszczędzić', el: 'zamierza zaoszczędzić', nosotros: 'zamierzamy zaoszczędzić', vosotros: 'zamierzacie zaoszczędzić', ellos: 'zamierzają zaoszczędzić' },
           acabar_de_infinitivo: { yo: 'właśnie zaoszczędziłem', tu: 'właśnie zaoszczędziłeś', el: 'właśnie zaoszczędził', nosotros: 'właśnie zaoszczędziliśmy', vosotros: 'właśnie zaoszczędziliście', ellos: 'właśnie zaoszczędzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'oszczędzaj', el: 'niech oszczędza', nosotros: 'oszczędzajmy', vosotros: 'oszczędzajcie', ellos: 'niech oszczędzają' },
+          imperativo_negativo: { yo: '—', tu: 'nie oszczędzaj', el: 'niech nie oszczędza', nosotros: 'nie oszczędzajmy', vosotros: 'nie oszczędzajcie', ellos: 'niech nie oszczędzają' },
         },
       },
       en: {
@@ -6476,6 +7555,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will save', tu: 'you will save', el: 'he/she will save', nosotros: 'we will save', vosotros: 'you (all) will save', ellos: 'they will save' },
           ir_a_infinitivo: { yo: 'I am going to save', tu: 'you are going to save', el: 'he/she is going to save', nosotros: 'we are going to save', vosotros: 'you (all) are going to save', ellos: 'they are going to save' },
           acabar_de_infinitivo: { yo: 'I just saved', tu: 'you just saved', el: 'he/she just saved', nosotros: 'we just saved', vosotros: 'you (all) just saved', ellos: 'they just saved' },
+          imperativo_afirmativo: { yo: '—', tu: 'save!', el: 'save!', nosotros: 'let\'s save!', vosotros: 'save!', ellos: 'save!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t save!', el: 'don\'t save!', nosotros: 'let\'s not save!', vosotros: 'don\'t save!', ellos: 'don\'t save!' },
         },
       },
       de: {
@@ -6486,6 +7567,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde sparen', tu: 'du wirst sparen', el: 'er/sie/es wird sparen', nosotros: 'wir werden sparen', vosotros: 'ihr werdet sparen', ellos: 'sie werden sparen' },
           ir_a_infinitivo: { yo: 'ich werde gleich sparen', tu: 'du wirst gleich sparen', el: 'er/sie/es wird gleich sparen', nosotros: 'wir werden gleich sparen', vosotros: 'ihr werdet gleich sparen', ellos: 'sie werden gleich sparen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gespart', tu: 'du hast gerade gespart', el: 'er/sie/es hat gerade gespart', nosotros: 'wir haben gerade gespart', vosotros: 'ihr habt gerade gespart', ellos: 'sie haben gerade gespart' },
+          imperativo_afirmativo: { yo: '—', tu: 'spar!', el: 'Sparen Sie!', nosotros: 'Sparen wir!', vosotros: 'spart!', ellos: 'Sparen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'spar nicht!', el: 'Sparen Sie nicht!', nosotros: 'Sparen wir nicht!', vosotros: 'spart nicht!', ellos: 'Sparen Sie nicht!' },
         },
       },
     },
@@ -6500,6 +7583,7 @@ export const VERBS: Verb[] = [
       { id: 'ahorrar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Oszczędzam to na później.', en: 'I save it for later.', de: 'Ich spare es für später.' }, spanish: 'lo ahorro para después' },
       { id: 'ahorrar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaoszczędzisz na wynajmie mieszkania.', en: 'You are going to save on rent.', de: 'Du wirst bei der Miete sparen.' }, spanish: 'vas a ahorrar en el alquiler' },
       { id: 'ahorrar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zaoszczędziliśmy na rachunkach.', en: 'We just saved on the bills.', de: 'Wir haben gerade bei den Rechnungen gespart.' }, spanish: 'acabamos de ahorrar en las facturas' },
+      { id: 'ahorrar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'oszczędzaj więcej pieniędzy', en: 'save more money', de: 'spar mehr Geld' }, spanish: 'ahorra más dinero' },
     ],
   },
   {
@@ -6507,6 +7591,7 @@ export const VERBS: Verb[] = [
     infinitive: 'ganar',
     regular: true,
     participle: 'ganado',
+    gerund: 'ganando',
     conjugations: conjugateRegular('ganar'),
     translations: {
       pl: {
@@ -6517,6 +7602,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zarobię', tu: 'zarobisz', el: 'zarobi', nosotros: 'zarobimy', vosotros: 'zarobicie', ellos: 'zarobią' },
           ir_a_infinitivo: { yo: 'zamierzam zarobić', tu: 'zamierzasz zarobić', el: 'zamierza zarobić', nosotros: 'zamierzamy zarobić', vosotros: 'zamierzacie zarobić', ellos: 'zamierzają zarobić' },
           acabar_de_infinitivo: { yo: 'właśnie zarobiłem', tu: 'właśnie zarobiłeś', el: 'właśnie zarobił', nosotros: 'właśnie zarobiliśmy', vosotros: 'właśnie zarobiliście', ellos: 'właśnie zarobili' },
+          imperativo_afirmativo: { yo: '—', tu: 'zarabiaj', el: 'niech zarabia', nosotros: 'zarabiajmy', vosotros: 'zarabiajcie', ellos: 'niech zarabiają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zarabiaj', el: 'niech nie zarabia', nosotros: 'nie zarabiajmy', vosotros: 'nie zarabiajcie', ellos: 'niech nie zarabiają' },
         },
       },
       en: {
@@ -6527,6 +7614,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will earn', tu: 'you will earn', el: 'he/she will earn', nosotros: 'we will earn', vosotros: 'you (all) will earn', ellos: 'they will earn' },
           ir_a_infinitivo: { yo: 'I am going to earn', tu: 'you are going to earn', el: 'he/she is going to earn', nosotros: 'we are going to earn', vosotros: 'you (all) are going to earn', ellos: 'they are going to earn' },
           acabar_de_infinitivo: { yo: 'I just earned', tu: 'you just earned', el: 'he/she just earned', nosotros: 'we just earned', vosotros: 'you (all) just earned', ellos: 'they just earned' },
+          imperativo_afirmativo: { yo: '—', tu: 'earn!', el: 'earn!', nosotros: 'let\'s earn!', vosotros: 'earn!', ellos: 'earn!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t earn!', el: 'don\'t earn!', nosotros: 'let\'s not earn!', vosotros: 'don\'t earn!', ellos: 'don\'t earn!' },
         },
       },
       de: {
@@ -6537,6 +7626,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde verdienen', tu: 'du wirst verdienen', el: 'er/sie/es wird verdienen', nosotros: 'wir werden verdienen', vosotros: 'ihr werdet verdienen', ellos: 'sie werden verdienen' },
           ir_a_infinitivo: { yo: 'ich werde gleich verdienen', tu: 'du wirst gleich verdienen', el: 'er/sie/es wird gleich verdienen', nosotros: 'wir werden gleich verdienen', vosotros: 'ihr werdet gleich verdienen', ellos: 'sie werden gleich verdienen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade verdient', tu: 'du hast gerade verdient', el: 'er/sie/es hat gerade verdient', nosotros: 'wir haben gerade verdient', vosotros: 'ihr habt gerade verdient', ellos: 'sie haben gerade verdient' },
+          imperativo_afirmativo: { yo: '—', tu: 'verdien!', el: 'Verdienen Sie!', nosotros: 'Verdienen wir!', vosotros: 'verdient!', ellos: 'Verdienen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'verdien nicht!', el: 'Verdienen Sie nicht!', nosotros: 'Verdienen wir nicht!', vosotros: 'verdient nicht!', ellos: 'Verdienen Sie nicht!' },
         },
       },
     },
@@ -6551,6 +7642,7 @@ export const VERBS: Verb[] = [
       { id: 'ganar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Zawsze to wygrywam.', en: 'I always win it.', de: 'Ich gewinne es immer.' }, spanish: 'siempre lo gano' },
       { id: 'ganar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Wygrasz ten turniej, jestem pewien.', en: 'You are going to win this tournament, I am sure.', de: 'Du wirst dieses Turnier gewinnen, ich bin sicher.' }, spanish: 'vas a ganar este torneo, estoy seguro' },
       { id: 'ganar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wygraliśmy nagrodę.', en: 'We just won a prize.', de: 'Wir haben gerade einen Preis gewonnen.' }, spanish: 'acabamos de ganar un premio' },
+      { id: 'ganar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zarabiaj więcej w tym roku', en: 'earn more this year', de: 'verdien dieses Jahr mehr' }, spanish: 'gana más este año' },
     ],
   },
   {
@@ -6558,6 +7650,7 @@ export const VERBS: Verb[] = [
     infinitive: 'cuidar',
     regular: true,
     participle: 'cuidado',
+    gerund: 'cuidando',
     conjugations: conjugateRegular('cuidar'),
     translations: {
       pl: {
@@ -6568,6 +7661,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę się opiekował', tu: 'będziesz się opiekował', el: 'będzie się opiekował', nosotros: 'będziemy się opiekowali', vosotros: 'będziecie się opiekowali', ellos: 'będą się opiekowali' },
           ir_a_infinitivo: { yo: 'zamierzam się opiekować', tu: 'zamierzasz się opiekować', el: 'zamierza się opiekować', nosotros: 'zamierzamy się opiekować', vosotros: 'zamierzacie się opiekować', ellos: 'zamierzają się opiekować' },
           acabar_de_infinitivo: { yo: 'właśnie się opiekowałem', tu: 'właśnie się opiekowałeś', el: 'właśnie się opiekował', nosotros: 'właśnie się opiekowaliśmy', vosotros: 'właśnie się opiekowaliście', ellos: 'właśnie się opiekowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zaopiekuj się nim', el: 'niech opiekuje się', nosotros: 'zaopiekuj się nimmy', vosotros: 'zaopiekuj się nimcie', ellos: 'niech opiekują się' },
+          imperativo_negativo: { yo: '—', tu: 'nie zaopiekuj się nim', el: 'niech nie opiekuje się', nosotros: 'nie zaopiekuj się nimmy', vosotros: 'nie zaopiekuj się nimcie', ellos: 'niech nie opiekują się' },
         },
       },
       en: {
@@ -6578,6 +7673,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will take care of', tu: 'you will take care of', el: 'he/she will take care of', nosotros: 'we will take care of', vosotros: 'you (all) will take care of', ellos: 'they will take care of' },
           ir_a_infinitivo: { yo: 'I am going to take care of', tu: 'you are going to take care of', el: 'he/she is going to take care of', nosotros: 'we are going to take care of', vosotros: 'you (all) are going to take care of', ellos: 'they are going to take care of' },
           acabar_de_infinitivo: { yo: 'I just took care of', tu: 'you just took care of', el: 'he/she just took care of', nosotros: 'we just took care of', vosotros: 'you (all) just took care of', ellos: 'they just took care of' },
+          imperativo_afirmativo: { yo: '—', tu: 'take care of!', el: 'take care of!', nosotros: 'let\'s take care of!', vosotros: 'take care of!', ellos: 'take care of!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t take care of!', el: 'don\'t take care of!', nosotros: 'let\'s not take care of!', vosotros: 'don\'t take care of!', ellos: 'don\'t take care of!' },
         },
       },
       de: {
@@ -6588,6 +7685,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde mich kümmern um', tu: 'du wirst dich kümmern um', el: 'er/sie/es wird sich kümmern um', nosotros: 'wir werden uns kümmern um', vosotros: 'ihr werdet euch kümmern um', ellos: 'sie werden sich kümmern um' },
           ir_a_infinitivo: { yo: 'ich werde mich gleich kümmern um', tu: 'du wirst dich gleich kümmern um', el: 'er/sie/es wird sich gleich kümmern um', nosotros: 'wir werden uns gleich kümmern um', vosotros: 'ihr werdet euch gleich kümmern um', ellos: 'sie werden sich gleich kümmern um' },
           acabar_de_infinitivo: { yo: 'ich habe mich gerade gekümmert um', tu: 'du hast dich gerade gekümmert um', el: 'er/sie/es hat sich gerade gekümmert um', nosotros: 'wir haben uns gerade gekümmert um', vosotros: 'ihr habt euch gerade gekümmert um', ellos: 'sie haben sich gerade gekümmert um' },
+          imperativo_afirmativo: { yo: '—', tu: 'kümmer dich um ihn!', el: 'Kümmern Sie sich um ihn!', nosotros: 'Kümmern wir uns um ihn!', vosotros: 'kümmert euch um!', ellos: 'Kümmern Sie sich um ihn!' },
+          imperativo_negativo: { yo: '—', tu: 'kümmer dich um ihn nicht!', el: 'Kümmern Sie sich um ihn nicht!', nosotros: 'Kümmern wir uns um ihn nicht!', vosotros: 'kümmert euch um nicht!', ellos: 'Kümmern Sie sich um ihn nicht!' },
         },
       },
     },
@@ -6602,6 +7701,7 @@ export const VERBS: Verb[] = [
       { id: 'cuidar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Opiekuję się nim codziennie.', en: 'I take care of him every day.', de: 'Ich kümmere mich täglich um ihn.' }, spanish: 'lo cuido todos los días' },
       { id: 'cuidar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaopiekujesz się roślinami podczas mojej nieobecności.', en: 'You are going to take care of the plants while I am away.', de: 'Du wirst dich um die Pflanzen kümmern, während ich weg bin.' }, spanish: 'vas a cuidar de las plantas mientras estoy fuera' },
       { id: 'cuidar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zaopiekowaliśmy się rannym ptakiem.', en: 'We just took care of an injured bird.', de: 'Wir haben uns gerade um einen verletzten Vogel gekümmert.' }, spanish: 'acabamos de cuidar de un pájaro herido' },
+      { id: 'cuidar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zaopiekuj się bratem', en: 'take care of your brother', de: 'kümmer dich um deinen Bruder' }, spanish: 'cuida a tu hermano' },
     ],
   },
   {
@@ -6609,12 +7709,15 @@ export const VERBS: Verb[] = [
     infinitive: 'abrazar',
     regular: false,
     participle: 'abrazado',
+    gerund: 'abrazando',
     conjugations: {
       presente: { yo: 'abrazo', tu: 'abrazas', el: 'abraza', nosotros: 'abrazamos', vosotros: 'abrazáis', ellos: 'abrazan' },
       preterite: { yo: 'abracé', tu: 'abrazaste', el: 'abrazó', nosotros: 'abrazamos', vosotros: 'abrazasteis', ellos: 'abrazaron' },
       futuro: { yo: 'abrazaré', tu: 'abrazarás', el: 'abrazará', nosotros: 'abrazaremos', vosotros: 'abrazaréis', ellos: 'abrazarán' },
       ir_a_infinitivo: { yo: 'voy a abrazar', tu: 'vas a abrazar', el: 'va a abrazar', nosotros: 'vamos a abrazar', vosotros: 'vais a abrazar', ellos: 'van a abrazar' },
       acabar_de_infinitivo: { yo: 'acabo de abrazar', tu: 'acabas de abrazar', el: 'acaba de abrazar', nosotros: 'acabamos de abrazar', vosotros: 'acabáis de abrazar', ellos: 'acaban de abrazar' },
+      imperativo_afirmativo: { yo: '—', tu: 'abraza', el: 'abrace', nosotros: 'abracemos', vosotros: 'abrazad', ellos: 'abracen' },
+      imperativo_negativo: { yo: '—', tu: 'no abraces', el: 'no abrace', nosotros: 'no abracemos', vosotros: 'no abracéis', ellos: 'no abracen' },
     },
     translations: {
       pl: {
@@ -6625,6 +7728,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przytulę', tu: 'przytulisz', el: 'przytuli', nosotros: 'przytulimy', vosotros: 'przytulicie', ellos: 'przytulą' },
           ir_a_infinitivo: { yo: 'zamierzam przytulić', tu: 'zamierzasz przytulić', el: 'zamierza przytulić', nosotros: 'zamierzamy przytulić', vosotros: 'zamierzacie przytulić', ellos: 'zamierzają przytulić' },
           acabar_de_infinitivo: { yo: 'właśnie przytuliłem', tu: 'właśnie przytuliłeś', el: 'właśnie przytulił', nosotros: 'właśnie przytuliliśmy', vosotros: 'właśnie przytuliliście', ellos: 'właśnie przytulili' },
+          imperativo_afirmativo: { yo: '—', tu: 'przytul', el: 'niech przytula', nosotros: 'przytulmy', vosotros: 'przytulcie', ellos: 'niech przytulają' },
+          imperativo_negativo: { yo: '—', tu: 'nie przytul', el: 'niech nie przytula', nosotros: 'nie przytulmy', vosotros: 'nie przytulcie', ellos: 'niech nie przytulają' },
         },
       },
       en: {
@@ -6635,6 +7740,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will hug', tu: 'you will hug', el: 'he/she will hug', nosotros: 'we will hug', vosotros: 'you (all) will hug', ellos: 'they will hug' },
           ir_a_infinitivo: { yo: 'I am going to hug', tu: 'you are going to hug', el: 'he/she is going to hug', nosotros: 'we are going to hug', vosotros: 'you (all) are going to hug', ellos: 'they are going to hug' },
           acabar_de_infinitivo: { yo: 'I just hugged', tu: 'you just hugged', el: 'he/she just hugged', nosotros: 'we just hugged', vosotros: 'you (all) just hugged', ellos: 'they just hugged' },
+          imperativo_afirmativo: { yo: '—', tu: 'hug!', el: 'hug!', nosotros: 'let\'s hug!', vosotros: 'hug!', ellos: 'hug!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t hug!', el: 'don\'t hug!', nosotros: 'let\'s not hug!', vosotros: 'don\'t hug!', ellos: 'don\'t hug!' },
         },
       },
       de: {
@@ -6645,6 +7752,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde umarmen', tu: 'du wirst umarmen', el: 'er/sie/es wird umarmen', nosotros: 'wir werden umarmen', vosotros: 'ihr werdet umarmen', ellos: 'sie werden umarmen' },
           ir_a_infinitivo: { yo: 'ich werde gleich umarmen', tu: 'du wirst gleich umarmen', el: 'er/sie/es wird gleich umarmen', nosotros: 'wir werden gleich umarmen', vosotros: 'ihr werdet gleich umarmen', ellos: 'sie werden gleich umarmen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade umarmt', tu: 'du hast gerade umarmt', el: 'er/sie/es hat gerade umarmt', nosotros: 'wir haben gerade umarmt', vosotros: 'ihr habt gerade umarmt', ellos: 'sie haben gerade umarmt' },
+          imperativo_afirmativo: { yo: '—', tu: 'umarm!', el: 'Umarmen Sie!', nosotros: 'Umarmen wir!', vosotros: 'umarmt!', ellos: 'Umarmen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'umarm nicht!', el: 'Umarmen Sie nicht!', nosotros: 'Umarmen wir nicht!', vosotros: 'umarmt nicht!', ellos: 'Umarmen Sie nicht!' },
         },
       },
     },
@@ -6659,6 +7768,7 @@ export const VERBS: Verb[] = [
       { id: 'abrazar-presente-la', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'la', translations: { pl: 'Przytulam ją zawsze, gdy jest smutna.', en: "I hug her whenever she's sad.", de: 'Ich umarme sie immer, wenn sie traurig ist.' }, spanish: 'la abrazo siempre que está triste' },
       { id: 'abrazar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Przytulisz mnie, kiedy przyjadę?', en: 'Are you going to hug me when I arrive?', de: 'Wirst du mich umarmen, wenn ich ankomme?' }, spanish: '¿me vas a abrazar cuando llegue?' },
       { id: 'abrazar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie się przytuliliśmy na dworcu.', en: 'We just hugged at the station.', de: 'Wir haben uns gerade am Bahnhof umarmt.' }, spanish: 'acabamos de abrazarnos en la estación' },
+      { id: 'abrazar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'przytul swojego przyjaciela', en: 'hug your friend', de: 'umarm deinen Freund' }, spanish: 'abraza a tu amigo' },
     ],
   },
   {
@@ -6666,6 +7776,7 @@ export const VERBS: Verb[] = [
     infinitive: 'besar',
     regular: true,
     participle: 'besado',
+    gerund: 'besando',
     conjugations: conjugateRegular('besar'),
     translations: {
       pl: {
@@ -6676,6 +7787,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'pocałuję', tu: 'pocałujesz', el: 'pocałuje', nosotros: 'pocałujemy', vosotros: 'pocałujecie', ellos: 'pocałują' },
           ir_a_infinitivo: { yo: 'zamierzam pocałować', tu: 'zamierzasz pocałować', el: 'zamierza pocałować', nosotros: 'zamierzamy pocałować', vosotros: 'zamierzacie pocałować', ellos: 'zamierzają pocałować' },
           acabar_de_infinitivo: { yo: 'właśnie pocałowałem', tu: 'właśnie pocałowałeś', el: 'właśnie pocałował', nosotros: 'właśnie pocałowaliśmy', vosotros: 'właśnie pocałowaliście', ellos: 'właśnie pocałowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pocałuj ją', el: 'niech całuje', nosotros: 'pocałuj jąmy', vosotros: 'pocałuj jącie', ellos: 'niech całują' },
+          imperativo_negativo: { yo: '—', tu: 'nie pocałuj ją', el: 'niech nie całuje', nosotros: 'nie pocałuj jąmy', vosotros: 'nie pocałuj jącie', ellos: 'niech nie całują' },
         },
       },
       en: {
@@ -6686,6 +7799,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will kiss', tu: 'you will kiss', el: 'he/she will kiss', nosotros: 'we will kiss', vosotros: 'you (all) will kiss', ellos: 'they will kiss' },
           ir_a_infinitivo: { yo: 'I am going to kiss', tu: 'you are going to kiss', el: 'he/she is going to kiss', nosotros: 'we are going to kiss', vosotros: 'you (all) are going to kiss', ellos: 'they are going to kiss' },
           acabar_de_infinitivo: { yo: 'I just kissed', tu: 'you just kissed', el: 'he/she just kissed', nosotros: 'we just kissed', vosotros: 'you (all) just kissed', ellos: 'they just kissed' },
+          imperativo_afirmativo: { yo: '—', tu: 'kiss!', el: 'kiss!', nosotros: 'let\'s kiss!', vosotros: 'kiss!', ellos: 'kiss!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t kiss!', el: 'don\'t kiss!', nosotros: 'let\'s not kiss!', vosotros: 'don\'t kiss!', ellos: 'don\'t kiss!' },
         },
       },
       de: {
@@ -6696,6 +7811,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde küssen', tu: 'du wirst küssen', el: 'er/sie/es wird küssen', nosotros: 'wir werden küssen', vosotros: 'ihr werdet küssen', ellos: 'sie werden küssen' },
           ir_a_infinitivo: { yo: 'ich werde gleich küssen', tu: 'du wirst gleich küssen', el: 'er/sie/es wird gleich küssen', nosotros: 'wir werden gleich küssen', vosotros: 'ihr werdet gleich küssen', ellos: 'sie werden gleich küssen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geküsst', tu: 'du hast gerade geküsst', el: 'er/sie/es hat gerade geküsst', nosotros: 'wir haben gerade geküsst', vosotros: 'ihr habt gerade geküsst', ellos: 'sie haben gerade geküsst' },
+          imperativo_afirmativo: { yo: '—', tu: 'küss sie!', el: 'Küssen Sie sie!', nosotros: 'Küssen wir sie!', vosotros: 'küsst!', ellos: 'Küssen Sie sie!' },
+          imperativo_negativo: { yo: '—', tu: 'küss sie nicht!', el: 'Küssen Sie sie nicht!', nosotros: 'Küssen wir sie nicht!', vosotros: 'küsst nicht!', ellos: 'Küssen Sie sie nicht!' },
         },
       },
     },
@@ -6710,6 +7827,7 @@ export const VERBS: Verb[] = [
       { id: 'besar-presente-la', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'la', translations: { pl: 'Całuję ją co rano.', en: 'I kiss her every morning.', de: 'Ich küsse sie jeden Morgen.' }, spanish: 'la beso todas las mañanas' },
       { id: 'besar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Pocałujesz go na do widzenia?', en: 'Are you going to kiss him goodbye?', de: 'Wirst du ihn zum Abschied küssen?' }, spanish: '¿lo vas a besar de despedida?' },
       { id: 'besar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie pocałowaliśmy się przed drzwiami.', en: 'We just kissed at the door.', de: 'Wir haben uns gerade an der Tür geküsst.' }, spanish: 'acabamos de besarnos en la puerta' },
+      { id: 'besar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pocałuj ją w policzek', en: 'kiss her on the cheek', de: 'küss sie auf die Wange' }, spanish: 'bésala en la mejilla' },
     ],
   },
   {
@@ -6717,6 +7835,7 @@ export const VERBS: Verb[] = [
     infinitive: 'molestar',
     regular: true,
     participle: 'molestado',
+    gerund: 'molestando',
     conjugations: conjugateRegular('molestar'),
     translations: {
       pl: {
@@ -6727,6 +7846,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przeszkodzę', tu: 'przeszkodzisz', el: 'przeszkodzi', nosotros: 'przeszkodzimy', vosotros: 'przeszkodzicie', ellos: 'przeszkodzą' },
           ir_a_infinitivo: { yo: 'zamierzam przeszkodzić', tu: 'zamierzasz przeszkodzić', el: 'zamierza przeszkodzić', nosotros: 'zamierzamy przeszkodzić', vosotros: 'zamierzacie przeszkodzić', ellos: 'zamierzają przeszkodzić' },
           acabar_de_infinitivo: { yo: 'właśnie przeszkodziłem', tu: 'właśnie przeszkodziłeś', el: 'właśnie przeszkodził', nosotros: 'właśnie przeszkodziliśmy', vosotros: 'właśnie przeszkodziliście', ellos: 'właśnie przeszkodzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie przeszkadzaj mu', el: 'niech przeszkadza', nosotros: 'nie przeszkadzaj mumy', vosotros: 'nie przeszkadzaj mucie', ellos: 'niech przeszkadzają' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie przeszkadzaj mu', el: 'niech nie przeszkadza', nosotros: 'nie nie przeszkadzaj mumy', vosotros: 'nie nie przeszkadzaj mucie', ellos: 'niech nie przeszkadzają' },
         },
       },
       en: {
@@ -6737,6 +7858,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will bother', tu: 'you will bother', el: 'he/she will bother', nosotros: 'we will bother', vosotros: 'you (all) will bother', ellos: 'they will bother' },
           ir_a_infinitivo: { yo: 'I am going to bother', tu: 'you are going to bother', el: 'he/she is going to bother', nosotros: 'we are going to bother', vosotros: 'you (all) are going to bother', ellos: 'they are going to bother' },
           acabar_de_infinitivo: { yo: 'I just bothered', tu: 'you just bothered', el: 'he/she just bothered', nosotros: 'we just bothered', vosotros: 'you (all) just bothered', ellos: 'they just bothered' },
+          imperativo_afirmativo: { yo: '—', tu: 'bother!', el: 'bother!', nosotros: 'let\'s bother!', vosotros: 'bother!', ellos: 'bother!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t bother!', el: 'don\'t bother!', nosotros: 'let\'s not bother!', vosotros: 'don\'t bother!', ellos: 'don\'t bother!' },
         },
       },
       de: {
@@ -6747,6 +7870,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde stören', tu: 'du wirst stören', el: 'er/sie/es wird stören', nosotros: 'wir werden stören', vosotros: 'ihr werdet stören', ellos: 'sie werden stören' },
           ir_a_infinitivo: { yo: 'ich werde gleich stören', tu: 'du wirst gleich stören', el: 'er/sie/es wird gleich stören', nosotros: 'wir werden gleich stören', vosotros: 'ihr werdet gleich stören', ellos: 'sie werden gleich stören' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gestört', tu: 'du hast gerade gestört', el: 'er/sie/es hat gerade gestört', nosotros: 'wir haben gerade gestört', vosotros: 'ihr habt gerade gestört', ellos: 'sie haben gerade gestört' },
+          imperativo_afirmativo: { yo: '—', tu: 'stör ihn nicht!', el: 'Stören Sie ihn nicht!', nosotros: 'Stören wir ihn nicht!', vosotros: 'stört!', ellos: 'Stören Sie ihn nicht!' },
+          imperativo_negativo: { yo: '—', tu: 'stör ihn nicht nicht!', el: 'Stören Sie ihn nicht nicht!', nosotros: 'Stören wir ihn nicht nicht!', vosotros: 'stört nicht!', ellos: 'Stören Sie ihn nicht nicht!' },
         },
       },
     },
@@ -6761,6 +7886,7 @@ export const VERBS: Verb[] = [
       { id: 'molestar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Nie przeszkadzam mu, gdy pracuje.', en: "I don't bother him when he's working.", de: 'Ich störe ihn nicht, wenn er arbeitet.' }, spanish: 'no lo molesto cuando trabaja' },
       { id: 'molestar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaraz mu przeszkodzisz swoim pytaniem.', en: "You are going to bother him with your question.", de: 'Du wirst ihn gleich mit deiner Frage stören.' }, spanish: 'lo vas a molestar con esa pregunta' },
       { id: 'molestar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie przeszkodziliśmy dyrektorowi w spotkaniu.', en: "We just interrupted the manager's meeting.", de: 'Wir haben gerade das Meeting des Managers gestört.' }, spanish: 'acabamos de molestar al director en su reunión' },
+      { id: 'molestar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie przeszkadzaj mu', en: 'don\'t bother him', de: 'stör ihn nicht' }, spanish: 'no lo molestes' },
     ],
   },
   {
@@ -6768,6 +7894,7 @@ export const VERBS: Verb[] = [
     infinitive: 'fumar',
     regular: true,
     participle: 'fumado',
+    gerund: 'fumando',
     conjugations: conjugateRegular('fumar'),
     translations: {
       pl: {
@@ -6778,6 +7905,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę palił', tu: 'będziesz palił', el: 'będzie palił', nosotros: 'będziemy palili', vosotros: 'będziecie palili', ellos: 'będą palili' },
           ir_a_infinitivo: { yo: 'zamierzam palić', tu: 'zamierzasz palić', el: 'zamierza palić', nosotros: 'zamierzamy palić', vosotros: 'zamierzacie palić', ellos: 'zamierzają palić' },
           acabar_de_infinitivo: { yo: 'właśnie paliłem', tu: 'właśnie paliłeś', el: 'właśnie palił', nosotros: 'właśnie paliliśmy', vosotros: 'właśnie paliliście', ellos: 'właśnie palili' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie pal tutaj', el: 'niech pali', nosotros: 'nie pal tutajmy', vosotros: 'nie pal tutajcie', ellos: 'niech palą' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie pal tutaj', el: 'niech nie pali', nosotros: 'nie nie pal tutajmy', vosotros: 'nie nie pal tutajcie', ellos: 'niech nie palą' },
         },
       },
       en: {
@@ -6788,6 +7917,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will smoke', tu: 'you will smoke', el: 'he/she will smoke', nosotros: 'we will smoke', vosotros: 'you (all) will smoke', ellos: 'they will smoke' },
           ir_a_infinitivo: { yo: 'I am going to smoke', tu: 'you are going to smoke', el: 'he/she is going to smoke', nosotros: 'we are going to smoke', vosotros: 'you (all) are going to smoke', ellos: 'they are going to smoke' },
           acabar_de_infinitivo: { yo: 'I just smoked', tu: 'you just smoked', el: 'he/she just smoked', nosotros: 'we just smoked', vosotros: 'you (all) just smoked', ellos: 'they just smoked' },
+          imperativo_afirmativo: { yo: '—', tu: 'smoke!', el: 'smoke!', nosotros: 'let\'s smoke!', vosotros: 'smoke!', ellos: 'smoke!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t smoke!', el: 'don\'t smoke!', nosotros: 'let\'s not smoke!', vosotros: 'don\'t smoke!', ellos: 'don\'t smoke!' },
         },
       },
       de: {
@@ -6798,6 +7929,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde rauchen', tu: 'du wirst rauchen', el: 'er/sie/es wird rauchen', nosotros: 'wir werden rauchen', vosotros: 'ihr werdet rauchen', ellos: 'sie werden rauchen' },
           ir_a_infinitivo: { yo: 'ich werde gleich rauchen', tu: 'du wirst gleich rauchen', el: 'er/sie/es wird gleich rauchen', nosotros: 'wir werden gleich rauchen', vosotros: 'ihr werdet gleich rauchen', ellos: 'sie werden gleich rauchen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geraucht', tu: 'du hast gerade geraucht', el: 'er/sie/es hat gerade geraucht', nosotros: 'wir haben gerade geraucht', vosotros: 'ihr habt gerade geraucht', ellos: 'sie haben gerade geraucht' },
+          imperativo_afirmativo: { yo: '—', tu: 'rauch nicht hier!', el: 'Rauchen Sie nicht hier!', nosotros: 'Rauchen wir nicht hier!', vosotros: 'raucht!', ellos: 'Rauchen Sie nicht hier!' },
+          imperativo_negativo: { yo: '—', tu: 'rauch nicht hier nicht!', el: 'Rauchen Sie nicht hier nicht!', nosotros: 'Rauchen wir nicht hier nicht!', vosotros: 'raucht nicht!', ellos: 'Rauchen Sie nicht hier nicht!' },
         },
       },
     },
@@ -6811,6 +7944,7 @@ export const VERBS: Verb[] = [
       { id: 'fumar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Palili w tajemnicy przed rodzicami.', en: 'They smoked secretly from their parents.', de: 'Sie rauchten heimlich vor ihren Eltern.' }, spanish: 'fumaron a escondidas de sus padres' },
       { id: 'fumar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Rzucisz palenie w tym roku.', en: 'You are going to quit smoking this year.', de: 'Du wirst dieses Jahr mit dem Rauchen aufhören.' }, spanish: 'vas a dejar de fumar este año' },
       { id: 'fumar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie wypaliliśmy ostatniego papierosa.', en: 'We just smoked our last cigarette.', de: 'Wir haben gerade unsere letzte Zigarette geraucht.' }, spanish: 'acabamos de fumar el último cigarrillo' },
+      { id: 'fumar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie pal tutaj', en: 'don\'t smoke here', de: 'rauch nicht hier' }, spanish: 'no fumes aquí' },
     ],
   },
   {
@@ -6818,6 +7952,7 @@ export const VERBS: Verb[] = [
     infinitive: 'coser',
     regular: true,
     participle: 'cosido',
+    gerund: 'cosiendo',
     conjugations: conjugateRegular('coser'),
     translations: {
       pl: {
@@ -6828,6 +7963,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę szył', tu: 'będziesz szył', el: 'będzie szył', nosotros: 'będziemy szyli', vosotros: 'będziecie szyli', ellos: 'będą szyli' },
           ir_a_infinitivo: { yo: 'zamierzam szyć', tu: 'zamierzasz szyć', el: 'zamierza szyć', nosotros: 'zamierzamy szyć', vosotros: 'zamierzacie szyć', ellos: 'zamierzają szyć' },
           acabar_de_infinitivo: { yo: 'właśnie szyłem', tu: 'właśnie szyłeś', el: 'właśnie szył', nosotros: 'właśnie szyliśmy', vosotros: 'właśnie szyliście', ellos: 'właśnie szyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zszyj to', el: 'niech szyje', nosotros: 'zszyj tomy', vosotros: 'zszyj tocie', ellos: 'niech szyją' },
+          imperativo_negativo: { yo: '—', tu: 'nie zszyj to', el: 'niech nie szyje', nosotros: 'nie zszyj tomy', vosotros: 'nie zszyj tocie', ellos: 'niech nie szyją' },
         },
       },
       en: {
@@ -6838,6 +7975,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will sew', tu: 'you will sew', el: 'he/she will sew', nosotros: 'we will sew', vosotros: 'you (all) will sew', ellos: 'they will sew' },
           ir_a_infinitivo: { yo: 'I am going to sew', tu: 'you are going to sew', el: 'he/she is going to sew', nosotros: 'we are going to sew', vosotros: 'you (all) are going to sew', ellos: 'they are going to sew' },
           acabar_de_infinitivo: { yo: 'I just sewed', tu: 'you just sewed', el: 'he/she just sewed', nosotros: 'we just sewed', vosotros: 'you (all) just sewed', ellos: 'they just sewed' },
+          imperativo_afirmativo: { yo: '—', tu: 'sew!', el: 'sew!', nosotros: 'let\'s sew!', vosotros: 'sew!', ellos: 'sew!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t sew!', el: 'don\'t sew!', nosotros: 'let\'s not sew!', vosotros: 'don\'t sew!', ellos: 'don\'t sew!' },
         },
       },
       de: {
@@ -6848,6 +7987,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde nähen', tu: 'du wirst nähen', el: 'er/sie/es wird nähen', nosotros: 'wir werden nähen', vosotros: 'ihr werdet nähen', ellos: 'sie werden nähen' },
           ir_a_infinitivo: { yo: 'ich werde gleich nähen', tu: 'du wirst gleich nähen', el: 'er/sie/es wird gleich nähen', nosotros: 'wir werden gleich nähen', vosotros: 'ihr werdet gleich nähen', ellos: 'sie werden gleich nähen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade genäht', tu: 'du hast gerade genäht', el: 'er/sie/es hat gerade genäht', nosotros: 'wir haben gerade genäht', vosotros: 'ihr habt gerade genäht', ellos: 'sie haben gerade genäht' },
+          imperativo_afirmativo: { yo: '—', tu: 'näh es!', el: 'Nähen Sie es!', nosotros: 'Nähen wir es!', vosotros: 'näht!', ellos: 'Nähen Sie es!' },
+          imperativo_negativo: { yo: '—', tu: 'näh es nicht!', el: 'Nähen Sie es nicht!', nosotros: 'Nähen wir es nicht!', vosotros: 'näht nicht!', ellos: 'Nähen Sie es nicht!' },
         },
       },
     },
@@ -6861,6 +8002,7 @@ export const VERBS: Verb[] = [
       { id: 'coser-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Szyję to ręcznie.', en: 'I sew it by hand.', de: 'Ich nähe es mit der Hand.' }, spanish: 'lo coso a mano' },
       { id: 'coser-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Uszyjesz mi spódnicę.', en: 'You are going to sew a skirt for me.', de: 'Du wirst mir einen Rock nähen.' }, spanish: 'me vas a coser una falda' },
       { id: 'coser-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie uszyliśmy zasłony.', en: 'We just sewed the curtains.', de: 'Wir haben gerade die Vorhänge genäht.' }, spanish: 'acabamos de coser las cortinas' },
+      { id: 'coser-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'przyszyj guzik', en: 'sew the button', de: 'näh den Knopf an' }, spanish: 'cose el botón' },
     ],
   },
   {
@@ -6868,6 +8010,7 @@ export const VERBS: Verb[] = [
     infinitive: 'pintar',
     regular: true,
     participle: 'pintado',
+    gerund: 'pintando',
     conjugations: conjugateRegular('pintar'),
     translations: {
       pl: {
@@ -6878,6 +8021,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę malował', tu: 'będziesz malował', el: 'będzie malował', nosotros: 'będziemy malowali', vosotros: 'będziecie malowali', ellos: 'będą malowali' },
           ir_a_infinitivo: { yo: 'zamierzam malować', tu: 'zamierzasz malować', el: 'zamierza malować', nosotros: 'zamierzamy malować', vosotros: 'zamierzacie malować', ellos: 'zamierzają malować' },
           acabar_de_infinitivo: { yo: 'właśnie malowałem', tu: 'właśnie malowałeś', el: 'właśnie malował', nosotros: 'właśnie malowaliśmy', vosotros: 'właśnie malowaliście', ellos: 'właśnie malowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pomaluj ścianę', el: 'niech maluje', nosotros: 'pomaluj ścianęmy', vosotros: 'pomaluj ścianęcie', ellos: 'niech malują' },
+          imperativo_negativo: { yo: '—', tu: 'nie pomaluj ścianę', el: 'niech nie maluje', nosotros: 'nie pomaluj ścianęmy', vosotros: 'nie pomaluj ścianęcie', ellos: 'niech nie malują' },
         },
       },
       en: {
@@ -6888,6 +8033,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will paint', tu: 'you will paint', el: 'he/she will paint', nosotros: 'we will paint', vosotros: 'you (all) will paint', ellos: 'they will paint' },
           ir_a_infinitivo: { yo: 'I am going to paint', tu: 'you are going to paint', el: 'he/she is going to paint', nosotros: 'we are going to paint', vosotros: 'you (all) are going to paint', ellos: 'they are going to paint' },
           acabar_de_infinitivo: { yo: 'I just painted', tu: 'you just painted', el: 'he/she just painted', nosotros: 'we just painted', vosotros: 'you (all) just painted', ellos: 'they just painted' },
+          imperativo_afirmativo: { yo: '—', tu: 'paint!', el: 'paint!', nosotros: 'let\'s paint!', vosotros: 'paint!', ellos: 'paint!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t paint!', el: 'don\'t paint!', nosotros: 'let\'s not paint!', vosotros: 'don\'t paint!', ellos: 'don\'t paint!' },
         },
       },
       de: {
@@ -6898,6 +8045,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde malen', tu: 'du wirst malen', el: 'er/sie/es wird malen', nosotros: 'wir werden malen', vosotros: 'ihr werdet malen', ellos: 'sie werden malen' },
           ir_a_infinitivo: { yo: 'ich werde gleich malen', tu: 'du wirst gleich malen', el: 'er/sie/es wird gleich malen', nosotros: 'wir werden gleich malen', vosotros: 'ihr werdet gleich malen', ellos: 'sie werden gleich malen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gemalt', tu: 'du hast gerade gemalt', el: 'er/sie/es hat gerade gemalt', nosotros: 'wir haben gerade gemalt', vosotros: 'ihr habt gerade gemalt', ellos: 'sie haben gerade gemalt' },
+          imperativo_afirmativo: { yo: '—', tu: 'mal die Wand!', el: 'Malen Sie die Wand!', nosotros: 'Malen wir die Wand!', vosotros: 'malt!', ellos: 'Malen Sie die Wand!' },
+          imperativo_negativo: { yo: '—', tu: 'mal die Wand nicht!', el: 'Malen Sie die Wand nicht!', nosotros: 'Malen wir die Wand nicht!', vosotros: 'malt nicht!', ellos: 'Malen Sie die Wand nicht!' },
         },
       },
     },
@@ -6911,6 +8060,7 @@ export const VERBS: Verb[] = [
       { id: 'pintar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Maluję to na niebiesko.', en: 'I am painting it blue.', de: 'Ich male es blau.' }, spanish: 'lo pinto de azul' },
       { id: 'pintar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Pomalujesz swój pokój.', en: 'You are going to paint your room.', de: 'Du wirst dein Zimmer streichen.' }, spanish: 'vas a pintar tu habitación' },
       { id: 'pintar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie pomalowaliśmy bramę.', en: 'We just painted the gate.', de: 'Wir haben gerade das Tor gestrichen.' }, spanish: 'acabamos de pintar la puerta' },
+      { id: 'pintar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pomaluj ścianę', en: 'paint the wall', de: 'mal die Wand' }, spanish: 'pinta la pared' },
     ],
   },
   {
@@ -6918,12 +8068,15 @@ export const VERBS: Verb[] = [
     infinitive: 'tocar',
     regular: false,
     participle: 'tocado',
+    gerund: 'tocando',
     conjugations: {
       presente: { yo: 'toco', tu: 'tocas', el: 'toca', nosotros: 'tocamos', vosotros: 'tocáis', ellos: 'tocan' },
       preterite: { yo: 'toqué', tu: 'tocaste', el: 'tocó', nosotros: 'tocamos', vosotros: 'tocasteis', ellos: 'tocaron' },
       futuro: { yo: 'tocaré', tu: 'tocarás', el: 'tocará', nosotros: 'tocaremos', vosotros: 'tocaréis', ellos: 'tocarán' },
       ir_a_infinitivo: { yo: 'voy a tocar', tu: 'vas a tocar', el: 'va a tocar', nosotros: 'vamos a tocar', vosotros: 'vais a tocar', ellos: 'van a tocar' },
       acabar_de_infinitivo: { yo: 'acabo de tocar', tu: 'acabas de tocar', el: 'acaba de tocar', nosotros: 'acabamos de tocar', vosotros: 'acabáis de tocar', ellos: 'acaban de tocar' },
+      imperativo_afirmativo: { yo: '—', tu: 'toca', el: 'toque', nosotros: 'toquemos', vosotros: 'tocad', ellos: 'toquen' },
+      imperativo_negativo: { yo: '—', tu: 'no toques', el: 'no toque', nosotros: 'no toquemos', vosotros: 'no toquéis', ellos: 'no toquen' },
     },
     translations: {
       pl: {
@@ -6934,6 +8087,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'dotknę', tu: 'dotkniesz', el: 'dotknie', nosotros: 'dotkniemy', vosotros: 'dotkniecie', ellos: 'dotkną' },
           ir_a_infinitivo: { yo: 'zamierzam dotknąć', tu: 'zamierzasz dotknąć', el: 'zamierza dotknąć', nosotros: 'zamierzamy dotknąć', vosotros: 'zamierzacie dotknąć', ellos: 'zamierzają dotknąć' },
           acabar_de_infinitivo: { yo: 'właśnie dotknąłem', tu: 'właśnie dotknąłeś', el: 'właśnie dotknął', nosotros: 'właśnie dotknęliśmy', vosotros: 'właśnie dotknęliście', ellos: 'właśnie dotknęli' },
+          imperativo_afirmativo: { yo: '—', tu: 'nie dotykaj tego', el: 'niech dotyka', nosotros: 'nie dotykaj tegomy', vosotros: 'nie dotykaj tegocie', ellos: 'niech dotykają' },
+          imperativo_negativo: { yo: '—', tu: 'nie nie dotykaj tego', el: 'niech nie dotyka', nosotros: 'nie nie dotykaj tegomy', vosotros: 'nie nie dotykaj tegocie', ellos: 'niech nie dotykają' },
         },
       },
       en: {
@@ -6944,6 +8099,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will touch', tu: 'you will touch', el: 'he/she will touch', nosotros: 'we will touch', vosotros: 'you (all) will touch', ellos: 'they will touch' },
           ir_a_infinitivo: { yo: 'I am going to touch', tu: 'you are going to touch', el: 'he/she is going to touch', nosotros: 'we are going to touch', vosotros: 'you (all) are going to touch', ellos: 'they are going to touch' },
           acabar_de_infinitivo: { yo: 'I just touched', tu: 'you just touched', el: 'he/she just touched', nosotros: 'we just touched', vosotros: 'you (all) just touched', ellos: 'they just touched' },
+          imperativo_afirmativo: { yo: '—', tu: 'touch!', el: 'touch!', nosotros: 'let\'s touch!', vosotros: 'touch!', ellos: 'touch!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t touch!', el: 'don\'t touch!', nosotros: 'let\'s not touch!', vosotros: 'don\'t touch!', ellos: 'don\'t touch!' },
         },
       },
       de: {
@@ -6954,6 +8111,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde berühren', tu: 'du wirst berühren', el: 'er/sie/es wird berühren', nosotros: 'wir werden berühren', vosotros: 'ihr werdet berühren', ellos: 'sie werden berühren' },
           ir_a_infinitivo: { yo: 'ich werde gleich berühren', tu: 'du wirst gleich berühren', el: 'er/sie/es wird gleich berühren', nosotros: 'wir werden gleich berühren', vosotros: 'ihr werdet gleich berühren', ellos: 'sie werden gleich berühren' },
           acabar_de_infinitivo: { yo: 'ich habe gerade berührt', tu: 'du hast gerade berührt', el: 'er/sie/es hat gerade berührt', nosotros: 'wir haben gerade berührt', vosotros: 'ihr habt gerade berührt', ellos: 'sie haben gerade berührt' },
+          imperativo_afirmativo: { yo: '—', tu: 'fass das nicht an!', el: 'Fassen Sie das nicht an!', nosotros: 'Fassen wir das nicht an!', vosotros: 'berührt!', ellos: 'Fassen Sie das nicht an!' },
+          imperativo_negativo: { yo: '—', tu: 'fass das nicht an nicht!', el: 'Fassen Sie das nicht an nicht!', nosotros: 'Fassen wir das nicht an nicht!', vosotros: 'berührt nicht!', ellos: 'Fassen Sie das nicht an nicht!' },
         },
       },
     },
@@ -6967,6 +8126,7 @@ export const VERBS: Verb[] = [
       { id: 'tocar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Nie dotykam tego.', en: "I don't touch it.", de: 'Ich berühre es nicht.' }, spanish: 'no lo toco' },
       { id: 'tocar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zagrasz na skrzypcach.', en: 'You are going to play the violin.', de: 'Du wirst Geige spielen.' }, spanish: 'vas a tocar el violín' },
       { id: 'tocar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zagraliśmy ostatnią piosenkę.', en: 'We just played the last song.', de: 'Wir haben gerade das letzte Lied gespielt.' }, spanish: 'acabamos de tocar la última canción' },
+      { id: 'tocar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'nie dotykaj tego', en: 'don\'t touch that', de: 'fass das nicht an' }, spanish: 'no toques eso' },
     ],
   },
   {
@@ -6974,6 +8134,7 @@ export const VERBS: Verb[] = [
     infinitive: 'cantar',
     regular: true,
     participle: 'cantado',
+    gerund: 'cantando',
     conjugations: conjugateRegular('cantar'),
     translations: {
       pl: {
@@ -6984,6 +8145,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę śpiewał', tu: 'będziesz śpiewał', el: 'będzie śpiewał', nosotros: 'będziemy śpiewali', vosotros: 'będziecie śpiewali', ellos: 'będą śpiewali' },
           ir_a_infinitivo: { yo: 'zamierzam śpiewać', tu: 'zamierzasz śpiewać', el: 'zamierza śpiewać', nosotros: 'zamierzamy śpiewać', vosotros: 'zamierzacie śpiewać', ellos: 'zamierzają śpiewać' },
           acabar_de_infinitivo: { yo: 'właśnie śpiewałem', tu: 'właśnie śpiewałeś', el: 'właśnie śpiewał', nosotros: 'właśnie śpiewaliśmy', vosotros: 'właśnie śpiewaliście', ellos: 'właśnie śpiewali' },
+          imperativo_afirmativo: { yo: '—', tu: 'zaśpiewaj', el: 'niech śpiewa', nosotros: 'zaśpiewajmy', vosotros: 'zaśpiewajcie', ellos: 'niech śpiewają' },
+          imperativo_negativo: { yo: '—', tu: 'nie zaśpiewaj', el: 'niech nie śpiewa', nosotros: 'nie zaśpiewajmy', vosotros: 'nie zaśpiewajcie', ellos: 'niech nie śpiewają' },
         },
       },
       en: {
@@ -6994,6 +8157,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will sing', tu: 'you will sing', el: 'he/she will sing', nosotros: 'we will sing', vosotros: 'you (all) will sing', ellos: 'they will sing' },
           ir_a_infinitivo: { yo: 'I am going to sing', tu: 'you are going to sing', el: 'he/she is going to sing', nosotros: 'we are going to sing', vosotros: 'you (all) are going to sing', ellos: 'they are going to sing' },
           acabar_de_infinitivo: { yo: 'I just sang', tu: 'you just sang', el: 'he/she just sang', nosotros: 'we just sang', vosotros: 'you (all) just sang', ellos: 'they just sang' },
+          imperativo_afirmativo: { yo: '—', tu: 'sing!', el: 'sing!', nosotros: 'let\'s sing!', vosotros: 'sing!', ellos: 'sing!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t sing!', el: 'don\'t sing!', nosotros: 'let\'s not sing!', vosotros: 'don\'t sing!', ellos: 'don\'t sing!' },
         },
       },
       de: {
@@ -7004,6 +8169,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde singen', tu: 'du wirst singen', el: 'er/sie/es wird singen', nosotros: 'wir werden singen', vosotros: 'ihr werdet singen', ellos: 'sie werden singen' },
           ir_a_infinitivo: { yo: 'ich werde gleich singen', tu: 'du wirst gleich singen', el: 'er/sie/es wird gleich singen', nosotros: 'wir werden gleich singen', vosotros: 'ihr werdet gleich singen', ellos: 'sie werden gleich singen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gesungen', tu: 'du hast gerade gesungen', el: 'er/sie/es hat gerade gesungen', nosotros: 'wir haben gerade gesungen', vosotros: 'ihr habt gerade gesungen', ellos: 'sie haben gerade gesungen' },
+          imperativo_afirmativo: { yo: '—', tu: 'sing!', el: 'Singen Sie!', nosotros: 'Singen wir!', vosotros: 'singt!', ellos: 'Singen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'sing nicht!', el: 'Singen Sie nicht!', nosotros: 'Singen wir nicht!', vosotros: 'singt nicht!', ellos: 'Singen Sie nicht!' },
         },
       },
     },
@@ -7017,6 +8184,7 @@ export const VERBS: Verb[] = [
       { id: 'cantar-preterite-ellos', tense: 'preterite', person: 'ellos', pronounType: 'none', translations: { pl: 'Zaśpiewali kolędy pod choinką.', en: 'They sang carols under the Christmas tree.', de: 'Sie sangen Weihnachtslieder unter dem Weihnachtsbaum.' }, spanish: 'cantaron villancicos bajo el árbol' },
       { id: 'cantar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zaśpiewasz solo w tym utworze.', en: 'You are going to sing solo in this song.', de: 'Du wirst in diesem Lied solo singen.' }, spanish: 'vas a cantar en solitario en esta canción' },
       { id: 'cantar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zaśpiewaliśmy ostatni utwór koncertu.', en: 'We just sang the concert\'s last song.', de: 'Wir haben gerade das letzte Lied des Konzerts gesungen.' }, spanish: 'acabamos de cantar la última canción del concierto' },
+      { id: 'cantar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zaśpiewaj tę piosenkę', en: 'sing this song', de: 'sing dieses Lied' }, spanish: 'canta esta canción' },
     ],
   },
   {
@@ -7024,6 +8192,7 @@ export const VERBS: Verb[] = [
     infinitive: 'bailar',
     regular: true,
     participle: 'bailado',
+    gerund: 'bailando',
     conjugations: conjugateRegular('bailar'),
     translations: {
       pl: {
@@ -7034,6 +8203,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę tańczył', tu: 'będziesz tańczył', el: 'będzie tańczył', nosotros: 'będziemy tańczyli', vosotros: 'będziecie tańczyli', ellos: 'będą tańczyli' },
           ir_a_infinitivo: { yo: 'zamierzam tańczyć', tu: 'zamierzasz tańczyć', el: 'zamierza tańczyć', nosotros: 'zamierzamy tańczyć', vosotros: 'zamierzacie tańczyć', ellos: 'zamierzają tańczyć' },
           acabar_de_infinitivo: { yo: 'właśnie tańczyłem', tu: 'właśnie tańczyłeś', el: 'właśnie tańczył', nosotros: 'właśnie tańczyliśmy', vosotros: 'właśnie tańczyliście', ellos: 'właśnie tańczyli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zatańcz', el: 'niech tańczy', nosotros: 'zatańczmy', vosotros: 'zatańczcie', ellos: 'niech tańczą' },
+          imperativo_negativo: { yo: '—', tu: 'nie zatańcz', el: 'niech nie tańczy', nosotros: 'nie zatańczmy', vosotros: 'nie zatańczcie', ellos: 'niech nie tańczą' },
         },
       },
       en: {
@@ -7044,6 +8215,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will dance', tu: 'you will dance', el: 'he/she will dance', nosotros: 'we will dance', vosotros: 'you (all) will dance', ellos: 'they will dance' },
           ir_a_infinitivo: { yo: 'I am going to dance', tu: 'you are going to dance', el: 'he/she is going to dance', nosotros: 'we are going to dance', vosotros: 'you (all) are going to dance', ellos: 'they are going to dance' },
           acabar_de_infinitivo: { yo: 'I just danced', tu: 'you just danced', el: 'he/she just danced', nosotros: 'we just danced', vosotros: 'you (all) just danced', ellos: 'they just danced' },
+          imperativo_afirmativo: { yo: '—', tu: 'dance!', el: 'dance!', nosotros: 'let\'s dance!', vosotros: 'dance!', ellos: 'dance!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t dance!', el: 'don\'t dance!', nosotros: 'let\'s not dance!', vosotros: 'don\'t dance!', ellos: 'don\'t dance!' },
         },
       },
       de: {
@@ -7054,6 +8227,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde tanzen', tu: 'du wirst tanzen', el: 'er/sie/es wird tanzen', nosotros: 'wir werden tanzen', vosotros: 'ihr werdet tanzen', ellos: 'sie werden tanzen' },
           ir_a_infinitivo: { yo: 'ich werde gleich tanzen', tu: 'du wirst gleich tanzen', el: 'er/sie/es wird gleich tanzen', nosotros: 'wir werden gleich tanzen', vosotros: 'ihr werdet gleich tanzen', ellos: 'sie werden gleich tanzen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade getanzt', tu: 'du hast gerade getanzt', el: 'er/sie/es hat gerade getanzt', nosotros: 'wir haben gerade getanzt', vosotros: 'ihr habt gerade getanzt', ellos: 'sie haben gerade getanzt' },
+          imperativo_afirmativo: { yo: '—', tu: 'tanz!', el: 'Tanzen Sie!', nosotros: 'Tanzen wir!', vosotros: 'tanzt!', ellos: 'Tanzen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'tanz nicht!', el: 'Tanzen Sie nicht!', nosotros: 'Tanzen wir nicht!', vosotros: 'tanzt nicht!', ellos: 'Tanzen Sie nicht!' },
         },
       },
     },
@@ -7066,6 +8241,7 @@ export const VERBS: Verb[] = [
       { id: 'bailar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Tańczyliśmy razem na scenie.', en: 'We danced together on stage.', de: 'Wir tanzten zusammen auf der Bühne.' }, spanish: 'bailamos juntos en el escenario' },
       { id: 'bailar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Zatańczysz na imprezie w sobotę.', en: 'You are going to dance at the party on Saturday.', de: 'Du wirst am Samstag auf der Party tanzen.' }, spanish: 'vas a bailar en la fiesta el sábado' },
       { id: 'bailar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zatańczyliśmy ostatni taniec wieczoru.', en: "We just danced the evening's last dance.", de: 'Wir haben gerade den letzten Tanz des Abends getanzt.' }, spanish: 'acabamos de bailar el último baile de la noche' },
+      { id: 'bailar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'zatańcz ze mną', en: 'dance with me', de: 'tanz mit mir' }, spanish: 'baila conmigo' },
     ],
   },
   {
@@ -7073,6 +8249,7 @@ export const VERBS: Verb[] = [
     infinitive: 'descansar',
     regular: true,
     participle: 'descansado',
+    gerund: 'descansando',
     conjugations: conjugateRegular('descansar'),
     translations: {
       pl: {
@@ -7083,6 +8260,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę odpoczywał', tu: 'będziesz odpoczywał', el: 'będzie odpoczywał', nosotros: 'będziemy odpoczywali', vosotros: 'będziecie odpoczywali', ellos: 'będą odpoczywali' },
           ir_a_infinitivo: { yo: 'zamierzam odpocząć', tu: 'zamierzasz odpocząć', el: 'zamierza odpocząć', nosotros: 'zamierzamy odpocząć', vosotros: 'zamierzacie odpocząć', ellos: 'zamierzają odpocząć' },
           acabar_de_infinitivo: { yo: 'właśnie odpoczywałem', tu: 'właśnie odpoczywałeś', el: 'właśnie odpoczywał', nosotros: 'właśnie odpoczywaliśmy', vosotros: 'właśnie odpoczywaliście', ellos: 'właśnie odpoczywali' },
+          imperativo_afirmativo: { yo: '—', tu: 'odpocznij', el: 'niech odpoczywa', nosotros: 'odpocznijmy', vosotros: 'odpocznijcie', ellos: 'niech odpoczywają' },
+          imperativo_negativo: { yo: '—', tu: 'nie odpocznij', el: 'niech nie odpoczywa', nosotros: 'nie odpocznijmy', vosotros: 'nie odpocznijcie', ellos: 'niech nie odpoczywają' },
         },
       },
       en: {
@@ -7093,6 +8272,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will rest', tu: 'you will rest', el: 'he/she will rest', nosotros: 'we will rest', vosotros: 'you (all) will rest', ellos: 'they will rest' },
           ir_a_infinitivo: { yo: 'I am going to rest', tu: 'you are going to rest', el: 'he/she is going to rest', nosotros: 'we are going to rest', vosotros: 'you (all) are going to rest', ellos: 'they are going to rest' },
           acabar_de_infinitivo: { yo: 'I just rested', tu: 'you just rested', el: 'he/she just rested', nosotros: 'we just rested', vosotros: 'you (all) just rested', ellos: 'they just rested' },
+          imperativo_afirmativo: { yo: '—', tu: 'rest!', el: 'rest!', nosotros: 'let\'s rest!', vosotros: 'rest!', ellos: 'rest!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t rest!', el: 'don\'t rest!', nosotros: 'let\'s not rest!', vosotros: 'don\'t rest!', ellos: 'don\'t rest!' },
         },
       },
       de: {
@@ -7103,6 +8284,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde mich ausruhen', tu: 'du wirst dich ausruhen', el: 'er/sie/es wird sich ausruhen', nosotros: 'wir werden uns ausruhen', vosotros: 'ihr werdet euch ausruhen', ellos: 'sie werden sich ausruhen' },
           ir_a_infinitivo: { yo: 'ich werde mich gleich ausruhen', tu: 'du wirst dich gleich ausruhen', el: 'er/sie/es wird sich gleich ausruhen', nosotros: 'wir werden uns gleich ausruhen', vosotros: 'ihr werdet euch gleich ausruhen', ellos: 'sie werden sich gleich ausruhen' },
           acabar_de_infinitivo: { yo: 'ich habe mich gerade ausgeruht', tu: 'du hast dich gerade ausgeruht', el: 'er/sie/es hat sich gerade ausgeruht', nosotros: 'wir haben uns gerade ausgeruht', vosotros: 'ihr habt euch gerade ausgeruht', ellos: 'sie haben sich gerade ausgeruht' },
+          imperativo_afirmativo: { yo: '—', tu: 'ruh dich aus!', el: 'Ruhen Sie sich aus!', nosotros: 'Ruhen wir uns aus!', vosotros: 'ruht euch aus!', ellos: 'Ruhen Sie sich aus!' },
+          imperativo_negativo: { yo: '—', tu: 'ruh dich aus nicht!', el: 'Ruhen Sie sich aus nicht!', nosotros: 'Ruhen wir uns aus nicht!', vosotros: 'ruht euch aus nicht!', ellos: 'Ruhen Sie sich aus nicht!' },
         },
       },
     },
@@ -7115,6 +8298,7 @@ export const VERBS: Verb[] = [
       { id: 'descansar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Odpoczęliśmy na plaży cały tydzień.', en: 'We rested at the beach all week.', de: 'Wir ruhten uns die ganze Woche am Strand aus.' }, spanish: 'descansamos en la playa toda la semana' },
       { id: 'descansar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Odpoczniesz po podróży.', en: 'You are going to rest after the trip.', de: 'Du wirst dich nach der Reise ausruhen.' }, spanish: 'vas a descansar después del viaje' },
       { id: 'descansar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie odpoczęliśmy przez godzinę.', en: 'We just rested for an hour.', de: 'Wir haben uns gerade eine Stunde ausgeruht.' }, spanish: 'acabamos de descansar una hora' },
+      { id: 'descansar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'odpocznij trochę', en: 'rest a little', de: 'ruh dich ein bisschen aus' }, spanish: 'descansa un poco' },
     ],
   },
   {
@@ -7122,6 +8306,7 @@ export const VERBS: Verb[] = [
     infinitive: 'dibujar',
     regular: true,
     participle: 'dibujado',
+    gerund: 'dibujando',
     conjugations: conjugateRegular('dibujar'),
     translations: {
       pl: {
@@ -7132,6 +8317,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę rysował', tu: 'będziesz rysował', el: 'będzie rysował', nosotros: 'będziemy rysowali', vosotros: 'będziecie rysowali', ellos: 'będą rysowali' },
           ir_a_infinitivo: { yo: 'zamierzam rysować', tu: 'zamierzasz rysować', el: 'zamierza rysować', nosotros: 'zamierzamy rysować', vosotros: 'zamierzacie rysować', ellos: 'zamierzają rysować' },
           acabar_de_infinitivo: { yo: 'właśnie rysowałem', tu: 'właśnie rysowałeś', el: 'właśnie rysował', nosotros: 'właśnie rysowaliśmy', vosotros: 'właśnie rysowaliście', ellos: 'właśnie rysowali' },
+          imperativo_afirmativo: { yo: '—', tu: 'narysuj', el: 'niech rysuje', nosotros: 'narysujmy', vosotros: 'narysujcie', ellos: 'niech rysują' },
+          imperativo_negativo: { yo: '—', tu: 'nie narysuj', el: 'niech nie rysuje', nosotros: 'nie narysujmy', vosotros: 'nie narysujcie', ellos: 'niech nie rysują' },
         },
       },
       en: {
@@ -7142,6 +8329,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will draw', tu: 'you will draw', el: 'he/she will draw', nosotros: 'we will draw', vosotros: 'you (all) will draw', ellos: 'they will draw' },
           ir_a_infinitivo: { yo: 'I am going to draw', tu: 'you are going to draw', el: 'he/she is going to draw', nosotros: 'we are going to draw', vosotros: 'you (all) are going to draw', ellos: 'they are going to draw' },
           acabar_de_infinitivo: { yo: 'I just drew', tu: 'you just drew', el: 'he/she just drew', nosotros: 'we just drew', vosotros: 'you (all) just drew', ellos: 'they just drew' },
+          imperativo_afirmativo: { yo: '—', tu: 'draw!', el: 'draw!', nosotros: 'let\'s draw!', vosotros: 'draw!', ellos: 'draw!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t draw!', el: 'don\'t draw!', nosotros: 'let\'s not draw!', vosotros: 'don\'t draw!', ellos: 'don\'t draw!' },
         },
       },
       de: {
@@ -7152,6 +8341,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde zeichnen', tu: 'du wirst zeichnen', el: 'er/sie/es wird zeichnen', nosotros: 'wir werden zeichnen', vosotros: 'ihr werdet zeichnen', ellos: 'sie werden zeichnen' },
           ir_a_infinitivo: { yo: 'ich werde gleich zeichnen', tu: 'du wirst gleich zeichnen', el: 'er/sie/es wird gleich zeichnen', nosotros: 'wir werden gleich zeichnen', vosotros: 'ihr werdet gleich zeichnen', ellos: 'sie werden gleich zeichnen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gezeichnet', tu: 'du hast gerade gezeichnet', el: 'er/sie/es hat gerade gezeichnet', nosotros: 'wir haben gerade gezeichnet', vosotros: 'ihr habt gerade gezeichnet', ellos: 'sie haben gerade gezeichnet' },
+          imperativo_afirmativo: { yo: '—', tu: 'zeichne!', el: 'Zeichnen Sie!', nosotros: 'Zeichnen wir!', vosotros: 'zeichnet!', ellos: 'Zeichnen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'zeichne nicht!', el: 'Zeichnen Sie nicht!', nosotros: 'Zeichnen wir nicht!', vosotros: 'zeichnet nicht!', ellos: 'Zeichnen Sie nicht!' },
         },
       },
     },
@@ -7165,6 +8356,7 @@ export const VERBS: Verb[] = [
       { id: 'dibujar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Rysuję to z pamięci.', en: 'I draw it from memory.', de: 'Ich zeichne es aus dem Gedächtnis.' }, spanish: 'lo dibujo de memoria' },
       { id: 'dibujar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Narysujesz komiks.', en: 'You are going to draw a comic.', de: 'Du wirst einen Comic zeichnen.' }, spanish: 'vas a dibujar un cómic' },
       { id: 'dibujar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie narysowaliśmy szkic budynku.', en: 'We just drew a sketch of the building.', de: 'Wir haben gerade eine Skizze des Gebäudes gezeichnet.' }, spanish: 'acabamos de dibujar un boceto del edificio' },
+      { id: 'dibujar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'narysuj kota', en: 'draw a cat', de: 'zeichne eine Katze' }, spanish: 'dibuja un gato' },
     ],
   },
   {
@@ -7172,6 +8364,7 @@ export const VERBS: Verb[] = [
     infinitive: 'saludar',
     regular: true,
     participle: 'saludado',
+    gerund: 'saludando',
     conjugations: conjugateRegular('saludar'),
     translations: {
       pl: {
@@ -7182,6 +8375,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'przywitam', tu: 'przywitasz', el: 'przywita', nosotros: 'przywitamy', vosotros: 'przywitacie', ellos: 'przywitają' },
           ir_a_infinitivo: { yo: 'zamierzam przywitać', tu: 'zamierzasz przywitać', el: 'zamierza przywitać', nosotros: 'zamierzamy przywitać', vosotros: 'zamierzacie przywitać', ellos: 'zamierzają przywitać' },
           acabar_de_infinitivo: { yo: 'właśnie przywitałem', tu: 'właśnie przywitałeś', el: 'właśnie przywitał', nosotros: 'właśnie przywitaliśmy', vosotros: 'właśnie przywitaliście', ellos: 'właśnie przywitali' },
+          imperativo_afirmativo: { yo: '—', tu: 'przywitaj się', el: 'niech wita', nosotros: 'przywitaj sięmy', vosotros: 'przywitaj sięcie', ellos: 'niech witają' },
+          imperativo_negativo: { yo: '—', tu: 'nie przywitaj się', el: 'niech nie wita', nosotros: 'nie przywitaj sięmy', vosotros: 'nie przywitaj sięcie', ellos: 'niech nie witają' },
         },
       },
       en: {
@@ -7192,6 +8387,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will greet', tu: 'you will greet', el: 'he/she will greet', nosotros: 'we will greet', vosotros: 'you (all) will greet', ellos: 'they will greet' },
           ir_a_infinitivo: { yo: 'I am going to greet', tu: 'you are going to greet', el: 'he/she is going to greet', nosotros: 'we are going to greet', vosotros: 'you (all) are going to greet', ellos: 'they are going to greet' },
           acabar_de_infinitivo: { yo: 'I just greeted', tu: 'you just greeted', el: 'he/she just greeted', nosotros: 'we just greeted', vosotros: 'you (all) just greeted', ellos: 'they just greeted' },
+          imperativo_afirmativo: { yo: '—', tu: 'greet!', el: 'greet!', nosotros: 'let\'s greet!', vosotros: 'greet!', ellos: 'greet!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t greet!', el: 'don\'t greet!', nosotros: 'let\'s not greet!', vosotros: 'don\'t greet!', ellos: 'don\'t greet!' },
         },
       },
       de: {
@@ -7202,6 +8399,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde grüßen', tu: 'du wirst grüßen', el: 'er/sie/es wird grüßen', nosotros: 'wir werden grüßen', vosotros: 'ihr werdet grüßen', ellos: 'sie werden grüßen' },
           ir_a_infinitivo: { yo: 'ich werde gleich grüßen', tu: 'du wirst gleich grüßen', el: 'er/sie/es wird gleich grüßen', nosotros: 'wir werden gleich grüßen', vosotros: 'ihr werdet gleich grüßen', ellos: 'sie werden gleich grüßen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade gegrüßt', tu: 'du hast gerade gegrüßt', el: 'er/sie/es hat gerade gegrüßt', nosotros: 'wir haben gerade gegrüßt', vosotros: 'ihr habt gerade gegrüßt', ellos: 'sie haben gerade gegrüßt' },
+          imperativo_afirmativo: { yo: '—', tu: 'grüß!', el: 'Grüßen Sie!', nosotros: 'Grüßen wir!', vosotros: 'grüßt!', ellos: 'Grüßen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'grüß nicht!', el: 'Grüßen Sie nicht!', nosotros: 'Grüßen wir nicht!', vosotros: 'grüßt nicht!', ellos: 'Grüßen Sie nicht!' },
         },
       },
     },
@@ -7215,6 +8414,7 @@ export const VERBS: Verb[] = [
       { id: 'saludar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Witam go za każdym razem.', en: 'I greet him every time.', de: 'Ich grüße ihn jedes Mal.' }, spanish: 'lo saludo cada vez' },
       { id: 'saludar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Przywitasz się z rodziną.', en: 'You are going to greet the family.', de: 'Du wirst die Familie begrüßen.' }, spanish: 'vas a saludar a la familia' },
       { id: 'saludar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie przywitaliśmy nowych sąsiadów.', en: 'We just greeted the new neighbors.', de: 'Wir haben gerade die neuen Nachbarn begrüßt.' }, spanish: 'acabamos de saludar a los nuevos vecinos' },
+      { id: 'saludar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'przywitaj się z sąsiadami', en: 'greet your neighbors', de: 'grüß deine Nachbarn' }, spanish: 'saluda a tus vecinos' },
     ],
   },
   {
@@ -7222,12 +8422,15 @@ export const VERBS: Verb[] = [
     infinitive: 'recoger',
     regular: false,
     participle: 'recogido',
+    gerund: 'recogiendo',
     conjugations: {
       presente: { yo: 'recojo', tu: 'recoges', el: 'recoge', nosotros: 'recogemos', vosotros: 'recogéis', ellos: 'recogen' },
       preterite: { yo: 'recogí', tu: 'recogiste', el: 'recogió', nosotros: 'recogimos', vosotros: 'recogisteis', ellos: 'recogieron' },
       futuro: { yo: 'recogeré', tu: 'recogerás', el: 'recogerá', nosotros: 'recogeremos', vosotros: 'recogeréis', ellos: 'recogerán' },
       ir_a_infinitivo: { yo: 'voy a recoger', tu: 'vas a recoger', el: 'va a recoger', nosotros: 'vamos a recoger', vosotros: 'vais a recoger', ellos: 'van a recoger' },
       acabar_de_infinitivo: { yo: 'acabo de recoger', tu: 'acabas de recoger', el: 'acaba de recoger', nosotros: 'acabamos de recoger', vosotros: 'acabáis de recoger', ellos: 'acaban de recoger' },
+      imperativo_afirmativo: { yo: '—', tu: 'recoge', el: 'recoja', nosotros: 'recojamos', vosotros: 'recoged', ellos: 'recojan' },
+      imperativo_negativo: { yo: '—', tu: 'no recojas', el: 'no recoja', nosotros: 'no recojamos', vosotros: 'no recojáis', ellos: 'no recojan' },
     },
     translations: {
       pl: {
@@ -7238,6 +8441,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'zbiorę', tu: 'zbierzesz', el: 'zbierze', nosotros: 'zbierzemy', vosotros: 'zbierzecie', ellos: 'zbiorą' },
           ir_a_infinitivo: { yo: 'zamierzam zebrać', tu: 'zamierzasz zebrać', el: 'zamierza zebrać', nosotros: 'zamierzamy zebrać', vosotros: 'zamierzacie zebrać', ellos: 'zamierzają zebrać' },
           acabar_de_infinitivo: { yo: 'właśnie zebrałem', tu: 'właśnie zebrałeś', el: 'właśnie zebrał', nosotros: 'właśnie zebraliśmy', vosotros: 'właśnie zebraliście', ellos: 'właśnie zebrali' },
+          imperativo_afirmativo: { yo: '—', tu: 'odbierz', el: 'niech zbiera', nosotros: 'odbierzmy', vosotros: 'odbierzcie', ellos: 'niech zbierają' },
+          imperativo_negativo: { yo: '—', tu: 'nie odbierz', el: 'niech nie zbiera', nosotros: 'nie odbierzmy', vosotros: 'nie odbierzcie', ellos: 'niech nie zbierają' },
         },
       },
       en: {
@@ -7248,6 +8453,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will pick up', tu: 'you will pick up', el: 'he/she will pick up', nosotros: 'we will pick up', vosotros: 'you (all) will pick up', ellos: 'they will pick up' },
           ir_a_infinitivo: { yo: 'I am going to pick up', tu: 'you are going to pick up', el: 'he/she is going to pick up', nosotros: 'we are going to pick up', vosotros: 'you (all) are going to pick up', ellos: 'they are going to pick up' },
           acabar_de_infinitivo: { yo: 'I just picked up', tu: 'you just picked up', el: 'he/she just picked up', nosotros: 'we just picked up', vosotros: 'you (all) just picked up', ellos: 'they just picked up' },
+          imperativo_afirmativo: { yo: '—', tu: 'pick up!', el: 'pick up!', nosotros: 'let\'s pick up!', vosotros: 'pick up!', ellos: 'pick up!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t pick up!', el: 'don\'t pick up!', nosotros: 'let\'s not pick up!', vosotros: 'don\'t pick up!', ellos: 'don\'t pick up!' },
         },
       },
       de: {
@@ -7258,6 +8465,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde abholen', tu: 'du wirst abholen', el: 'er/sie/es wird abholen', nosotros: 'wir werden abholen', vosotros: 'ihr werdet abholen', ellos: 'sie werden abholen' },
           ir_a_infinitivo: { yo: 'ich werde gleich abholen', tu: 'du wirst gleich abholen', el: 'er/sie/es wird gleich abholen', nosotros: 'wir werden gleich abholen', vosotros: 'ihr werdet gleich abholen', ellos: 'sie werden gleich abholen' },
           acabar_de_infinitivo: { yo: 'ich habe gerade abgeholt', tu: 'du hast gerade abgeholt', el: 'er/sie/es hat gerade abgeholt', nosotros: 'wir haben gerade abgeholt', vosotros: 'ihr habt gerade abgeholt', ellos: 'sie haben gerade abgeholt' },
+          imperativo_afirmativo: { yo: '—', tu: 'hol ab!', el: 'Holen Sie ab!', nosotros: 'Holen wir ab!', vosotros: 'holt ab!', ellos: 'Holen Sie ab!' },
+          imperativo_negativo: { yo: '—', tu: 'hol ab nicht!', el: 'Holen Sie ab nicht!', nosotros: 'Holen wir ab nicht!', vosotros: 'holt ab nicht!', ellos: 'Holen Sie ab nicht!' },
         },
       },
     },
@@ -7271,6 +8480,7 @@ export const VERBS: Verb[] = [
       { id: 'recoger-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Odbieram go z pracy.', en: 'I pick him up from work.', de: 'Ich hole ihn von der Arbeit ab.' }, spanish: 'lo recojo del trabajo' },
       { id: 'recoger-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Odbierzesz przesyłkę jutro.', en: 'You are going to pick up the delivery tomorrow.', de: 'Du wirst morgen die Lieferung abholen.' }, spanish: 'vas a recoger el envío mañana' },
       { id: 'recoger-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie zebraliśmy wszystkie dokumenty.', en: 'We just collected all the documents.', de: 'Wir haben gerade alle Dokumente eingesammelt.' }, spanish: 'acabamos de recoger todos los documentos' },
+      { id: 'recoger-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'odbierz swoje zabawki', en: 'pick up your toys', de: 'hol deine Spielsachen ab' }, spanish: 'recoge tus juguetes' },
     ],
   },
   {
@@ -7278,6 +8488,7 @@ export const VERBS: Verb[] = [
     infinitive: 'empujar',
     regular: true,
     participle: 'empujado',
+    gerund: 'empujando',
     conjugations: conjugateRegular('empujar'),
     translations: {
       pl: {
@@ -7288,6 +8499,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'będę pchał', tu: 'będziesz pchał', el: 'będzie pchał', nosotros: 'będziemy pchali', vosotros: 'będziecie pchali', ellos: 'będą pchali' },
           ir_a_infinitivo: { yo: 'zamierzam pchać', tu: 'zamierzasz pchać', el: 'zamierza pchać', nosotros: 'zamierzamy pchać', vosotros: 'zamierzacie pchać', ellos: 'zamierzają pchać' },
           acabar_de_infinitivo: { yo: 'właśnie pchałem', tu: 'właśnie pchałeś', el: 'właśnie pchał', nosotros: 'właśnie pchaliśmy', vosotros: 'właśnie pchaliście', ellos: 'właśnie pchali' },
+          imperativo_afirmativo: { yo: '—', tu: 'pchnij', el: 'niech pcha', nosotros: 'pchnijmy', vosotros: 'pchnijcie', ellos: 'niech pchają' },
+          imperativo_negativo: { yo: '—', tu: 'nie pchnij', el: 'niech nie pcha', nosotros: 'nie pchnijmy', vosotros: 'nie pchnijcie', ellos: 'niech nie pchają' },
         },
       },
       en: {
@@ -7298,6 +8511,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'I will push', tu: 'you will push', el: 'he/she will push', nosotros: 'we will push', vosotros: 'you (all) will push', ellos: 'they will push' },
           ir_a_infinitivo: { yo: 'I am going to push', tu: 'you are going to push', el: 'he/she is going to push', nosotros: 'we are going to push', vosotros: 'you (all) are going to push', ellos: 'they are going to push' },
           acabar_de_infinitivo: { yo: 'I just pushed', tu: 'you just pushed', el: 'he/she just pushed', nosotros: 'we just pushed', vosotros: 'you (all) just pushed', ellos: 'they just pushed' },
+          imperativo_afirmativo: { yo: '—', tu: 'push!', el: 'push!', nosotros: 'let\'s push!', vosotros: 'push!', ellos: 'push!' },
+          imperativo_negativo: { yo: '—', tu: 'don\'t push!', el: 'don\'t push!', nosotros: 'let\'s not push!', vosotros: 'don\'t push!', ellos: 'don\'t push!' },
         },
       },
       de: {
@@ -7308,6 +8523,8 @@ export const VERBS: Verb[] = [
           futuro: { yo: 'ich werde schieben', tu: 'du wirst schieben', el: 'er/sie/es wird schieben', nosotros: 'wir werden schieben', vosotros: 'ihr werdet schieben', ellos: 'sie werden schieben' },
           ir_a_infinitivo: { yo: 'ich werde gleich schieben', tu: 'du wirst gleich schieben', el: 'er/sie/es wird gleich schieben', nosotros: 'wir werden gleich schieben', vosotros: 'ihr werdet gleich schieben', ellos: 'sie werden gleich schieben' },
           acabar_de_infinitivo: { yo: 'ich habe gerade geschoben', tu: 'du hast gerade geschoben', el: 'er/sie/es hat gerade geschoben', nosotros: 'wir haben gerade geschoben', vosotros: 'ihr habt gerade geschoben', ellos: 'sie haben gerade geschoben' },
+          imperativo_afirmativo: { yo: '—', tu: 'schieb!', el: 'Schieben Sie!', nosotros: 'Schieben wir!', vosotros: 'schiebt!', ellos: 'Schieben Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'schieb nicht!', el: 'Schieben Sie nicht!', nosotros: 'Schieben wir nicht!', vosotros: 'schiebt nicht!', ellos: 'Schieben Sie nicht!' },
         },
       },
     },
@@ -7321,6 +8538,130 @@ export const VERBS: Verb[] = [
       { id: 'empujar-presente-lo', tense: 'presente', person: 'yo', pronounType: 'direct', pronoun: 'lo', translations: { pl: 'Pcham to powoli.', en: 'I push it slowly.', de: 'Ich schiebe es langsam.' }, spanish: 'lo empujo despacio' },
       { id: 'empujar-ir_a_infinitivo-tu', tense: 'ir_a_infinitivo', person: 'tu', pronounType: 'none', translations: { pl: 'Popchniesz rower pod górkę.', en: 'You are going to push the bike uphill.', de: 'Du wirst das Fahrrad den Berg hinaufschieben.' }, spanish: 'vas a empujar la bici cuesta arriba' },
       { id: 'empujar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie popchnęliśmy szafę na miejsce.', en: 'We just pushed the wardrobe into place.', de: 'Wir haben gerade den Schrank an seinen Platz geschoben.' }, spanish: 'acabamos de empujar el armario a su lugar' },
+      { id: 'empujar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'pchnij drzwi', en: 'push the door', de: 'schieb die Tür' }, spanish: 'empuja la puerta' },
+    ],
+  },
+  {
+    id: 'quitar',
+    infinitive: 'quitar',
+    regular: true,
+    participle: 'quitado',
+    gerund: conjugateGerundRegular('quitar'),
+    conjugations: conjugateRegular('quitar'),
+    translations: {
+      pl: {
+        meaning: 'zdejmować / zabierać',
+        conjugations: {
+          presente: { yo: 'zdejmuję', tu: 'zdejmujesz', el: 'zdejmuje', nosotros: 'zdejmujemy', vosotros: 'zdejmujecie', ellos: 'zdejmują' },
+          preterite: { yo: 'zdjąłem', tu: 'zdjąłeś', el: 'zdjął', nosotros: 'zdjęliśmy', vosotros: 'zdjęliście', ellos: 'zdjęli' },
+          futuro: { yo: 'będę zdejmował', tu: 'będziesz zdejmował', el: 'będzie zdejmował', nosotros: 'będziemy zdejmowali', vosotros: 'będziecie zdejmowali', ellos: 'będą zdejmowali' },
+          ir_a_infinitivo: { yo: 'zamierzam zdjąć', tu: 'zamierzasz zdjąć', el: 'zamierza zdjąć', nosotros: 'zamierzamy zdjąć', vosotros: 'zamierzacie zdjąć', ellos: 'zamierzają zdjąć' },
+          acabar_de_infinitivo: { yo: 'właśnie zdjąłem', tu: 'właśnie zdjąłeś', el: 'właśnie zdjął', nosotros: 'właśnie zdjęliśmy', vosotros: 'właśnie zdjęliście', ellos: 'właśnie zdjęli' },
+          imperativo_afirmativo: { yo: '—', tu: 'zdejmij', el: 'niech zdejmie', nosotros: 'zdejmijmy', vosotros: 'zdejmijcie', ellos: 'niech zdejmą' },
+          imperativo_negativo: { yo: '—', tu: 'nie zdejmuj', el: 'niech nie zdejmuje', nosotros: 'nie zdejmujmy', vosotros: 'nie zdejmujcie', ellos: 'niech nie zdejmują' },
+        },
+      },
+      en: {
+        meaning: 'to take off / to remove',
+        conjugations: {
+          presente: { yo: 'I take off', tu: 'you take off', el: 'he/she takes off', nosotros: 'we take off', vosotros: 'you (all) take off', ellos: 'they take off' },
+          preterite: { yo: 'I took off', tu: 'you took off', el: 'he/she took off', nosotros: 'we took off', vosotros: 'you (all) took off', ellos: 'they took off' },
+          futuro: { yo: 'I will take off', tu: 'you will take off', el: 'he/she will take off', nosotros: 'we will take off', vosotros: 'you (all) will take off', ellos: 'they will take off' },
+          ir_a_infinitivo: { yo: 'I am going to take off', tu: 'you are going to take off', el: 'he/she is going to take off', nosotros: 'we are going to take off', vosotros: 'you (all) are going to take off', ellos: 'they are going to take off' },
+          acabar_de_infinitivo: { yo: 'I just took off', tu: 'you just took off', el: 'he/she just took off', nosotros: 'we just took off', vosotros: 'you (all) just took off', ellos: 'they just took off' },
+          imperativo_afirmativo: { yo: '—', tu: 'take it off!', el: 'take it off!', nosotros: "let's take it off!", vosotros: 'take it off!', ellos: 'take it off!' },
+          imperativo_negativo: { yo: '—', tu: "don't take it off!", el: "don't take it off!", nosotros: "let's not take it off!", vosotros: "don't take it off!", ellos: "don't take it off!" },
+        },
+      },
+      de: {
+        meaning: 'ausziehen / wegnehmen',
+        conjugations: {
+          presente: { yo: 'ich ziehe aus', tu: 'du ziehst aus', el: 'er/sie/es zieht aus', nosotros: 'wir ziehen aus', vosotros: 'ihr zieht aus', ellos: 'sie ziehen aus' },
+          preterite: { yo: 'ich zog aus', tu: 'du zogst aus', el: 'er/sie/es zog aus', nosotros: 'wir zogen aus', vosotros: 'ihr zogt aus', ellos: 'sie zogen aus' },
+          futuro: { yo: 'ich werde ausziehen', tu: 'du wirst ausziehen', el: 'er/sie/es wird ausziehen', nosotros: 'wir werden ausziehen', vosotros: 'ihr werdet ausziehen', ellos: 'sie werden ausziehen' },
+          ir_a_infinitivo: { yo: 'ich werde gleich ausziehen', tu: 'du wirst gleich ausziehen', el: 'er/sie/es wird gleich ausziehen', nosotros: 'wir werden gleich ausziehen', vosotros: 'ihr werdet gleich ausziehen', ellos: 'sie werden gleich ausziehen' },
+          acabar_de_infinitivo: { yo: 'ich zog gerade eben aus', tu: 'du zogst gerade eben aus', el: 'er/sie/es zog gerade eben aus', nosotros: 'wir zogen gerade eben aus', vosotros: 'ihr zogt gerade eben aus', ellos: 'sie zogen gerade eben aus' },
+          imperativo_afirmativo: { yo: '—', tu: 'zieh es aus!', el: 'ziehen Sie es aus!', nosotros: 'ziehen wir es aus!', vosotros: 'zieht es aus!', ellos: 'ziehen Sie es aus!' },
+          imperativo_negativo: { yo: '—', tu: 'zieh es nicht aus!', el: 'ziehen Sie es nicht aus!', nosotros: 'ziehen wir es nicht aus!', vosotros: 'zieht es nicht aus!', ellos: 'ziehen Sie es nicht aus!' },
+        },
+      },
+    },
+    examples: [
+      { id: 'quitar-presente-yo', tense: 'presente', person: 'yo', pronounType: 'none', translations: { pl: 'Zdejmuję buty przy drzwiach.', en: 'I take off my shoes at the door.', de: 'Ich ziehe die Schuhe an der Tür aus.' }, spanish: 'me quito los zapatos en la puerta' },
+      { id: 'quitar-presente-tu', tense: 'presente', person: 'tu', pronounType: 'none', translations: { pl: 'Zdejmujesz kurtkę, bo jest gorąco.', en: 'You take off your jacket because it is hot.', de: 'Du ziehst die Jacke aus, weil es heiß ist.' }, spanish: 'te quitas la chaqueta porque hace calor' },
+      { id: 'quitar-preterite-yo', tense: 'preterite', person: 'yo', pronounType: 'none', translations: { pl: 'Zdjąłem obrus ze stołu.', en: 'I took the tablecloth off the table.', de: 'Ich nahm die Tischdecke vom Tisch.' }, spanish: 'quité el mantel de la mesa' },
+      { id: 'quitar-preterite-el', tense: 'preterite', person: 'el', pronounType: 'none', translations: { pl: 'Zdjął okulary, żeby przeczytać etykietę.', en: 'He took off his glasses to read the label.', de: 'Er nahm die Brille ab, um das Etikett zu lesen.' }, spanish: 'se quitó las gafas para leer la etiqueta' },
+      { id: 'quitar-futuro-tu', tense: 'futuro', person: 'tu', pronounType: 'none', translations: { pl: 'Zdejmiesz płaszcz w szatni.', en: 'You will take off your coat in the cloakroom.', de: 'Du wirst den Mantel in der Garderobe ausziehen.' }, spanish: 'te quitarás el abrigo en el guardarropa' },
+      { id: 'quitar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Zdjęliśmy plakietki na koniec zmiany.', en: 'We took off our badges at the end of the shift.', de: 'Wir nahmen die Namensschilder am Ende der Schicht ab.' }, spanish: 'nos quitamos las placas al final del turno' },
+      { id: 'quitar-ir_a_infinitivo-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Zamierzam zdjąć bandaż jutro.', en: 'I am going to take off the bandage tomorrow.', de: 'Ich werde den Verband morgen abnehmen.' }, spanish: 'voy a quitar el vendaje mañana' },
+      { id: 'quitar-acabar_de_infinitivo-el', tense: 'acabar_de_infinitivo', person: 'el', pronounType: 'none', translations: { pl: 'Właśnie zdjął etykietę z butelki.', en: 'He just took the label off the bottle.', de: 'Er hat gerade das Etikett von der Flasche abgenommen.' }, spanish: 'acaba de quitar la etiqueta de la botella' },
+      { id: 'quitar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'Zdejmij buty przed wejściem!', en: 'Take your shoes off before coming in!', de: 'Zieh die Schuhe aus, bevor du reinkommst!' }, spanish: 'quítate los zapatos antes de entrar' },
+      { id: 'quitar-imperativo_afirmativo-vosotros', tense: 'imperativo_afirmativo', person: 'vosotros', pronounType: 'none', translations: { pl: 'Zdejmijcie kurtki i usiądźcie.', en: 'Take off your jackets and sit down.', de: 'Zieht die Jacken aus und setzt euch.' }, spanish: 'quitaos las chaquetas y sentaos' },
+      { id: 'quitar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'Nie zdejmuj maski jeszcze.', en: "Don't take off your mask yet.", de: 'Zieh die Maske noch nicht aus.' }, spanish: 'no te quites la máscara todavía' },
+      { id: 'quitar-imperativo_negativo-nosotros', tense: 'imperativo_negativo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Nie zdejmujmy ozdób przed świętami.', en: "Let's not take down the decorations before the holidays.", de: 'Lass uns die Deko nicht vor den Feiertagen abnehmen.' }, spanish: 'no quitemos los adornos antes de las fiestas' },
+    ],
+  },
+  {
+    id: 'andar',
+    infinitive: 'andar',
+    regular: false,
+    participle: 'andado',
+    gerund: 'andando',
+    conjugations: {
+      ...conjugateRegular('andar'),
+      preterite: { yo: 'anduve', tu: 'anduviste', el: 'anduvo', nosotros: 'anduvimos', vosotros: 'anduvisteis', ellos: 'anduvieron' },
+    },
+    translations: {
+      pl: {
+        meaning: 'chodzić / iść (pieszo)',
+        conjugations: {
+          presente: { yo: 'chodzę', tu: 'chodzisz', el: 'chodzi', nosotros: 'chodzimy', vosotros: 'chodzicie', ellos: 'chodzą' },
+          preterite: { yo: 'chodziłem', tu: 'chodziłeś', el: 'chodził', nosotros: 'chodziliśmy', vosotros: 'chodziliście', ellos: 'chodzili' },
+          futuro: { yo: 'będę chodził', tu: 'będziesz chodził', el: 'będzie chodził', nosotros: 'będziemy chodzili', vosotros: 'będziecie chodzili', ellos: 'będą chodzili' },
+          ir_a_infinitivo: { yo: 'zamierzam chodzić', tu: 'zamierzasz chodzić', el: 'zamierza chodzić', nosotros: 'zamierzamy chodzić', vosotros: 'zamierzacie chodzić', ellos: 'zamierzają chodzić' },
+          acabar_de_infinitivo: { yo: 'właśnie chodziłem', tu: 'właśnie chodziłeś', el: 'właśnie chodził', nosotros: 'właśnie chodziliśmy', vosotros: 'właśnie chodziliście', ellos: 'właśnie chodzili' },
+          imperativo_afirmativo: { yo: '—', tu: 'chodź', el: 'niech chodzi', nosotros: 'chodźmy', vosotros: 'chodźcie', ellos: 'niech chodzą' },
+          imperativo_negativo: { yo: '—', tu: 'nie chodź', el: 'niech nie chodzi', nosotros: 'nie chodźmy', vosotros: 'nie chodźcie', ellos: 'niech nie chodzą' },
+        },
+      },
+      en: {
+        meaning: 'to walk',
+        conjugations: {
+          presente: { yo: 'I walk', tu: 'you walk', el: 'he/she walks', nosotros: 'we walk', vosotros: 'you (all) walk', ellos: 'they walk' },
+          preterite: { yo: 'I walked', tu: 'you walked', el: 'he/she walked', nosotros: 'we walked', vosotros: 'you (all) walked', ellos: 'they walked' },
+          futuro: { yo: 'I will walk', tu: 'you will walk', el: 'he/she will walk', nosotros: 'we will walk', vosotros: 'you (all) will walk', ellos: 'they will walk' },
+          ir_a_infinitivo: { yo: 'I am going to walk', tu: 'you are going to walk', el: 'he/she is going to walk', nosotros: 'we are going to walk', vosotros: 'you (all) are going to walk', ellos: 'they are going to walk' },
+          acabar_de_infinitivo: { yo: 'I just walked', tu: 'you just walked', el: 'he/she just walked', nosotros: 'we just walked', vosotros: 'you (all) just walked', ellos: 'they just walked' },
+          imperativo_afirmativo: { yo: '—', tu: 'walk!', el: 'walk!', nosotros: "let's walk!", vosotros: 'walk!', ellos: 'walk!' },
+          imperativo_negativo: { yo: '—', tu: "don't walk!", el: "don't walk!", nosotros: "let's not walk!", vosotros: "don't walk!", ellos: "don't walk!" },
+        },
+      },
+      de: {
+        meaning: 'gehen / laufen (zu Fuß)',
+        conjugations: {
+          presente: { yo: 'ich gehe', tu: 'du gehst', el: 'er/sie/es geht', nosotros: 'wir gehen', vosotros: 'ihr geht', ellos: 'sie gehen' },
+          preterite: { yo: 'ich ging', tu: 'du gingst', el: 'er/sie/es ging', nosotros: 'wir gingen', vosotros: 'ihr gingt', ellos: 'sie gingen' },
+          futuro: { yo: 'ich werde gehen', tu: 'du wirst gehen', el: 'er/sie/es wird gehen', nosotros: 'wir werden gehen', vosotros: 'ihr werdet gehen', ellos: 'sie werden gehen' },
+          ir_a_infinitivo: { yo: 'ich werde gleich gehen', tu: 'du wirst gleich gehen', el: 'er/sie/es wird gleich gehen', nosotros: 'wir werden gleich gehen', vosotros: 'ihr werdet gleich gehen', ellos: 'sie werden gleich gehen' },
+          acabar_de_infinitivo: { yo: 'ich ging gerade eben', tu: 'du gingst gerade eben', el: 'er/sie/es ging gerade eben', nosotros: 'wir gingen gerade eben', vosotros: 'ihr gingt gerade eben', ellos: 'sie gingen gerade eben' },
+          imperativo_afirmativo: { yo: '—', tu: 'geh!', el: 'gehen Sie!', nosotros: 'gehen wir!', vosotros: 'geht!', ellos: 'gehen Sie!' },
+          imperativo_negativo: { yo: '—', tu: 'geh nicht!', el: 'gehen Sie nicht!', nosotros: 'gehen wir nicht!', vosotros: 'geht nicht!', ellos: 'gehen Sie nicht!' },
+        },
+      },
+    },
+    examples: [
+      { id: 'andar-presente-yo', tense: 'presente', person: 'yo', pronounType: 'none', translations: { pl: 'Chodzę do parku codziennie.', en: 'I walk to the park every day.', de: 'Ich gehe jeden Tag zum Park.' }, spanish: 'ando al parque todos los días' },
+      { id: 'andar-presente-tu', tense: 'presente', person: 'tu', pronounType: 'none', translations: { pl: 'Chodzisz bardzo szybko.', en: 'You walk very fast.', de: 'Du gehst sehr schnell.' }, spanish: 'andas muy rápido' },
+      { id: 'andar-preterite-yo', tense: 'preterite', person: 'yo', pronounType: 'none', translations: { pl: 'Chodziłem po plaży całe popołudnie.', en: 'I walked on the beach all afternoon.', de: 'Ich ging den ganzen Nachmittag am Strand.' }, spanish: 'anduve por la playa toda la tarde' },
+      { id: 'andar-preterite-el', tense: 'preterite', person: 'el', pronounType: 'none', translations: { pl: 'Chodził po mieście bez celu.', en: 'He walked around the city aimlessly.', de: 'Er ging ziellos durch die Stadt.' }, spanish: 'anduvo por la ciudad sin rumbo' },
+      { id: 'andar-preterite-nosotros', tense: 'preterite', person: 'nosotros', pronounType: 'none', translations: { pl: 'Chodziliśmy po górach przez trzy dni.', en: 'We walked in the mountains for three days.', de: 'Wir wanderten drei Tage lang in den Bergen.' }, spanish: 'anduvimos por las montañas durante tres días' },
+      { id: 'andar-futuro-tu', tense: 'futuro', person: 'tu', pronounType: 'none', translations: { pl: 'Będziesz chodził więcej po tej diecie.', en: 'You will walk more on this diet.', de: 'Du wirst bei dieser Diät mehr laufen.' }, spanish: 'andarás más con esta dieta' },
+      { id: 'andar-ir_a_infinitivo-yo', tense: 'ir_a_infinitivo', person: 'yo', pronounType: 'none', translations: { pl: 'Zamierzam chodzić do pracy pieszo.', en: 'I am going to walk to work.', de: 'Ich werde zu Fuß zur Arbeit gehen.' }, spanish: 'voy a andar al trabajo' },
+      { id: 'andar-acabar_de_infinitivo-nosotros', tense: 'acabar_de_infinitivo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Właśnie chodziliśmy po ogrodzie.', en: 'We just walked around the garden.', de: 'Wir sind gerade eben im Garten spazieren gegangen.' }, spanish: 'acabamos de andar por el jardín' },
+      { id: 'andar-imperativo_afirmativo-tu', tense: 'imperativo_afirmativo', person: 'tu', pronounType: 'none', translations: { pl: 'Chodź szybciej, spóźnimy się!', en: "Walk faster, we'll be late!", de: 'Geh schneller, wir kommen zu spät!' }, spanish: '¡anda más rápido, vamos a llegar tarde!' },
+      { id: 'andar-imperativo_afirmativo-vosotros', tense: 'imperativo_afirmativo', person: 'vosotros', pronounType: 'none', translations: { pl: 'Chodźcie za mną, znam drogę.', en: 'Walk with me, I know the way.', de: 'Geht mit mir, ich kenne den Weg.' }, spanish: 'andad conmigo, conozco el camino' },
+      { id: 'andar-imperativo_negativo-tu', tense: 'imperativo_negativo', person: 'tu', pronounType: 'none', translations: { pl: 'Nie chodź boso po plaży, jest gorący piasek.', en: "Don't walk barefoot on the beach, the sand is hot.", de: 'Geh nicht barfuß am Strand, der Sand ist heiß.' }, spanish: 'no andes descalzo por la playa' },
+      { id: 'andar-imperativo_negativo-nosotros', tense: 'imperativo_negativo', person: 'nosotros', pronounType: 'none', translations: { pl: 'Nie chodźmy tą ciemną ulicą.', en: "Let's not walk down that dark street.", de: 'Lass uns nicht diese dunkle Straße entlanggehen.' }, spanish: 'no andemos por esa calle oscura' },
     ],
   },
 ]

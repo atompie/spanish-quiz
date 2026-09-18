@@ -37,6 +37,9 @@ export function ExplanationModal({ verbId, tense, person, pronounType, pronoun, 
       <p className="modal-meaning">
         {t.explanationParticiple} <strong>{verb.participle}</strong>
       </p>
+      <p className="modal-meaning">
+        {t.explanationGerund} <strong>{verb.gerund}</strong>
+      </p>
       <p className="modal-meaning">= {verbTranslation.meaning}</p>
       <p className="modal-meaning">
         <span className="regularity-badge">{verb.regular ? t.verbRegular : t.verbIrregular}</span>
@@ -72,7 +75,7 @@ export function ExplanationModal({ verbId, tense, person, pronounType, pronoun, 
         </div>
         <table className="conjugation-table">
           <tbody>
-            {PERSONS.map((p) => (
+            {PERSONS.filter((p) => !tenseMeta.excludedPersons?.includes(p)).map((p) => (
               <tr key={p} className={person && p === person ? 'highlight' : ''}>
                 <td>{PERSON_LABELS[p]}</td>
                 <td>{verb.conjugations[selectedTense][p]}</td>

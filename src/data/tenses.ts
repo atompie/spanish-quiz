@@ -1,11 +1,13 @@
 import type { LanguageCode } from '../types/language'
-import type { TenseId } from '../types/grammar'
+import type { Person, TenseId } from '../types/grammar'
 
 export interface TenseMeta {
   id: TenseId
   labels: Partial<Record<LanguageCode, string>>
   labelEs: string
   order: number
+  /** Osoby, dla których ten czas nie ma formy (np. "yo" w trybie rozkazującym). */
+  excludedPersons?: Person[]
 }
 
 /**
@@ -45,6 +47,28 @@ export const TENSES: TenseMeta[] = [
     },
     labelEs: 'acabar de + infinitivo',
     order: 5,
+  },
+  {
+    id: 'imperativo_afirmativo',
+    labels: {
+      pl: 'Tryb rozkazujący (twierdzący)',
+      en: 'Imperative (affirmative)',
+      de: 'Imperativ (bejaht)',
+    },
+    labelEs: 'imperativo afirmativo',
+    order: 6,
+    excludedPersons: ['yo'],
+  },
+  {
+    id: 'imperativo_negativo',
+    labels: {
+      pl: 'Tryb rozkazujący (przeczący)',
+      en: 'Imperative (negative)',
+      de: 'Imperativ (verneint)',
+    },
+    labelEs: 'imperativo negativo',
+    order: 7,
+    excludedPersons: ['yo'],
   },
 ]
 

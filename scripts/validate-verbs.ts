@@ -20,6 +20,10 @@ for (const verb of VERBS) {
   }
   seenVerbIds.add(verb.id)
 
+  if (!verb.gerund) {
+    errors.push(`${label}: brak gerundio ("gerund")`)
+  }
+
   for (const tense of TENSES) {
     const conjugation = verb.conjugations[tense.id]
     if (!conjugation) {
@@ -27,6 +31,7 @@ for (const verb of VERBS) {
       continue
     }
     for (const person of PERSONS) {
+      if (tense.excludedPersons?.includes(person)) continue
       if (!conjugation[person]) {
         errors.push(`${label}: brak formy "${person}" w czasie "${tense.id}"`)
       }
@@ -49,6 +54,7 @@ for (const verb of VERBS) {
         continue
       }
       for (const person of PERSONS) {
+        if (tense.excludedPersons?.includes(person)) continue
         if (!conjugation[person]) {
           errors.push(`${label}: brak przetłumaczonej formy "${person}" w czasie "${tense.id}" (${language.id})`)
         }

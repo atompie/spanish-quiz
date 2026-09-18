@@ -8,6 +8,7 @@ export const de: UiStrings = {
   commonClose: 'Schließen',
 
   explanationParticiple: 'Partizip:',
+  explanationGerund: 'Gerundium:',
   explanationPronoun: 'Pronomen:',
   explanationPrevTense: 'Vorherige Zeitform',
   explanationNextTense: 'Nächste Zeitform',

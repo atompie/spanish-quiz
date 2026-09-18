@@ -11,8 +11,15 @@ export const PERSON_LABELS: Record<Person, string> = {
   ellos: 'ellos/ellas',
 }
 
-/** Rozszerzalne w przyszłości o subjuntivo, imperativo itd. */
-export type TenseId = 'presente' | 'preterite' | 'futuro' | 'ir_a_infinitivo' | 'acabar_de_infinitivo'
+/** Rozszerzalne w przyszłości o subjuntivo itd. */
+export type TenseId =
+  | 'presente'
+  | 'preterite'
+  | 'futuro'
+  | 'ir_a_infinitivo'
+  | 'acabar_de_infinitivo'
+  | 'imperativo_afirmativo'
+  | 'imperativo_negativo'
 
 /**
  * "none"     — zdanie ćwiczy samą koniugację, bez zaimka dopełnienia

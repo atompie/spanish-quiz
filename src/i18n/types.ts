@@ -6,6 +6,7 @@ export interface UiStrings {
   commonClose: string
 
   explanationParticiple: string
+  explanationGerund: string
   explanationPronoun: string
   explanationPrevTense: string
   explanationNextTense: string

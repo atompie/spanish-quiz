@@ -110,6 +110,7 @@ function collectConjugationPool(verbs: Verb[]): ConjugationPoolEntry[] {
   for (const verb of verbs) {
     for (const tense of TENSES) {
       for (const person of PERSONS) {
+        if (tense.excludedPersons?.includes(person)) continue
         pool.push({ verb, tense: tense.id, person })
       }
     }

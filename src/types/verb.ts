@@ -38,6 +38,8 @@ export interface Verb {
   regular: boolean
   /** Imiesłów bierny (participio pasado), np. "hablado", "hecho". */
   participle: string
+  /** Gerundio, np. "hablando", "haciendo". Tylko dane referencyjne — nieużywane w quizie. */
+  gerund: string
   conjugations: Record<TenseId, Conjugations>
   /** Kluczowane po języku; `Partial` — patrz Example.translations. */
   translations: Partial<Record<LanguageCode, VerbTranslation>>
